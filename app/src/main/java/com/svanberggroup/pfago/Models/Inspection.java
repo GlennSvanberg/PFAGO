@@ -10,15 +10,16 @@ public class Inspection {
     private String type;
 
     private Vehicle vehicle;
-    private Driver company;
-    private Driver driver;
-    private Driver passenger;
+    private Party company;
+    private Party driver;
+    private Party passenger;
 
     private Location sender;
     private Location receiver;
 
-
-
+    public Inspection() {
+        date = new Date();
+    }
     public int getNumber() {
         return number;
     }
@@ -59,27 +60,27 @@ public class Inspection {
         this.vehicle = vehicle;
     }
 
-    public Driver getCompany() {
+    public Party getCompany() {
         return company;
     }
 
-    public void setCompany(Driver company) {
+    public void setCompany(Party company) {
         this.company = company;
     }
 
-    public Driver getDriver() {
+    public Party getDriver() {
         return driver;
     }
 
-    public void setDriver(Driver driver) {
+    public void setDriver(Party driver) {
         this.driver = driver;
     }
 
-    public Driver getPassenger() {
+    public Party getPassenger() {
         return passenger;
     }
 
-    public void setPassenger(Driver passenger) {
+    public void setPassenger(Party passenger) {
         this.passenger = passenger;
     }
 

@@ -1,12 +1,21 @@
 package com.svanberggroup.pfago.Models;
 
-public class Driver {
+public class Party {
     private String name;
     private String phone;
     private String address;
     private int postalNr;
     private String city;
     private String country;
+
+    public Party(String name, String phone, String address, int postalNr, String city, String country) {
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.postalNr = postalNr;
+        this.city = city;
+        this.country = country;
+    }
 
     public String getName() {
         return name;

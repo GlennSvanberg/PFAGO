@@ -1,16 +1,22 @@
 package com.svanberggroup.pfago.Models;
 
 public class Location {
-    private String adress;
+    private String address;
     private String location;
     private String phone;
 
-    public String getAdress() {
-        return adress;
+    public Location(String address, String location, String phone) {
+        this.address = address;
+        this.location = location;
+        this.phone = phone;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getLocation() {
