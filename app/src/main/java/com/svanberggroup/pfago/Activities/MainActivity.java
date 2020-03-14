@@ -1,8 +1,10 @@
-package com.svanberggroup.pfago;
+package com.svanberggroup.pfago.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.svanberggroup.pfago.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -10,5 +12,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 }
