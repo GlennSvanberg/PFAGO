@@ -5,15 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.svanberggroup.pfago.Models.Transport;
+import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.Party;
 import com.svanberggroup.pfago.Models.Trailer;
 import com.svanberggroup.pfago.Models.Vehicle;
@@ -25,7 +29,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Transport> transports;
+    private List<Control> mControls;
 
     private EditText mQuery;
     private RecyclerView mRecyclerView;
@@ -36,66 +40,99 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         createDummyData();
-        for(Transport transport : transports) {
-            Log.i("TEST", transport.getNumber()+ "");
+        for(Control control : mControls) {
+            Log.i("TEST", control.getNumber()+ "");
         }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new TransportAdapter(transports);
+        mAdapter = new ControlAdapter(mControls);
         mRecyclerView.setAdapter(mAdapter);
 
         mQuery = (EditText) findViewById(R.id.query);
         mQuery.requestFocus();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.rib:
+                Log.i("TEST", "Going to RIB");
+                Intent intent = new Intent(this, RIBActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.addControl:
+                Log.i("TEST", "Going to addControl");
+                intent = new Intent(this, AddControlActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
 
     }
-    private class TransportHolder extends RecyclerView.ViewHolder {
 
-        private Transport transport;
+    private class ControlHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private Control mControl;
         private TextView textView;
-        public TransportHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.transport_list_item,parent, false));
+        public ControlHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.control_list_item,parent, false));
              textView = itemView.findViewById(R.id.name);
         }
-        public void bind(Transport transport) {
-            this.transport = transport;
-            textView.setText(transport.getVehicle().getRegNr());
+        public void bind(Control control) {
+            this.mControl = control;
+            textView.setText(control.getVehicle().getRegNr());
+        }
+
+        @Override
+        public void onClick(View view) {
+            // open view displaying the control
         }
     }
-    private class TransportAdapter extends RecyclerView.Adapter<TransportHolder> {
-        private List<Transport> transports;
+    private class ControlAdapter extends RecyclerView.Adapter<ControlHolder> {
+        private List<Control> mControls;
 
-        private TransportAdapter(List<Transport> transports) {
-            this.transports = transports;
+        private ControlAdapter(List<Control> controls) {
+            this.mControls = controls;
         }
 
         @NonNull
         @Override
-        public TransportHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public ControlHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getApplicationContext());
-            return new TransportHolder(layoutInflater, parent);
+            return new ControlHolder(layoutInflater, parent);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull TransportHolder holder, int position) {
-            Transport transport = transports.get(position);
-            holder.bind(transport);
+        public void onBindViewHolder(@NonNull ControlHolder holder, int position) {
+            Control control = mControls.get(position);
+            holder.bind(control);
 
         }
 
         @Override
         public int getItemCount() {
-            return transports.size();
+            return mControls.size();
         }
     }
 
 
     private void createDummyData(){
 
-        transports = new ArrayList<>();
+        mControls = new ArrayList<>();
 
         Location sender = new Location("Malmgatan 34 Halmstad", "LKAB, port 22", "0600-352362");
         Location receiver = new Location("Raketgatan Kiruna", "GKN, södra", "010-0525252");
@@ -107,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         Vehicle truckContainer = new Vehicle("SE", "ABC123", container);
         Vehicle truckSemi = new Vehicle("SE", "ABC456", semi);
 
-        Transport a = new Transport();
+        Control a = new Control();
         a.setNumber(1);
         a.setPlace("Uddevalla");
         a.setType("väg");
@@ -116,9 +153,9 @@ public class MainActivity extends AppCompatActivity {
         a.setDriver(driver);
         a.setSender(sender);
         a.setReceiver(receiver);
-        transports.add(a);
+        mControls.add(a);
 
-        Transport b = new Transport();
+        Control b = new Control();
         b.setNumber(2);
         b.setPlace("Göteborg");
         b.setType("Hamnterminal");
@@ -127,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         b.setDriver(driver);
         b.setSender(sender);
         b.setReceiver(receiver);
-        transports.add(b);
+        mControls.add(b);
 
     }
 }

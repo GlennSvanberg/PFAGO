@@ -2,7 +2,7 @@ package com.svanberggroup.pfago.Models;
 
 import java.util.Date;
 
-public class Transport {
+public class Control {
 
     private int number;
     private Date date;
@@ -17,7 +17,7 @@ public class Transport {
     private Location sender;
     private Location receiver;
 
-    public Transport() {
+    public Control() {
         date = new Date();
     }
     public int getNumber() {
