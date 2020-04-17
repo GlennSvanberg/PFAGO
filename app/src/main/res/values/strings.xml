@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PFAGO</string>
+    <string name="add_control_activity_name">Add Control</string>
+    <string name="rib_activity_name">RIB</string>
 </resources>
