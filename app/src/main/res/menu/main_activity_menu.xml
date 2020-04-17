@@ -5,7 +5,7 @@
     <item android:id="@+id/rib"
         android:icon="@drawable/ic_rib"
         android:title="RIB"
-        app:showAsAction="withText"></item>
+        app:showAsAction="always"></item>
     <item android:id="@+id/addControl"
         android:icon="@drawable/ic_add"
         android:title="Add"

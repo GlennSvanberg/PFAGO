@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//setTitle("TEST");
-
 
         createDummyData();
         for(Control control : mControls) {
