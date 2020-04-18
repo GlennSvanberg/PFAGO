@@ -25,11 +25,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Control> mControls;
+    private List<Control> controls;
 
-    private EditText mQuery;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private EditText queryField;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
     @Override
@@ -37,20 +37,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mControls = ControlRepository.get().getAllControls();
+        controls = ControlRepository.get().getAllControls();
 
-        for(Control control : mControls) {
+        for(Control control : controls) {
             Log.i("TEST", control.getId() + " ");
         }
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new ControlAdapter(mControls);
-        mRecyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new ControlAdapter(controls);
+        recyclerView.setAdapter(adapter);
 
-        mQuery = (EditText) findViewById(R.id.query);
-        mQuery.requestFocus();
+        queryField = (EditText) findViewById(R.id.query);
+        queryField.requestFocus();
 
     }
 
@@ -81,14 +81,14 @@ public class MainActivity extends AppCompatActivity {
 
     private class ControlHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private Control mControl;
+        private Control control;
         private TextView textView;
         public ControlHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.item_control_list,parent, false));
              textView = itemView.findViewById(R.id.name);
         }
         public void bind(Control control) {
-            this.mControl = control;
+            this.control = control;
             textView.setText(control.getTruck().getRegNr() + " " +  control.getDriver().getName());
         }
 
@@ -98,10 +98,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private class ControlAdapter extends RecyclerView.Adapter<ControlHolder> {
-        private List<Control> mControls;
+        private List<Control> controls;
 
         private ControlAdapter(List<Control> controls) {
-            this.mControls = controls;
+            this.controls = controls;
         }
 
         @NonNull
@@ -112,15 +112,24 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ControlHolder holder, int position) {
-            Control control = mControls.get(position);
+        public void onBindViewHolder(@NonNull ControlHolder holder, final int position) {
+            Control control = controls.get(position);
             holder.bind(control);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent intent = new Intent(getApplicationContext(), ViewControlActivity.class);
+                    intent.putExtra("position", position);
+                    startActivity(intent);
+                }
+            });
 
         }
 
         @Override
         public int getItemCount() {
-            return mControls.size();
+            return controls.size();
         }
     }
 
