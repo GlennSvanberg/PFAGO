@@ -39,7 +39,12 @@ public class ControlRepository {
         return matchedControls;
     }
     public Control getControlById(int id) {
-        return controls.get(id);
+        for(Control control : controls) {
+            if (control.getId() == id) {
+                return control;
+            }
+        }
+        return null;
     }
     public void addControl(Control control) {
         controls.add(control);

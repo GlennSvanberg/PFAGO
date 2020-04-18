@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
 
                     Intent intent = new Intent(getApplicationContext(), ViewControlActivity.class);
-                    intent.putExtra("position", position);
+                    intent.putExtra("control_id", controls.get(position).getId());
                     startActivity(intent);
                 }
             });
