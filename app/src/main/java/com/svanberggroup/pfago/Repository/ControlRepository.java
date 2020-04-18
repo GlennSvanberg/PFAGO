@@ -1,5 +1,7 @@
 package com.svanberggroup.pfago.Repository;
 
+import android.util.Log;
+
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.Quantity;
 import com.svanberggroup.pfago.Models.Transporter;
@@ -17,6 +19,7 @@ public class ControlRepository {
     public static ControlRepository get() {
         if(controlRepository == null) {
             controlRepository = new ControlRepository();
+            Log.i("TEST", "new repo created");
         }
         return controlRepository;
     }
@@ -38,6 +41,7 @@ public class ControlRepository {
         }
         return matchedControls;
     }
+
     public Control getControlById(int id) {
         for(Control control : controls) {
             if (control.getId() == id) {

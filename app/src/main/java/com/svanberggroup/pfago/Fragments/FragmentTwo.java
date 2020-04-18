@@ -10,23 +10,30 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.R;
+
+import java.io.Serializable;
 
 public class FragmentTwo extends Fragment {
 
 
-    private TextView mTextView;
+    private static final String NEW_CONTROL = "new_control";
+
+    private TextView textView;
+
+    private Control control;
 
     private FragmentTwo() {
     }
 
-    public static FragmentTwo newInstance() {
+    public static FragmentTwo newInstance(Control control) {
         FragmentTwo fragment = new FragmentTwo();
         Bundle args = new Bundle();
+        args.putSerializable(NEW_CONTROL, (Serializable) control);
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +45,8 @@ public class FragmentTwo extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_two, container, false);
 
-        mTextView = view.findViewById(R.id.title);
-        mTextView.setText("Fragment two");
+        textView = view.findViewById(R.id.title);
+        textView.setText("Fragment two");
 
         return  view;
     }

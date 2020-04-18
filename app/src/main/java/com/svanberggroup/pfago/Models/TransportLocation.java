@@ -1,6 +1,8 @@
 package com.svanberggroup.pfago.Models;
 
-public class TransportLocation {
+import java.io.Serializable;
+
+public class TransportLocation implements Serializable {
     private String address;
     private String place;
     private String phone;

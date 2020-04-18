@@ -52,6 +52,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        controls = ControlRepository.get().getAllControls();
+        Log.i("TEST", "onStart");
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity_menu, menu);
@@ -62,12 +70,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.rib:
-                Log.i("TEST", "Going to RIB");
                 Intent intent = new Intent(this, RIBActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.addControl:
-                Log.i("TEST", "Going to addControl");
                 intent = new Intent(this, AddControlActivity.class);
                 startActivity(intent);
                 return true;
@@ -76,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class ControlHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class ControlHolder extends RecyclerView.ViewHolder {
 
         private Control control;
         private TextView title;
@@ -91,10 +97,17 @@ public class MainActivity extends AppCompatActivity {
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
             String date = formatter.format(control.getDate());
             title.setText(control.getTruck().getRegNr() + " Datum: " +  date);
+            String text  = "";
+            if(control.getCarrier()!= null) {
+                text = text + "Företag: " + control.getCarrier().getName() + "\n";
+            }
+            if(control.getDriver() != null) {
+                text = text + "Förare: " + control.getDriver().getName() + "\n";
+            }
+            if(control.getTruck() != null) {
+                text = text + "Lastbil: " +control.getTruck().getRegNr() + " " + control.getTruck().getNationality() + "\n";
+            }
 
-            String text = "Företag: " + control.getCarrier().getName() + "\n";
-            text = text + "Förare: " + control.getDriver().getName() + "\n";
-            text = text + "Lastbil: " +control.getTruck().getRegNr() + " " + control.getTruck().getNationality() + "\n";
             if(control.getTrailer() != null) {
                 text = text + "Släp: " + control.getTrailer().getRegNr() + " " + control.getTrailer().getNationality() + " " + getString(control.getTrailer().getVehicleType().label) +"\n";
             }
@@ -102,10 +115,6 @@ public class MainActivity extends AppCompatActivity {
             description.setText(text);
         }
 
-        @Override
-        public void onClick(View view) {
-            // open view displaying the control
-        }
     }
     private class ControlAdapter extends RecyclerView.Adapter<ControlHolder> {
         private List<Control> controls;

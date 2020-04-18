@@ -1,6 +1,8 @@
 package com.svanberggroup.pfago.Models;
 
-public class Transporter {
+import java.io.Serializable;
+
+public class Transporter implements Serializable {
     private String name;
     private String phone;
     private String address;

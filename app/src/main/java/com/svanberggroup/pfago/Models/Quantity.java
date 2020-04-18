@@ -2,7 +2,9 @@ package com.svanberggroup.pfago.Models;
 
 import com.svanberggroup.pfago.R;
 
-public class Quantity {
+import java.io.Serializable;
+
+public class Quantity implements Serializable {
     private int quantity;
 
     public enum QuantityType{

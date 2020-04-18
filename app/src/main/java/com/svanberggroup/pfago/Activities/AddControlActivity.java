@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Utils.ViewPagerAdapter;
 
@@ -14,6 +15,7 @@ public class AddControlActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
+    private Control control;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +24,7 @@ public class AddControlActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tabs);
-
+        control = new Control();
         viewPager.setAdapter(createCardAdapter());
 
 
@@ -51,9 +53,10 @@ public class AddControlActivity extends AppCompatActivity {
                         }
                     }
                 }).attach();
+
     }
     private ViewPagerAdapter createCardAdapter() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this, control);
         return adapter;
     }
 }

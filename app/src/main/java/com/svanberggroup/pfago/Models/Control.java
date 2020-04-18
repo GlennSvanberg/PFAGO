@@ -2,9 +2,10 @@ package com.svanberggroup.pfago.Models;
 
 import com.svanberggroup.pfago.R;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Control {
+public class Control implements Serializable {
 
     private int id;
     private Date date;

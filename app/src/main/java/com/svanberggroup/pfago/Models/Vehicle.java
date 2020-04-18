@@ -2,7 +2,9 @@ package com.svanberggroup.pfago.Models;
 
 import com.svanberggroup.pfago.R;
 
-public class Vehicle {
+import java.io.Serializable;
+
+public class Vehicle implements Serializable {
     private String regNr;
     private String nationality;
 

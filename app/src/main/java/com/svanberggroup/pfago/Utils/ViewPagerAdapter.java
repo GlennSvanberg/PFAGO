@@ -6,28 +6,30 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.svanberggroup.pfago.Fragments.*;
+import com.svanberggroup.pfago.Models.Control;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
+    private Control control;
 
-
-    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, Control control) {
         super(fragmentActivity);
+        this.control = control;
     }
 
     @NonNull @Override public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return FragmentOne.newInstance();
+                return FragmentOne.newInstance(control);
             case 1:
-                return FragmentTwo.newInstance();
+                return FragmentTwo.newInstance(control);
             case 2:
-                return FragmentThree.newInstance();
+                return FragmentThree.newInstance(control);
             case 3:
-                return FragmentFour.newInstance();
+                return FragmentFour.newInstance(control);
             case 4:
-                return FragmentFive.newInstance();
+                return FragmentFive.newInstance(control);
             case 5:
-                return FragmentSix.newInstance();
+                return FragmentSix.newInstance(control);
         }
         return null;
     }
