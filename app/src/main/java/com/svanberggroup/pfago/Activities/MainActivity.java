@@ -23,6 +23,7 @@ import com.svanberggroup.pfago.Models.Trailer;
 import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Models.Location;
+import com.svanberggroup.pfago.Repository.ControlRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mControls = ControlRepository.get().getAllControls();
 
-        createDummyData();
         for(Control control : mControls) {
             Log.i("TEST", control.getNumber()+ "");
         }
@@ -81,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
     private class ControlHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -130,41 +130,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void createDummyData(){
-
-        mControls = new ArrayList<>();
-
-        Location sender = new Location("Malmgatan 34 Halmstad", "LKAB, port 22", "0600-352362");
-        Location receiver = new Location("Raketgatan Kiruna", "GKN, södra", "010-0525252");
-        Party company = new Party("GLÅAB", "0522-252525", "Norra älvvägen 21B", 45130, "Uddevalla", "Sweden");
-        Party driver = new Party("Göran Persson", "070-2525352", "Byälven 11A", 45130, "Borås", "Sweden");
-        Trailer container = new Trailer("SE", "TTT111", "Container");
-        Trailer semi = new Trailer("SE", "SSS111", "Semi");
-
-        Vehicle truckContainer = new Vehicle("SE", "ABC123", container);
-        Vehicle truckSemi = new Vehicle("SE", "ABC456", semi);
-
-        Control a = new Control();
-        a.setNumber(1);
-        a.setPlace("Uddevalla");
-        a.setType("väg");
-        a.setVehicle(truckContainer);
-        a.setCompany(company);
-        a.setDriver(driver);
-        a.setSender(sender);
-        a.setReceiver(receiver);
-        mControls.add(a);
-
-        Control b = new Control();
-        b.setNumber(2);
-        b.setPlace("Göteborg");
-        b.setType("Hamnterminal");
-        b.setVehicle(truckSemi);
-        b.setCompany(company);
-        b.setDriver(driver);
-        b.setSender(sender);
-        b.setReceiver(receiver);
-        mControls.add(b);
-
-    }
 }
