@@ -1,5 +1,7 @@
 package com.svanberggroup.pfago.Models;
 
+import com.svanberggroup.pfago.R;
+
 import java.util.Date;
 
 public class Control {
@@ -8,7 +10,18 @@ public class Control {
     private Date date;
     private String location;
 
-    public enum LocationType{ CargoTerminal, CompanyVisit, Road, PortTerminal, System };
+    public enum LocationType{
+        CargoTerminal(R.string.cargo_terminal),
+        CompanyVisit(R.string.company_visit),
+        Road(R.string.road),
+        PortTerminal(R.string.port_terminal),
+        System(R.string.system);
+
+        private final int label;
+        LocationType(int label) {
+            this.label = label;
+        }
+    };
     private LocationType locationType;
 
     private Transporter carrier;

@@ -72,7 +72,7 @@ public class ControlRepository {
         a.setTruck(aTruck);
         a.setTrailer(aTrailer);
 
-        Quantity aQuantity = new Quantity(400, Quantity.QuantityType.Kg, Quantity.PackagingStandard.EQ);
+        Quantity aQuantity = new Quantity(400, Quantity.QuantityType.KG, Quantity.PackagingStandard.EQ);
         a.setQuantity(aQuantity);
         a.setValueQuantityExceeded(false);
         a.setValueQuantity(400);
@@ -123,7 +123,7 @@ public class ControlRepository {
         c.setTruck(cTruck);
         c.setTrailer(cTrailer);
 
-        Quantity cQuantity = new Quantity(90000, Quantity.QuantityType.Kg, Quantity.PackagingStandard.LQ);
+        Quantity cQuantity = new Quantity(90000, Quantity.QuantityType.KG, Quantity.PackagingStandard.LQ);
         c.setQuantity(cQuantity);
         c.setValueQuantityExceeded(true);
         c.setValueQuantity(90000);

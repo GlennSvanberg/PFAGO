@@ -1,12 +1,33 @@
 package com.svanberggroup.pfago.Models;
 
+import com.svanberggroup.pfago.R;
+
 public class Quantity {
     private int quantity;
 
-    public enum QuantityType{ Kg, Liter};
+    public enum QuantityType{
+        KG(R.string.kg),
+        Liter(R.string.liter);
+
+        public final int label;
+        QuantityType(int label) {
+            this.label = label;
+        }
+
+    };
     private QuantityType quantityType;
 
-    public enum PackagingStandard{ EQ, LQ, EmptyNotCleaned};
+    public enum PackagingStandard{
+        EQ(R.string.eq),
+        LQ(R.string.lq),
+        EmptyNotCleaned(R.string.empty_not_cleaned);
+
+        public final int label;
+        PackagingStandard(int label) {
+            this.label = label;
+        }
+    };
+
     private PackagingStandard packagingStandard;
 
     public Quantity() {

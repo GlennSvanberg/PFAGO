@@ -1,11 +1,22 @@
 package com.svanberggroup.pfago.Models;
 
+import com.svanberggroup.pfago.R;
+
 public class Vehicle {
     private String regNr;
     private String nationality;
 
     private VehicleType vehicleType;
-    public enum VehicleType{ Truck, Trailer, SemiTrailer, Container };
+    public enum VehicleType{
+        Truck(R.string.truck),
+        Trailer(R.string.trailer),
+        SemiTrailer(R.string.semi_trailer),
+        Container(R.string.container);
+        private final int label;
+        VehicleType(int label) {
+            this.label = label;
+        }
+    };
 
     public Vehicle() {
 

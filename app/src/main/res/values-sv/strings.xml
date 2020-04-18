@@ -2,7 +2,19 @@
     <string name="app_name">FAGO</string>
     <string name="add_control_activity_name">Ny Kontroll</string>
     <string name="rib_activity_name">RIB</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="kg">Kg</string>
+    <string name="liter">Liter</string>
+    <string name="eq">EQ</string>
+    <string name="lq">LQ</string>
+    <string name="empty_not_cleaned">Tömd ej rengjord</string>
+    <string name="trailer">Släp</string>
+    <string name="semi_trailer">Påhängsvagn</string>
+    <string name="container">Container</string>
+    <string name="truck">Lastbil</string>
+    <string name="cargo_terminal">Godsterminal</string>
+    <string name="company_visit">Företagsbesök</string>
+    <string name="road">Väg</string>
+    <string name="port_terminal">Hamnterminal</string>
+    <string name="system">System/tema</string>
 </resources>

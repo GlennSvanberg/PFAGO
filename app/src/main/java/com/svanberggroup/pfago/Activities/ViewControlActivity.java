@@ -29,6 +29,7 @@ public class ViewControlActivity extends AppCompatActivity {
         text = text + "Adress: " + control.getCarrier().getAddress() + control.getCarrier().getCity() + " " + control.getCarrier().getZipNr() + "\n";
         text = text + "Fordon: " + control.getTruck().getRegNr() + " Typ: " + control.getTruck().getVehicleType() + "Nationalitet: " + control.getTruck().getNationality() + "\n";
         text = text + "Förare: " + control.getDriver().getName() + "Tel: " + control.getDriver().getPhone() + "\n" + "Passagerare: " + control.getPassenger().getName() + "Tel: " + control.getPassenger().getPhone() + "\n";
+        text = text + "Mängdenhet: " + getString(control.getQuantity().getQuantityType().label);
         textView.setText(text);
 
     }
