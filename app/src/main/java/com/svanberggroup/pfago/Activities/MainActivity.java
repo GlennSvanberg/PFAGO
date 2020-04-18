@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         private Control mControl;
         private TextView textView;
         public ControlHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.control_list_item,parent, false));
+            super(inflater.inflate(R.layout.item_control_list,parent, false));
              textView = itemView.findViewById(R.id.name);
         }
         public void bind(Control control) {

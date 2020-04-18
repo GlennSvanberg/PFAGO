@@ -9,10 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.AddControlActivity"
-            android:label="@string/add_control_activity_name"></activity>
-        <activity android:name=".Activities.RIBActivity"
-            android:label="@string/rib_activity_name"/>
+        <activity android:name=".Activities.ViewControlActivity"></activity>
+        <activity
+            android:name=".Activities.AddControlActivity"
+            android:label="@string/add_control_activity_name" />
+        <activity
+            android:name=".Activities.RIBActivity"
+            android:label="@string/rib_activity_name" />
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

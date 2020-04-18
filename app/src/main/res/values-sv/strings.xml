@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FAGO</string>
+    <string name="add_control_activity_name">Ny Kontroll</string>
+    <string name="rib_activity_name">RIB</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
