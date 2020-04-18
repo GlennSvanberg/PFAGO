@@ -18,14 +18,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.Control;
-import com.svanberggroup.pfago.Models.Party;
-import com.svanberggroup.pfago.Models.Trailer;
-import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
-import com.svanberggroup.pfago.Models.Location;
 import com.svanberggroup.pfago.Repository.ControlRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         mControls = ControlRepository.get().getAllControls();
 
         for(Control control : mControls) {
-            Log.i("TEST", control.getNumber()+ "");
+            Log.i("TEST", control.getId() + " ");
         }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -94,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         }
         public void bind(Control control) {
             this.mControl = control;
-            textView.setText(control.getVehicle().getRegNr());
+            textView.setText(control.getTruck().getRegNr() + " " +  control.getDriver().getName());
         }
 
         @Override

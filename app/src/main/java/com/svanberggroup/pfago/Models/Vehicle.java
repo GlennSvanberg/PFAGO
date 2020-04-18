@@ -1,26 +1,19 @@
 package com.svanberggroup.pfago.Models;
 
 public class Vehicle {
-    private String nationality;
     private String regNr;
-    private Trailer trailer;
+    private String nationality;
 
-    public Vehicle(String nationality, String regNr) {
-        this.nationality = nationality;
+    private VehicleType vehicleType;
+    public enum VehicleType{ Truck, Trailer, SemiTrailer, Container };
+
+    public Vehicle() {
+
+    }
+    public Vehicle(String regNr, String nationality, VehicleType vehicleType) {
         this.regNr = regNr;
-    }
-
-    public Vehicle(String nationality, String regNr, Trailer trailer) {
-        this(nationality, regNr);
-        this.trailer = trailer;
-    }
-
-    public String getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(String nationality) {
         this.nationality = nationality;
+        this.vehicleType = vehicleType;
     }
 
     public String getRegNr() {
@@ -31,11 +24,19 @@ public class Vehicle {
         this.regNr = regNr;
     }
 
-    public Trailer getTrailer() {
-        return trailer;
+    public String getNationality() {
+        return nationality;
     }
 
-    public void setTrailer(Trailer trailer) {
-        this.trailer = trailer;
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
     }
 }

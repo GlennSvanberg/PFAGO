@@ -1,13 +1,16 @@
 package com.svanberggroup.pfago.Models;
 
-public class Location {
+public class TransportLocation {
     private String address;
-    private String location;
+    private String place;
     private String phone;
 
-    public Location(String address, String location, String phone) {
+    public TransportLocation() {
+
+    }
+    public TransportLocation(String address, String place, String phone) {
         this.address = address;
-        this.location = location;
+        this.place = place;
         this.phone = phone;
     }
 
@@ -19,12 +22,12 @@ public class Location {
         this.address = address;
     }
 
-    public String getLocation() {
-        return location;
+    public String getPlace() {
+        return place;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setPlace(String place) {
+        this.place = place;
     }
 
     public String getPhone() {

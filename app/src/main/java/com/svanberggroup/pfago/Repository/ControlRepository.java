@@ -1,9 +1,8 @@
 package com.svanberggroup.pfago.Repository;
 
 import com.svanberggroup.pfago.Models.Control;
-import com.svanberggroup.pfago.Models.Location;
-import com.svanberggroup.pfago.Models.Party;
-import com.svanberggroup.pfago.Models.Trailer;
+import com.svanberggroup.pfago.Models.Quantity;
+import com.svanberggroup.pfago.Models.Transporter;
 import com.svanberggroup.pfago.Models.Vehicle;
 
 import java.util.ArrayList;
@@ -29,10 +28,11 @@ public class ControlRepository {
     public List<Control> getAllControls() {
         return controls;
     }
+
     public List<Control> getControlsByRegNr(String regNr) {
         List<Control> matchedControls = new ArrayList<>();
         for(Control control : controls) {
-            if(control.getVehicle().getRegNr().equals(regNr)) {
+            if(control.getTruck().getRegNr().equals(regNr) || control.getTrailer().getRegNr().equals(regNr)) {
                 matchedControls.add(control);
             }
         }
@@ -43,38 +43,88 @@ public class ControlRepository {
         controls.add(control);
     }
 
+
     private void dummyData() {
-
-        Location sender = new Location("Malmgatan 34 Halmstad", "LKAB, port 22", "0600-352362");
-        Location receiver = new Location("Raketgatan Kiruna", "GKN, södra", "010-0525252");
-        Party company = new Party("GLÅAB", "0522-252525", "Norra älvvägen 21B", 45130, "Uddevalla", "Sweden");
-        Party driver = new Party("Göran Persson", "070-2525352", "Byälven 11A", 45130, "Borås", "Sweden");
-        Trailer container = new Trailer("SE", "TTT111", "Container");
-        Trailer semi = new Trailer("SE", "SSS111", "Semi");
-
-        Vehicle truckContainer = new Vehicle("SE", "ABC123", container);
-        Vehicle truckSemi = new Vehicle("SE", "ABC456", semi);
-
+        // -------------------------a
         Control a = new Control();
-        a.setNumber(1);
-        a.setPlace("Uddevalla");
-        a.setType("väg");
-        a.setVehicle(truckContainer);
-        a.setCompany(company);
-        a.setDriver(driver);
-        a.setSender(sender);
-        a.setReceiver(receiver);
+        a.setId(1);
+        a.setLocation("Uddevalla");
+        a.setLocationType(Control.LocationType.CargoTerminal);
+
+        Transporter aCarrier = new Transporter("GLÅAB", "0522-132345", "Norra Gåvägen 14", 45123, "Borås", "SE");
+        Transporter aDriver = new Transporter("Robin Törnqvist", "070-1234567", "Silltorp 24", 44123, "Vänersborg", "SE");
+        Transporter aPassenger = new Transporter("Emil Svenson", "070-2356489", "Norra Botten 1", 45789, "Göteborg", "US");
+
+        a.setCarrier(aCarrier);
+        a.setDriver(aDriver);
+        a.setPassenger(aPassenger);
+
+        Vehicle aTruck = new Vehicle("ABC123", "SE", Vehicle.VehicleType.Truck);
+        Vehicle aTrailer = new Vehicle("ABC456", "SE", Vehicle.VehicleType.Trailer);
+
+        a.setTruck(aTruck);
+        a.setTrailer(aTrailer);
+
+        Quantity aQuantity = new Quantity(400, Quantity.QuantityType.Kg, Quantity.PackagingStandard.EQ);
+        a.setQuantity(aQuantity);
+        a.setValueQuantityExceeded(false);
+        a.setValueQuantity(400);
+
+        a.setTransportType(Control.TransportType.Bulk);
+        a.setTransportStandard(Control.TransportStandard.ADR_S);
         controls.add(a);
 
+
+        //------------------------b
         Control b = new Control();
-        b.setNumber(2);
-        b.setPlace("Göteborg");
-        b.setType("Hamnterminal");
-        b.setVehicle(truckSemi);
-        b.setCompany(company);
-        b.setDriver(driver);
-        b.setSender(sender);
-        b.setReceiver(receiver);
+        b.setId(2);
+        b.setLocation("Trollhättan");
+        b.setLocationType(Control.LocationType.CargoTerminal);
+
+        b.setCarrier(aCarrier);
+        b.setDriver(aDriver);
+        b.setPassenger(aPassenger);
+
+        Vehicle bTruck = new Vehicle("BCA123", "SE", Vehicle.VehicleType.Truck);
+        Vehicle bTrailer = new Vehicle("BCA456", "SE", Vehicle.VehicleType.SemiTrailer);
+
+        b.setTruck(bTruck);
+        b.setTrailer(bTrailer);
+
+        Quantity bQuantity = new Quantity(9000, Quantity.QuantityType.Liter, Quantity.PackagingStandard.LQ);
+        b.setQuantity(bQuantity);
+        b.setValueQuantityExceeded(true);
+        b.setValueQuantity(9000);
+
+        b.setTransportType(Control.TransportType.Tank);
+        b.setTransportStandard(Control.TransportStandard.ADR_S);
         controls.add(b);
+
+        //------------------------c
+        Control c = new Control();
+        c.setId(3);
+        c.setLocation("Stenungsund");
+        c.setLocationType(Control.LocationType.CargoTerminal);
+
+        c.setCarrier(aCarrier);
+        c.setDriver(aDriver);
+        c.setPassenger(aPassenger);
+
+        Vehicle cTruck = new Vehicle("CCA123", "SE", Vehicle.VehicleType.Truck);
+        Vehicle cTrailer = new Vehicle("CCA456", "SE", Vehicle.VehicleType.Container);
+
+        c.setTruck(cTruck);
+        c.setTrailer(cTrailer);
+
+        Quantity cQuantity = new Quantity(90000, Quantity.QuantityType.Kg, Quantity.PackagingStandard.LQ);
+        c.setQuantity(cQuantity);
+        c.setValueQuantityExceeded(true);
+        c.setValueQuantity(90000);
+
+        c.setTransportType(Control.TransportType.Bulk);
+        c.setTransportStandard(Control.TransportStandard.ADR);
+        controls.add(c);
+
+
     }
 }

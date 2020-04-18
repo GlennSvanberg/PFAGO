@@ -4,28 +4,41 @@ import java.util.Date;
 
 public class Control {
 
-    private int number;
+    private int id;
     private Date date;
-    private String place;
-    private String type;
+    private String location;
 
-    private Vehicle vehicle;
-    private Party company;
-    private Party driver;
-    private Party passenger;
+    public enum LocationType{ CargoTerminal, CompanyVisit, Road, PortTerminal, System };
+    private LocationType locationType;
 
-    private Location sender;
-    private Location receiver;
+    private Transporter carrier;
+    private Transporter driver;
+    private Transporter passenger;
+
+    private Vehicle truck;
+    private Vehicle trailer;
+
+    private Quantity quantity;
+    private boolean valueQuantityExceeded;
+    private int valueQuantity;
+
+    public enum TransportType{ Tank, Bulk, MixedCargo, Other };
+    private TransportType transportType;
+
+    public enum TransportStandard{ ADR, ADR_S, IMDG, ICAO, RID, RID_S, MoU, Other };
+    private TransportStandard transportStandard;
+
 
     public Control() {
         date = new Date();
     }
-    public int getNumber() {
-        return number;
+
+    public int getId() {
+        return id;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Date getDate() {
@@ -36,67 +49,99 @@ public class Control {
         this.date = date;
     }
 
-    public String getPlace() {
-        return place;
+    public String getLocation() {
+        return location;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public String getType() {
-        return type;
+    public LocationType getLocationType() {
+        return locationType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setLocationType(LocationType locationType) {
+        this.locationType = locationType;
     }
 
-    public Vehicle getVehicle() {
-        return vehicle;
+    public Transporter getCarrier() {
+        return carrier;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void setCarrier(Transporter carrier) {
+        this.carrier = carrier;
     }
 
-    public Party getCompany() {
-        return company;
-    }
-
-    public void setCompany(Party company) {
-        this.company = company;
-    }
-
-    public Party getDriver() {
+    public Transporter getDriver() {
         return driver;
     }
 
-    public void setDriver(Party driver) {
+    public void setDriver(Transporter driver) {
         this.driver = driver;
     }
 
-    public Party getPassenger() {
+    public Transporter getPassenger() {
         return passenger;
     }
 
-    public void setPassenger(Party passenger) {
+    public void setPassenger(Transporter passenger) {
         this.passenger = passenger;
     }
 
-    public Location getSender() {
-        return sender;
+    public Vehicle getTruck() {
+        return truck;
     }
 
-    public void setSender(Location sender) {
-        this.sender = sender;
+    public void setTruck(Vehicle truck) {
+        this.truck = truck;
     }
 
-    public Location getReceiver() {
-        return receiver;
+    public Vehicle getTrailer() {
+        return trailer;
     }
 
-    public void setReceiver(Location receiver) {
-        this.receiver = receiver;
+    public void setTrailer(Vehicle trailer) {
+        this.trailer = trailer;
+    }
+
+    public Quantity getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Quantity quantity) {
+        this.quantity = quantity;
+    }
+
+    public boolean isValueQuantityExceeded() {
+        return valueQuantityExceeded;
+    }
+
+    public void setValueQuantityExceeded(boolean valueQuantityExceeded) {
+        this.valueQuantityExceeded = valueQuantityExceeded;
+    }
+
+    public int getValueQuantity() {
+        return valueQuantity;
+    }
+
+    public void setValueQuantity(int valueQuantity) {
+        this.valueQuantity = valueQuantity;
+    }
+
+    public TransportType getTransportType() {
+        return transportType;
+    }
+
+    public void setTransportType(TransportType transportType) {
+        this.transportType = transportType;
+    }
+
+    public TransportStandard getTransportStandard() {
+        return transportStandard;
+    }
+
+    public void setTransportStandard(TransportStandard transportStandard) {
+        this.transportStandard = transportStandard;
     }
 }

@@ -1,20 +1,23 @@
 package com.svanberggroup.pfago.Models;
 
-public class Party {
+public class Transporter {
     private String name;
     private String phone;
     private String address;
-    private int postalNr;
+    private int ZipNr;
     private String city;
-    private String country;
+    private String nationality;
 
-    public Party(String name, String phone, String address, int postalNr, String city, String country) {
+    public Transporter() {
+
+    }
+    public Transporter(String name, String phone, String address, int zipNr, String city, String nationality) {
         this.name = name;
         this.phone = phone;
         this.address = address;
-        this.postalNr = postalNr;
+        ZipNr = zipNr;
         this.city = city;
-        this.country = country;
+        this.nationality = nationality;
     }
 
     public String getName() {
@@ -41,12 +44,12 @@ public class Party {
         this.address = address;
     }
 
-    public int getPostalNr() {
-        return postalNr;
+    public int getZipNr() {
+        return ZipNr;
     }
 
-    public void setPostalNr(int postalNr) {
-        this.postalNr = postalNr;
+    public void setZipNr(int zipNr) {
+        ZipNr = zipNr;
     }
 
     public String getCity() {
@@ -57,11 +60,11 @@ public class Party {
         this.city = city;
     }
 
-    public String getCountry() {
-        return country;
+    public String getNationality() {
+        return nationality;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
     }
 }
