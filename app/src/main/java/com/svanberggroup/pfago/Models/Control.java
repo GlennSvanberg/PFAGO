@@ -35,10 +35,34 @@ public class Control {
     private boolean valueQuantityExceeded;
     private int valueQuantity;
 
-    public enum TransportType{ Tank, Bulk, MixedCargo, Other };
+    public enum TransportType{
+        Tank(R.string.tank),
+        Bulk(R.string.bulk),
+        MixedCargo(R.string.mixed_cargo),
+        Other(R.string.other);
+
+        private final int label;
+        TransportType(int label) {
+            this.label = label;
+        }
+
+    };
     private TransportType transportType;
 
-    public enum TransportStandard{ ADR, ADR_S, IMDG, ICAO, RID, RID_S, MoU, Other };
+    public enum TransportStandard{
+        ADR(R.string.adr),
+        ADRS(R.string.adrs),
+        IMDG(R.string.imdg),
+        ICAO(R.string.icao),
+        RID(R.string.rid),
+        RIDS(R.string.rids),
+        MOU(R.string.mou),
+        Other(R.string.other);
+        private final int label;
+        TransportStandard(int label) {
+            this.label = label;
+        }
+    };
     private TransportStandard transportStandard;
 
 

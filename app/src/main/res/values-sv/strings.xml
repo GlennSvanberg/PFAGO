@@ -17,4 +17,15 @@
     <string name="road">Väg</string>
     <string name="port_terminal">Hamnterminal</string>
     <string name="system">System/tema</string>
+    <string name="tank">Tank</string>
+    <string name="bulk">Bulk</string>
+    <string name="mixed_cargo">Styckegods</string>
+    <string name="other">Annat</string>
+    <string name="adr">ADR</string>
+    <string name="adrs">ADR-S</string>
+    <string name="imdg">IMDG-koden</string>
+    <string name="icao">ICAO-TI/ATA-DGR</string>
+    <string name="rid">RID</string>
+    <string name="rids">RID-S</string>
+    <string name="mou">Västersjöavtalet</string>
 </resources>

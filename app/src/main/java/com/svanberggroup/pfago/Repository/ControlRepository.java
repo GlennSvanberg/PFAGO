@@ -78,7 +78,7 @@ public class ControlRepository {
         a.setValueQuantity(400);
 
         a.setTransportType(Control.TransportType.Bulk);
-        a.setTransportStandard(Control.TransportStandard.ADR_S);
+        a.setTransportStandard(Control.TransportStandard.ADRS);
         controls.add(a);
 
 

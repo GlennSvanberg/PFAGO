@@ -17,4 +17,15 @@
     <string name="road">Road</string>
     <string name="port_terminal">Port terminal</string>
     <string name="system">System/theme</string>
+    <string name="tank">Tank</string>
+    <string name="bulk">Bulk</string>
+    <string name="mixed_cargo">Mixed cargo</string>
+    <string name="other">Other</string>
+    <string name="adr">ADR</string>
+    <string name="adrs">ADR-S</string>
+    <string name="imdg">IMDG-code</string>
+    <string name="icao">ICAO-TI/ATA-DGR</string>
+    <string name="rid">RID</string>
+    <string name="rids">RID-S</string>
+    <string name="mou">MoU</string>
 </resources>
