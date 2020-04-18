@@ -104,7 +104,7 @@ public class ControlRepository {
         b.setValueQuantity(9000);
 
         b.setTransportType(Control.TransportType.Tank);
-        b.setTransportStandard(Control.TransportStandard.ADR_S);
+        b.setTransportStandard(Control.TransportStandard.ADRS);
         controls.add(b);
 
         //------------------------c
