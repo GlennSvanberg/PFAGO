@@ -21,6 +21,7 @@ import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Repository.ControlRepository;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,10 +39,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         controls = ControlRepository.get().getAllControls();
-
-        for(Control control : controls) {
-            Log.i("TEST", control.getId() + " ");
-        }
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(this);
@@ -82,14 +79,27 @@ public class MainActivity extends AppCompatActivity {
     private class ControlHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Control control;
-        private TextView textView;
+        private TextView title;
+        private TextView description;
         public ControlHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.item_control_list,parent, false));
-             textView = itemView.findViewById(R.id.name);
+             title = itemView.findViewById(R.id.name);
+             description = itemView.findViewById(R.id.description);
         }
         public void bind(Control control) {
             this.control = control;
-            textView.setText(control.getTruck().getRegNr() + " " +  control.getDriver().getName());
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+            String date = formatter.format(control.getDate());
+            title.setText(control.getTruck().getRegNr() + " Datum: " +  date);
+
+            String text = "Företag: " + control.getCarrier().getName() + "\n";
+            text = text + "Förare: " + control.getDriver().getName() + "\n";
+            text = text + "Lastbil: " +control.getTruck().getRegNr() + " " + control.getTruck().getNationality() + "\n";
+            if(control.getTrailer() != null) {
+                text = text + "Släp: " + control.getTrailer().getRegNr() + " " + control.getTrailer().getNationality() + " " + getString(control.getTrailer().getVehicleType().label) +"\n";
+            }
+
+            description.setText(text);
         }
 
         @Override

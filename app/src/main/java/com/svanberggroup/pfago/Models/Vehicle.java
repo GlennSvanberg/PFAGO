@@ -12,7 +12,7 @@ public class Vehicle {
         Trailer(R.string.trailer),
         SemiTrailer(R.string.semi_trailer),
         Container(R.string.container);
-        private final int label;
+        public final int label;
         VehicleType(int label) {
             this.label = label;
         }

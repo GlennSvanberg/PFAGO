@@ -58,7 +58,7 @@ public class Control {
         RIDS(R.string.rids),
         MOU(R.string.mou),
         Other(R.string.other);
-        private final int label;
+        public final int label;
         TransportStandard(int label) {
             this.label = label;
         }
