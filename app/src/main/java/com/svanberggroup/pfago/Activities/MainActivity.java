@@ -15,7 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.R;
@@ -29,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private List<Control> controls;
 
     private EditText queryField;
+    private ImageButton searchButton;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private ControlAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
     @Override
@@ -49,12 +52,31 @@ public class MainActivity extends AppCompatActivity {
         queryField = (EditText) findViewById(R.id.query);
         queryField.requestFocus();
 
+        searchButton = findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                controls = ControlRepository.get().getControlsByRegNr(queryField.getText().toString());
+                updateUI();
+            }
+        });
+    }
+    private void updateUI(){
+        ControlRepository repo = ControlRepository.get();
+
+        if(adapter == null) {
+            adapter = new ControlAdapter(controls);
+            recyclerView.setAdapter(adapter);
+        } else {
+            adapter.setControls(controls);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        controls = ControlRepository.get().getAllControls();
+        //controls = ControlRepository.get().getAllControls();
         Log.i("TEST", "onStart");
         adapter.notifyDataSetChanged();
     }
@@ -150,7 +172,9 @@ public class MainActivity extends AppCompatActivity {
         public int getItemCount() {
             return controls.size();
         }
+
+        public void setControls(List<Control> controls) {
+            this.controls = controls;
+        }
     }
-
-
 }
