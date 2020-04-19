@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        searchButton = findViewById(R.id.searchButton);
+        searchButton = findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.rib:
                 startRIBActivity();
                 return true;
-            case R.id.addControl:
+            case R.id.add_control:
                 startAddControlActivity();
                 return true;
             default:

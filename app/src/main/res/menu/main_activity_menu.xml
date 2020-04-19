@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_rib"
         android:title="RIB"
         app:showAsAction="always"></item>
-    <item android:id="@+id/doneControl"
+    <item android:id="@+id/add_control"
         android:icon="@drawable/ic_add"
         android:title="Add"
         app:showAsAction="always"></item>
