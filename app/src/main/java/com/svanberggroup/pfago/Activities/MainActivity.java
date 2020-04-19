@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,7 +16,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.Control;
@@ -29,9 +34,14 @@ public class MainActivity extends AppCompatActivity {
     private List<Control> controls;
 
     private EditText queryField;
+    private ImageButton searchButton;
+    private Button ribButton, addControlButton;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private LinearLayout buttonsLinearLayout;
+    private ControlAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+
+    private boolean isSearchMode = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +51,90 @@ public class MainActivity extends AppCompatActivity {
         controls = ControlRepository.get().getAllControls();
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setVisibility(View.GONE);
+
+        ribButton = findViewById(R.id.rib_search_button);
+        ribButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startRIBActivity();
+            }
+        });
+        addControlButton = findViewById(R.id.add_control_button);
+        addControlButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startAddControlActivity();
+            }
+        });
+        buttonsLinearLayout = (LinearLayout) findViewById(R.id.buttons_linear_layout);
+        buttonsLinearLayout.setVisibility(View.VISIBLE);
+
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new ControlAdapter(controls);
-        recyclerView.setAdapter(adapter);
+        updateUI();
 
         queryField = (EditText) findViewById(R.id.query);
         queryField.requestFocus();
+        queryField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                isSearchMode = true;
+                if(charSequence.length() == 0) {
+                    recyclerView.setVisibility(View.GONE);
+                    buttonsLinearLayout.setVisibility(View.VISIBLE);
+                    searchButton.setImageResource(R.drawable.ic_search);
+                }
+            }
+
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        searchButton = findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(isSearchMode) {
+                    controls = ControlRepository.get().getControlsByRegNr(queryField.getText().toString());
+                    recyclerView.setVisibility(View.VISIBLE);
+                    buttonsLinearLayout.setVisibility(View.GONE);
+                    updateUI();
+                    searchButton.setImageResource(R.drawable.ic_clear);
+                    isSearchMode = false;
+                } else {
+                    queryField.setText("");
+                    searchButton.setImageResource(R.drawable.ic_search);
+                    isSearchMode = true;
+                }
+
+            }
+        });
+    }
+
+    private void updateUI(){
+        if(adapter == null) {
+            adapter = new ControlAdapter(controls);
+            recyclerView.setAdapter(adapter);
+        } else {
+            adapter.setControls(controls);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        controls = ControlRepository.get().getAllControls();
+        //controls = ControlRepository.get().getAllControls();
         Log.i("TEST", "onStart");
         adapter.notifyDataSetChanged();
     }
@@ -70,16 +150,24 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.rib:
-                Intent intent = new Intent(this, RIBActivity.class);
-                startActivity(intent);
+                startRIBActivity();
                 return true;
             case R.id.addControl:
-                intent = new Intent(this, AddControlActivity.class);
-                startActivity(intent);
+                startAddControlActivity();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void startRIBActivity() {
+        Intent intent = new Intent(this, RIBActivity.class);
+        startActivity(intent);
+    }
+
+    private void startAddControlActivity() {
+        Intent intent = new Intent(this, AddControlActivity.class);
+        startActivity(intent);
     }
 
     private class ControlHolder extends RecyclerView.ViewHolder {
@@ -150,7 +238,9 @@ public class MainActivity extends AppCompatActivity {
         public int getItemCount() {
             return controls.size();
         }
+
+        public void setControls(List<Control> controls) {
+            this.controls = controls;
+        }
     }
-
-
 }
