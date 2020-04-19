@@ -18,7 +18,7 @@ public class Control implements Serializable {
         PortTerminal(R.string.port_terminal),
         System(R.string.system);
 
-        private final int label;
+        public final int label;
         LocationType(int label) {
             this.label = label;
         }
@@ -31,6 +31,9 @@ public class Control implements Serializable {
 
     private Vehicle truck;
     private Vehicle trailer;
+
+    private TransportLocation sender;
+    private TransportLocation receiver;
 
     private Quantity quantity;
     private boolean valueQuantityExceeded;
@@ -181,5 +184,21 @@ public class Control implements Serializable {
 
     public void setTransportStandard(TransportStandard transportStandard) {
         this.transportStandard = transportStandard;
+    }
+
+    public TransportLocation getSender() {
+        return sender;
+    }
+
+    public void setSender(TransportLocation sender) {
+        this.sender = sender;
+    }
+
+    public TransportLocation getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(TransportLocation receiver) {
+        this.receiver = receiver;
     }
 }

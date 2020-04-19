@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.Quantity;
+import com.svanberggroup.pfago.Models.TransportLocation;
 import com.svanberggroup.pfago.Models.Transporter;
 import com.svanberggroup.pfago.Models.Vehicle;
 
@@ -78,6 +79,11 @@ public class ControlRepository {
 
         a.setTruck(aTruck);
         a.setTrailer(aTrailer);
+        TransportLocation aSender = new TransportLocation("Södertull 14" , "Port 24", "042-4561232");
+        TransportLocation aReceiver = new TransportLocation("Norgården 54" , "Yttre gången", "0542-458798");
+
+        a.setSender(aSender);
+        a.setReceiver(aReceiver);
 
         Quantity aQuantity = new Quantity(400, Quantity.QuantityType.KG, Quantity.PackagingStandard.EQ);
         a.setQuantity(aQuantity);
@@ -105,6 +111,9 @@ public class ControlRepository {
         b.setTruck(bTruck);
         b.setTrailer(bTrailer);
 
+        b.setSender(aSender);
+        b.setReceiver(aReceiver);
+
         Quantity bQuantity = new Quantity(9000, Quantity.QuantityType.Liter, Quantity.PackagingStandard.LQ);
         b.setQuantity(bQuantity);
         b.setValueQuantityExceeded(true);
@@ -129,6 +138,9 @@ public class ControlRepository {
 
         c.setTruck(cTruck);
         c.setTrailer(cTrailer);
+
+        c.setSender(aSender);
+        c.setReceiver(aReceiver);
 
         Quantity cQuantity = new Quantity(90000, Quantity.QuantityType.KG, Quantity.PackagingStandard.LQ);
         c.setQuantity(cQuantity);
