@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.R;
@@ -39,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout buttonsLinearLayout;
     private ControlAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+
+    private boolean isSearchMode = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +68,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                isSearchMode = true;
                 if(charSequence.length() == 0) {
                     recyclerView.setVisibility(View.GONE);
                     buttonsLinearLayout.setVisibility(View.VISIBLE);
+                    searchButton.setImageResource(R.drawable.ic_search);
                 }
             }
+
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -83,10 +87,20 @@ public class MainActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                controls = ControlRepository.get().getControlsByRegNr(queryField.getText().toString());
-                recyclerView.setVisibility(View.VISIBLE);
-                buttonsLinearLayout.setVisibility(View.GONE);
-                updateUI();
+
+                if(isSearchMode) {
+                    controls = ControlRepository.get().getControlsByRegNr(queryField.getText().toString());
+                    recyclerView.setVisibility(View.VISIBLE);
+                    buttonsLinearLayout.setVisibility(View.GONE);
+                    updateUI();
+                    searchButton.setImageResource(R.drawable.ic_clear);
+                    isSearchMode = false;
+                } else {
+                    queryField.setText("");
+                    searchButton.setImageResource(R.drawable.ic_search);
+                    isSearchMode = true;
+                }
+
             }
         });
     }
