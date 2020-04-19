@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -53,11 +55,29 @@ public class MainActivity extends AppCompatActivity {
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new ControlAdapter(controls);
-        recyclerView.setAdapter(adapter);
+        updateUI();
 
         queryField = (EditText) findViewById(R.id.query);
         queryField.requestFocus();
+        queryField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence.length() == 0) {
+                    recyclerView.setVisibility(View.GONE);
+                    buttonsLinearLayout.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         searchButton = findViewById(R.id.searchButton);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -70,9 +90,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void updateUI(){
-        ControlRepository repo = ControlRepository.get();
 
+    private void updateUI(){
         if(adapter == null) {
             adapter = new ControlAdapter(controls);
             recyclerView.setAdapter(adapter);
