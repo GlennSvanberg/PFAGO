@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, RIBActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.addControl:
+            case R.id.doneControl:
                 intent = new Intent(this, AddControlActivity.class);
                 startActivity(intent);
                 return true;

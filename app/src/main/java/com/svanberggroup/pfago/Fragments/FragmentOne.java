@@ -19,8 +19,6 @@ import com.svanberggroup.pfago.Repository.ControlRepository;
 
 import java.io.Serializable;
 
-import static com.svanberggroup.pfago.Models.Vehicle.VehicleType.Truck;
-
 public class FragmentOne extends Fragment {
 
     private static final String NEW_CONTROL = "new_control";
@@ -28,6 +26,7 @@ public class FragmentOne extends Fragment {
     private TextView textView;
     private EditText editText;
     private Button button;
+
 
     private Control control;
 
@@ -56,8 +55,8 @@ public class FragmentOne extends Fragment {
         View view = inflater.inflate(R.layout.fragment_one, container, false);
 
         textView = view.findViewById(R.id.title);
-        textView.setText("Fragment one");
-        editText = view.findViewById(R.id.edit_text);
+        textView.setText(R.string.hello_blank_fragment);
+        editText = view.findViewById(R.id.licensePlate);
 
         button = view.findViewById(R.id.button);
 
