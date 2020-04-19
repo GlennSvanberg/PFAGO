@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText queryField;
     private ImageButton searchButton;
+    private Button ribButton, addControlButton;
     private RecyclerView recyclerView;
     private LinearLayout buttonsLinearLayout;
     private ControlAdapter adapter;
@@ -51,6 +53,20 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setVisibility(View.GONE);
 
+        ribButton = findViewById(R.id.rib_search_button);
+        ribButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startRIBActivity();
+            }
+        });
+        addControlButton = findViewById(R.id.add_control_button);
+        addControlButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startAddControlActivity();
+            }
+        });
         buttonsLinearLayout = (LinearLayout) findViewById(R.id.buttons_linear_layout);
         buttonsLinearLayout.setVisibility(View.VISIBLE);
 
@@ -134,16 +150,24 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.rib:
-                Intent intent = new Intent(this, RIBActivity.class);
-                startActivity(intent);
+                startRIBActivity();
                 return true;
             case R.id.addControl:
-                intent = new Intent(this, AddControlActivity.class);
-                startActivity(intent);
+                startAddControlActivity();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void startRIBActivity() {
+        Intent intent = new Intent(this, RIBActivity.class);
+        startActivity(intent);
+    }
+
+    private void startAddControlActivity() {
+        Intent intent = new Intent(this, AddControlActivity.class);
+        startActivity(intent);
     }
 
     private class ControlHolder extends RecyclerView.ViewHolder {
