@@ -35,7 +35,10 @@ public class ControlRepository {
     public List<Control> getControlsByRegNr(String regNr) {
         List<Control> matchedControls = new ArrayList<>();
         for(Control control : controls) {
-            if(control.getTruck().getRegNr().equals(regNr) || control.getTrailer().getRegNr().equals(regNr)) {
+            Boolean isTruck = control.getTruck().getRegNr().toLowerCase().equals(regNr.toLowerCase());
+            Boolean isTrailer = control.getTrailer().getRegNr().toLowerCase().equals(regNr.toLowerCase());
+
+            if(isTruck || isTrailer) {
                 matchedControls.add(control);
             }
         }

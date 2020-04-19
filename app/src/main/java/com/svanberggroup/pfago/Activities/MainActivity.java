@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText queryField;
     private ImageButton searchButton;
     private RecyclerView recyclerView;
+    private LinearLayout buttonsLinearLayout;
     private ControlAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
@@ -44,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
         controls = ControlRepository.get().getAllControls();
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setVisibility(View.GONE);
+
+        buttonsLinearLayout = (LinearLayout) findViewById(R.id.buttons_linear_layout);
+        buttonsLinearLayout.setVisibility(View.VISIBLE);
+
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new ControlAdapter(controls);
@@ -57,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 controls = ControlRepository.get().getControlsByRegNr(queryField.getText().toString());
+                recyclerView.setVisibility(View.VISIBLE);
+                buttonsLinearLayout.setVisibility(View.GONE);
                 updateUI();
             }
         });
