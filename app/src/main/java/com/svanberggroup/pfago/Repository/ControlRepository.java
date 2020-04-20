@@ -97,8 +97,8 @@ public class ControlRepository {
         a.setTransportType(Control.TransportType.Bulk);
         a.setTransportStandard(Control.TransportStandard.ADRS);
 
-        ControlRow test = new ControlRow(13, "Skriftliga instruktioner", ControlRow.Field.Controlled, "Normal", true, true, "Det sämstaste någonsin");
-        a.addControlRow(test);
+        ControlRow aGoodsDeclaration = new ControlRow(13, "Skriftliga instruktioner", ControlRow.Field.Controlled, "Normal", true, true, "Det sämstaste någonsin");
+        a.setGoodsDeclarationRow(aGoodsDeclaration);
         controls.add(a);
 
 

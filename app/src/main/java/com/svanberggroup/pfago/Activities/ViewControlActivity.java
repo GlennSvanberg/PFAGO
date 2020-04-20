@@ -22,7 +22,7 @@ import java.util.List;
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
     private TextView headerLeft, headerRight, truckText, trailerText, carrierTextLeft, carrierTextRight, senderText, receiverText;
-    private TextView driverText, passengerText, cargoTextLeft, cargoTextRight, transportDocumentLeft, transportDocumentRight;
+    private TextView driverText, passengerText, cargoTextLeft, cargoTextRight, goodsDeclarationLeft, goodsDeclarationRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,8 @@ public class ViewControlActivity extends AppCompatActivity {
         cargoTextLeft = findViewById(R.id.cargo_text_left);
         cargoTextRight = findViewById(R.id.cargo_text_right);
 
-        transportDocumentLeft = findViewById(R.id.left);
-        transportDocumentRight = findViewById(R.id.right);
+        goodsDeclarationLeft = findViewById(R.id.goodsDeclarationLeft);
+        goodsDeclarationRight = findViewById(R.id.goodsDeclarationRight);
 
         setTextFields();
 
@@ -68,7 +68,7 @@ public class ViewControlActivity extends AppCompatActivity {
         setTransportLocationText(control.getSender(), true, senderText);
         setTransportLocationText(control.getReceiver(), false, receiverText);
 
-        setTransportDocuments(control.getControlRows());
+        setTransportDocuments();
         setCargo();
     }
     private void setHeader() {
@@ -163,20 +163,19 @@ public class ViewControlActivity extends AppCompatActivity {
         str.append(line("Transport enligt:", getString(control.getTransportStandard().label)));
         setText(cargoTextRight, str.toString());
     }
-    private void setTransportDocuments(List<ControlRow> rows) {
-        for (ControlRow row : rows) {
-            Log.i("ROW", row.getName());
-            StringBuilder str = new StringBuilder();
+    private void setTransportDocuments() {
+        setGoodsDeclarationRow();
+    }
+    private void setGoodsDeclarationRow() {
+        StringBuilder str = new StringBuilder();
 
-            str.append(line(row.getName() + ":", getString(row.getField().label)));
 
-            setText(transportDocumentLeft, str.toString());
-            str = new StringBuilder();
+        setText(goodsDeclarationLeft, str.toString());
+        str = new StringBuilder();
 
-            str.append(line("Riskkategori:", row.getRiskCategory()));
-            setText(transportDocumentRight, str.toString());
 
-        }
+        setText(goodsDeclarationRight, str.toString());
+
     }
     private String address(Transporter transporter){
         StringBuilder str = new StringBuilder();

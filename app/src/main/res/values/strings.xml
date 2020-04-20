@@ -31,4 +31,9 @@
     <string name="controlled">Kontrollerat</string>
     <string name="breaking_the_law">Ej enligt regler</string>
     <string name="not_applicable">Ej tillämpligt</string>
+    <string name="loading_plane">Lastplan</string>
+    <string name="stowing_certificate">Stuvnings-intyg/CPC</string>
+    <string name="bilateral">Bilateral</string>
+    <string name="multilateral">Multilateral</string>
+    <string name="natninal_approval">Nationellt tillstånd</string>
 </resources>

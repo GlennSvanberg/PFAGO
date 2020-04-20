@@ -3,9 +3,7 @@ package com.svanberggroup.pfago.Models;
 import com.svanberggroup.pfago.R;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Control implements Serializable {
 
@@ -42,7 +40,34 @@ public class Control implements Serializable {
     private boolean valueQuantityExceeded;
     private int valueQuantity;
 
-    private List<ControlRow> controlRows;
+    private ControlRow goodsDeclarationRow;
+    private enum Declaration {
+        LoadingPlane(R.string.loading_plane),
+        StowageCertificate(R.string.stowing_certificate);
+
+        public final int label;
+        Declaration(int label) {
+            this.label = label;
+        }
+    }
+    private ControlRow writtenInstructionsRow;
+
+    private ControlRow approvalRow;
+    private enum Approval {
+        Bilateral(R.string.bilateral),
+        Multilateral(R.string.multilateral),
+        NationalApproval(R.string.natninal_approval);
+
+        public final int label;
+        Approval(int label) {
+            this.label = label;
+        }
+    }
+
+    private ControlRow approvalCertificateRow;
+    private ControlRow driverCertificationRow;
+    private ControlRow otherADRTrainingRow;
+
 
     public enum TransportType{
         Tank(R.string.tank),
@@ -77,7 +102,6 @@ public class Control implements Serializable {
 
     public Control() {
         startDate = new Date();
-        controlRows = new ArrayList<>();
     }
 
     public int getId() {
@@ -216,14 +240,51 @@ public class Control implements Serializable {
         this.endDate = endDate;
     }
 
-    public List<ControlRow> getControlRows() {
-        return controlRows;
+    public ControlRow getGoodsDeclarationRow() {
+        return goodsDeclarationRow;
     }
 
-    public void setControlRows(List<ControlRow> controlRows) {
-        this.controlRows = controlRows;
+    public void setGoodsDeclarationRow(ControlRow goodsDeclarationRow) {
+        this.goodsDeclarationRow = goodsDeclarationRow;
     }
-    public void addControlRow(ControlRow controlRow) {
-        controlRows.add(controlRow);
+
+    public ControlRow getWrittenInstructionsRow() {
+        return writtenInstructionsRow;
+    }
+
+    public void setWrittenInstructionsRow(ControlRow writtenInstructionsRow) {
+        this.writtenInstructionsRow = writtenInstructionsRow;
+    }
+
+    public ControlRow getApprovalCertificateRow() {
+        return approvalCertificateRow;
+    }
+
+    public void setApprovalCertificateRow(ControlRow approvalCertificateRow) {
+        this.approvalCertificateRow = approvalCertificateRow;
+    }
+
+    public ControlRow getDriverCertificationRow() {
+        return driverCertificationRow;
+    }
+
+    public void setDriverCertificationRow(ControlRow driverCertificationRow) {
+        this.driverCertificationRow = driverCertificationRow;
+    }
+
+    public ControlRow getOtherADRTrainingRow() {
+        return otherADRTrainingRow;
+    }
+
+    public void setOtherADRTrainingRow(ControlRow otherADRTrainingRow) {
+        this.otherADRTrainingRow = otherADRTrainingRow;
+    }
+
+    public ControlRow getApprovalRow() {
+        return approvalRow;
+    }
+
+    public void setApprovalRow(ControlRow approvalRow) {
+        this.approvalRow = approvalRow;
     }
 }
