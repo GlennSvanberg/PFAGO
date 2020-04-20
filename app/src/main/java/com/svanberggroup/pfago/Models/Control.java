@@ -46,7 +46,7 @@ public class Control implements Serializable {
         MixedCargo(R.string.mixed_cargo),
         Other(R.string.other);
 
-        private final int label;
+        public final int label;
         TransportType(int label) {
             this.label = label;
         }

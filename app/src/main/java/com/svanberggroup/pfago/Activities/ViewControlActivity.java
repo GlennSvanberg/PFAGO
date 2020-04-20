@@ -7,6 +7,7 @@ import android.text.Html;
 import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.Control;
+import com.svanberggroup.pfago.Models.Quantity;
 import com.svanberggroup.pfago.Models.TransportLocation;
 import com.svanberggroup.pfago.Models.Transporter;
 import com.svanberggroup.pfago.Models.Vehicle;
@@ -17,8 +18,8 @@ import java.text.SimpleDateFormat;
 
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
-    private TextView headerLeft, headerRight, truckText, trailerText, carrierBodyLeft, carrierBodyRight, senderText, receiverText;
-    private TextView driverText, passengerText;
+    private TextView headerLeft, headerRight, truckText, trailerText, carrierTextLeft, carrierTextRight, senderText, receiverText;
+    private TextView driverText, passengerText, cargoTextLeft, cargoTextRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +35,15 @@ public class ViewControlActivity extends AppCompatActivity {
 
         truckText = findViewById(R.id.truck_text);
         trailerText = findViewById(R.id.trailer_text);
-        carrierBodyLeft = findViewById(R.id.carrier_card_body_left);
-        carrierBodyRight = findViewById(R.id.carrier_card_body_right);
+        carrierTextLeft = findViewById(R.id.carrier_text_left);
+        carrierTextRight = findViewById(R.id.carrier_text_right);
 
         senderText = findViewById(R.id.sender_text);
         receiverText = findViewById(R.id.receiver_text);
         driverText = findViewById(R.id.driver_text);
         passengerText = findViewById(R.id.passenger_text);
+        cargoTextLeft = findViewById(R.id.cargo_text_left);
+        cargoTextRight = findViewById(R.id.cargo_text_right);
 
 
         setTextFields();
@@ -59,6 +62,8 @@ public class ViewControlActivity extends AppCompatActivity {
 
         setTransportLocationText(control.getSender(), true, senderText);
         setTransportLocationText(control.getReceiver(), false, receiverText);
+
+        setCargo();
     }
     private void setHeader() {
         StringBuilder str = new StringBuilder();
@@ -67,8 +72,9 @@ public class ViewControlActivity extends AppCompatActivity {
         String date = formatter.format(control.getStartDate());
         String place = control.getLocation();
 
-        str.append(line("Plats:", place));
         str.append(line("Datum:", date));
+        str.append(line("Plats:", place));
+        str.append(line("Platstyp:", getString(control.getLocationType().label)));
         setText(headerLeft, str.toString());
 
         str = new StringBuilder();
@@ -99,8 +105,8 @@ public class ViewControlActivity extends AppCompatActivity {
         str.append(line("Företag:", control.getCarrier().getName()));
         str.append(line("Tel:", control.getCarrier().getPhone()));
 
-        setText(carrierBodyLeft, str.toString());
-        setText(carrierBodyRight, address(control.getCarrier()));
+        setText(carrierTextLeft, str.toString());
+        setText(carrierTextRight, address(control.getCarrier()));
     }
 
 
@@ -129,7 +135,27 @@ public class ViewControlActivity extends AppCompatActivity {
         str.append(line("Tel:", location.getPhone()));
 
         setText(textView,str.toString());
+    }
 
+    private void setCargo() {
+        StringBuilder str = new StringBuilder();
+        Quantity qty = control.getQuantity();
+        str.append(line("Mängd:", qty.getQuantity() + getString(qty.getQuantityType().label)));
+        str.append(line("Standard:", getString(qty.getPackagingStandard().label)));
+        str.append(line("Värdeberäknad mängd:", "" + control.getValueQuantity()));
+        String exceeded;
+        if(control.isValueQuantityExceeded()) {
+            exceeded = "Ja";
+        } else {
+            exceeded = "Nej";
+        }
+        str.append(line("Överskriden:", exceeded));
+        setText(cargoTextLeft, str.toString());
+
+        str = new StringBuilder();
+        str.append(line("Transport med:", getString(control.getTransportType().label)));
+        str.append(line("Transport enligt:", getString(control.getTransportStandard().label)));
+        setText(cargoTextRight, str.toString());
     }
     private String address(Transporter transporter){
         StringBuilder str = new StringBuilder();

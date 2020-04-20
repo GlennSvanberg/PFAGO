@@ -29,7 +29,6 @@ public class Quantity implements Serializable {
             this.label = label;
         }
     };
-
     private PackagingStandard packagingStandard;
 
     public Quantity() {
