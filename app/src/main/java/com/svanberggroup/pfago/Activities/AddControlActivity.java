@@ -31,6 +31,7 @@ public class AddControlActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tabs);
         control = new Control();
+
         viewPager.setAdapter(createCardAdapter());
 
         new TabLayoutMediator(tabLayout, viewPager,

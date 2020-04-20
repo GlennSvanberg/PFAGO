@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.Control;
@@ -67,7 +68,7 @@ public class ViewControlActivity extends AppCompatActivity {
         setTransportLocationText(control.getSender(), true, senderText);
         setTransportLocationText(control.getReceiver(), false, receiverText);
 
-        //setTransportDocuments();
+        setTransportDocuments(control.getControlRows());
         setCargo();
     }
     private void setHeader() {
@@ -163,7 +164,19 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(cargoTextRight, str.toString());
     }
     private void setTransportDocuments(List<ControlRow> rows) {
+        for (ControlRow row : rows) {
+            Log.i("ROW", row.getName());
+            StringBuilder str = new StringBuilder();
 
+            str.append(line(row.getName() + ":", getString(row.getField().label)));
+
+            setText(transportDocumentLeft, str.toString());
+            str = new StringBuilder();
+
+            str.append(line("Riskkategori:", row.getRiskCategory()));
+            setText(transportDocumentRight, str.toString());
+
+        }
     }
     private String address(Transporter transporter){
         StringBuilder str = new StringBuilder();

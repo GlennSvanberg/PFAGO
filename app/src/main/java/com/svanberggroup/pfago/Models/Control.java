@@ -3,7 +3,9 @@ package com.svanberggroup.pfago.Models;
 import com.svanberggroup.pfago.R;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Control implements Serializable {
 
@@ -40,6 +42,8 @@ public class Control implements Serializable {
     private boolean valueQuantityExceeded;
     private int valueQuantity;
 
+    private List<ControlRow> controlRows;
+
     public enum TransportType{
         Tank(R.string.tank),
         Bulk(R.string.bulk),
@@ -73,6 +77,7 @@ public class Control implements Serializable {
 
     public Control() {
         startDate = new Date();
+        controlRows = new ArrayList<>();
     }
 
     public int getId() {
@@ -209,5 +214,16 @@ public class Control implements Serializable {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public List<ControlRow> getControlRows() {
+        return controlRows;
+    }
+
+    public void setControlRows(List<ControlRow> controlRows) {
+        this.controlRows = controlRows;
+    }
+    public void addControlRow(ControlRow controlRow) {
+        controlRows.add(controlRow);
     }
 }

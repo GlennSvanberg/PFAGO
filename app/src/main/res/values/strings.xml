@@ -28,4 +28,7 @@
     <string name="rid">RID</string>
     <string name="rids">RID-S</string>
     <string name="mou">MoU</string>
+    <string name="controlled">Kontrollerat</string>
+    <string name="breaking_the_law">Ej enligt regler</string>
+    <string name="not_applicable">Ej tillämpligt</string>
 </resources>

@@ -3,6 +3,7 @@ package com.svanberggroup.pfago.Repository;
 import android.util.Log;
 
 import com.svanberggroup.pfago.Models.Control;
+import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.Quantity;
 import com.svanberggroup.pfago.Models.TransportLocation;
 import com.svanberggroup.pfago.Models.Transporter;
@@ -95,6 +96,9 @@ public class ControlRepository {
 
         a.setTransportType(Control.TransportType.Bulk);
         a.setTransportStandard(Control.TransportStandard.ADRS);
+
+        ControlRow test = new ControlRow(13, "Skriftliga instruktioner", ControlRow.Field.Controlled, "Normal", true, true, "Det sämstaste någonsin");
+        a.addControlRow(test);
         controls.add(a);
 
 

@@ -1,16 +1,45 @@
 package com.svanberggroup.pfago.Models;
 
+import com.svanberggroup.pfago.R;
+
 public class ControlRow {
     private int fieldNr;
-    private boolean controlled;
-    private boolean breakingTheLaw;
-    private boolean notApplicable;
+    private String name;
+    public enum Field{
+        Controlled(R.string.controlled),
+        BreakingTheLaw(R.string.breaking_the_law),
+        NotApplicable(R.string.not_applicable);
+        public final int label;
+        Field(int label) {
+            this.label = label;
+        }
+
+    };
+    private Field field;
     private String riskCategory;
     private boolean imposed;
     private boolean banned;
     private String notes;
 
     public ControlRow() {
+    }
+
+    public ControlRow(int fieldNr, String name, Field field, String riskCategory, boolean imposed, boolean banned, String notes) {
+        this.fieldNr = fieldNr;
+        this.name = name;
+        this.field = field;
+        this.riskCategory = riskCategory;
+        this.imposed = imposed;
+        this.banned = banned;
+        this.notes = notes;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getFieldNr() {
@@ -21,36 +50,20 @@ public class ControlRow {
         this.fieldNr = fieldNr;
     }
 
-    public boolean isControlled() {
-        return controlled;
-    }
-
-    public void setControlled(boolean controlled) {
-        this.controlled = controlled;
-    }
-
-    public boolean isBreakingTheLaw() {
-        return breakingTheLaw;
-    }
-
-    public void setBreakingTheLaw(boolean breakingTheLaw) {
-        this.breakingTheLaw = breakingTheLaw;
-    }
-
-    public boolean isNotApplicable() {
-        return notApplicable;
-    }
-
-    public void setNotApplicable(boolean notApplicable) {
-        this.notApplicable = notApplicable;
-    }
-
     public String getRiskCategory() {
         return riskCategory;
     }
 
     public void setRiskCategory(String riskCategory) {
         this.riskCategory = riskCategory;
+    }
+
+    public Field getField() {
+        return field;
+    }
+
+    public void setField(Field field) {
+        this.field = field;
     }
 
     public boolean isImposed() {
