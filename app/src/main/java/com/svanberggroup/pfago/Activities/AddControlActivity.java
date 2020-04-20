@@ -79,7 +79,6 @@ public class AddControlActivity extends AppCompatActivity {
 
                 default: return super.onOptionsItemSelected(item);
         }
-
     }
 
     private ViewPagerAdapter createCardAdapter() {

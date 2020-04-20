@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.Control;
@@ -22,7 +25,9 @@ import java.util.List;
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
     private TextView headerLeft, headerRight, truckText, trailerText, carrierTextLeft, carrierTextRight, senderText, receiverText;
-    private TextView driverText, passengerText, cargoTextLeft, cargoTextRight, transportDocumentLeft, transportDocumentRight;
+    private TextView driverText, passengerText, cargoTextLeft, cargoTextRight;
+
+    private LinearLayout transportDocumentLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +53,7 @@ public class ViewControlActivity extends AppCompatActivity {
         cargoTextLeft = findViewById(R.id.cargo_text_left);
         cargoTextRight = findViewById(R.id.cargo_text_right);
 
-        transportDocumentLeft = findViewById(R.id.left);
-        transportDocumentRight = findViewById(R.id.right);
+        transportDocumentLayout = findViewById(R.id.transport_document_layout);
 
         setTextFields();
 
@@ -68,7 +72,10 @@ public class ViewControlActivity extends AppCompatActivity {
         setTransportLocationText(control.getSender(), true, senderText);
         setTransportLocationText(control.getReceiver(), false, receiverText);
 
-        setTransportDocuments(control.getControlRows());
+        for(ControlRow row : control.getControlRows()) {
+            addTransportDocumentRow(row);
+        }
+
         setCargo();
     }
     private void setHeader() {
@@ -163,20 +170,65 @@ public class ViewControlActivity extends AppCompatActivity {
         str.append(line("Transport enligt:", getString(control.getTransportStandard().label)));
         setText(cargoTextRight, str.toString());
     }
-    private void setTransportDocuments(List<ControlRow> rows) {
-        for (ControlRow row : rows) {
-            Log.i("ROW", row.getName());
-            StringBuilder str = new StringBuilder();
 
-            str.append(line(row.getName() + ":", getString(row.getField().label)));
+    private void addTransportDocumentRow(ControlRow row) {
+        TextView textViewText = new TextView(this);
+        textViewText.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        textViewText.setPadding(8,8,8,0);
 
-            setText(transportDocumentLeft, str.toString());
-            str = new StringBuilder();
+        TextView textViewBool = new TextView(this);
+        textViewBool.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        textViewBool.setPadding(8,8,8,0);
 
-            str.append(line("Riskkategori:", row.getRiskCategory()));
-            setText(transportDocumentRight, str.toString());
+        TextView textViewNotes = new TextView(this);
+        textViewNotes.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        textViewNotes.setPadding(8,0,8,0);
 
-        }
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+
+        transportDocumentLayout.addView(linearLayout);
+        transportDocumentLayout.addView(textViewNotes);
+        linearLayout.addView(textViewText);
+        linearLayout.addView(textViewBool);
+        setTransportDocumentText(textViewText, row);
+        setTransportDocumentBool(textViewBool, row);
+        ImageView divider = new ImageView(this);
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(8,8,8,0);
+
+        divider.setLayoutParams(params);
+
+        divider.setBackgroundColor(getColor(R.color.colorPrimary));
+        transportDocumentLayout.addView(divider);
+
+
+    }
+    private void setTransportDocumentNotes(TextView textView, ControlRow row) {
+
+        setText(textView, line("Anteckningar:", row.getNotes()));
+    }
+    private void setTransportDocumentText(TextView textView, ControlRow row) {
+        StringBuilder str = new StringBuilder();
+        str.append(line("", row.getName()));
+
+        str.append(line("Status:", getString(row.getField().label)));
+        str.append(line("Riskkategori:", row.getRiskCategory()));
+        str.append(line("Anteckningar:", row.getNotes()));
+
+        setText(textView, str.toString());
+    }
+    private void setTransportDocumentBool(TextView textView, ControlRow row) {
+        StringBuilder str = new StringBuilder();
+
+        str.append(line("     Föreläggande:", row.isImposed() ? "Ja" : "Nej"));
+        str.append(line("    Förbud:", row.isBanned() ? "Ja" : "Nej"));
+
+
+
+        setText(textView, str.toString());
     }
     private String address(Transporter transporter){
         StringBuilder str = new StringBuilder();
@@ -194,6 +246,9 @@ public class ViewControlActivity extends AppCompatActivity {
 
     private String title(String title) {
         return  title + "<br>";
+    }
+    private String lineNoBr(String title, String data) {
+        return title + " <strong>" + data + "</strong>";
     }
     private String line(String title, String data) {
         return title + " <strong>" + data + "</strong>" + "<br>";

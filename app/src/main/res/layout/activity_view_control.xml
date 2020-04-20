@@ -267,23 +267,11 @@
                         android:textColor="@color/white"
                         android:background="@color/colorPrimary"/>
                     <LinearLayout
+                        android:id="@+id/transport_document_layout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/left"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="8dp"
-                            android:paddingHorizontal="8dp"/>
-                        <TextView
-                            android:id="@+id/right"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="8dp"
-                            android:paddingHorizontal="8dp"/>
+                        android:orientation="vertical">
+
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
