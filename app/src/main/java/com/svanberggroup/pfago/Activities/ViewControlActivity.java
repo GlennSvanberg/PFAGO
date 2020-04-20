@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.Control;
@@ -23,7 +25,7 @@ public class ViewControlActivity extends AppCompatActivity {
     private TextView headerLeft, headerRight, truckText, trailerText, carrierTextLeft, carrierTextRight, senderText, receiverText;
     private TextView driverText, passengerText, cargoTextLeft, cargoTextRight, goodsDeclarationLeft, goodsDeclarationRight, writtenInstructionsLeft, writtenInstructionsRight;
     private TextView approvalRowLeft, approvalRowRight, approvalCertificateRowLeft, approvalCertificateRowRight, driverCertificateRowLeft, driverCertificateRowRight, otherTrainingRowLeft, otherTrainingRowRight;
-    private TextView
+    private LinearLayout pappa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,8 @@ public class ViewControlActivity extends AppCompatActivity {
         driverCertificateRowRight = findViewById(R.id.driverCertificateRowRight);
         otherTrainingRowLeft = findViewById(R.id.otherTrainingRowLeft);
         otherTrainingRowRight = findViewById(R.id.otherTrainingRowRight);
+
+        pappa = findViewById(R.id.pappa);
         setTextFields();
 
     }
@@ -79,11 +83,14 @@ public class ViewControlActivity extends AppCompatActivity {
         setTransportLocationText(control.getSender(), true, senderText);
         setTransportLocationText(control.getReceiver(), false, receiverText);
 
+        addView();
         setTransportDocumentRows(control.getTdRows());
         setTransportRows();
         setCargo();
     }
-
+    private void addView() {
+        View.inflate(this,R.layout.view_control_row, pappa);
+    }
     private void setTransportDocumentRows(TransportDocumentRows tdRows) {
         String declaration = Html.fromHtml(line("", getString(tdRows.getDeclaration().label))).toString();
         setControlRowLeft(tdRows.getGoodsDeclarationRow(), goodsDeclarationLeft, "13. Godsdeklaration");
