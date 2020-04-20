@@ -21,11 +21,11 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/radioGroup2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText3"
+            app:layout_constraintTop_toBottomOf="@+id/placeTextView"
             tools:text="@string/hello_blank_fragment" />
 
         <EditText
-            android:id="@+id/licensePlate"
+            android:id="@+id/vehcileLicensePlateTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -46,16 +46,16 @@
             app:layout_constraintTop_toBottomOf="@+id/radioGroup"></Button>
 
         <EditText
-            android:id="@+id/countr"
+            android:id="@+id/vehicleCountryTextField"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:ems="10"
             android:hint="Nationalitet"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/licensePlate"
+            app:layout_constraintEnd_toEndOf="@+id/vehcileLicensePlateTextView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/licensePlate" />
+            app:layout_constraintTop_toBottomOf="@+id/vehcileLicensePlateTextView" />
 
         <TextView
             android:id="@+id/trailer"
@@ -67,22 +67,22 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/countr" />
+            app:layout_constraintTop_toBottomOf="@+id/vehicleCountryTextField" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/trailerLicensePlateTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:ems="10"
             android:hint="ABC123"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toStartOf="@+id/editText2"
+            app:layout_constraintEnd_toStartOf="@+id/trailerCountryTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/trailer" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/trailerCountryTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -90,7 +90,7 @@
             android:hint="Nationalitet"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/editText" />
+            app:layout_constraintTop_toTopOf="@+id/trailerLicensePlateTextView" />
 
         <RadioGroup
             android:id="@+id/radioGroup"
@@ -137,7 +137,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintTop_toBottomOf="@+id/trailerLicensePlateTextView" />
 
         <RadioGroup
             android:id="@+id/radioGroup2"
@@ -199,7 +199,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/placeTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -222,7 +222,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editText3"
+            app:layout_constraintStart_toEndOf="@+id/placeTextView"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

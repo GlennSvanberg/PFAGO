@@ -10,11 +10,15 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Trace;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Adapter;
+import android.widget.EditText;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -46,6 +50,7 @@ public class AddControlActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
     private String city;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +71,16 @@ public class AddControlActivity extends AppCompatActivity {
             public void onSuccess(Location location) {
                 if (location != null) {
                     // Context
-                    Geocoder geocoder = new Geocoder(  , Locale.getDefault());
-                    List<Address> adrresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                    String cityName = adrresses.get(0).getAddressLine(0);
-                    city = cityName;
+                    Geocoder geocoder = new Geocoder(getApplicationContext() , Locale.getDefault());
+                    try {
+                        List<Address> adrresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                        String cityName = adrresses.get(0).getAddressLine(0);
+                        city = cityName;
+                    } catch(Exception e) {
+
+                    }
+
+
 
                 }
             }
@@ -108,6 +119,8 @@ public class AddControlActivity extends AppCompatActivity {
                     }
                 }).attach();
 
+
+
     }
 
     @Override
@@ -117,12 +130,14 @@ public class AddControlActivity extends AppCompatActivity {
         return true;
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.doneControl:
 
-                finish();
+              //  ControlRepository.get().addControl(control);
                 return true;
 
                 default: return super.onOptionsItemSelected(item);

@@ -28,4 +28,5 @@
     <string name="rid">RID</string>
     <string name="rids">RID-S</string>
     <string name="mou">MoU</string>
+    <string name="carrier">Transpotör</string>
 </resources>

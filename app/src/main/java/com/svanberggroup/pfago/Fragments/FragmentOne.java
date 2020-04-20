@@ -1,7 +1,9 @@
 package com.svanberggroup.pfago.Fragments;
 
-import android.location.Location;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
@@ -30,6 +30,10 @@ public class FragmentOne extends Fragment {
     private EditText editText;
     private Button button;
 
+    private EditText placeField;
+    private EditText licensePlateField;
+
+    private Vehicle vehicle;
 
     private Control control;
 
@@ -49,6 +53,7 @@ public class FragmentOne extends Fragment {
         super.onCreate(savedInstanceState);
         control = (Control) getArguments().getSerializable(NEW_CONTROL);
 
+        vehicle = new Vehicle();
     }
 
     @Override
@@ -59,7 +64,9 @@ public class FragmentOne extends Fragment {
 
         textView = view.findViewById(R.id.title);
         textView.setText(R.string.hello_blank_fragment);
-        editText = view.findViewById(R.id.licensePlate);
+
+        licensePlateField = view.findViewById(R.id.vehcileLicensePlateTextView);
+        placeField = view.findViewById(R.id.placeTextView);
 
         button = view.findViewById(R.id.button);
 
@@ -72,6 +79,8 @@ public class FragmentOne extends Fragment {
             }
         });
 
+        addSaveControlsListener();
+
         return  view;
     }
 
@@ -79,5 +88,47 @@ public class FragmentOne extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
+    }
+
+    private void addSaveControlsListener() {
+        placeField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.i("janne", placeField.getText().toString());
+                control.setLocation(placeField.getText().toString());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+        licensePlateField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(licensePlateField.length() > 0) {
+                    vehicle.setRegNr(licensePlateField.getText().toString());
+                    control.setTruck(vehicle);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 }
