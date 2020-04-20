@@ -33,6 +33,7 @@ public class FragmentOne extends Fragment {
     private EditText placeField;
     private EditText licensePlateField;
 
+
     private Vehicle vehicle;
 
     private Control control;
@@ -66,7 +67,24 @@ public class FragmentOne extends Fragment {
         textView.setText(R.string.hello_blank_fragment);
 
         licensePlateField = view.findViewById(R.id.vehcileLicensePlateTextView);
-        placeField = view.findViewById(R.id.placeTextView);
+        placeField = view.findViewById(R.id.placeTextField);
+        placeField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                control.setLocation(charSequence.toString());
+                Log.i("JANNE", control.getLocation());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         button = view.findViewById(R.id.button);
 
