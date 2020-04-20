@@ -22,6 +22,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Repository.ControlRepository;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout buttonsLinearLayout;
     private ControlAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private FusedLocationProviderClient fusedLocationClient;
 
     private boolean isSearchMode = true;
 
