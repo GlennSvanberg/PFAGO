@@ -5,6 +5,7 @@ import android.util.Log;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.Quantity;
+import com.svanberggroup.pfago.Models.TransportDocumentRows;
 import com.svanberggroup.pfago.Models.TransportLocation;
 import com.svanberggroup.pfago.Models.Transporter;
 import com.svanberggroup.pfago.Models.Vehicle;
@@ -99,16 +100,16 @@ public class ControlRepository {
 
         ControlRow aGoodsDeclaration = new ControlRow(13, "Skriftliga instruktioner", ControlRow.Field.Controlled, "Normal", true, true, "Det sämstaste någonsin");
 
-        a.setGoodsDeclarationRow(aGoodsDeclaration);
-        a.setDeclaration(Control.Declaration.LoadingPlane);
+        a.getTdRows().setGoodsDeclarationRow(aGoodsDeclaration);
+        a.getTdRows().setDeclaration(TransportDocumentRows.Declaration.LoadingPlane);
 
-        a.setWrittenInstructionsRow(aGoodsDeclaration);
-        a.setApprovalRow(aGoodsDeclaration);
-        a.setApproval(Control.Approval.Bilateral);
+        a.getTdRows().setWrittenInstructionsRow(aGoodsDeclaration);
+        a.getTdRows().setApprovalRow(aGoodsDeclaration);
+        a.getTdRows().setApproval(TransportDocumentRows.Approval.Bilateral);
 
-        a.setApprovalCertificateRow(aGoodsDeclaration);
-        a.setDriverCertificationRow(aGoodsDeclaration);
-        a.setOtherADRTrainingRow(aGoodsDeclaration);
+        a.getTdRows().setApprovalCertificateRow(aGoodsDeclaration);
+        a.getTdRows().setDriverCertificationRow(aGoodsDeclaration);
+        a.getTdRows().setOtherADRTrainingRow(aGoodsDeclaration);
         controls.add(a);
 
 

@@ -4,12 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.Quantity;
+import com.svanberggroup.pfago.Models.TransportDocumentRows;
 import com.svanberggroup.pfago.Models.TransportLocation;
 import com.svanberggroup.pfago.Models.Transporter;
 import com.svanberggroup.pfago.Models.Vehicle;
@@ -17,14 +17,13 @@ import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Repository.ControlRepository;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
     private TextView headerLeft, headerRight, truckText, trailerText, carrierTextLeft, carrierTextRight, senderText, receiverText;
     private TextView driverText, passengerText, cargoTextLeft, cargoTextRight, goodsDeclarationLeft, goodsDeclarationRight, writtenInstructionsLeft, writtenInstructionsRight;
     private TextView approvalRowLeft, approvalRowRight, approvalCertificateRowLeft, approvalCertificateRowRight, driverCertificateRowLeft, driverCertificateRowRight, otherTrainingRowLeft, otherTrainingRowRight;
-
+    private TextView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,28 +79,35 @@ public class ViewControlActivity extends AppCompatActivity {
         setTransportLocationText(control.getSender(), true, senderText);
         setTransportLocationText(control.getReceiver(), false, receiverText);
 
-        setTransportDocuments();
+        setTransportDocumentRows(control.getTdRows());
+        setTransportRows();
         setCargo();
     }
 
-    private void setTransportDocuments() {
-        setControlRowLeft(control.getGoodsDeclarationRow(), goodsDeclarationLeft, "Godsdeklaration");
-        setControlRowRight(control.getGoodsDeclarationRow(), goodsDeclarationRight, getString(control.getDeclaration().label));
+    private void setTransportDocumentRows(TransportDocumentRows tdRows) {
+        String declaration = Html.fromHtml(line("", getString(tdRows.getDeclaration().label))).toString();
+        setControlRowLeft(tdRows.getGoodsDeclarationRow(), goodsDeclarationLeft, "13. Godsdeklaration");
+        setControlRowRight(tdRows.getGoodsDeclarationRow(), goodsDeclarationRight, declaration);
 
-        setControlRowLeft(control.getWrittenInstructionsRow(), writtenInstructionsLeft, "Skriftliga instruktioner");
-        setControlRowRight(control.getWrittenInstructionsRow(), writtenInstructionsRight, "");
+        setControlRowLeft(tdRows.getWrittenInstructionsRow(), writtenInstructionsLeft, "14. Skriftliga instruktioner");
+        setControlRowRight(tdRows.getWrittenInstructionsRow(), writtenInstructionsRight, "");
 
-        setControlRowLeft(control.getApprovalRow(), approvalRowLeft, getString(control.getApproval().label));
-        setControlRowRight(control.getApprovalRow(), approvalRowRight, "");
+        String approval = Html.fromHtml(line("", "15." + getString(tdRows.getApproval().label))).toString();
+        setControlRowLeft(tdRows.getApprovalRow(), approvalRowLeft, approval);
+        setControlRowRight(tdRows.getApprovalRow(), approvalRowRight, "");
 
-        setControlRowLeft(control.getApprovalCertificateRow(), approvalCertificateRowLeft, "Godkännandecertifikat");
-        setControlRowRight(control.getApprovalCertificateRow(), approvalCertificateRowRight, "");
+        setControlRowLeft(tdRows.getApprovalCertificateRow(), approvalCertificateRowLeft, "16. Godkännandecertifikat");
+        setControlRowRight(tdRows.getApprovalCertificateRow(), approvalCertificateRowRight, "");
 
-        setControlRowLeft(control.getDriverCertificationRow(), driverCertificateRowLeft, "Förarintyg (ADR 8.2.1, 8.2.2)");
-        setControlRowRight(control.getDriverCertificationRow(), driverCertificateRowRight, "");
+        setControlRowLeft(tdRows.getDriverCertificationRow(), driverCertificateRowLeft, "17. Förarintyg (ADR 8.2.1, 8.2.2)");
+        setControlRowRight(tdRows.getDriverCertificationRow(), driverCertificateRowRight, "");
 
-        setControlRowLeft(control.getOtherADRTrainingRow(), otherTrainingRowLeft, "Annan ADR-utbildning");
-        setControlRowRight(control.getOtherADRTrainingRow(), otherTrainingRowRight, "");
+        setControlRowLeft(tdRows.getOtherADRTrainingRow(), otherTrainingRowLeft, "18. Annan ADR-utbildning");
+        setControlRowRight(tdRows.getOtherADRTrainingRow(), otherTrainingRowRight, "");
+    }
+
+    private void setTransportRows() {
+
     }
 
     private void setHeader() {

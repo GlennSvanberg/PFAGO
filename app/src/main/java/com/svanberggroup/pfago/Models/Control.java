@@ -40,35 +40,10 @@ public class Control implements Serializable {
     private boolean valueQuantityExceeded;
     private int valueQuantity;
 
-    private ControlRow goodsDeclarationRow;
-    public enum Declaration {
-        LoadingPlane(R.string.loading_plane),
-        StowageCertificate(R.string.stowing_certificate);
+    private TransportDocumentRows tdRows;
+    private TransportRows tRows;
 
-        public final int label;
-        Declaration(int label) {
-            this.label = label;
-        }
-    }
-    private Declaration declaration;
-    private ControlRow writtenInstructionsRow;
 
-    private ControlRow approvalRow;
-    public enum Approval {
-        Bilateral(R.string.bilateral),
-        Multilateral(R.string.multilateral),
-        NationalApproval(R.string.natninal_approval);
-
-        public final int label;
-        Approval(int label) {
-            this.label = label;
-        }
-    }
-    private Approval approval;
-
-    private ControlRow approvalCertificateRow;
-    private ControlRow driverCertificationRow;
-    private ControlRow otherADRTrainingRow;
 
 
     public enum TransportType{
@@ -104,6 +79,8 @@ public class Control implements Serializable {
 
     public Control() {
         startDate = new Date();
+        tdRows = new TransportDocumentRows();
+        tRows = new TransportRows();
     }
 
     public int getId() {
@@ -242,67 +219,19 @@ public class Control implements Serializable {
         this.endDate = endDate;
     }
 
-    public ControlRow getGoodsDeclarationRow() {
-        return goodsDeclarationRow;
+    public TransportDocumentRows getTdRows() {
+        return tdRows;
     }
 
-    public void setGoodsDeclarationRow(ControlRow goodsDeclarationRow) {
-        this.goodsDeclarationRow = goodsDeclarationRow;
+    public void setTdRows(TransportDocumentRows tdRows) {
+        this.tdRows = tdRows;
     }
 
-    public ControlRow getWrittenInstructionsRow() {
-        return writtenInstructionsRow;
+    public TransportRows gettRows() {
+        return tRows;
     }
 
-    public void setWrittenInstructionsRow(ControlRow writtenInstructionsRow) {
-        this.writtenInstructionsRow = writtenInstructionsRow;
-    }
-
-    public ControlRow getApprovalCertificateRow() {
-        return approvalCertificateRow;
-    }
-
-    public void setApprovalCertificateRow(ControlRow approvalCertificateRow) {
-        this.approvalCertificateRow = approvalCertificateRow;
-    }
-
-    public ControlRow getDriverCertificationRow() {
-        return driverCertificationRow;
-    }
-
-    public void setDriverCertificationRow(ControlRow driverCertificationRow) {
-        this.driverCertificationRow = driverCertificationRow;
-    }
-
-    public ControlRow getOtherADRTrainingRow() {
-        return otherADRTrainingRow;
-    }
-
-    public void setOtherADRTrainingRow(ControlRow otherADRTrainingRow) {
-        this.otherADRTrainingRow = otherADRTrainingRow;
-    }
-
-    public ControlRow getApprovalRow() {
-        return approvalRow;
-    }
-
-    public void setApprovalRow(ControlRow approvalRow) {
-        this.approvalRow = approvalRow;
-    }
-
-    public Declaration getDeclaration() {
-        return declaration;
-    }
-
-    public void setDeclaration(Declaration declaration) {
-        this.declaration = declaration;
-    }
-
-    public Approval getApproval() {
-        return approval;
-    }
-
-    public void setApproval(Approval approval) {
-        this.approval = approval;
+    public void settRows(TransportRows tRows) {
+        this.tRows = tRows;
     }
 }

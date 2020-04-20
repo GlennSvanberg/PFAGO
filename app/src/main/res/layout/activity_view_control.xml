@@ -395,14 +395,14 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:paddingTop="8dp"
+                            android:paddingTop="4dp"
                             android:paddingHorizontal="8dp"/>
                         <TextView
                             android:id="@+id/otherTrainingRowRight"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:paddingTop="8dp"
+                            android:paddingTop="4dp"
                             android:paddingHorizontal="8dp"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -429,20 +429,49 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/left"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="8dp"
-                            android:paddingHorizontal="8dp"/>
-                        <TextView
-                            android:id="@+id/right"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="8dp"
-                            android:paddingHorizontal="8dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/goodsAllowedForTransportRowLeft"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="8dp"
+                                android:paddingHorizontal="8dp"/>
+                            <TextView
+                                android:id="@+id/goodsAllowedForTransportRowRight"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="8dp"
+                                android:paddingHorizontal="8dp"/>
+                        </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginHorizontal="8dp"
+                            android:background="@color/colorPrimaryLight" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/vehicleLabeledForGoodsLeft"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="4dp"
+                                android:paddingHorizontal="8dp"/>
+                            <TextView
+                                android:id="@+id/vehicleLabeledForGoodsRight"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="4dp"
+                                android:paddingHorizontal="8dp"/>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
