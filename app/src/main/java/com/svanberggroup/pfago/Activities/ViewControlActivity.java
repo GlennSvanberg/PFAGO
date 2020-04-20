@@ -7,6 +7,7 @@ import android.text.Html;
 import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.Control;
+import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.Quantity;
 import com.svanberggroup.pfago.Models.TransportLocation;
 import com.svanberggroup.pfago.Models.Transporter;
@@ -15,11 +16,12 @@ import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Repository.ControlRepository;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
     private TextView headerLeft, headerRight, truckText, trailerText, carrierTextLeft, carrierTextRight, senderText, receiverText;
-    private TextView driverText, passengerText, cargoTextLeft, cargoTextRight;
+    private TextView driverText, passengerText, cargoTextLeft, cargoTextRight, transportDocumentLeft, transportDocumentRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,8 @@ public class ViewControlActivity extends AppCompatActivity {
         cargoTextLeft = findViewById(R.id.cargo_text_left);
         cargoTextRight = findViewById(R.id.cargo_text_right);
 
+        transportDocumentLeft = findViewById(R.id.left);
+        transportDocumentRight = findViewById(R.id.right);
 
         setTextFields();
 
@@ -63,6 +67,7 @@ public class ViewControlActivity extends AppCompatActivity {
         setTransportLocationText(control.getSender(), true, senderText);
         setTransportLocationText(control.getReceiver(), false, receiverText);
 
+        //setTransportDocuments();
         setCargo();
     }
     private void setHeader() {
@@ -156,6 +161,9 @@ public class ViewControlActivity extends AppCompatActivity {
         str.append(line("Transport med:", getString(control.getTransportType().label)));
         str.append(line("Transport enligt:", getString(control.getTransportStandard().label)));
         setText(cargoTextRight, str.toString());
+    }
+    private void setTransportDocuments(List<ControlRow> rows) {
+
     }
     private String address(Transporter transporter){
         StringBuilder str = new StringBuilder();
