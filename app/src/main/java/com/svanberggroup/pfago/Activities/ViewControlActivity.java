@@ -2,10 +2,8 @@ package com.svanberggroup.pfago.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.location.Location;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.Spanned;
 import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.Control;
@@ -18,8 +16,8 @@ import java.text.SimpleDateFormat;
 
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
-    private TextView controlBodyLeft, controlBodyRight, vehicleHeader, vehicleBodyLeft, vehicleBodyRight, carrierBodyLeft, carrierBodyRight, driverBodyLeft, driverBodyRight, passengerBodyLeft, passengerBodyRight, locationBodyLeft, locationBodyRight;
-
+    private TextView controlBodyLeft, controlBodyRight, vehicleHeader, vehicleBodyLeft, vehicleBodyRight, carrierBodyLeft, carrierBodyRight, senderText, receiverText;
+    private TextView driverText, passengerText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +35,11 @@ public class ViewControlActivity extends AppCompatActivity {
         vehicleBodyRight = findViewById(R.id.vehicle_card_body_right);
         carrierBodyLeft = findViewById(R.id.carrier_card_body_left);
         carrierBodyRight = findViewById(R.id.carrier_card_body_right);
-        driverBodyLeft = findViewById(R.id.driver_card_body_left);
-        driverBodyRight = findViewById(R.id.driver_card_body_right);
-        passengerBodyLeft = findViewById(R.id.passenger_card_body_left);
-        passengerBodyRight = findViewById(R.id.passenger_card_body_right);
-        locationBodyLeft = findViewById(R.id.locations_card_body_left);
-        locationBodyRight = findViewById(R.id.locations_card_body_right);
+
+        senderText = findViewById(R.id.sender_text);
+        receiverText = findViewById(R.id.receiver_text);
+        driverText = findViewById(R.id.driver_text);
+        passengerText = findViewById(R.id.passenger_text);
 
 
         setTextFields();
@@ -56,12 +53,12 @@ public class ViewControlActivity extends AppCompatActivity {
         setVehicleBodyTextRight();
         setCarrierBodyTextLeft();
         setCarrierBodyTextRight();
-        setDriverBodyTextLeft();
-        setDriverBodyTextRight();
-        setPassengerBodyTextLeft();
-        setPassengerBodyTextRight();
-        setLocationBodyTextLeft();
-        setLocationBodyTextRight();
+
+        setTransporterText(control.getDriver(), "Förare", driverText);
+        setTransporterText(control.getPassenger(), "Besättning", passengerText);
+
+        setTransportLocationText(control.getSender(), true, senderText);
+        setTransportLocationText(control.getReceiver(), false, receiverText);
     }
     private void setControlBodyTextLeft() {
         StringBuilder str = new StringBuilder();
@@ -118,52 +115,32 @@ public class ViewControlActivity extends AppCompatActivity {
         String str = address(control.getCarrier());
         carrierBodyRight.setText(Html.fromHtml(str));
     }
-
-    private void setDriverBodyTextLeft() {
+    private void setTransporterText(Transporter transporter, String title, TextView textView) {
         StringBuilder str = new StringBuilder();
 
-        str.append(line("Förare:", control.getDriver().getName()));
-        str.append(line("Tel:", control.getDriver().getPhone()));
+        str.append(line("", title));
+        str.append(line("Namn:", transporter.getName()));
+        str.append(line("Tel:", transporter.getPhone()));
+        str.append(address(transporter));
 
-        driverBodyLeft.setText(Html.fromHtml(str.toString()));
+        setText(textView, str);
     }
 
-    private void setDriverBodyTextRight(){
-        String str = address(control.getDriver());
-        driverBodyRight.setText(Html.fromHtml(str));
-    }
-
-    private void setPassengerBodyTextLeft() {
+    private void setTransportLocationText(TransportLocation location, boolean isSender, TextView textView) {
         StringBuilder str = new StringBuilder();
+        if(isSender) {
+            str.append(title("Avsändare"));
+            str.append(line("Lastplats:", location.getPlace()));
+        } else {
+            str.append(title("Mottagare"));
+            str.append(line("Lossnigsplats:", location.getPlace()));
+        }
+        str.append(line("Adress:", location.getAddress()));
+        str.append(line("Telefon:", location.getPhone()));
 
-        str.append(line("Besättning:", control.getPassenger().getName()));
-        str.append(line("Tel:", control.getPassenger().getPhone()));
+        setText(textView,str);
 
-        passengerBodyLeft.setText(Html.fromHtml(str.toString()));
     }
-
-    private void setPassengerBodyTextRight(){
-        String str = (address(control.getPassenger()));
-        passengerBodyRight.setText(Html.fromHtml(str));
-    }
-
-    private void setLocationBodyTextLeft() {
-        StringBuilder str = new StringBuilder();
-        str.append(line("", "Avsändare"));
-        str.append(line("Adress:", control.getSender().getAddress()));
-        str.append(line("Lastplats:", control.getSender().getPlace()));
-        str.append(line("Telefon:", control.getSender().getPhone()));
-        locationBodyLeft.setText(Html.fromHtml(str.toString()));
-    }
-    private void setLocationBodyTextRight() {
-        StringBuilder str = new StringBuilder();
-        str.append(line("", "Mottagare"));
-        str.append(line("Adress:", control.getReceiver().getAddress()));
-        str.append(line("Lossnigsplats:", control.getReceiver().getPlace()));
-        str.append(line("Telefon:", control.getReceiver().getPhone()));
-        locationBodyRight.setText(Html.fromHtml(str.toString()));
-    }
-
     private String address(Transporter transporter){
         StringBuilder str = new StringBuilder();
         str.append(line("Adress:", transporter.getAddress()));
@@ -173,7 +150,10 @@ public class ViewControlActivity extends AppCompatActivity {
         return str.toString();
     }
 
+    private void setText(TextView textView, StringBuilder str) {
+        textView.setText(Html.fromHtml(str.toString()));
 
+    }
 
     private String title(String title) {
         return  title + "<br>";
