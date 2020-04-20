@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.TransportLocation;
 import com.svanberggroup.pfago.Models.Transporter;
+import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Repository.ControlRepository;
 
@@ -16,7 +17,7 @@ import java.text.SimpleDateFormat;
 
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
-    private TextView controlBodyLeft, controlBodyRight, vehicleHeader, vehicleBodyLeft, vehicleBodyRight, carrierBodyLeft, carrierBodyRight, senderText, receiverText;
+    private TextView headerLeft, headerRight, truckText, trailerText, carrierBodyLeft, carrierBodyRight, senderText, receiverText;
     private TextView driverText, passengerText;
 
     @Override
@@ -28,11 +29,11 @@ public class ViewControlActivity extends AppCompatActivity {
         ControlRepository repo = ControlRepository.get();
         control = repo.getControlById(id);
 
-        controlBodyLeft = findViewById(R.id.control_card_body_left);
-        controlBodyRight = findViewById(R.id.control_card_body_right);
-        vehicleHeader = findViewById(R.id.vehicle_card_header);
-        vehicleBodyLeft = findViewById(R.id.vehicle_card_body_left);
-        vehicleBodyRight = findViewById(R.id.vehicle_card_body_right);
+        headerLeft = findViewById(R.id.control_card_body_left);
+        headerRight = findViewById(R.id.control_card_body_right);
+
+        truckText = findViewById(R.id.truck_text);
+        trailerText = findViewById(R.id.trailer_text);
         carrierBodyLeft = findViewById(R.id.carrier_card_body_left);
         carrierBodyRight = findViewById(R.id.carrier_card_body_right);
 
@@ -47,12 +48,11 @@ public class ViewControlActivity extends AppCompatActivity {
     }
     private void setTextFields() {
 
-        setControlBodyTextLeft();
-        setControlBodyTextRight();
-        setVehicleBodyTextLeft();
-        setVehicleBodyTextRight();
-        setCarrierBodyTextLeft();
-        setCarrierBodyTextRight();
+        setHeader();
+
+        setVehicleText(control.getTruck(), truckText);
+        setVehicleText(control.getTrailer(), trailerText);
+        setCarrierText();
 
         setTransporterText(control.getDriver(), "Förare", driverText);
         setTransporterText(control.getPassenger(), "Besättning", passengerText);
@@ -60,7 +60,7 @@ public class ViewControlActivity extends AppCompatActivity {
         setTransportLocationText(control.getSender(), true, senderText);
         setTransportLocationText(control.getReceiver(), false, receiverText);
     }
-    private void setControlBodyTextLeft() {
+    private void setHeader() {
         StringBuilder str = new StringBuilder();
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
 
@@ -69,12 +69,10 @@ public class ViewControlActivity extends AppCompatActivity {
 
         str.append(line("Plats:", place));
         str.append(line("Datum:", date));
+        setText(headerLeft, str.toString());
 
-        controlBodyLeft.setText(Html.fromHtml(str.toString()));
-    }
-    private void setControlBodyTextRight() {
-        StringBuilder str = new StringBuilder();
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        str = new StringBuilder();
+        formatter = new SimpleDateFormat("HH:mm");
 
         String startDate = formatter.format(control.getStartDate());
         String endDate = formatter.format(control.getEndDate());
@@ -82,39 +80,30 @@ public class ViewControlActivity extends AppCompatActivity {
         str.append(line("Start:", startDate));
         str.append(line("Slut:", endDate));
 
-        controlBodyRight.setText(Html.fromHtml(str.toString()));
+        setText(headerRight, str.toString());
     }
-    private void setVehicleBodyTextLeft() {
+
+    private void setVehicleText(Vehicle vehicle, TextView textView) {
         StringBuilder str = new StringBuilder();
 
-        str.append(title("Bil"));
-        str.append(line("RegNr:", control.getTruck().getRegNr()));
-        str.append(line("Nationalitet:", control.getTruck().getNationality()));
+        str.append(line("", getString(vehicle.getVehicleType().label)));
+        str.append(line("RegNr:", vehicle.getRegNr()));
+        str.append(line("Nationalitet:", vehicle.getNationality()));
 
-        vehicleBodyLeft.setText(Html.fromHtml(str.toString()));
+        setText(textView, str.toString());
     }
-    private void setVehicleBodyTextRight(){
-        StringBuilder str = new StringBuilder();
 
-        str.append(line("", getString(control.getTrailer().getVehicleType().label)));
-        str.append(line("RegNr:", control.getTrailer().getRegNr()));
-        str.append(line("Nationalitet:", control.getTrailer().getNationality()));
-
-        vehicleBodyRight.setText(Html.fromHtml(str.toString()));
-    }
-    private void setCarrierBodyTextLeft(){
+    private void setCarrierText(){
         StringBuilder str = new StringBuilder();
 
         str.append(line("Företag:", control.getCarrier().getName()));
         str.append(line("Tel:", control.getCarrier().getPhone()));
 
-        carrierBodyLeft.setText(Html.fromHtml(str.toString()));
+        setText(carrierBodyLeft, str.toString());
+        setText(carrierBodyRight, address(control.getCarrier()));
     }
 
-    private void setCarrierBodyTextRight(){
-        String str = address(control.getCarrier());
-        carrierBodyRight.setText(Html.fromHtml(str));
-    }
+
     private void setTransporterText(Transporter transporter, String title, TextView textView) {
         StringBuilder str = new StringBuilder();
 
@@ -123,22 +112,23 @@ public class ViewControlActivity extends AppCompatActivity {
         str.append(line("Tel:", transporter.getPhone()));
         str.append(address(transporter));
 
-        setText(textView, str);
+        setText(textView, str.toString());
     }
 
     private void setTransportLocationText(TransportLocation location, boolean isSender, TextView textView) {
         StringBuilder str = new StringBuilder();
         if(isSender) {
-            str.append(title("Avsändare"));
+            str.append(line("", "Avsändare"));
+            str.append(line("Adress:", location.getAddress()));
             str.append(line("Lastplats:", location.getPlace()));
         } else {
-            str.append(title("Mottagare"));
+            str.append(line("", "Mottagare"));
+            str.append(line("Adress:", location.getAddress()));
             str.append(line("Lossnigsplats:", location.getPlace()));
         }
-        str.append(line("Adress:", location.getAddress()));
-        str.append(line("Telefon:", location.getPhone()));
+        str.append(line("Tel:", location.getPhone()));
 
-        setText(textView,str);
+        setText(textView,str.toString());
 
     }
     private String address(Transporter transporter){
@@ -150,8 +140,8 @@ public class ViewControlActivity extends AppCompatActivity {
         return str.toString();
     }
 
-    private void setText(TextView textView, StringBuilder str) {
-        textView.setText(Html.fromHtml(str.toString()));
+    private void setText(TextView textView, String str) {
+        textView.setText(Html.fromHtml(str));
 
     }
 

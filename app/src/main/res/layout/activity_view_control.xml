@@ -85,14 +85,14 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/vehicle_card_body_left"
+                            android:id="@+id/truck_text"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:paddingTop="8dp"
                             android:paddingHorizontal="8dp"/>
                         <TextView
-                            android:id="@+id/vehicle_card_body_right"
+                            android:id="@+id/trailer_text"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
