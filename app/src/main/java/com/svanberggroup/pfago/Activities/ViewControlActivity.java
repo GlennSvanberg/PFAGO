@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.svanberggroup.pfago.Models.Control;
+import com.svanberggroup.pfago.Models.Transporter;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Repository.ControlRepository;
 
@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
-    private TextView textView;
+    private TextView controlBodyLeft, controlBodyRight, vehicleHeader, vehicleBodyLeft, vehicleBodyRight, carrierBodyLeft, carrierBodyRight, driverBodyLeft, driverBodyRight, passengerBodyLeft, passengerBodyRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,66 +27,143 @@ public class ViewControlActivity extends AppCompatActivity {
         ControlRepository repo = ControlRepository.get();
         control = repo.getControlById(id);
 
-        textView = findViewById(R.id.textView);
-        StringBuilder str = new StringBuilder();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
-        String date = formatter.format(control.getDate());
+        controlBodyLeft = findViewById(R.id.control_card_body_left);
+        controlBodyRight = findViewById(R.id.control_card_body_right);
+        vehicleHeader = findViewById(R.id.vehicle_card_header);
+        vehicleBodyLeft = findViewById(R.id.vehicle_card_body_left);
+        vehicleBodyRight = findViewById(R.id.vehicle_card_body_right);
+        carrierBodyLeft = findViewById(R.id.carrier_card_body_left);
+        carrierBodyRight = findViewById(R.id.carrier_card_body_right);
+        driverBodyLeft = findViewById(R.id.driver_card_body_left);
+        driverBodyRight = findViewById(R.id.driver_card_body_right);
+        passengerBodyLeft = findViewById(R.id.passenger_card_body_left);
+        passengerBodyRight = findViewById(R.id.passenger_card_body_right);
 
-        str.append("<h2>" + control.getLocation() + " - " + date + "</h2>");
-        str.append("<strong>Fordon: " + control.getTruck().getNationality() + " - " + control.getTruck().getRegNr() + "</strong><br>");
-        str.append(getString(control.getLocationType().label));
-        if(control.getTrailer() != null) {
-            str.append("<strong> Släp: </strong>" + control.getTrailer().getNationality() + " - " + control.getTrailer().getRegNr());
-            str.append("<strong> Typ: </strong>" + getString(control.getTrailer().getVehicleType().label) + "<br>");
-        }
-        if(control.getCarrier()!= null) {
-            str.append("<br><strong>Transportör: " + control.getCarrier().getName() + " </strong><br>");
-            str.append("<strong>Adress:</strong> " + control.getCarrier().getAddress() + ", ");
-            str.append(control.getCarrier().getZipNr() + ", ");
-            str.append(control.getCarrier().getCity()+ "<br>");
 
-            str.append("<strong>Nationalitet: </strong> " + control.getCarrier().getNationality());
-            str.append(" <strong>Tel: </strong>" + control.getCarrier().getPhone() + "<br>");
-        }
-
-        if(control.getDriver()!= null) {
-            str.append("<br><strong>Förare: " + control.getDriver().getName() + " </strong><br>");
-            str.append("<strong>Adress:</strong> " + control.getDriver().getAddress() + ", ");
-            str.append(control.getDriver().getZipNr() + ", ");
-            str.append(control.getDriver().getCity()+ "<br>");
-
-            str.append("<strong>Nationalitet: </strong> " + control.getDriver().getNationality());
-            str.append(" <strong>Tel: </strong>" + control.getDriver().getPhone() + "<br>");
-        }
-        if(control.getPassenger()!= null) {
-            str.append("<br><strong>Besättningsmedlem: " + control.getPassenger().getName() + " </strong><br>");
-            str.append("<strong>Adress:</strong> " + control.getPassenger().getAddress() + ", ");
-            str.append(control.getPassenger().getZipNr() + ", ");
-            str.append(control.getPassenger().getCity()+ "<br>");
-
-            str.append("<strong>Nationalitet: </strong> " + control.getPassenger().getNationality());
-            str.append(" <strong>Tel: </strong>" + control.getPassenger().getPhone() + "<br>");
-        }
-        if(control.getSender() != null) {
-            str.append("<br><strong>Avsändare: " + control.getSender().getAddress() + " </strong><br>");
-            str.append("<strong>Lastplats:</strong> " + control.getSender().getPlace() + ", ");
-            str.append( " <strong>Tel: </strong>" + control.getSender().getPhone() + "<br>");
-        }
-        if(control.getReceiver() != null) {
-            str.append("<br><strong>Mottagare: " + control.getReceiver().getAddress() + " </strong><br>");
-            str.append("<strong>Lastplats:</strong> " + control.getReceiver().getPlace() + ", ");
-            str.append( " <strong>Tel: </strong>" + control.getReceiver().getPhone() + "<br>");
-        }
-        /*
-        String text = "<strong>Företag:</strong> " + control.getCarrier().getName() + " Tel: " + control.getCarrier().getPhone() + "\n";
-        text = text + "Adress: " + control.getCarrier().getAddress() + control.getCarrier().getCity() + " " + control.getCarrier().getZipNr() + "\n";
-        text = text + "Fordon: " + control.getTruck().getRegNr() + " Typ: " + control.getTruck().getVehicleType() + "Nationalitet: " + control.getTruck().getNationality() + "\n";
-        text = text + "Förare: " + control.getDriver().getName() + "Tel: " + control.getDriver().getPhone() + "\n" + "Passagerare: " + control.getPassenger().getName() + "Tel: " + control.getPassenger().getPhone() + "\n";
-        text = text + "Mängdenhet: " + getString(control.getQuantity().getQuantityType().label);
-        */
-        Spanned spanned = Html.fromHtml(str.toString());
-        textView.setText(spanned);
-
+        setTextFields();
 
     }
+    private void setTextFields() {
+
+        setControlBodyTextLeft();
+        setControlBodyTextRight();
+        setVehicleBodyTextLeft();
+        setVehicleBodyTextRight();
+        setCarrierBodyTextLeft();
+        setCarrierBodyTextRight();
+        setDriverBodyTextLeft();
+        setDriverBodyTextRight();
+        setPassengerBodyTextLeft();
+        setPassengerBodyTextRight();
+    }
+    private void setControlBodyTextLeft() {
+        StringBuilder str = new StringBuilder();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+
+        String date = formatter.format(control.getStartDate());
+        String place = control.getLocation();
+
+        str.append(line("Plats:", place));
+        str.append(line("Datum:", date));
+
+        controlBodyLeft.setText(Html.fromHtml(str.toString()));
+    }
+    private void setControlBodyTextRight() {
+        StringBuilder str = new StringBuilder();
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+
+        String startDate = formatter.format(control.getStartDate());
+        String endDate = formatter.format(control.getEndDate());
+
+        str.append(line("Start:", startDate));
+        str.append(line("Slut:", endDate));
+
+        controlBodyRight.setText(Html.fromHtml(str.toString()));
+    }
+    private void setVehicleBodyTextLeft() {
+        StringBuilder str = new StringBuilder();
+
+        str.append(title("Bil"));
+        str.append(line("RegNr:", control.getTruck().getRegNr()));
+        str.append(line("Nationalitet:", control.getTruck().getNationality()));
+
+        vehicleBodyLeft.setText(Html.fromHtml(str.toString()));
+    }
+    private void setVehicleBodyTextRight(){
+        StringBuilder str = new StringBuilder();
+
+        str.append(line("", getString(control.getTrailer().getVehicleType().label)));
+        str.append(line("RegNr:", control.getTrailer().getRegNr()));
+        str.append(line("Nationalitet:", control.getTrailer().getNationality()));
+
+        vehicleBodyRight.setText(Html.fromHtml(str.toString()));
+    }
+    private void setCarrierBodyTextLeft(){
+        StringBuilder str = new StringBuilder();
+
+        str.append(line("Företag:", control.getCarrier().getName()));
+        str.append(line("Tel:", control.getCarrier().getPhone()));
+
+        carrierBodyLeft.setText(Html.fromHtml(str.toString()));
+    }
+
+    private void setCarrierBodyTextRight(){
+        StringBuilder str = new StringBuilder();
+
+        str.append(address(control.getCarrier()));
+
+        carrierBodyRight.setText(Html.fromHtml(str.toString()));
+    }
+
+    private void setDriverBodyTextLeft() {
+        StringBuilder str = new StringBuilder();
+
+        str.append(line("Förare:", control.getDriver().getName()));
+        str.append(line("Tel:", control.getDriver().getPhone()));
+
+        driverBodyLeft.setText(Html.fromHtml(str.toString()));
+    }
+
+    private void setDriverBodyTextRight(){
+        StringBuilder str = new StringBuilder();
+
+        str.append(address(control.getDriver()));
+
+        driverBodyRight.setText(Html.fromHtml(str.toString()));
+    }
+
+    private void setPassengerBodyTextLeft() {
+        StringBuilder str = new StringBuilder();
+
+        str.append(line("Förare:", control.getPassenger().getName()));
+        str.append(line("Tel:", control.getPassenger().getPhone()));
+
+        passengerBodyLeft.setText(Html.fromHtml(str.toString()));
+    }
+
+    private void setPassengerBodyTextRight(){
+        StringBuilder str = new StringBuilder();
+
+        str.append(address(control.getPassenger()));
+
+        passengerBodyRight.setText(Html.fromHtml(str.toString()));
+    }
+
+    private String address(Transporter transporter){
+        StringBuilder str = new StringBuilder();
+        str.append(line("Adress:", transporter.getAddress()));
+        str.append(line("Postnummer:", String.valueOf(transporter.getZipNr())));
+        str.append(line("Postort:", transporter.getCity()));
+        str.append(line("Land:", transporter.getNationality()));
+        return str.toString();
+    }
+
+    private String title(String title) {
+        return  title + "<br>";
+    }
+    private String line(String title, String data) {
+        return title + " <strong>" + data + "</strong>" + "<br>";
+    }
+
+
 }

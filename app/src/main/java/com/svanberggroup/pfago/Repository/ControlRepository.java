@@ -8,6 +8,7 @@ import com.svanberggroup.pfago.Models.TransportLocation;
 import com.svanberggroup.pfago.Models.Transporter;
 import com.svanberggroup.pfago.Models.Vehicle;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +67,8 @@ public class ControlRepository {
         a.setLocation("Uddevalla");
         a.setLocationType(Control.LocationType.CargoTerminal);
 
+        a.setEndDate(new Date());
+
         Transporter aCarrier = new Transporter("GLÅAB", "0522-132345", "Norra Gåvägen 14", 45123, "Borås", "SE");
         Transporter aDriver = new Transporter("Robin Törnqvist", "070-1234567", "Silltorp 24", 44123, "Vänersborg", "SE");
         Transporter aPassenger = new Transporter("Emil Svenson", "070-2356489", "Norra Botten 1", 45789, "Göteborg", "US");
@@ -100,6 +103,7 @@ public class ControlRepository {
         b.setId(2);
         b.setLocation("Trollhättan");
         b.setLocationType(Control.LocationType.CargoTerminal);
+        b.setEndDate(new Date());
 
         b.setCarrier(aCarrier);
         b.setDriver(aDriver);
@@ -128,6 +132,7 @@ public class ControlRepository {
         c.setId(3);
         c.setLocation("Stenungsund");
         c.setLocationType(Control.LocationType.CargoTerminal);
+        c.setEndDate(new Date());
 
         c.setCarrier(aCarrier);
         c.setDriver(aDriver);

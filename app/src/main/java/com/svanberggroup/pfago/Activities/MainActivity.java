@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         public void bind(Control control) {
             this.control = control;
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
-            String date = formatter.format(control.getDate());
+            String date = formatter.format(control.getStartDate());
             title.setText(control.getTruck().getRegNr() + " Datum: " +  date);
             String text  = "";
             if(control.getCarrier()!= null) {
