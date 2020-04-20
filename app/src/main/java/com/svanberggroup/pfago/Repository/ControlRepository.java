@@ -98,7 +98,17 @@ public class ControlRepository {
         a.setTransportStandard(Control.TransportStandard.ADRS);
 
         ControlRow aGoodsDeclaration = new ControlRow(13, "Skriftliga instruktioner", ControlRow.Field.Controlled, "Normal", true, true, "Det sämstaste någonsin");
+
         a.setGoodsDeclarationRow(aGoodsDeclaration);
+        a.setDeclaration(Control.Declaration.LoadingPlane);
+
+        a.setWrittenInstructionsRow(aGoodsDeclaration);
+        a.setApprovalRow(aGoodsDeclaration);
+        a.setApproval(Control.Approval.Bilateral);
+
+        a.setApprovalCertificateRow(aGoodsDeclaration);
+        a.setDriverCertificationRow(aGoodsDeclaration);
+        a.setOtherADRTrainingRow(aGoodsDeclaration);
         controls.add(a);
 
 

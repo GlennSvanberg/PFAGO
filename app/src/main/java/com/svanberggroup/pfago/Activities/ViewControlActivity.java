@@ -22,7 +22,8 @@ import java.util.List;
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
     private TextView headerLeft, headerRight, truckText, trailerText, carrierTextLeft, carrierTextRight, senderText, receiverText;
-    private TextView driverText, passengerText, cargoTextLeft, cargoTextRight, goodsDeclarationLeft, goodsDeclarationRight;
+    private TextView driverText, passengerText, cargoTextLeft, cargoTextRight, goodsDeclarationLeft, goodsDeclarationRight, writtenInstructionsLeft, writtenInstructionsRight;
+    private TextView approvalRowLeft, approvalRowRight, approvalCertificateRowLeft, approvalCertificateRowRight, driverCertificateRowLeft, driverCertificateRowRight, otherTrainingRowLeft, otherTrainingRowRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,18 @@ public class ViewControlActivity extends AppCompatActivity {
 
         goodsDeclarationLeft = findViewById(R.id.goodsDeclarationLeft);
         goodsDeclarationRight = findViewById(R.id.goodsDeclarationRight);
+        writtenInstructionsLeft = findViewById(R.id.writtenInstructionsLeft);
+        writtenInstructionsRight = findViewById(R.id.writtenInstructionsRight);
 
+        approvalRowLeft = findViewById(R.id.approvalRowLeft);
+        approvalRowRight = findViewById(R.id.approvalRowRight);
+        approvalCertificateRowLeft = findViewById(R.id.approvalCertificateRowLeft);
+        approvalCertificateRowRight = findViewById(R.id.approvalCertificateRowRight);
+
+        driverCertificateRowLeft = findViewById(R.id.driverCertificateRowLeft);
+        driverCertificateRowRight = findViewById(R.id.driverCertificateRowRight);
+        otherTrainingRowLeft = findViewById(R.id.otherTrainingRowLeft);
+        otherTrainingRowRight = findViewById(R.id.otherTrainingRowRight);
         setTextFields();
 
     }
@@ -71,6 +83,27 @@ public class ViewControlActivity extends AppCompatActivity {
         setTransportDocuments();
         setCargo();
     }
+
+    private void setTransportDocuments() {
+        setControlRowLeft(control.getGoodsDeclarationRow(), goodsDeclarationLeft, "Godsdeklaration");
+        setControlRowRight(control.getGoodsDeclarationRow(), goodsDeclarationRight, getString(control.getDeclaration().label));
+
+        setControlRowLeft(control.getWrittenInstructionsRow(), writtenInstructionsLeft, "Skriftliga instruktioner");
+        setControlRowRight(control.getWrittenInstructionsRow(), writtenInstructionsRight, "");
+
+        setControlRowLeft(control.getApprovalRow(), approvalRowLeft, getString(control.getApproval().label));
+        setControlRowRight(control.getApprovalRow(), approvalRowRight, "");
+
+        setControlRowLeft(control.getApprovalCertificateRow(), approvalCertificateRowLeft, "Godkännandecertifikat");
+        setControlRowRight(control.getApprovalCertificateRow(), approvalCertificateRowRight, "");
+
+        setControlRowLeft(control.getDriverCertificationRow(), driverCertificateRowLeft, "Förarintyg (ADR 8.2.1, 8.2.2)");
+        setControlRowRight(control.getDriverCertificationRow(), driverCertificateRowRight, "");
+
+        setControlRowLeft(control.getOtherADRTrainingRow(), otherTrainingRowLeft, "Annan ADR-utbildning");
+        setControlRowRight(control.getOtherADRTrainingRow(), otherTrainingRowRight, "");
+    }
+
     private void setHeader() {
         StringBuilder str = new StringBuilder();
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
@@ -163,19 +196,24 @@ public class ViewControlActivity extends AppCompatActivity {
         str.append(line("Transport enligt:", getString(control.getTransportStandard().label)));
         setText(cargoTextRight, str.toString());
     }
-    private void setTransportDocuments() {
-        setGoodsDeclarationRow();
-    }
-    private void setGoodsDeclarationRow() {
+
+    private void setControlRowLeft(ControlRow row, TextView textView, String title) {
         StringBuilder str = new StringBuilder();
+        str.append(line("",title));
+        str.append(line("Riskkategori:", row.getRiskCategory()));
+        str.append(line("Anteckningar:", row.getNotes()));
+        setText(textView, str.toString());
 
-
-        setText(goodsDeclarationLeft, str.toString());
-        str = new StringBuilder();
-
-
-        setText(goodsDeclarationRight, str.toString());
-
+    }
+    private void setControlRowRight(ControlRow row, TextView textView, String text){
+        StringBuilder str = new StringBuilder();
+        str.append(line("", getString(row.getField().label)));
+        str.append(line("Förbud:", row.isBanned() ? "Ja" : "Nej"));
+        str.append(line("Föreläggande:", row.isImposed() ? "Ja" : "Nej"));
+        if(text != null){
+            str.append(text);
+        }
+        setText(textView, str.toString());
     }
     private String address(Transporter transporter){
         StringBuilder str = new StringBuilder();

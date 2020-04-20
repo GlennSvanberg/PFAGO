@@ -41,7 +41,7 @@ public class Control implements Serializable {
     private int valueQuantity;
 
     private ControlRow goodsDeclarationRow;
-    private enum Declaration {
+    public enum Declaration {
         LoadingPlane(R.string.loading_plane),
         StowageCertificate(R.string.stowing_certificate);
 
@@ -50,10 +50,11 @@ public class Control implements Serializable {
             this.label = label;
         }
     }
+    private Declaration declaration;
     private ControlRow writtenInstructionsRow;
 
     private ControlRow approvalRow;
-    private enum Approval {
+    public enum Approval {
         Bilateral(R.string.bilateral),
         Multilateral(R.string.multilateral),
         NationalApproval(R.string.natninal_approval);
@@ -63,6 +64,7 @@ public class Control implements Serializable {
             this.label = label;
         }
     }
+    private Approval approval;
 
     private ControlRow approvalCertificateRow;
     private ControlRow driverCertificationRow;
@@ -286,5 +288,21 @@ public class Control implements Serializable {
 
     public void setApprovalRow(ControlRow approvalRow) {
         this.approvalRow = approvalRow;
+    }
+
+    public Declaration getDeclaration() {
+        return declaration;
+    }
+
+    public void setDeclaration(Declaration declaration) {
+        this.declaration = declaration;
+    }
+
+    public Approval getApproval() {
+        return approval;
+    }
+
+    public void setApproval(Approval approval) {
+        this.approval = approval;
     }
 }
