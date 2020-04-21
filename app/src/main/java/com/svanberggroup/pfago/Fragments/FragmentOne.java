@@ -30,8 +30,11 @@ public class FragmentOne extends Fragment {
     private EditText placeEditText;
     private EditText vehicleLicensePlateEditText;
     private EditText vehicleCountryEditText;
+    private EditText trailerLicensePlateEditText;
+    private EditText trailerCountryEditText;
 
     private Vehicle vehicle;
+    private Vehicle trailer;
 
     private Control control;
 
@@ -52,6 +55,7 @@ public class FragmentOne extends Fragment {
         control = (Control) getArguments().getSerializable(NEW_CONTROL);
 
         vehicle = new Vehicle();
+        trailer = new Vehicle();
     }
 
     @Override
@@ -60,8 +64,11 @@ public class FragmentOne extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_one, container, false);
 
-        vehicleLicensePlateEditText = view.findViewById(R.id.VehicleLicensePlateTextView);
         placeEditText = view.findViewById(R.id.placeEditText);
+        vehicleLicensePlateEditText = view.findViewById(R.id.VehicleLicensePlateEditText);
+        vehicleCountryEditText = view.findViewById(R.id.vehicleCountryEditText);
+        trailerLicensePlateEditText = view.findViewById(R.id.trailerLicensePlateEditText);
+        trailerCountryEditText = view.findViewById(R.id.trailerCountryEditText);
 
 //        button = view.findViewById(R.id.button);
 //
@@ -74,7 +81,7 @@ public class FragmentOne extends Fragment {
 //            }
 //        });
 
-        addSaveControlsListener();
+        handleTextChanged();
 
         return  view;
     }
@@ -84,30 +91,95 @@ public class FragmentOne extends Fragment {
 
     }
 
-    private void addSaveControlsListener() {
+    private void handleTextChanged() {
         placeEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) { }
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.length() > 0) {
-                    control.setLocation(charSequence.toString());
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                if(s.length() > 0) {
+                    control.setLocation(s.toString());
                     Log.i("JANNE", control.getLocation());
                 } else {
-                    control.setLocation(nil);
+                    control.setLocation(null);
                 }
 
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
+        vehicleLicensePlateEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                vehicle.setRegNr(s.toString());
+                control.setTruck(vehicle);
+                Log.i("regNum", control.getTruck().getRegNr());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+        vehicleCountryEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    vehicle.setNationality(s.toString());
+                    control.setTruck(vehicle);
+                    Log.i("country", control.getTruck().getNationality());
+                } else {
+
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+        trailerLicensePlateEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    trailer.setRegNr(s.toString());
+                    control.setTrailer(trailer);
+                    Log.i("trailerRegNum", control.getTrailer().getRegNr());
+                } else {
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+        trailerCountryEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    trailer.setNationality(s.toString());
+                    control.setTrailer(vehicle);
+                    Log.i("trailerCountry", control.getTrailer().getNationality());
+                } else {
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
     }
 }

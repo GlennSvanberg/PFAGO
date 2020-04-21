@@ -26,7 +26,7 @@
             tools:text="@string/hello_blank_fragment" />
 
         <EditText
-            android:id="@+id/VehicleLicensePlateTextView"
+            android:id="@+id/VehicleLicensePlateEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -38,16 +38,16 @@
             app:layout_constraintTop_toBottomOf="@+id/vehicleTextView"></EditText>
 
         <EditText
-            android:id="@+id/vehicleCountryTextField"
+            android:id="@+id/vehicleCountryEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:ems="10"
             android:hint="Nationalitet"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/VehicleLicensePlateTextView"
+            app:layout_constraintEnd_toEndOf="@+id/VehicleLicensePlateEditText"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/VehicleLicensePlateTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/VehicleLicensePlateEditText" />
 
         <EditText
             android:id="@+id/trailerLicensePlateEditText"
@@ -118,7 +118,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vehicleCountryTextField" />
+            app:layout_constraintTop_toBottomOf="@+id/vehicleCountryEditText" />
 
         <RadioGroup
             android:id="@+id/ControlPlaceTypeRadioGroup"
