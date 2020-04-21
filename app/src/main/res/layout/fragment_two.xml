@@ -91,16 +91,16 @@
         app:layout_constraintTop_toBottomOf="@+id/coDriverAddressEditText" />
 
     <EditText
-        android:id="@+id/transporterCityEditText"
+        android:id="@+id/carrierCityEditText"
         android:layout_width="140dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:ems="10"
         android:hint="Postort"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="@+id/transporterZIPEditText"
-        app:layout_constraintStart_toEndOf="@+id/transporterZIPEditText"
-        app:layout_constraintTop_toBottomOf="@+id/transporterAddressEditText"
+        app:layout_constraintBottom_toBottomOf="@+id/carrierZIPEditText"
+        app:layout_constraintStart_toEndOf="@+id/carrierZIPEditText"
+        app:layout_constraintTop_toBottomOf="@+id/carrierAddressEditText"
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
@@ -151,7 +151,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/transporterZIPEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/carrierZIPEditText" />
 
     <EditText
         android:id="@+id/driverPhoneEditText"
@@ -202,7 +202,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/transporterEditText"
+        android:id="@+id/carrierEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -212,7 +212,7 @@
         app:layout_constraintTop_toBottomOf="@id/transpoterTextView" />
 
     <EditText
-        android:id="@+id/transporterPhoneEditText"
+        android:id="@+id/carrierPhoneEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -222,11 +222,11 @@
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/transporterEditText"
-        app:layout_constraintTop_toTopOf="@+id/transporterEditText" />
+        app:layout_constraintStart_toEndOf="@+id/carrierEditText"
+        app:layout_constraintTop_toTopOf="@+id/carrierEditText" />
 
     <EditText
-        android:id="@+id/transporterAddressEditText"
+        android:id="@+id/carrierAddressEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -234,21 +234,21 @@
         android:hint="Utdelningsadress"
         android:inputType="textPostalAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/transporterEditText"
-        app:layout_constraintTop_toBottomOf="@+id/transporterEditText" />
+        app:layout_constraintStart_toStartOf="@+id/carrierEditText"
+        app:layout_constraintTop_toBottomOf="@+id/carrierEditText" />
 
     <EditText
-        android:id="@+id/transporterZIPEditText"
+        android:id="@+id/carrierZIPEditText"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Postnummer"
         android:inputType="number"
-        app:layout_constraintStart_toStartOf="@+id/transporterAddressEditText"
-        app:layout_constraintTop_toBottomOf="@+id/transporterAddressEditText" />
+        app:layout_constraintStart_toStartOf="@+id/carrierAddressEditText"
+        app:layout_constraintTop_toBottomOf="@+id/carrierAddressEditText" />
 
     <EditText
-        android:id="@+id/transporterCountryEditText"
+        android:id="@+id/carrierCountryEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -257,7 +257,7 @@
         android:hint="Land"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/transporterCityEditText"
-        app:layout_constraintTop_toBottomOf="@+id/transporterAddressEditText" />
+        app:layout_constraintStart_toEndOf="@+id/carrierCityEditText"
+        app:layout_constraintTop_toBottomOf="@+id/carrierAddressEditText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

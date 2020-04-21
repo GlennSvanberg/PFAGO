@@ -1,15 +1,12 @@
 package com.svanberggroup.pfago.Fragments;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,19 +17,18 @@ import com.svanberggroup.pfago.Models.Transporter;
 import com.svanberggroup.pfago.R;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 
 public class FragmentTwo extends Fragment {
 
 
     private static final String NEW_CONTROL = "new_control";
 
-    private EditText transporterEditText;
-    private EditText transporterPhoneEditText;
-    private EditText transporterAddressEditText;
-    private EditText transporterZIPEditText;
-    private EditText transporterCityEditText;
-    private EditText transporterCountryEditText;
+    private EditText carrierEditText;
+    private EditText carrierPhoneEditText;
+    private EditText carrierAddressEditText;
+    private EditText carrierZIPEditText;
+    private EditText carrierCityEditText;
+    private EditText carrierCountryEditText;
 
     private EditText driverEditText;
     private EditText driverPhoneEditText;
@@ -89,12 +85,12 @@ public class FragmentTwo extends Fragment {
 
     private void addViewById(View view) {
 
-        transporterEditText        = view.findViewById(R.id.transporterEditText);
-        transporterAddressEditText = view.findViewById(R.id.transporterAddressEditText);
-        transporterPhoneEditText   = view.findViewById(R.id.transporterPhoneEditText);
-        transporterZIPEditText     = view.findViewById(R.id.transporterZIPEditText);
-        transporterCityEditText    = view.findViewById(R.id.transporterCityEditText);
-        transporterCountryEditText = view.findViewById(R.id.transporterCountryEditText);
+        carrierEditText = view.findViewById(R.id.carrierEditText);
+        carrierAddressEditText = view.findViewById(R.id.carrierAddressEditText);
+        carrierPhoneEditText = view.findViewById(R.id.carrierPhoneEditText);
+        carrierZIPEditText = view.findViewById(R.id.carrierZIPEditText);
+        carrierCityEditText = view.findViewById(R.id.carrierCityEditText);
+        carrierCountryEditText = view.findViewById(R.id.carrierCountryEditText);
 
         driverEditText        = view.findViewById(R.id.driverEditText);
         driverAddressEditText = view.findViewById(R.id.driverAddressEditText);
@@ -113,7 +109,7 @@ public class FragmentTwo extends Fragment {
     }
 
     private void handleTextChangedforCarrier(){
-        transporterEditText.addTextChangedListener(new TextWatcher() {
+        carrierEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
@@ -126,7 +122,7 @@ public class FragmentTwo extends Fragment {
             @Override
             public void afterTextChanged(Editable s) { }
         });
-        transporterAddressEditText.addTextChangedListener(new TextWatcher() {
+        carrierAddressEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
@@ -138,7 +134,8 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) { }
-        });transporterPhoneEditText.addTextChangedListener(new TextWatcher() {
+        });
+        carrierPhoneEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
@@ -150,7 +147,8 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) { }
-        });transporterZIPEditText.addTextChangedListener(new TextWatcher() {
+        });
+        carrierZIPEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
@@ -166,7 +164,8 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) { }
-        });transporterCityEditText.addTextChangedListener(new TextWatcher() {
+        });
+        carrierCityEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
@@ -178,7 +177,8 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) { }
-        });transporterCountryEditText.addTextChangedListener(new TextWatcher() {
+        });
+        carrierCountryEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
