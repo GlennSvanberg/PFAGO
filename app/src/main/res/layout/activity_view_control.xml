@@ -415,7 +415,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginHorizontal="8dp">
                 <LinearLayout
-                    android:id="@+id/pappa"
+                    android:id="@+id/transportRows"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">

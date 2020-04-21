@@ -25,7 +25,7 @@ public class ViewControlActivity extends AppCompatActivity {
     private TextView headerLeft, headerRight, truckText, trailerText, carrierTextLeft, carrierTextRight, senderText, receiverText;
     private TextView driverText, passengerText, cargoTextLeft, cargoTextRight, goodsDeclarationLeft, goodsDeclarationRight, writtenInstructionsLeft, writtenInstructionsRight;
     private TextView approvalRowLeft, approvalRowRight, approvalCertificateRowLeft, approvalCertificateRowRight, driverCertificateRowLeft, driverCertificateRowRight, otherTrainingRowLeft, otherTrainingRowRight;
-    private LinearLayout pappa;
+    private LinearLayout transportRows;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +65,7 @@ public class ViewControlActivity extends AppCompatActivity {
         otherTrainingRowLeft = findViewById(R.id.otherTrainingRowLeft);
         otherTrainingRowRight = findViewById(R.id.otherTrainingRowRight);
 
-        pappa = findViewById(R.id.pappa);
+        transportRows = findViewById(R.id.transportRows);
         setTextFields();
 
     }
@@ -82,15 +82,33 @@ public class ViewControlActivity extends AppCompatActivity {
 
         setTransportLocationText(control.getSender(), true, senderText);
         setTransportLocationText(control.getReceiver(), false, receiverText);
-
-        addView();
-        setTransportDocumentRows(control.getTdRows());
-        setTransportRows();
         setCargo();
+
+        setTransportDocumentRows(control.getTdRows());
+
+
+        setTransportRows(control.getTdRows());
+
     }
-    private void addView() {
-        View.inflate(this,R.layout.view_control_row, pappa);
+    private View addRow(LinearLayout linearLayout) {
+        View view = View.inflate(this,R.layout.view_control_row, linearLayout);
+
+        return view;
     }
+
+    private void setTransportRows(TransportDocumentRows tdRows) {
+
+        setControlRow(tdRows.getOtherADRTrainingRow(), addRow(transportRows), "18. Annan ADR-utbildning", "");
+        setControlRow(tdRows.getDriverCertificationRow(), addRow(transportRows), "17. Förarintyg (ADR 8.2.1, 8.2.2)", "");
+        setControlRow(tdRows.getApprovalCertificateRow(), addRow(transportRows), "16. Godkännandecertifikat", "");
+        setControlRow(tdRows.getApprovalRow(), addRow(transportRows), "15." + getString(tdRows.getApproval().label), "");
+        setControlRow(tdRows.getWrittenInstructionsRow(),addRow(transportRows),"14. Skriftliga instruktioner", "");
+
+        String declaration = Html.fromHtml(line("", getString(tdRows.getDeclaration().label))).toString();
+        setControlRow(tdRows.getGoodsDeclarationRow(), addRow(transportRows), "13. Godsdeklaration", declaration);
+
+    }
+
     private void setTransportDocumentRows(TransportDocumentRows tdRows) {
         String declaration = Html.fromHtml(line("", getString(tdRows.getDeclaration().label))).toString();
         setControlRowLeft(tdRows.getGoodsDeclarationRow(), goodsDeclarationLeft, "13. Godsdeklaration");
@@ -113,9 +131,7 @@ public class ViewControlActivity extends AppCompatActivity {
         setControlRowRight(tdRows.getOtherADRTrainingRow(), otherTrainingRowRight, "");
     }
 
-    private void setTransportRows() {
 
-    }
 
     private void setHeader() {
         StringBuilder str = new StringBuilder();
@@ -160,7 +176,6 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(carrierTextLeft, str.toString());
         setText(carrierTextRight, address(control.getCarrier()));
     }
-
 
     private void setTransporterText(Transporter transporter, String title, TextView textView) {
         StringBuilder str = new StringBuilder();
@@ -208,6 +223,14 @@ public class ViewControlActivity extends AppCompatActivity {
         str.append(line("Transport med:", getString(control.getTransportType().label)));
         str.append(line("Transport enligt:", getString(control.getTransportStandard().label)));
         setText(cargoTextRight, str.toString());
+    }
+
+    private void setControlRow(ControlRow row, View view, String title, String text){
+        TextView left = view.findViewById(R.id.left);
+        setControlRowLeft(row, left, title);
+
+        TextView right = view.findViewById(R.id.right);
+        setControlRowLeft(row, right, text);
     }
 
     private void setControlRowLeft(ControlRow row, TextView textView, String title) {
