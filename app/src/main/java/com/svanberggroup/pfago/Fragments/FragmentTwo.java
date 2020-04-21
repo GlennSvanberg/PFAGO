@@ -133,8 +133,6 @@ public class FragmentTwo extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 carrier.setAddress(s.toString());
-                Log.i("klas", s.toString());
-                Log.i("klas", control.getLocation());
                 control.setCarrier(carrier);
             }
 
@@ -158,8 +156,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                carrier.setZipNr(Integer.parseInt(s.toString()));
-                control.setCarrier(carrier);
+                if (s.toString().length() > 0) {
+                    carrier.setZipNr(Integer.parseInt(s.toString()));
+                    control.setCarrier(carrier);
+                } else {
+                    carrier.setZipNr(0);
+                }
             }
 
             @Override
@@ -237,8 +239,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                driver.setZipNr(Integer.parseInt(s.toString()));
-                control.setCarrier(carrier);
+                if (s.toString().length() > 0) {
+                    driver.setZipNr(Integer.parseInt(s.toString()));
+                    control.setCarrier(carrier);
+                } else {
+                    driver.setZipNr(0);
+                }
             }
 
             @Override
@@ -318,8 +324,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                coDriver.setZipNr(Integer.parseInt(s.toString()));
-                control.setCarrier(carrier);
+                if (s.toString().length() > 0) {
+                    coDriver.setZipNr(Integer.parseInt(s.toString()));
+                    control.setCarrier(carrier);
+                } else {
+                    coDriver.setZipNr(0);
+                }
             }
 
             @Override

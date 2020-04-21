@@ -99,7 +99,7 @@ public class AddControlActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.doneControl:
-                
+
                 ControlRepository.get().addControl(control);
 
                 default: return super.onOptionsItemSelected(item);
