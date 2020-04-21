@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/driverZIPEditText2"
+        android:id="@+id/coDriverZIPEditText"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -15,10 +15,10 @@
         android:hint="Postnummer"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/driverAddressEditText2" />
+        app:layout_constraintTop_toBottomOf="@+id/coDriverAddressEditText" />
 
     <EditText
-        android:id="@+id/driverAddressEditText2"
+        android:id="@+id/coDriverAddressEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -28,10 +28,10 @@
         android:inputType="textPostalAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/driverEditText2" />
+        app:layout_constraintTop_toBottomOf="@+id/coDriverEditText" />
 
     <EditText
-        android:id="@+id/driverPhoneEditText2"
+        android:id="@+id/coDriverPhoneEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -40,34 +40,34 @@
         android:hint="Telefon"
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/driverEditText2"
-        app:layout_constraintTop_toBottomOf="@+id/driverTextView2" />
+        app:layout_constraintStart_toEndOf="@+id/coDriverEditText"
+        app:layout_constraintTop_toBottomOf="@+id/coDriverTextView" />
 
     <EditText
-        android:id="@+id/driverCityEditText2"
+        android:id="@+id/coDriverCityEditText"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:ems="10"
         android:hint="Postort"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/driverZIPEditText2"
-        app:layout_constraintTop_toBottomOf="@+id/driverAddressEditText2" />
+        app:layout_constraintStart_toEndOf="@+id/coDriverZIPEditText"
+        app:layout_constraintTop_toBottomOf="@+id/coDriverAddressEditText" />
 
     <TextView
-        android:id="@+id/driverTextView2"
+        android:id="@+id/coDriverTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:gravity="center"
+        android:text="Annan besättningsmedlem"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/driverZIPEditText"
-        tools:text="Annan besättningsmedlem" />
+        app:layout_constraintTop_toBottomOf="@+id/driverZIPEditText" />
 
     <EditText
-        android:id="@+id/driverEditText2"
+        android:id="@+id/coDriverEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -75,10 +75,10 @@
         android:hint="Namn"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/driverTextView2" />
+        app:layout_constraintTop_toBottomOf="@+id/coDriverTextView" />
 
     <EditText
-        android:id="@+id/driverCountryEditText2"
+        android:id="@+id/coDriverCountryEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -87,8 +87,8 @@
         android:hint="Land"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/driverCityEditText2"
-        app:layout_constraintTop_toBottomOf="@+id/driverAddressEditText2" />
+        app:layout_constraintStart_toEndOf="@+id/coDriverCityEditText"
+        app:layout_constraintTop_toBottomOf="@+id/coDriverAddressEditText" />
 
     <EditText
         android:id="@+id/transporterCityEditText"
@@ -147,11 +147,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:gravity="center"
+        android:text="Förare"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/transporterZIPEditText"
-        tools:text="Förare" />
+        app:layout_constraintTop_toBottomOf="@+id/transporterZIPEditText" />
 
     <EditText
         android:id="@+id/driverPhoneEditText"
@@ -195,11 +195,11 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
+        android:text="Transporter"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/carrier" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/transporterEditText"
