@@ -46,9 +46,6 @@ public class FragmentThree extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_three, container, false);
 
-        textView = view.findViewById(R.id.title);
-        textView.setText("Fragment three");
-
         return  view;
     }
 
