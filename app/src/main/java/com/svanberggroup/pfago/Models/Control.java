@@ -227,11 +227,11 @@ public class Control implements Serializable {
         this.tdRows = tdRows;
     }
 
-    public TransportRows gettRows() {
+    public TransportRows getTRows() {
         return tRows;
     }
 
-    public void settRows(TransportRows tRows) {
+    public void setTRows(TransportRows tRows) {
         this.tRows = tRows;
     }
 }

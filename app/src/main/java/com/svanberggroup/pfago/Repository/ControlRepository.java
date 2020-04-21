@@ -7,6 +7,7 @@ import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.Quantity;
 import com.svanberggroup.pfago.Models.TransportDocumentRows;
 import com.svanberggroup.pfago.Models.TransportLocation;
+import com.svanberggroup.pfago.Models.TransportRows;
 import com.svanberggroup.pfago.Models.Transporter;
 import com.svanberggroup.pfago.Models.Vehicle;
 
@@ -110,6 +111,30 @@ public class ControlRepository {
         a.getTdRows().setApprovalCertificateRow(aGoodsDeclaration);
         a.getTdRows().setDriverCertificationRow(aGoodsDeclaration);
         a.getTdRows().setOtherADRTrainingRow(aGoodsDeclaration);
+
+        TransportRows tr = a.getTRows();
+        ControlRow q = aGoodsDeclaration;
+        tr.setRow18(q);
+        tr.setRow19(q);
+        tr.setRow20(q);
+        tr.setRow21(q);
+        tr.setRow22_1(q);
+        tr.setRow22_2(q);
+        tr.setRow22_3(q);
+        tr.setRow23_1(q);
+        tr.setRow23_2(q);
+        tr.setRow24(q);
+        tr.setRow25_1(q);
+        tr.setRow25_2(q);
+        tr.setRow26(q);
+        tr.setRow27(q);
+        tr.setRow28_1(q);
+        tr.setRow28_2(q);
+        tr.setRow28_3(q);
+        tr.setRow28_4(q);
+        tr.setRow29(q);
+        tr.setRow31(q);
+
         controls.add(a);
 
 

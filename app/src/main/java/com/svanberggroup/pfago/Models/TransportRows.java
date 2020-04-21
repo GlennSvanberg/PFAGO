@@ -1,4 +1,187 @@
 package com.svanberggroup.pfago.Models;
 
 public class TransportRows {
+    private ControlRow row18;
+    private ControlRow row19;
+    private ControlRow row20;
+    private ControlRow row21;
+    private ControlRow row22_1;
+    private ControlRow row22_2;
+    private ControlRow row22_3;
+    private ControlRow row23_1;
+    private ControlRow row23_2;
+    private ControlRow row24;
+    private ControlRow row25_1;
+    private ControlRow row25_2;
+    private ControlRow row26;
+    private ControlRow row27;
+    private ControlRow row28_1;
+    private ControlRow row28_2;
+    private ControlRow row28_3;
+    private ControlRow row28_4;
+    private ControlRow row29;
+    private ControlRow row31;
+
+    public TransportRows() {
+    }
+
+    public ControlRow getRow22_3() {
+        return row22_3;
+    }
+
+    public void setRow22_3(ControlRow row22_3) {
+        this.row22_3 = row22_3;
+    }
+
+    public ControlRow getRow18() {
+        return row18;
+    }
+
+    public void setRow18(ControlRow row18) {
+        this.row18 = row18;
+    }
+
+    public ControlRow getRow19() {
+        return row19;
+    }
+
+    public void setRow19(ControlRow row19) {
+        this.row19 = row19;
+    }
+
+    public ControlRow getRow20() {
+        return row20;
+    }
+
+    public void setRow20(ControlRow row20) {
+        this.row20 = row20;
+    }
+
+    public ControlRow getRow21() {
+        return row21;
+    }
+
+    public void setRow21(ControlRow row21) {
+        this.row21 = row21;
+    }
+
+    public ControlRow getRow22_1() {
+        return row22_1;
+    }
+
+    public void setRow22_1(ControlRow row22_1) {
+        this.row22_1 = row22_1;
+    }
+
+    public ControlRow getRow22_2() {
+        return row22_2;
+    }
+
+    public void setRow22_2(ControlRow row22_2) {
+        this.row22_2 = row22_2;
+    }
+
+    public ControlRow getRow23_1() {
+        return row23_1;
+    }
+
+    public void setRow23_1(ControlRow row23_1) {
+        this.row23_1 = row23_1;
+    }
+
+    public ControlRow getRow23_2() {
+        return row23_2;
+    }
+
+    public void setRow23_2(ControlRow row23_2) {
+        this.row23_2 = row23_2;
+    }
+
+    public ControlRow getRow24() {
+        return row24;
+    }
+
+    public void setRow24(ControlRow row24) {
+        this.row24 = row24;
+    }
+
+    public ControlRow getRow25_1() {
+        return row25_1;
+    }
+
+    public void setRow25_1(ControlRow row25_1) {
+        this.row25_1 = row25_1;
+    }
+
+    public ControlRow getRow25_2() {
+        return row25_2;
+    }
+
+    public void setRow25_2(ControlRow row25_2) {
+        this.row25_2 = row25_2;
+    }
+
+    public ControlRow getRow26() {
+        return row26;
+    }
+
+    public void setRow26(ControlRow row26) {
+        this.row26 = row26;
+    }
+
+    public ControlRow getRow27() {
+        return row27;
+    }
+
+    public void setRow27(ControlRow row27) {
+        this.row27 = row27;
+    }
+
+    public ControlRow getRow28_1() {
+        return row28_1;
+    }
+
+    public void setRow28_1(ControlRow row28_1) {
+        this.row28_1 = row28_1;
+    }
+
+    public ControlRow getRow28_2() {
+        return row28_2;
+    }
+
+    public void setRow28_2(ControlRow row28_2) {
+        this.row28_2 = row28_2;
+    }
+
+    public ControlRow getRow28_3() {
+        return row28_3;
+    }
+
+    public void setRow28_3(ControlRow row28_3) {
+        this.row28_3 = row28_3;
+    }
+
+    public ControlRow getRow28_4() {
+        return row28_4;
+    }
+
+    public void setRow28_4(ControlRow row28_4) {
+        this.row28_4 = row28_4;
+    }
+
+    public ControlRow getRow29() {
+        return row29;
+    }
+
+    public void setRow29(ControlRow row29) {
+        this.row29 = row29;
+    }
+
+    public ControlRow getRow31() {
+        return row31;
+    }
+
+    public void setRow31(ControlRow row31) {
+        this.row31 = row31;
+    }
 }

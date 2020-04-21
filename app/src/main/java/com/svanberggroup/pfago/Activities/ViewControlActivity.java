@@ -15,6 +15,7 @@ import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.Quantity;
 import com.svanberggroup.pfago.Models.TransportDocumentRows;
 import com.svanberggroup.pfago.Models.TransportLocation;
+import com.svanberggroup.pfago.Models.TransportRows;
 import com.svanberggroup.pfago.Models.Transporter;
 import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
@@ -24,13 +25,15 @@ import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
     private TextView headerLeft, headerRight, truckText, trailerText, carrierTextLeft, carrierTextRight, senderText, receiverText;
     private TextView driverText, passengerText, cargoTextLeft, cargoTextRight, goodsDeclarationLeft, goodsDeclarationRight, writtenInstructionsLeft, writtenInstructionsRight;
-    private TextView approvalRowLeft, approvalRowRight, approvalCertificateRowLeft, approvalCertificateRowRight, driverCertificateRowLeft, driverCertificateRowRight, otherTrainingRowLeft, otherTrainingRowRight;
-    private LinearLayout transportDocumentRows;
+    private LinearLayout transportDocumentRows, transportRows;
+
+    private LayoutInflater layoutInflater;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,7 @@ public class ViewControlActivity extends AppCompatActivity {
         int id = getIntent().getIntExtra("control_id", 0);
 
         ControlRepository repo = ControlRepository.get();
+        layoutInflater = (LayoutInflater) getApplicationContext().getSystemService((Context.LAYOUT_INFLATER_SERVICE));
         control = repo.getControlById(id);
 
         headerLeft = findViewById(R.id.control_card_body_left);
@@ -56,6 +60,7 @@ public class ViewControlActivity extends AppCompatActivity {
         cargoTextRight = findViewById(R.id.cargo_text_right);
 
         transportDocumentRows = findViewById(R.id.transport_document_rows);
+        transportRows = findViewById(R.id.transport_rows);
 
         setTextFields();
 
@@ -76,7 +81,35 @@ public class ViewControlActivity extends AppCompatActivity {
         setCargo();
 
         setTdRows(transportDocumentRows, control.getTdRows());
+        setTRows(transportRows, control.getTRows());
 
+    }
+
+    private void setTRows(LinearLayout layout, TransportRows tRows) {
+        ArrayList<View> views = new ArrayList<>();
+
+        setControlRow(tRows.getRow18(), addView(layout,views), "18. Gods tillåtet för transport","");
+        setControlRow(tRows.getRow19(), addView(layout,views), "19. Fordonet godkänt för det transporterade godset","");
+        setControlRow(tRows.getRow20(), addView(layout,views), "20. Bestämmelser för transportsätt","");
+        setControlRow(tRows.getRow21(), addView(layout,views), "21. Förbud mot samlastning","");
+        setControlRow(tRows.getRow22_1(), addView(layout,views), "22.1. Hantering","");
+        setControlRow(tRows.getRow22_2(), addView(layout,views), "22.2. Lastning/Stuvning ","");
+        setControlRow(tRows.getRow22_3(), addView(layout,views), "23.1. Läckage","");
+
+        for(View v : views) {
+            layout.addView(v);
+        }
+    }
+
+    private View addView(LinearLayout linearLayout, List<View> views) {
+        View view;
+        if(views.size() == 0) {
+            view = layoutInflater.inflate(R.layout.view_control_row_first, linearLayout,false);
+        } else {
+            view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
+        }
+        views.add(view);
+        return view;
     }
     private void setTdRows(LinearLayout linearLayout, TransportDocumentRows tdRows) {
         ArrayList<View> rows = new ArrayList<>();
@@ -100,19 +133,17 @@ public class ViewControlActivity extends AppCompatActivity {
         rows.add(view);
 
         view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
-        setControlRow(tdRows.getDriverCertificationRow(), view, "17. Förarintyg (ADR 8.2.1, 8.2.2)","");
+        setControlRow(tdRows.getDriverCertificationRow(), view, "17.1. Förarintyg (ADR 8.2.1, 8.2.2)","");
         rows.add(view);
 
         view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
-        setControlRow(tdRows.getOtherADRTrainingRow(), view, "18. Annan ADR-utbildning","");
+        setControlRow(tdRows.getOtherADRTrainingRow(), view, "17.2. Annan ADR-utbildning","");
         rows.add(view);
 
         for(View v : rows) {
             linearLayout.addView(v);
         }
     }
-
-
 
     private void setHeader() {
         StringBuilder str = new StringBuilder();
