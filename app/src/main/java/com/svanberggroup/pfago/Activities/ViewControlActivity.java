@@ -82,68 +82,8 @@ public class ViewControlActivity extends AppCompatActivity {
 
         setTdRows(transportDocumentRows, control.getTdRows());
         setTRows(transportRows, control.getTRows());
-
     }
 
-    private void setTRows(LinearLayout layout, TransportRows tRows) {
-        ArrayList<View> views = new ArrayList<>();
-
-        setControlRow(tRows.getRow18(), addView(layout,views), "18. Gods tillåtet för transport","");
-        setControlRow(tRows.getRow19(), addView(layout,views), "19. Fordonet godkänt för det transporterade godset","");
-        setControlRow(tRows.getRow20(), addView(layout,views), "20. Bestämmelser för transportsätt","");
-        setControlRow(tRows.getRow21(), addView(layout,views), "21. Förbud mot samlastning","");
-        setControlRow(tRows.getRow22_1(), addView(layout,views), "22.1. Hantering","");
-        setControlRow(tRows.getRow22_2(), addView(layout,views), "22.2. Lastning/Stuvning ","");
-        setControlRow(tRows.getRow22_3(), addView(layout,views), "23.1. Läckage","");
-
-        for(View v : views) {
-            layout.addView(v);
-        }
-    }
-
-    private View addView(LinearLayout linearLayout, List<View> views) {
-        View view;
-        if(views.size() == 0) {
-            view = layoutInflater.inflate(R.layout.view_control_row_first, linearLayout,false);
-        } else {
-            view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
-        }
-        views.add(view);
-        return view;
-    }
-    private void setTdRows(LinearLayout linearLayout, TransportDocumentRows tdRows) {
-        ArrayList<View> rows = new ArrayList<>();
-
-        LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService((Context.LAYOUT_INFLATER_SERVICE));
-        View view = layoutInflater.inflate(R.layout.view_control_row_first, linearLayout,false);
-        rows.add(view);
-        String declaration = Html.fromHtml(line("", getString(tdRows.getDeclaration().label))).toString();
-        setControlRow(tdRows.getGoodsDeclarationRow(), view, "13. Godsdeklaration",declaration);
-
-        view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
-        setControlRow(tdRows.getWrittenInstructionsRow(), view, "14. Skriftliga instruktioner","");
-        rows.add(view);
-
-        view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
-        setControlRow(tdRows.getApprovalRow(), view, "15." + getString(tdRows.getApproval().label),"");
-        rows.add(view);
-
-        view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
-        setControlRow(tdRows.getApprovalCertificateRow(), view, "16. Godkännandecertifikat","");
-        rows.add(view);
-
-        view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
-        setControlRow(tdRows.getDriverCertificationRow(), view, "17.1. Förarintyg (ADR 8.2.1, 8.2.2)","");
-        rows.add(view);
-
-        view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
-        setControlRow(tdRows.getOtherADRTrainingRow(), view, "17.2. Annan ADR-utbildning","");
-        rows.add(view);
-
-        for(View v : rows) {
-            linearLayout.addView(v);
-        }
-    }
 
     private void setHeader() {
         StringBuilder str = new StringBuilder();
@@ -237,6 +177,61 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(cargoTextRight, str.toString());
     }
 
+    private void setTdRows(LinearLayout layout, TransportDocumentRows tdRows) {
+        ArrayList<View> views = new ArrayList<>();
+
+        String declaration = Html.fromHtml(line("", getString(tdRows.getDeclaration().label))).toString();
+        setControlRow(tdRows.getGoodsDeclarationRow(), addView(layout,views), "13. Godsdeklaration",declaration);
+        setControlRow(tdRows.getWrittenInstructionsRow(), addView(layout,views), "14. Skriftliga instruktioner","");
+        setControlRow(tdRows.getApprovalRow(), addView(layout,views), "15." + getString(tdRows.getApproval().label),"");
+        setControlRow(tdRows.getApprovalCertificateRow(), addView(layout,views), "16. Godkännandecertifikat","");
+        setControlRow(tdRows.getDriverCertificationRow(), addView(layout,views), "17.1. Förarintyg (ADR 8.2.1, 8.2.2)","");
+        setControlRow(tdRows.getOtherADRTrainingRow(), addView(layout,views), "17.2. Annan ADR-utbildning","");
+        displayViews(layout, views);
+    }
+    private void setTRows(LinearLayout layout, TransportRows tRows) {
+        ArrayList<View> views = new ArrayList<>();
+
+        setControlRow(tRows.getRow18(), addView(layout,views), "18. Gods tillåtet för transport","");
+        setControlRow(tRows.getRow19(), addView(layout,views), "19. Fordonet godkänt för det transporterade godset","");
+        setControlRow(tRows.getRow20(), addView(layout,views), "20. Bestämmelser för transportsätt","");
+        setControlRow(tRows.getRow21(), addView(layout,views), "21. Förbud mot samlastning","");
+        setControlRow(tRows.getRow22_1(), addView(layout,views), "22.1. Hantering","");
+        setControlRow(tRows.getRow22_2(), addView(layout,views), "22.2. Lastning/Stuvning ","");
+        setControlRow(tRows.getRow22_3(), addView(layout,views), "22.3. Lastsäkring","");
+        setControlRow(tRows.getRow23_1(), addView(layout,views), "23.1. Läckage","");
+        setControlRow(tRows.getRow23_2(), addView(layout,views), "23.2. Skador på kolli/fordon","");
+        setControlRow(tRows.getRow24(), addView(layout,views), "24. Godkännandemärkning av kolli/tankar (ADR kapitel 6)","");
+        setControlRow(tRows.getRow25_1(), addView(layout,views), "25.1. Märkning av kolli (5.2.1)","");
+        setControlRow(tRows.getRow25_2(), addView(layout,views), "25.2. Ettikering av kolli (5.2.2","");
+        setControlRow(tRows.getRow26(), addView(layout,views), "26. Storetiketter (5.3.1","");
+        setControlRow(tRows.getRow27(), addView(layout,views), "27. Skyltning/märkning av fordon/transporthenhet","");
+        setControlRow(tRows.getRow28_1(), addView(layout,views), "28.1. Stoppklots","");
+        setControlRow(tRows.getRow28_2(), addView(layout,views), "28.2. Varningsanordning","");
+        setControlRow(tRows.getRow28_3(), addView(layout,views), "28.3. Varningsväst/ögonskydd/handskar","");
+        setControlRow(tRows.getRow28_4(), addView(layout,views), "28.4. Bärbar ljuskälla","");
+        setControlRow(tRows.getRow29(), addView(layout,views), "29. Godsspecifik utrustning (ADR 8.1.5.2/8.1.5.3)","");
+        setControlRow(tRows.getRow31(), addView(layout,views), "31. Brandsläckare (ADR 8.1.4.1/8.1.4.2/10.6)","");
+        displayViews(layout, views);
+
+    }
+
+    private View addView(LinearLayout linearLayout, List<View> views) {
+        View view;
+        if(views.size() == 0) {
+            view = layoutInflater.inflate(R.layout.view_control_row_first, linearLayout,false);
+        } else {
+            view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
+        }
+        views.add(view);
+        return view;
+    }
+
+    private void displayViews(LinearLayout layout, List<View> views) {
+        for(View v : views) {
+            layout.addView(v);
+        }
+    }
     private void setControlRow(ControlRow row, View view, String title, String text){
         TextView left = view.findViewById(R.id.left);
         TextView right = view.findViewById(R.id.right);
