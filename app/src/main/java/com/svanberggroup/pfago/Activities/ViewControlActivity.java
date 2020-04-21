@@ -28,7 +28,7 @@ public class ViewControlActivity extends AppCompatActivity {
     private TextView headerLeft, headerRight, truckText, trailerText, carrierTextLeft, carrierTextRight, senderText, receiverText;
     private TextView driverText, passengerText, cargoTextLeft, cargoTextRight, goodsDeclarationLeft, goodsDeclarationRight, writtenInstructionsLeft, writtenInstructionsRight;
     private TextView approvalRowLeft, approvalRowRight, approvalCertificateRowLeft, approvalCertificateRowRight, driverCertificateRowLeft, driverCertificateRowRight, otherTrainingRowLeft, otherTrainingRowRight;
-    private LinearLayout transportRows;
+    private LinearLayout transportDocumentRows;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,22 +53,8 @@ public class ViewControlActivity extends AppCompatActivity {
         cargoTextLeft = findViewById(R.id.cargo_text_left);
         cargoTextRight = findViewById(R.id.cargo_text_right);
 
-        goodsDeclarationLeft = findViewById(R.id.goodsDeclarationLeft);
-        goodsDeclarationRight = findViewById(R.id.goodsDeclarationRight);
-        writtenInstructionsLeft = findViewById(R.id.writtenInstructionsLeft);
-        writtenInstructionsRight = findViewById(R.id.writtenInstructionsRight);
+        transportDocumentRows = findViewById(R.id.transport_document_rows);
 
-        approvalRowLeft = findViewById(R.id.approvalRowLeft);
-        approvalRowRight = findViewById(R.id.approvalRowRight);
-        approvalCertificateRowLeft = findViewById(R.id.approvalCertificateRowLeft);
-        approvalCertificateRowRight = findViewById(R.id.approvalCertificateRowRight);
-
-        driverCertificateRowLeft = findViewById(R.id.driverCertificateRowLeft);
-        driverCertificateRowRight = findViewById(R.id.driverCertificateRowRight);
-        otherTrainingRowLeft = findViewById(R.id.otherTrainingRowLeft);
-        otherTrainingRowRight = findViewById(R.id.otherTrainingRowRight);
-
-        transportRows = findViewById(R.id.transportRows);
         setTextFields();
 
     }
@@ -87,10 +73,7 @@ public class ViewControlActivity extends AppCompatActivity {
         setTransportLocationText(control.getReceiver(), false, receiverText);
         setCargo();
 
-        setTransportDocumentRows(control.getTdRows());
-
-
-        setTdRows(transportRows, control.getTdRows());
+        setTdRows(transportDocumentRows, control.getTdRows());
 
     }
     private void setTdRows(LinearLayout linearLayout, TransportDocumentRows tdRows) {
@@ -121,33 +104,10 @@ public class ViewControlActivity extends AppCompatActivity {
         view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
         setControlRow(tdRows.getOtherADRTrainingRow(), view, "18. Annan ADR-utbildning","");
         rows.add(view);
-        
+
         for(View v : rows) {
             linearLayout.addView(v);
         }
-    }
-
-
-    private void setTransportDocumentRows(TransportDocumentRows tdRows) {
-        String declaration = Html.fromHtml(line("", getString(tdRows.getDeclaration().label))).toString();
-        setControlRowLeft(tdRows.getGoodsDeclarationRow(), goodsDeclarationLeft, "13. Godsdeklaration");
-        setControlRowRight(tdRows.getGoodsDeclarationRow(), goodsDeclarationRight, declaration);
-
-        setControlRowLeft(tdRows.getWrittenInstructionsRow(), writtenInstructionsLeft, "14. Skriftliga instruktioner");
-        setControlRowRight(tdRows.getWrittenInstructionsRow(), writtenInstructionsRight, "");
-
-        String approval = Html.fromHtml(line("", "15." + getString(tdRows.getApproval().label))).toString();
-        setControlRowLeft(tdRows.getApprovalRow(), approvalRowLeft, approval);
-        setControlRowRight(tdRows.getApprovalRow(), approvalRowRight, "");
-
-        setControlRowLeft(tdRows.getApprovalCertificateRow(), approvalCertificateRowLeft, "16. Godkännandecertifikat");
-        setControlRowRight(tdRows.getApprovalCertificateRow(), approvalCertificateRowRight, "");
-
-        setControlRowLeft(tdRows.getDriverCertificationRow(), driverCertificateRowLeft, "17. Förarintyg (ADR 8.2.1, 8.2.2)");
-        setControlRowRight(tdRows.getDriverCertificationRow(), driverCertificateRowRight, "");
-
-        setControlRowLeft(tdRows.getOtherADRTrainingRow(), otherTrainingRowLeft, "18. Annan ADR-utbildning");
-        setControlRowRight(tdRows.getOtherADRTrainingRow(), otherTrainingRowRight, "");
     }
 
 
@@ -270,6 +230,7 @@ public class ViewControlActivity extends AppCompatActivity {
         }
         setText(textView, str.toString());
     }
+
     private String address(Transporter transporter){
         StringBuilder str = new StringBuilder();
         str.append(line("Adress:", transporter.getAddress()));
@@ -290,6 +251,5 @@ public class ViewControlActivity extends AppCompatActivity {
     private String line(String title, String data) {
         return title + " <strong>" + data + "</strong>" + "<br>";
     }
-
 
 }
