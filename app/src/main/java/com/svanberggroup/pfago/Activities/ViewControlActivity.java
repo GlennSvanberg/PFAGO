@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,14 +19,22 @@ import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Repository.ControlRepository;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
     private TextView headerLeft, headerRight, truckText, trailerText, carrierTextLeft, carrierTextRight, senderText, receiverText;
     private TextView driverText, passengerText, cargoTextLeft, cargoTextRight, goodsDeclarationLeft, goodsDeclarationRight, writtenInstructionsLeft, writtenInstructionsRight;
     private TextView approvalRowLeft, approvalRowRight, approvalCertificateRowLeft, approvalCertificateRowRight, driverCertificateRowLeft, driverCertificateRowRight, otherTrainingRowLeft, otherTrainingRowRight;
-    private LinearLayout pappa;
+    private LinearLayout transportRowsLayout;
+
+    private int leftIdCount, rightIdCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +74,7 @@ public class ViewControlActivity extends AppCompatActivity {
         otherTrainingRowLeft = findViewById(R.id.otherTrainingRowLeft);
         otherTrainingRowRight = findViewById(R.id.otherTrainingRowRight);
 
-        pappa = findViewById(R.id.pappa);
+        transportRowsLayout = findViewById(R.id.transportRowsLayout);
         setTextFields();
 
     }
@@ -83,15 +92,39 @@ public class ViewControlActivity extends AppCompatActivity {
         setTransportLocationText(control.getSender(), true, senderText);
         setTransportLocationText(control.getReceiver(), false, receiverText);
 
-        addView();
-        setTransportDocumentRows(control.getTdRows());
-        setTransportRows();
+
+      //  setTransportDocumentText(control.getTdRows());
+        setTdRows(transportRowsLayout, control.getTdRows());
+
         setCargo();
     }
-    private void addView() {
-        View.inflate(this,R.layout.view_control_row, pappa);
+    private void setTdRows(LinearLayout layout, TransportDocumentRows tdRows) {
+
+        setControlRow(tdRows.getGoodsDeclarationRow(), addRow(layout), "13. Godsdeklaration:", getString(tdRows.getDeclaration().label));
+        setControlRow(tdRows.getWrittenInstructionsRow(), addRow(layout), "14. Skriftliga instruktioner", "");
+        setControlRow(tdRows.getApprovalRow(), addRow(layout), "15." + getString(tdRows.getApproval().label), "");
+        setControlRow(tdRows.getApprovalCertificateRow(), addRow(layout), "16. Godkännandecertifikat", "");
+        setControlRow(tdRows.getDriverCertificationRow(), addRow(layout), "17. Förarintyg (ADR 8.2.1, 8.2.2)", "");
+        setControlRow(tdRows.getApprovalCertificateRow(), addRow(layout), "18. Annan ADR-utbildning", "");
+
     }
-    private void setTransportDocumentRows(TransportDocumentRows tdRows) {
+
+    private Map<Integer, TextView> addRow(LinearLayout layout) {
+        View addedView = View.inflate(this,R.layout.view_control_row, layout);
+        TextView left = addedView.findViewById(R.id.left);
+        left.setId(leftIdCount);
+        Log.i("TESTTEXT---", "Left id is after changing: " + left.getId());
+        TextView right = addedView.findViewById(R.id.right);
+        right.setId(rightIdCount);
+        HashMap<Integer, TextView> textViews = new HashMap<>();
+        textViews.put(leftIdCount , left);
+        textViews.put(rightIdCount , right);
+        leftIdCount++;
+        rightIdCount++;
+        return textViews;
+    }
+
+    private void setTransportDocumentText(TransportDocumentRows tdRows) {
         String declaration = Html.fromHtml(line("", getString(tdRows.getDeclaration().label))).toString();
         setControlRowLeft(tdRows.getGoodsDeclarationRow(), goodsDeclarationLeft, "13. Godsdeklaration");
         setControlRowRight(tdRows.getGoodsDeclarationRow(), goodsDeclarationRight, declaration);
@@ -113,9 +146,7 @@ public class ViewControlActivity extends AppCompatActivity {
         setControlRowRight(tdRows.getOtherADRTrainingRow(), otherTrainingRowRight, "");
     }
 
-    private void setTransportRows() {
 
-    }
 
     private void setHeader() {
         StringBuilder str = new StringBuilder();
@@ -210,6 +241,19 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(cargoTextRight, str.toString());
     }
 
+    private void setControlRow(ControlRow row, Map<String, Integer> textViewIds, String title, String text) {
+
+        setControlRowLeft(row, textViews.get("left"), title);
+        setControlRowRight(row, textViews.get("right"), text);
+
+        if(textViews.get(leftIdCount) != null && textViews.get(rightIdCount) != null) {
+            Log.i("TESTTEXT", title + " both textViews is null");
+        }
+
+        Log.i("TESTTEXT", "----------------left:" + leftIdCount + " right: " + rightIdCount);
+
+
+    }
     private void setControlRowLeft(ControlRow row, TextView textView, String title) {
         StringBuilder str = new StringBuilder();
         str.append(line("",title));
@@ -239,7 +283,6 @@ public class ViewControlActivity extends AppCompatActivity {
 
     private void setText(TextView textView, String str) {
         textView.setText(Html.fromHtml(str));
-
     }
 
     private String title(String title) {
