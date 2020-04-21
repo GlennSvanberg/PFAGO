@@ -2,9 +2,10 @@ package com.svanberggroup.pfago.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,18 +24,13 @@ import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
     private TextView headerLeft, headerRight, truckText, trailerText, carrierTextLeft, carrierTextRight, senderText, receiverText;
     private TextView driverText, passengerText, cargoTextLeft, cargoTextRight, goodsDeclarationLeft, goodsDeclarationRight, writtenInstructionsLeft, writtenInstructionsRight;
     private TextView approvalRowLeft, approvalRowRight, approvalCertificateRowLeft, approvalCertificateRowRight, driverCertificateRowLeft, driverCertificateRowRight, otherTrainingRowLeft, otherTrainingRowRight;
-    private LinearLayout transportRowsLayout;
-
-    private int leftIdCount, rightIdCount;
+    private LinearLayout transportDocumentRows;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,22 +55,8 @@ public class ViewControlActivity extends AppCompatActivity {
         cargoTextLeft = findViewById(R.id.cargo_text_left);
         cargoTextRight = findViewById(R.id.cargo_text_right);
 
-        goodsDeclarationLeft = findViewById(R.id.goodsDeclarationLeft);
-        goodsDeclarationRight = findViewById(R.id.goodsDeclarationRight);
-        writtenInstructionsLeft = findViewById(R.id.writtenInstructionsLeft);
-        writtenInstructionsRight = findViewById(R.id.writtenInstructionsRight);
+        transportDocumentRows = findViewById(R.id.transport_document_rows);
 
-        approvalRowLeft = findViewById(R.id.approvalRowLeft);
-        approvalRowRight = findViewById(R.id.approvalRowRight);
-        approvalCertificateRowLeft = findViewById(R.id.approvalCertificateRowLeft);
-        approvalCertificateRowRight = findViewById(R.id.approvalCertificateRowRight);
-
-        driverCertificateRowLeft = findViewById(R.id.driverCertificateRowLeft);
-        driverCertificateRowRight = findViewById(R.id.driverCertificateRowRight);
-        otherTrainingRowLeft = findViewById(R.id.otherTrainingRowLeft);
-        otherTrainingRowRight = findViewById(R.id.otherTrainingRowRight);
-
-        transportRowsLayout = findViewById(R.id.transportRowsLayout);
         setTextFields();
 
     }
@@ -91,59 +73,43 @@ public class ViewControlActivity extends AppCompatActivity {
 
         setTransportLocationText(control.getSender(), true, senderText);
         setTransportLocationText(control.getReceiver(), false, receiverText);
-
-
-      //  setTransportDocumentText(control.getTdRows());
-        setTdRows(transportRowsLayout, control.getTdRows());
-
         setCargo();
-    }
-    private void setTdRows(LinearLayout layout, TransportDocumentRows tdRows) {
 
-        setControlRow(tdRows.getGoodsDeclarationRow(), addRow(layout), "13. Godsdeklaration:", getString(tdRows.getDeclaration().label));
-        setControlRow(tdRows.getWrittenInstructionsRow(), addRow(layout), "14. Skriftliga instruktioner", "");
-        setControlRow(tdRows.getApprovalRow(), addRow(layout), "15." + getString(tdRows.getApproval().label), "");
-        setControlRow(tdRows.getApprovalCertificateRow(), addRow(layout), "16. Godkännandecertifikat", "");
-        setControlRow(tdRows.getDriverCertificationRow(), addRow(layout), "17. Förarintyg (ADR 8.2.1, 8.2.2)", "");
-        setControlRow(tdRows.getApprovalCertificateRow(), addRow(layout), "18. Annan ADR-utbildning", "");
+        setTdRows(transportDocumentRows, control.getTdRows());
 
     }
+    private void setTdRows(LinearLayout linearLayout, TransportDocumentRows tdRows) {
+        ArrayList<View> rows = new ArrayList<>();
 
-    private Map<Integer, TextView> addRow(LinearLayout layout) {
-        View addedView = View.inflate(this,R.layout.view_control_row, layout);
-        TextView left = addedView.findViewById(R.id.left);
-        left.setId(leftIdCount);
-        Log.i("TESTTEXT---", "Left id is after changing: " + left.getId());
-        TextView right = addedView.findViewById(R.id.right);
-        right.setId(rightIdCount);
-        HashMap<Integer, TextView> textViews = new HashMap<>();
-        textViews.put(leftIdCount , left);
-        textViews.put(rightIdCount , right);
-        leftIdCount++;
-        rightIdCount++;
-        return textViews;
-    }
-
-    private void setTransportDocumentText(TransportDocumentRows tdRows) {
+        LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService((Context.LAYOUT_INFLATER_SERVICE));
+        View view = layoutInflater.inflate(R.layout.view_control_row_first, linearLayout,false);
+        rows.add(view);
         String declaration = Html.fromHtml(line("", getString(tdRows.getDeclaration().label))).toString();
-        setControlRowLeft(tdRows.getGoodsDeclarationRow(), goodsDeclarationLeft, "13. Godsdeklaration");
-        setControlRowRight(tdRows.getGoodsDeclarationRow(), goodsDeclarationRight, declaration);
+        setControlRow(tdRows.getGoodsDeclarationRow(), view, "13. Godsdeklaration",declaration);
 
-        setControlRowLeft(tdRows.getWrittenInstructionsRow(), writtenInstructionsLeft, "14. Skriftliga instruktioner");
-        setControlRowRight(tdRows.getWrittenInstructionsRow(), writtenInstructionsRight, "");
+        view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
+        setControlRow(tdRows.getWrittenInstructionsRow(), view, "14. Skriftliga instruktioner","");
+        rows.add(view);
 
-        String approval = Html.fromHtml(line("", "15." + getString(tdRows.getApproval().label))).toString();
-        setControlRowLeft(tdRows.getApprovalRow(), approvalRowLeft, approval);
-        setControlRowRight(tdRows.getApprovalRow(), approvalRowRight, "");
+        view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
+        setControlRow(tdRows.getApprovalRow(), view, "15." + getString(tdRows.getApproval().label),"");
+        rows.add(view);
 
-        setControlRowLeft(tdRows.getApprovalCertificateRow(), approvalCertificateRowLeft, "16. Godkännandecertifikat");
-        setControlRowRight(tdRows.getApprovalCertificateRow(), approvalCertificateRowRight, "");
+        view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
+        setControlRow(tdRows.getApprovalCertificateRow(), view, "16. Godkännandecertifikat","");
+        rows.add(view);
 
-        setControlRowLeft(tdRows.getDriverCertificationRow(), driverCertificateRowLeft, "17. Förarintyg (ADR 8.2.1, 8.2.2)");
-        setControlRowRight(tdRows.getDriverCertificationRow(), driverCertificateRowRight, "");
+        view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
+        setControlRow(tdRows.getDriverCertificationRow(), view, "17. Förarintyg (ADR 8.2.1, 8.2.2)","");
+        rows.add(view);
 
-        setControlRowLeft(tdRows.getOtherADRTrainingRow(), otherTrainingRowLeft, "18. Annan ADR-utbildning");
-        setControlRowRight(tdRows.getOtherADRTrainingRow(), otherTrainingRowRight, "");
+        view = layoutInflater.inflate(R.layout.view_control_row, linearLayout,false);
+        setControlRow(tdRows.getOtherADRTrainingRow(), view, "18. Annan ADR-utbildning","");
+        rows.add(view);
+
+        for(View v : rows) {
+            linearLayout.addView(v);
+        }
     }
 
 
@@ -191,7 +157,6 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(carrierTextLeft, str.toString());
         setText(carrierTextRight, address(control.getCarrier()));
     }
-
 
     private void setTransporterText(Transporter transporter, String title, TextView textView) {
         StringBuilder str = new StringBuilder();
@@ -241,19 +206,14 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(cargoTextRight, str.toString());
     }
 
-    private void setControlRow(ControlRow row, Map<String, Integer> textViewIds, String title, String text) {
+    private void setControlRow(ControlRow row, View view, String title, String text){
+        TextView left = view.findViewById(R.id.left);
+        TextView right = view.findViewById(R.id.right);
 
-        setControlRowLeft(row, textViews.get("left"), title);
-        setControlRowRight(row, textViews.get("right"), text);
-
-        if(textViews.get(leftIdCount) != null && textViews.get(rightIdCount) != null) {
-            Log.i("TESTTEXT", title + " both textViews is null");
-        }
-
-        Log.i("TESTTEXT", "----------------left:" + leftIdCount + " right: " + rightIdCount);
-
-
+        setControlRowLeft(row, left, title);
+        setControlRowRight(row,right, text);
     }
+
     private void setControlRowLeft(ControlRow row, TextView textView, String title) {
         StringBuilder str = new StringBuilder();
         str.append(line("",title));
@@ -272,6 +232,7 @@ public class ViewControlActivity extends AppCompatActivity {
         }
         setText(textView, str.toString());
     }
+
     private String address(Transporter transporter){
         StringBuilder str = new StringBuilder();
         str.append(line("Adress:", transporter.getAddress()));
@@ -291,6 +252,5 @@ public class ViewControlActivity extends AppCompatActivity {
     private String line(String title, String data) {
         return title + " <strong>" + data + "</strong>" + "<br>";
     }
-
 
 }
