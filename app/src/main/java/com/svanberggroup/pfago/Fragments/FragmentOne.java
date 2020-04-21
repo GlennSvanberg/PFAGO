@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -18,7 +17,6 @@ import androidx.fragment.app.Fragment;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
-import com.svanberggroup.pfago.Repository.ControlRepository;
 
 import java.io.Serializable;
 
@@ -28,11 +26,10 @@ public class FragmentOne extends Fragment {
 
     private TextView textView;
     private EditText editText;
-    private Button button;
 
-    private EditText placeField;
-    private EditText licensePlateField;
-
+    private EditText placeEditText;
+    private EditText vehicleLicensePlateEditText;
+    private EditText vehicleCountryEditText;
 
     private Vehicle vehicle;
 
@@ -63,39 +60,19 @@ public class FragmentOne extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_one, container, false);
 
-        textView = view.findViewById(R.id.title);
-        textView.setText(R.string.hello_blank_fragment);
+        vehicleLicensePlateEditText = view.findViewById(R.id.VehicleLicensePlateTextView);
+        placeEditText = view.findViewById(R.id.placeEditText);
 
-        licensePlateField = view.findViewById(R.id.vehcileLicensePlateTextView);
-        placeField = view.findViewById(R.id.placeTextField);
-        placeField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                control.setLocation(charSequence.toString());
-                Log.i("JANNE", control.getLocation());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        button = view.findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                control.setTruck(new Vehicle(editText.getText().toString(), "SE", Vehicle.VehicleType.Truck));
-                ControlRepository.get().addControl(control);
-                getActivity().finish();
-            }
-        });
+//        button = view.findViewById(R.id.button);
+//
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                control.setTruck(new Vehicle(editText.getText().toString(), "SE", Vehicle.VehicleType.Truck));
+//                ControlRepository.get().addControl(control);
+//                getActivity().finish();
+//            }
+//        });
 
         addSaveControlsListener();
 
@@ -105,48 +82,32 @@ public class FragmentOne extends Fragment {
     @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
     }
 
     private void addSaveControlsListener() {
-        placeField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        placeEditText.addTextChangedListener(new TextWatcher() {
 
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.i("janne", placeField.getText().toString());
-                control.setLocation(placeField.getText().toString());
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
-        licensePlateField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(licensePlateField.length() > 0) {
-                    vehicle.setRegNr(licensePlateField.getText().toString());
-                    control.setTruck(vehicle);
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence.length() > 0) {
+                    control.setLocation(charSequence.toString());
+                    Log.i("JANNE", control.getLocation());
+                } else {
+                    control.setLocation(nil);
                 }
+
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable editable) {
 
             }
         });
+
     }
 }
