@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,26 @@ public class FragmentTwo extends Fragment {
 
     private static final String NEW_CONTROL = "new_control";
 
-    private TextView textView;
+    private EditText transporterEditText;
+    private EditText transporterPhoneEditText;
+    private EditText transporterAddressEditText;
+    private EditText transporterZIPEditText;
+    private EditText transporterCityEditText;
+    private EditText transporterCountryEditText;
+
+    private EditText transporterEditText;
+    private EditText transporterPhoneEditText;
+    private EditText transporterAddressEditText;
+    private EditText transporterZIPEditText;
+    private EditText transporterCityEditText;
+    private EditText transporterCountryEditText;
+    
+    private EditText transporterEditText;
+    private EditText transporterPhoneEditText;
+    private EditText transporterAddressEditText;
+    private EditText transporterZIPEditText;
+    private EditText transporterCityEditText;
+    private EditText transporterCountryEditText;
 
     private Control control;
 
@@ -45,8 +65,7 @@ public class FragmentTwo extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_two, container, false);
 
-        textView = view.findViewById(R.id.title);
-        textView.setText("Fragment two");
+
 
         return  view;
     }
