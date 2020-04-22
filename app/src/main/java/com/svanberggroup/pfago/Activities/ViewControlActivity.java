@@ -47,7 +47,6 @@ public class ViewControlActivity extends AppCompatActivity {
         cardsLinearLayout = findViewById(R.id.cards_linear_layout);
 
         setCards();
-
     }
 
     private void setCards() {
@@ -58,11 +57,17 @@ public class ViewControlActivity extends AppCompatActivity {
         setTransporterCard(addTransporterCardView(cards));
         setDestinationsCard(addCardView(cards));
         setCargoCard(addCardView(cards));
+
         setTdCard(addRowsCardView((cards)));
         setTCard(addRowsCardView(cards));
+
         setGoodsCard(addRowsCardView(cards));
         setFaultsCard(addRowsCardView(cards));
         setSafetyAdvisorCard(addCardView(cards));
+        setProhibitionCard(addCardView(cards));
+        setSubmissionCard(addCardViewFullWidth(cards));
+        setReportsCard(addCardView(cards));
+
         displayViews(cardsLinearLayout, cards);
     }
     private TextView cardLeft(View card) {
@@ -315,12 +320,78 @@ public class ViewControlActivity extends AppCompatActivity {
         return str.toString();
     }
 
+    private void setProhibitionCard(View card){
+        StringBuilder str = new StringBuilder();
+        setText(cardTitle(card), "Beslut om förbud");
+
+        List<Integer> prohibitions = control.getProhibitetFieldNrList();
+        str.append("Med stöd av 14 i lag (2006:263) om transport av farligt gods förbjuds fortsatt transport så länge som position");
+        str.append(prohibitions.size() > 1 ? "erna" : "");
+        str.append(" enligt fält nr <strong>");
+        for(int i = 0; i < prohibitions.size(); i++){
+            str.append(prohibitions.get(i));
+            if(prohibitions.size() > i+1){
+                str.append(", ");
+            }
+        }
+        str.append("</strong> i kontrollist" + (prohibitions.size() > 1 ? "or" : "a"));
+        str.append(" upptagna brister inte avhjälpts");
+
+        setText(cardLeft(card), str.toString());
+        str = new StringBuilder();
+
+
+        if(control.isAllowedToContinueTrip()) {
+            str.append("Trots meddelat förbud medges färd kortast lämpliga väg till uppställning-/omlastning-/lossningslats:<br>");
+            str.append("<strong>" + control.getDestination() + "</strong>");
+        }
+        setText(cardRight(card), str.toString());
+    }
+    private void setSubmissionCard(View card){
+        StringBuilder str = new StringBuilder();
+        setText(cardTitle(card), "Beslut om föreläggande");
+        List<Integer> submissions = control.getSubmissionFieldNrList();
+
+        str.append("Med stöd av 14 i lag (2006:263) om transport av farligt gods meddelas föreläggande att snarast avhjälpa brister under position");
+        str.append(submissions.size() > 1 ? "erna" : "");
+        str.append(" enligt fält nr <strong>");
+        for(int i = 0; i < submissions.size(); i++){
+            str.append(submissions.get(i));
+            if(submissions.size() > i+1){
+                str.append(", ");
+            }
+        }
+        str.append("</strong> i kontrollista");
+
+        TextView body = card.findViewById(R.id.card_body);
+        setText(body, str.toString());
+
+    }
+    private void setReportsCard(View card){
+
+        setText(cardTitle(card), "Rapporter (antal rapporterade brott)");
+
+        control.getReportedEntity();
+        setText(cardLeft(card), line("Rapporterad entitet: ", getString(control.getReportedEntity().label)));
+        StringBuilder str = new StringBuilder();
+        str.append(line("OF-koder:", ""));
+        for(String of : control.getPenaltiesList()){
+            str.append(line("", of));
+        }
+        setText(cardRight(card), str.toString());
+
+    }
+
     private View addCardView(List<View> views){
         View view = layoutInflater.inflate(R.layout.view_control_card, cardsLinearLayout,false);
         views.add(view);
         return view;
     }
-
+    private View addCardViewFullWidth(List<View> views){
+        View view = layoutInflater.inflate(R.layout.view_control_card_full_width, cardsLinearLayout,false);
+        views.add(view);
+        return view;
+    }
     private View addTransporterCardView(List<View> views){
         View view = layoutInflater.inflate(R.layout.view_control_transporter_card, cardsLinearLayout,false);
         views.add(view);

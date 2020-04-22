@@ -155,6 +155,7 @@ public class ControlRepository {
         a.setSafetyAdvisorCarrier(new SafetyAdvisor(SafetyAdvisor.Answer.Yes, "Göran Stenfeldt"));
         a.setSafetyAdvisorSender(new SafetyAdvisor(SafetyAdvisor.Answer.Unknown, ""));
         a.addProhibitedField(1);
+        a.addProhibitedField(1);
         a.addSubmissionFieldNr(2);
         a.setAllowedToContinueTrip(true);
         a.setDestination("Norra korsvägen 28");
