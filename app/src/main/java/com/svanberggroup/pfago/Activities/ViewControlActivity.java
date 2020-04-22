@@ -28,9 +28,7 @@ import java.util.List;
 
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
-    private TextView headerLeft, headerRight, truckText, trailerText, carrierTextLeft, carrierTextRight, senderText, receiverText;
-    private TextView driverText, passengerText, cargoTextLeft, cargoTextRight;
-    private LinearLayout transportDocumentRows, transportRows, cardsLinearLayout;
+    private LinearLayout  cardsLinearLayout;
 
     private LayoutInflater layoutInflater;
     @Override
@@ -45,29 +43,11 @@ public class ViewControlActivity extends AppCompatActivity {
 
         cardsLinearLayout = findViewById(R.id.cards_linear_layout);
 
-        headerLeft = findViewById(R.id.control_card_body_left);
-        headerRight = findViewById(R.id.control_card_body_right);
-
-        truckText = findViewById(R.id.truck_text);
-        trailerText = findViewById(R.id.trailer_text);
-        carrierTextLeft = findViewById(R.id.carrier_text_left);
-        carrierTextRight = findViewById(R.id.carrier_text_right);
-
-        senderText = findViewById(R.id.sender_text);
-        receiverText = findViewById(R.id.receiver_text);
-        driverText = findViewById(R.id.driver_text);
-        passengerText = findViewById(R.id.passenger_text);
-        cargoTextLeft = findViewById(R.id.cargo_text_left);
-        cargoTextRight = findViewById(R.id.cargo_text_right);
-
-        transportDocumentRows = findViewById(R.id.transport_document_rows);
-        transportRows = findViewById(R.id.transport_rows);
-
-
-        setTextFields();
+        setCards();
 
     }
-    private void setTextFields() {
+
+    private void setCards() {
         List<View> cards = new ArrayList<>();
 
         setHeaderCard(addCardView(cards));
@@ -75,11 +55,9 @@ public class ViewControlActivity extends AppCompatActivity {
         setTransporterCard(addTransporterCardView(cards));
         setDestinationsCard(addCardView(cards));
         setCargoCard(addCardView(cards));
-        //setTdCard();
+        setTdCard(addRowsCardView((cards)));
+        setTCard(addRowsCardView(cards));
         displayViews(cardsLinearLayout, cards);
-
-        setTdRows(transportDocumentRows, control.getTdRows());
-        setTRows(transportRows, control.getTRows());
     }
     private TextView cardLeft(View card) {
         return card.findViewById(R.id.card_body_left);
@@ -119,11 +97,13 @@ public class ViewControlActivity extends AppCompatActivity {
 
         setText(cardRight(card), str.toString());
     }
+
     private void setVehicleCard(View card) {
         setText(cardTitle(card), "Fordon");
         setText(cardLeft(card), vehicleText(control.getTruck()));
         setText(cardRight(card), vehicleText(control.getTrailer()));
     }
+
     private String vehicleText(Vehicle vehicle) {
         StringBuilder str = new StringBuilder();
 
@@ -133,6 +113,7 @@ public class ViewControlActivity extends AppCompatActivity {
 
         return str.toString();
     }
+
     private void setTransporterCard(View card){
         setText(cardTitle(card), "Transportör");
         setCarrier(card);
@@ -142,6 +123,7 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(driverTextView, setTransporterText(control.getDriver(), "Förare"));
         setText(passengerTextView, setTransporterText((control.getPassenger()), "Passagerare"));
     }
+
     private void setCarrier(View card){
         StringBuilder str = new StringBuilder();
         Transporter carrier = control.getCarrier();
@@ -154,6 +136,7 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(left, str.toString());
         setText(right, address(carrier));
     }
+
     private String setTransporterText(Transporter transporter, String title) {
         StringBuilder str = new StringBuilder();
 
@@ -164,11 +147,13 @@ public class ViewControlActivity extends AppCompatActivity {
 
         return str.toString();
     }
+
     private void setDestinationsCard(View card) {
         setText(cardTitle(card), "Destinationer");
         setText(cardLeft(card), destinationText(control.getSender(), true));
         setText(cardRight(card), destinationText(control.getReceiver(), false));
     }
+
     private String destinationText(TransportLocation location, boolean isSender) {
         StringBuilder str = new StringBuilder();
         if(isSender) {
@@ -184,8 +169,6 @@ public class ViewControlActivity extends AppCompatActivity {
 
         return str.toString();
     }
-
-
 
     private void setCargoCard(View card){
         StringBuilder str = new StringBuilder();
@@ -205,9 +188,10 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(cardRight(card), str.toString());
     }
 
-
-    private void setTdRows(LinearLayout layout, TransportDocumentRows tdRows) {
+    private void setTdCard(View card) {
+        LinearLayout layout = card.findViewById(R.id.card_rows);
         ArrayList<View> views = new ArrayList<>();
+        TransportDocumentRows tdRows = control.getTdRows();
 
         String declaration = Html.fromHtml(line("", getString(tdRows.getDeclaration().label))).toString();
         setControlRow(tdRows.getGoodsDeclarationRow(), addRowView(layout,views), "13. Godsdeklaration",declaration);
@@ -218,8 +202,10 @@ public class ViewControlActivity extends AppCompatActivity {
         setControlRow(tdRows.getOtherADRTrainingRow(), addRowView(layout,views), "17.2. Annan ADR-utbildning","");
         displayViews(layout, views);
     }
-    private void setTRows(LinearLayout layout, TransportRows tRows) {
+    private void setTCard(View card) {
+        LinearLayout layout = card.findViewById(R.id.card_rows);
         ArrayList<View> views = new ArrayList<>();
+        TransportRows tRows = control.getTRows();
 
         setControlRow(tRows.getRow18(), addRowView(layout,views), "18. Gods tillåtet för transport","");
         setControlRow(tRows.getRow19(), addRowView(layout,views), "19. Fordonet godkänt för det transporterade godset","");
@@ -242,7 +228,6 @@ public class ViewControlActivity extends AppCompatActivity {
         setControlRow(tRows.getRow29(), addRowView(layout,views), "29. Godsspecifik utrustning (ADR 8.1.5.2/8.1.5.3)","");
         setControlRow(tRows.getRow31(), addRowView(layout,views), "31. Brandsläckare (ADR 8.1.4.1/8.1.4.2/10.6)","");
         displayViews(layout, views);
-
     }
 
     private View addCardView(List<View> views){
@@ -253,6 +238,11 @@ public class ViewControlActivity extends AppCompatActivity {
 
     private View addTransporterCardView(List<View> views){
         View view = layoutInflater.inflate(R.layout.view_control_transporter_card, cardsLinearLayout,false);
+        views.add(view);
+        return view;
+    }
+    private View addRowsCardView(List<View> views){
+        View view = layoutInflater.inflate(R.layout.view_control_rows_card, cardsLinearLayout,false);
         views.add(view);
         return view;
     }
@@ -313,11 +303,7 @@ public class ViewControlActivity extends AppCompatActivity {
         textView.setText(Html.fromHtml(str));
     }
 
-    private String title(String title) {
-        return  title + "<br>";
-    }
     private String line(String title, String data) {
         return title + " <strong>" + data + "</strong>" + "<br>";
     }
-
 }
