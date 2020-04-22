@@ -1,95 +1,388 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/carrier" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/carrier"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/title"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        <EditText
+            android:id="@+id/coDriverZIPEditText"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:ems="10"
+            android:hint="Postnummer"
+            android:inputType="number"
+            android:nextFocusDown="@+id/coDriverCityEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/coDriverCityEditText" />
 
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:ems="10"
-        android:hint="Telefon"
-        android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editText4"
-        app:layout_constraintTop_toTopOf="@+id/editText4" />
+        <EditText
+            android:id="@+id/coDriverAddressEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="Utdelningsadress"
+            android:inputType="textPostalAddress"
+            android:nextFocusDown="@+id/coDriverZIPEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/coDriverEditText" />
 
-    <EditText
-        android:id="@+id/editText6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:ems="10"
-        android:hint="Utdelningsadress"
-        android:inputType="textPostalAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/editText4"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        <EditText
+            android:id="@+id/coDriverPhoneEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="Telefon"
+            android:inputType="phone"
+            android:nextFocusDown="@+id/coDriverAddressEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/coDriverEditText"
+            app:layout_constraintTop_toBottomOf="@+id/coDriverTextView" />
 
-    <EditText
-        android:id="@+id/editText7"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Postnummer"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="@+id/editText6"
-        app:layout_constraintTop_toBottomOf="@+id/editText6" />
+        <EditText
+            android:id="@+id/coDriverCityEditText"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:ems="10"
+            android:hint="Postort"
+            android:inputType="textPersonName"
+            android:nextFocusDown="@+id/coDriverCountryEditText"
+            app:layout_constraintStart_toEndOf="@+id/coDriverZIPEditText"
+            app:layout_constraintTop_toBottomOf="@+id/coDriverAddressEditText" />
 
-    <EditText
-        android:id="@+id/editText8"
-        android:layout_width="122dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:ems="10"
-        android:hint="Postort"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="@+id/editText7"
-        app:layout_constraintStart_toEndOf="@+id/editText7"
-        app:layout_constraintTop_toBottomOf="@+id/editText6" />
+        <TextView
+            android:id="@+id/coDriverTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="Annan besättningsmedlem"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/driverZIPEditText" />
 
-    <EditText
-        android:id="@+id/editText10"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:ems="10"
-        android:hint="Land"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="@+id/editText8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editText8"
-        app:layout_constraintTop_toBottomOf="@+id/editText6"
-        app:layout_constraintVertical_bias="0.0" />
+        <EditText
+            android:id="@+id/coDriverEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:ems="10"
+            android:hint="Namn"
+            android:inputType="textPersonName"
+            android:nextFocusDown="@+id/coDriverPhoneEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/coDriverTextView" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/coDriverCountryEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="Land"
+            android:inputType="textPersonName"
+            android:nextFocusDown="@+id/senderEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/coDriverCityEditText"
+            app:layout_constraintTop_toBottomOf="@+id/coDriverAddressEditText" />
+
+        <EditText
+            android:id="@+id/carrierCityEditText"
+            android:layout_width="140dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:ems="10"
+            android:hint="Postort"
+            android:inputType="textPersonName"
+            android:nextFocusDown="@+id/carrierCountryEditText"
+            app:layout_constraintBottom_toBottomOf="@+id/carrierZIPEditText"
+            app:layout_constraintStart_toEndOf="@+id/carrierZIPEditText"
+            app:layout_constraintTop_toBottomOf="@+id/carrierAddressEditText"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <EditText
+            android:id="@+id/driverCountryEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="Land"
+            android:inputType="textPersonName"
+            android:nextFocusDown="@id/coDriverEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/driverCityEditText"
+            app:layout_constraintTop_toBottomOf="@+id/driverAddressEditText" />
+
+        <EditText
+            android:id="@+id/driverAddressEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="Utdelningsadress"
+            android:inputType="textPostalAddress"
+            android:nextFocusDown="@+id/driverZIPEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/driverEditText" />
+
+        <EditText
+            android:id="@+id/driverZIPEditText"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:ems="10"
+            android:hint="Postnummer"
+            android:inputType="number"
+            android:nextFocusDown="@id/driverCityEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/driverAddressEditText" />
+
+        <TextView
+            android:id="@+id/driverTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center"
+            android:text="Förare"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/carrierZIPEditText" />
+
+        <EditText
+            android:id="@+id/driverPhoneEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="Telefon"
+            android:inputType="phone"
+            android:nextFocusDown="@id/driverAddressEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/driverEditText"
+            app:layout_constraintTop_toTopOf="@+id/driverEditText" />
+
+        <EditText
+            android:id="@+id/driverCityEditText"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:ems="10"
+            android:hint="Postort"
+            android:inputType="textPersonName"
+            android:nextFocusDown="@+id/driverCountryEditText"
+            app:layout_constraintStart_toEndOf="@id/driverZIPEditText"
+            app:layout_constraintTop_toBottomOf="@+id/driverAddressEditText" />
+
+        <EditText
+            android:id="@+id/driverEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:ems="10"
+            android:hint="Förare"
+            android:inputType="textPersonName"
+            android:nextFocusDown="@id/driverPhoneEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/driverTextView" />
+
+        <TextView
+            android:id="@+id/transpoterTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Transporter"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/carrierEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/carrier"
+            android:inputType="textPersonName"
+            android:nextFocusDown="@+id/carrierPhoneEditText"
+            app:layout_constraintStart_toStartOf="@+id/transpoterTextView"
+            app:layout_constraintTop_toBottomOf="@+id/transpoterTextView" />
+
+        <EditText
+            android:id="@+id/carrierPhoneEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="Telefon"
+            android:inputType="phone"
+            android:nextFocusDown="@+id/carrierAddressEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/carrierEditText"
+            app:layout_constraintTop_toTopOf="@+id/carrierEditText" />
+
+        <EditText
+            android:id="@+id/carrierAddressEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="Utdelningsadress"
+            android:inputType="textPostalAddress"
+            android:nextFocusDown="@+id/carrierZIPEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/carrierEditText"
+            app:layout_constraintTop_toBottomOf="@+id/carrierEditText" />
+
+        <EditText
+            android:id="@+id/carrierZIPEditText"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Postnummer"
+            android:inputType="number"
+            android:nextFocusDown="@+id/carrierCityEditText"
+            app:layout_constraintStart_toStartOf="@+id/carrierAddressEditText"
+            app:layout_constraintTop_toBottomOf="@+id/carrierAddressEditText" />
+
+        <EditText
+            android:id="@+id/carrierCountryEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="Land"
+            android:inputType="textPersonName"
+            android:nextFocusDown="@+id/driverEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/carrierCityEditText"
+            app:layout_constraintTop_toBottomOf="@+id/carrierAddressEditText" />
+
+        <TextView
+            android:id="@+id/senderTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Avsändare"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/coDriverZIPEditText" />
+
+        <EditText
+            android:id="@+id/senderEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="Utdelningsadress"
+            android:inputType="textPostalAddress"
+            android:nextFocusDown="@+id/senderLoadPlaceEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/senderTextView" />
+
+        <EditText
+            android:id="@+id/senderLoadPlaceEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Lastplats"
+            android:inputType="textPersonName"
+            android:nextFocusDown="@+id/senderPhoneEditText"
+            app:layout_constraintStart_toStartOf="@+id/senderEditText"
+            app:layout_constraintTop_toBottomOf="@+id/senderEditText" />
+
+        <EditText
+            android:id="@+id/senderPhoneEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="Telefon"
+            android:inputType="phone"
+            android:nextFocusDown="@id/reciverAdressEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/senderLoadPlaceEditText"
+            app:layout_constraintTop_toBottomOf="@+id/senderEditText" />
+
+        <TextView
+            android:id="@+id/reciverTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Mottagare"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/senderLoadPlaceEditText" />
+
+        <EditText
+            android:id="@+id/reciverAdressEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="Utdelningsadress"
+            android:inputType="textPostalAddress"
+            android:nextFocusDown="@id/reciverUnloadPlaceEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reciverTextView" />
+
+        <EditText
+            android:id="@+id/reciverUnloadPlaceEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Lossningsplats"
+            android:inputType="textPersonName"
+            android:nextFocusDown="@id/reciverPhoneEditText"
+            app:layout_constraintStart_toStartOf="@+id/reciverAdressEditText"
+            app:layout_constraintTop_toBottomOf="@+id/reciverAdressEditText" />
+
+        <EditText
+            android:id="@+id/reciverPhoneEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="Telefon"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/reciverUnloadPlaceEditText"
+            app:layout_constraintTop_toBottomOf="@+id/reciverAdressEditText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+

@@ -1,230 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragOne"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout2"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fragOne"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/radioGroup2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/placeTextField"
-            tools:text="@string/hello_blank_fragment" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/vehcileLicensePlateTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:hint="ABC123"
-            app:layout_constraintEnd_toStartOf="@+id/radioGroup2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"></EditText>
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Save"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup"></Button>
-
-        <EditText
-            android:id="@+id/vehicleCountryTextField"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:ems="10"
-            android:hint="Nationalitet"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/vehcileLicensePlateTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vehcileLicensePlateTextView" />
-
-        <TextView
-            android:id="@+id/trailer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/trailer"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vehicleCountryTextField" />
-
-        <EditText
-            android:id="@+id/trailerLicensePlateTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:ems="10"
-            android:hint="ABC123"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toStartOf="@+id/trailerCountryTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trailer" />
-
-        <EditText
-            android:id="@+id/trailerCountryTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:ems="10"
-            android:hint="Nationalitet"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/trailerLicensePlateTextView" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
-
-            <RadioButton
-                android:id="@+id/radioButton8"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/vehicleTextView"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:layout_weight="1"
-                android:text="@string/trailer" />
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="Fordon"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/ControlPlaceTypeRadioGroup"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/placeEditText" />
 
-            <RadioButton
-                android:id="@+id/radioButton6"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/VehicleLicensePlateEditText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:layout_weight="1"
-                android:text="@string/semi_trailer" />
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:hint="ABC123"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toStartOf="@+id/ControlPlaceTypeRadioGroup"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vehicleTextView"></EditText>
 
-            <RadioButton
-                android:id="@+id/radioButton7"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/vehicleCountryEditText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/container" />
-        </RadioGroup>
+                android:layout_marginStart="10dp"
+                android:ems="10"
+                android:hint="Nationalitet"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="@+id/VehicleLicensePlateEditText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/VehicleLicensePlateEditText" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="Släp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trailerLicensePlateTextView" />
-
-        <RadioGroup
-            android:id="@+id/radioGroup2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:baselineAligned="false"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4">
-
-
-            <RadioButton
-                android:id="@+id/godsTerminalButton"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/trailerLicensePlateEditText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Godsterminal" />
+                android:layout_marginStart="10dp"
+                android:ems="10"
+                android:hint="ABC123"
+                android:inputType="textPersonName"
+                android:nextFocusDown="@+id/trailerCountryEditText"
+                app:layout_constraintEnd_toStartOf="@+id/trailerCountryEditText"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trailerTypeRadioGroup" />
 
-            <RadioButton
-                android:id="@+id/companyVisitButton"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/trailerCountryEditText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Företagsbesök" />
+                android:layout_marginEnd="10dp"
+                android:ems="10"
+                android:hint="Nationalitet"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/trailerLicensePlateEditText" />
 
-            <RadioButton
-                android:id="@+id/roadButton"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/trailerTypeRadioGroup"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Väg" />
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2">
 
-            <RadioButton
-                android:id="@+id/harbourTerminalButton"
-                android:layout_width="wrap_content"
+                <RadioButton
+                    android:id="@+id/trailerRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="1"
+                    android:text="@string/trailer" />
+
+                <RadioButton
+                    android:id="@+id/semiTrailerRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="1"
+                    android:text="@string/semi_trailer" />
+
+                <RadioButton
+                    android:id="@+id/containerRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/container" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Hamnterminal" />
+                android:layout_marginStart="10dp"
+                android:text="Släpvagn"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/vehicleCountryEditText" />
 
-            <RadioButton
-                android:id="@+id/systemButton"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/ControlPlaceTypeRadioGroup"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="System/tema" />
+                android:layout_marginEnd="20dp"
+                android:baselineAligned="false"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ControlPlaceTextView">
 
-        </RadioGroup>
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="Plats"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/textView4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <RadioButton
+                    android:id="@+id/godsTerminalRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Godsterminal" />
 
-        <EditText
-            android:id="@+id/placeTextField"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:ems="10"
-            android:hint="Plats/Kommun"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toStartOf="@+id/radioGroup2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                <RadioButton
+                    android:id="@+id/companyVisitRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Företagsbesök" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="Kontrollplats"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/placeTextField"
-            app:layout_constraintTop_toTopOf="parent" />
+                <RadioButton
+                    android:id="@+id/roadRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Väg" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <RadioButton
+                    android:id="@+id/harbourTerminalRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hamnterminal" />
 
-</FrameLayout>
+                <RadioButton
+                    android:id="@+id/systemRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="System/tema" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/placeTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="Plats"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/ControlPlaceTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/placeEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:ems="10"
+                android:hint="Plats/Kommun"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toStartOf="@+id/ControlPlaceTypeRadioGroup"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/placeTextView" />
+
+            <TextView
+                android:id="@+id/ControlPlaceTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="Kontrollplats"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/placeEditText"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</androidx.core.widget.NestedScrollView>

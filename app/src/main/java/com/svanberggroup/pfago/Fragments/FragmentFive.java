@@ -46,9 +46,6 @@ public class FragmentFive extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_five, container, false);
 
-        textView = view.findViewById(R.id.title);
-        textView.setText("Fragment five");
-
         return  view;
     }
 

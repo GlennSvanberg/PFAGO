@@ -47,8 +47,6 @@ public class AddControlActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private Control control;
-    private FusedLocationProviderClient fusedLocationClient;
-    private String city;
 
 
     @Override
@@ -56,41 +54,9 @@ public class AddControlActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_control);
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},1);
-            }
-        }
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    // Context
-                    Geocoder geocoder = new Geocoder(getApplicationContext() , Locale.getDefault());
-                    try {
-                        List<Address> adrresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                        String cityName = adrresses.get(0).getAddressLine(0);
-                        city = cityName;
-                    } catch(Exception e) {
-
-                    }
-
-
-
-                }
-            }
-
-        });
-
         viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tabs);
         control = new Control();
-        control.setLocation(city);
         viewPager.setAdapter(createCardAdapter());
 
         new TabLayoutMediator(tabLayout, viewPager,
@@ -118,9 +84,6 @@ public class AddControlActivity extends AppCompatActivity {
                         }
                     }
                 }).attach();
-
-
-
     }
 
     @Override
@@ -137,8 +100,7 @@ public class AddControlActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.doneControl:
 
-              //  ControlRepository.get().addControl(control);
-                return true;
+                ControlRepository.get().addControl(control);
 
                 default: return super.onOptionsItemSelected(item);
         }
