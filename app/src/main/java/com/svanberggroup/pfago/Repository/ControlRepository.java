@@ -143,7 +143,7 @@ public class ControlRepository {
         controls.add(a);
         tr.setRiskCategory(TransportRows.RiskCategory.category2);
 
-        
+
         Goods g = new Goods("A", "UN-4523", "Avgasrenad bensin", "GHL", "45", "100Kg", "Faltibt", true);
         Goods g2 = new Goods("B", "UN-5133", "Flytande kväve", "GBD", "53", "99Liter", "Faltibt", true);
         a.addGoods(g);

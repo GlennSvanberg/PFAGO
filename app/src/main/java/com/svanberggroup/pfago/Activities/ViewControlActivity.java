@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
+import com.svanberggroup.pfago.Models.Goods;
 import com.svanberggroup.pfago.Models.Quantity;
 import com.svanberggroup.pfago.Models.TransportDocumentRows;
 import com.svanberggroup.pfago.Models.TransportLocation;
@@ -57,6 +58,8 @@ public class ViewControlActivity extends AppCompatActivity {
         setCargoCard(addCardView(cards));
         setTdCard(addRowsCardView((cards)));
         setTCard(addRowsCardView(cards));
+
+        setGoodsCard(addRowsCardView(cards));
         displayViews(cardsLinearLayout, cards);
     }
     private TextView cardLeft(View card) {
@@ -234,6 +237,36 @@ public class ViewControlActivity extends AppCompatActivity {
         }
         setControlRowRisk(getString(tRows.getRiskCategory().label), addRowView(layout, views));
         displayViews(layout, views);
+    }
+
+    private void setGoodsCard(View card){
+
+        setText(cardTitle(card), "Gods");
+        LinearLayout layout = card.findViewById(R.id.card_rows);
+        ArrayList<View> views = new ArrayList<>();
+        List<Goods> goods = control.getGoodsList();
+        for(int i = 0; i < goods.size(); i++){
+            setGoodsRow(goods.get(i), addRowView(layout, views));
+        }
+        displayViews(layout, views);
+    }
+    private void setGoodsRow(Goods goods, View card){
+        StringBuilder str = new StringBuilder();
+        TextView left = card.findViewById(R.id.left);
+        TextView right = card.findViewById(R.id.right);
+
+        str.append(line("Pos:", goods.getPosition()));
+        str.append(line("UN-nr:", goods.getUnNr()));
+        str.append(line("Godsbeskrivning:", goods.getDescription()));
+        str.append(line("Klass/Etikett:", goods.getLabel()));
+        setText(left, str.toString());
+
+        str = new StringBuilder();
+        str.append(line("PG:", goods.getPG()));
+        str.append(line("Mängd:", goods.getQty()));
+        str.append(line("Fraktsedel:", goods.getWayBill()));
+        str.append(line("LQ:", goods.isLq() ? "Ja" : "Nej"));
+        setText(right, (str.toString()));
     }
 
     private View addCardView(List<View> views){

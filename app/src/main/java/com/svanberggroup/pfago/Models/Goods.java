@@ -76,4 +76,12 @@ public class Goods {
     public void setWayBill(String wayBill) {
         this.wayBill = wayBill;
     }
+
+    public boolean isLq() {
+        return lq;
+    }
+
+    public void setLq(boolean lq) {
+        this.lq = lq;
+    }
 }

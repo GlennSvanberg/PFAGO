@@ -107,6 +107,7 @@ public class Control implements Serializable {
         faultList = new ArrayList<>();
         prohibitetFieldNrList = new ArrayList<>();
         submissionFieldNrList = new ArrayList<>();
+        penaltiesList = new ArrayList<>();
     }
 
     public int getId() {
