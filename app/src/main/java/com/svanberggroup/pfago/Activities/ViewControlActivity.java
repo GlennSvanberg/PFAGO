@@ -88,22 +88,33 @@ public class ViewControlActivity extends AppCompatActivity {
 
         StringBuilder str = new StringBuilder();
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+        String startDate = "";
+        if(control.getStartDate() != null){
+            startDate = formatter.format(control.getStartDate());
+        }
+        String place = "";
+        if (control.getLocation() != null){
+            place = control.getLocation();
+        }
 
-        String date = formatter.format(control.getStartDate());
-        String place = control.getLocation();
-
-        str.append(line("Datum:", date));
+        str.append(line("Datum:", startDate));
         str.append(line("Plats:", place));
-        str.append(line("Platstyp:", getString(control.getLocationType().label)));
+        String p = "";
+        if(control.getLocationType() != null){
+            p = getString(control.getLocationType().label);
+        }
+        str.append(line("Platstyp:", p));
         setText(cardLeft(card), str.toString());
 
         str = new StringBuilder();
         formatter = new SimpleDateFormat("HH:mm");
 
-        String startDate = formatter.format(control.getStartDate());
-        String endDate = formatter.format(control.getEndDate());
-
         str.append(line("Start:", startDate));
+
+        String endDate = "";
+        if(control.getEndDate() != null){
+            endDate = formatter.format(control.getEndDate());
+        }
         str.append(line("Slut:", endDate));
 
         setText(cardRight(card), str.toString());
@@ -116,11 +127,15 @@ public class ViewControlActivity extends AppCompatActivity {
     }
 
     private String vehicleText(Vehicle vehicle) {
-        StringBuilder str = new StringBuilder();
 
-        str.append(line("", getString(vehicle.getVehicleType().label)));
-        str.append(line("RegNr:", vehicle.getRegNr()));
-        str.append(line("Nationalitet:", vehicle.getNationality()));
+        StringBuilder str = new StringBuilder();
+        if(vehicle != null){
+            str.append(line("", getString(vehicle.getVehicleType().label)));
+            str.append(line("RegNr:", vehicle.getRegNr()));
+            str.append(line("Nationalitet:", vehicle.getNationality()));
+        } else {
+            str.append("Ej tillagt");
+        }
 
         return str.toString();
     }
@@ -141,8 +156,12 @@ public class ViewControlActivity extends AppCompatActivity {
         TextView left = card.findViewById(R.id.carrier_text_left);
         TextView right = card.findViewById(R.id.carrier_text_right);
 
-        str.append(line("Företag:", carrier.getName()));
-        str.append(line("Tel:", carrier.getPhone()));
+        if(carrier != null){
+            str.append(line("Företag:", carrier.getName()));
+            str.append(line("Tel:", carrier.getPhone()));
+        } else {
+            str.append("Företag ej tillagt<br>");
+        }
 
         setText(left, str.toString());
         setText(right, address(carrier));
@@ -150,11 +169,14 @@ public class ViewControlActivity extends AppCompatActivity {
 
     private String setTransporterText(Transporter transporter, String title) {
         StringBuilder str = new StringBuilder();
-
-        str.append(line("", title));
-        str.append(line("Namn:", transporter.getName()));
-        str.append(line("Tel:", transporter.getPhone()));
-        str.append(address(transporter));
+        if(transporter != null){
+            str.append(line("", title));
+            str.append(line("Namn:", transporter.getName()));
+            str.append(line("Tel:", transporter.getPhone()));
+            str.append(address(transporter));
+        } else {
+            str.append(title + " ej tillagd");
+        }
 
         return str.toString();
     }
@@ -167,47 +189,61 @@ public class ViewControlActivity extends AppCompatActivity {
 
     private String destinationText(TransportLocation location, boolean isSender) {
         StringBuilder str = new StringBuilder();
-        if(isSender) {
-            str.append(line("", "Avsändare"));
-            str.append(line("Adress:", location.getAddress()));
-            str.append(line("Lastplats:", location.getPlace()));
+        if(location != null){
+            if(isSender) {
+                str.append(line("", "Avsändare"));
+                str.append(line("Adress:", location.getAddress()));
+                str.append(line("Lastplats:", location.getPlace()));
+            } else {
+                str.append(line("", "Mottagare"));
+                str.append(line("Adress:", location.getAddress()));
+                str.append(line("Lossnigsplats:", location.getPlace()));
+            }
+            str.append(line("Tel:", location.getPhone()));
         } else {
-            str.append(line("", "Mottagare"));
-            str.append(line("Adress:", location.getAddress()));
-            str.append(line("Lossnigsplats:", location.getPlace()));
+            str.append((isSender ? "Avsändare " : "Mottagare ") + "ej tillagd");
         }
-        str.append(line("Tel:", location.getPhone()));
-
         return str.toString();
     }
 
     private void setCargoCard(View card){
         StringBuilder str = new StringBuilder();
-        Quantity qty = control.getQuantity();
         setText(cardTitle(card), "Gods");
+        Quantity qty = control.getQuantity();
+        if(qty != null){
+            str.append(line("Mängd:", qty.getQuantity() + getString(qty.getQuantityType().label)));
+            str.append(line("Standard:", getString(qty.getPackagingStandard().label)));
+            str.append(line("Värdeberäknad mängd:", "" + control.getValueQuantity()));
 
-        str.append(line("Mängd:", qty.getQuantity() + getString(qty.getQuantityType().label)));
-        str.append(line("Standard:", getString(qty.getPackagingStandard().label)));
-        str.append(line("Värdeberäknad mängd:", "" + control.getValueQuantity()));
+            str.append(line("Överskriden:", control.isValueQuantityExceeded() ? "Ja" : "Nej"));
+            setText(cardLeft(card), str.toString());
 
-        str.append(line("Överskriden:", control.isValueQuantityExceeded() ? "Ja" : "Nej"));
-        setText(cardLeft(card), str.toString());
+            str = new StringBuilder();
+            str.append(line("Transport med:", getString(control.getTransportType().label)));
+            str.append(line("Transport enligt:", getString(control.getTransportStandard().label)));
+            setText(cardRight(card), str.toString());
+        } else {
+            str.append("Ej tillagt");
+            setText(cardLeft(card), str.toString());
+        }
 
-        str = new StringBuilder();
-        str.append(line("Transport med:", getString(control.getTransportType().label)));
-        str.append(line("Transport enligt:", getString(control.getTransportStandard().label)));
-        setText(cardRight(card), str.toString());
     }
 
     private void setTdCard(View card) {
         LinearLayout layout = card.findViewById(R.id.card_rows);
         ArrayList<View> views = new ArrayList<>();
         TransportDocumentRows tdRows = control.getTdRows();
-
-        String declaration = Html.fromHtml(line("", getString(tdRows.getDeclaration().label))).toString();
+        String declaration = "";
+        if(tdRows.getDeclaration() != null){
+            declaration = Html.fromHtml(line("", getString(tdRows.getDeclaration().label))).toString();
+        }
         setControlRow(tdRows.getGoodsDeclarationRow(), addRowView(layout,views), "13. Godsdeklaration",declaration);
         setControlRow(tdRows.getWrittenInstructionsRow(), addRowView(layout,views), "14. Skriftliga instruktioner","");
-        setControlRow(tdRows.getApprovalRow(), addRowView(layout,views), "15." + getString(tdRows.getApproval().label),"");
+        String approval = "15. bilateral/multilateral/nat. tillstånd";
+        if(tdRows.getApproval()!= null){
+            approval = "15." + getString(tdRows.getApproval().label);
+        }
+        setControlRow(tdRows.getApprovalRow(), addRowView(layout,views), approval,"");
         setControlRow(tdRows.getApprovalCertificateRow(), addRowView(layout,views), "16. Godkännandecertifikat","");
         setControlRow(tdRows.getDriverCertificationRow(), addRowView(layout,views), "17.1. Förarintyg (ADR 8.2.1, 8.2.2)","");
         setControlRow(tdRows.getOtherADRTrainingRow(), addRowView(layout,views), "17.2. Annan ADR-utbildning","");
@@ -243,7 +279,12 @@ public class ViewControlActivity extends AppCompatActivity {
             setControlRow(row, addRowView(layout,views), "40." + counter + ". " + row.getName(),"");
             counter++;
         }
-        setControlRowRisk(getString(tRows.getRiskCategory().label), addRowView(layout, views));
+        String risk = "";
+        if(tRows.getRiskCategory() != null){
+            risk = getString(tRows.getRiskCategory().label);
+        }
+        setControlRowRisk(risk,addRowView(layout, views));
+
         displayViews(layout, views);
     }
 
@@ -253,6 +294,10 @@ public class ViewControlActivity extends AppCompatActivity {
         LinearLayout layout = card.findViewById(R.id.card_rows);
         ArrayList<View> views = new ArrayList<>();
         List<Goods> goods = control.getGoodsList();
+        if(goods.size() == 0){
+            View v = addRowView(layout, views);
+            setText((TextView) v.findViewById(R.id.left), "Ej tillagt");
+        }
         for(int i = 0; i < goods.size(); i++){
             setGoodsRow(goods.get(i), addRowView(layout, views));
         }
@@ -282,6 +327,10 @@ public class ViewControlActivity extends AppCompatActivity {
         LinearLayout layout = card.findViewById(R.id.card_rows);
         ArrayList<View> views = new ArrayList<>();
         List<Fault> faults = control.getFaultList();
+        if(faults.size() == 0){
+            View v = addRowView(layout, views);
+            setText((TextView) v.findViewById(R.id.left), "Ej tillagt");
+        }
         for(int i = 0; i < faults.size(); i++){
             setFaultRow(faults.get(i), addRowView(layout, views));
         }
@@ -314,9 +363,14 @@ public class ViewControlActivity extends AppCompatActivity {
     }
     private String safetyAdvisorText(SafetyAdvisor safetyAdvisor, String title){
         StringBuilder str = new StringBuilder();
-        str.append(line("", title));
-        str.append(line("Namn:", safetyAdvisor.getName()));
-        str.append(line("Svar:", getString(safetyAdvisor.getAnswer().label)));
+        if(safetyAdvisor != null) {
+            str.append(line("", title));
+            str.append(line("Namn:", safetyAdvisor.getName()));
+            str.append(line("Svar:", getString(safetyAdvisor.getAnswer().label)));
+        } else {
+            str.append(title + " ej tillagd");
+        }
+
         return str.toString();
     }
 
@@ -325,44 +379,54 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(cardTitle(card), "Beslut om förbud");
 
         List<Integer> prohibitions = control.getProhibitetFieldNrList();
-        str.append("Med stöd av 14 i lag (2006:263) om transport av farligt gods förbjuds fortsatt transport så länge som position");
-        str.append(prohibitions.size() > 1 ? "erna" : "");
-        str.append(" enligt fält nr <strong>");
-        for(int i = 0; i < prohibitions.size(); i++){
-            str.append(prohibitions.get(i));
-            if(prohibitions.size() > i+1){
-                str.append(", ");
+        if(prohibitions.size() > 0){
+            str.append("Med stöd av 14 i lag (2006:263) om transport av farligt gods förbjuds fortsatt transport så länge som position");
+            str.append(prohibitions.size() > 1 ? "erna" : "");
+            str.append(" enligt fält nr <strong>");
+            for(int i = 0; i < prohibitions.size(); i++){
+                str.append(prohibitions.get(i));
+                if(prohibitions.size() > i+1){
+                    str.append(", ");
+                }
             }
+            str.append("</strong> i kontrollist" + (prohibitions.size() > 1 ? "or" : "a"));
+            str.append(" upptagna brister inte avhjälpts");
+
+            setText(cardLeft(card), str.toString());
+            str = new StringBuilder();
+
+
+            if(control.isAllowedToContinueTrip()) {
+                str.append("Trots meddelat förbud medges färd kortast lämpliga väg till uppställning-/omlastning-/lossningslats:<br>");
+                str.append("<strong>" + control.getDestination() + "</strong>");
+            }
+            setText(cardRight(card), str.toString());
+        } else {
+            setText(cardLeft(card), "Ej tillagt");
         }
-        str.append("</strong> i kontrollist" + (prohibitions.size() > 1 ? "or" : "a"));
-        str.append(" upptagna brister inte avhjälpts");
 
-        setText(cardLeft(card), str.toString());
-        str = new StringBuilder();
-
-
-        if(control.isAllowedToContinueTrip()) {
-            str.append("Trots meddelat förbud medges färd kortast lämpliga väg till uppställning-/omlastning-/lossningslats:<br>");
-            str.append("<strong>" + control.getDestination() + "</strong>");
-        }
-        setText(cardRight(card), str.toString());
     }
     private void setSubmissionCard(View card){
         StringBuilder str = new StringBuilder();
         setText(cardTitle(card), "Beslut om föreläggande");
         List<Integer> submissions = control.getSubmissionFieldNrList();
 
-        str.append("Med stöd av 14 i lag (2006:263) om transport av farligt gods meddelas föreläggande att snarast avhjälpa brister under position");
-        str.append(submissions.size() > 1 ? "erna" : "");
-        str.append(" enligt fält nr <strong>");
-        for(int i = 0; i < submissions.size(); i++){
-            str.append(submissions.get(i));
-            if(submissions.size() > i+1){
-                str.append(", ");
+        if(submissions.size() > 0){
+            str.append("Med stöd av 14 i lag (2006:263) om transport av farligt gods meddelas föreläggande att snarast avhjälpa brister under position");
+            str.append(submissions.size() > 1 ? "erna" : "");
+            str.append(" enligt fält nr <strong>");
+            for(int i = 0; i < submissions.size(); i++){
+                str.append(submissions.get(i));
+                if(submissions.size() > i+1){
+                    str.append(", ");
+                }
             }
-        }
-        str.append("</strong> i kontrollista");
+            str.append("</strong> i kontrollista");
 
+
+        } else {
+            str.append("Ej tillagt");
+        }
         TextView body = card.findViewById(R.id.card_body);
         setText(body, str.toString());
 
@@ -370,9 +434,11 @@ public class ViewControlActivity extends AppCompatActivity {
     private void setReportsCard(View card){
 
         setText(cardTitle(card), "Rapporter (antal rapporterade brott)");
-
-        control.getReportedEntity();
-        setText(cardLeft(card), line("Rapporterad entitet: ", getString(control.getReportedEntity().label)));
+        String entity = "";
+        if(control.getReportedEntity() != null){
+            entity = getString(control.getReportedEntity().label);
+        }
+        setText(cardLeft(card), line("Rapporterad entitet: ", entity));
         StringBuilder str = new StringBuilder();
         str.append(line("OF-koder:", ""));
         for(String of : control.getPenaltiesList()){
@@ -436,29 +502,40 @@ public class ViewControlActivity extends AppCompatActivity {
 
     private void setControlRowLeft(ControlRow row, TextView textView, String title) {
         StringBuilder str = new StringBuilder();
-        str.append(line("",title));
-        str.append(line("Riskkategori:", row.getRiskCategory()));
-        str.append(line("Anteckningar:", row.getNotes()));
+        if(row != null){
+            str.append(line("",title));
+            str.append(line("Riskkategori:", row.getRiskCategory()));
+            str.append(line("Anteckningar:", row.getNotes()));
+        }   else {
+            str.append(title);
+        }
         setText(textView, str.toString());
 
     }
     private void setControlRowRight(ControlRow row, TextView textView, String text){
         StringBuilder str = new StringBuilder();
-        str.append(line("", getString(row.getField().label)));
-        str.append(line("Förbud:", row.isBanned() ? "Ja" : "Nej"));
-        str.append(line("Föreläggande:", row.isImposed() ? "Ja" : "Nej"));
-        if(text != null){
-            str.append(text);
+        if(row != null){
+            str.append(line("", getString(row.getField().label)));
+            str.append(line("Förbud:", row.isBanned() ? "Ja" : "Nej"));
+            str.append(line("Föreläggande:", row.isImposed() ? "Ja" : "Nej"));
+            if(text != null){
+                str.append(text);
+            }
+        }else {
+            str.append("Ej tillagt");
         }
         setText(textView, str.toString());
     }
 
     private String address(Transporter transporter){
         StringBuilder str = new StringBuilder();
-        str.append(line("Adress:", transporter.getAddress()));
-        str.append(line("Postnummer:", String.valueOf(transporter.getZipNr())));
-        str.append(line("Postort:", transporter.getCity()));
-        str.append(line("Land:", transporter.getNationality()));
+        if(transporter != null){
+            str.append(line("Adress:", transporter.getAddress()));
+            str.append(line("Postnummer:", String.valueOf(transporter.getZipNr())));
+            str.append(line("Postort:", transporter.getCity()));
+            str.append(line("Land:", transporter.getNationality()));
+        }
+
         return str.toString();
     }
 
