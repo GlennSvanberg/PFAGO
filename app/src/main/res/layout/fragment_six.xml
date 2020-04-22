@@ -110,17 +110,19 @@
             android:id="@+id/loadingTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:text="Lastning/Stuvning"
-            app:layout_constraintStart_toStartOf="@+id/handlingNotesEditText"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/handlingNotesEditText" />
 
         <RadioGroup
             android:id="@+id/loadingABCRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@+id/loadingTextView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loadingTextView">
 
             <RadioButton
@@ -193,17 +195,19 @@
             android:id="@+id/securingCargoTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:text="Lastsäkring"
-            app:layout_constraintStart_toStartOf="@+id/loadingNotesEditText"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loadingNotesEditText" />
 
         <RadioGroup
             android:id="@+id/securingCargoABCRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@+id/securingCargoTextView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/securingCargoTextView">
 
             <RadioButton
@@ -279,17 +283,19 @@
             android:id="@+id/leakageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:text="Läckage"
-            app:layout_constraintStart_toStartOf="@+id/securingCargoNotesEditText"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/securingCargoNotesEditText" />
 
         <RadioGroup
             android:id="@+id/leakageABCRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@+id/leakageTextView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/leakageTextView">
 
             <RadioButton
@@ -364,17 +370,19 @@
             android:id="@+id/damagesTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:text="Skador på kolli/fordon"
-            app:layout_constraintStart_toStartOf="@+id/leakageNotesEditText"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/leakageNotesEditText" />
 
         <RadioGroup
             android:id="@+id/damagesABCRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@+id/damagesTextView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/damagesTextView">
 
             <RadioButton
