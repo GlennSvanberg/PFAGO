@@ -134,9 +134,11 @@ public class ControlRepository {
         tr.setRow28_4(q);
         tr.setRow29(q);
         tr.setRow31(q);
-
+        ControlRow w = new ControlRow(40, "Något nytt", ControlRow.Field.NotApplicable, "Uddda", false, true, "Det bästaste någonsin");
+        tr.addRow40(w);
+        tr.addRow40(w);
         controls.add(a);
-
+        tr.setRiskCategory(TransportRows.RiskCategory.category2);
 
         //------------------------b
         Control b = new Control();

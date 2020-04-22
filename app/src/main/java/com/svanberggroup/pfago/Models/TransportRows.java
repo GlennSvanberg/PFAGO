@@ -1,5 +1,10 @@
 package com.svanberggroup.pfago.Models;
 
+import com.svanberggroup.pfago.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class TransportRows {
     private ControlRow row18;
     private ControlRow row19;
@@ -21,8 +26,22 @@ public class TransportRows {
     private ControlRow row28_4;
     private ControlRow row29;
     private ControlRow row31;
+    private List<ControlRow> rows40;
+
+    private RiskCategory riskCategory;
+    public enum RiskCategory{
+        category1(R.string.category1),
+        category2(R.string.category2),
+        category3(R.string.category3);
+        public final int label;
+        RiskCategory(int label) {
+            this.label = label;
+        }
+    }
+
 
     public TransportRows() {
+        rows40 = new ArrayList<>();
     }
 
     public ControlRow getRow22_3() {
@@ -183,5 +202,24 @@ public class TransportRows {
 
     public void setRow31(ControlRow row31) {
         this.row31 = row31;
+    }
+
+    public void addRow40(ControlRow row) {
+        rows40.add(row);
+    }
+    public List<ControlRow> getRows40() {
+        return rows40;
+    }
+
+    public void setRows40(List<ControlRow> rows40) {
+        this.rows40 = rows40;
+    }
+
+    public RiskCategory getRiskCategory() {
+        return riskCategory;
+    }
+
+    public void setRiskCategory(RiskCategory riskCategory) {
+        this.riskCategory = riskCategory;
     }
 }

@@ -227,6 +227,12 @@ public class ViewControlActivity extends AppCompatActivity {
         setControlRow(tRows.getRow28_4(), addRowView(layout,views), "28.4. Bärbar ljuskälla","");
         setControlRow(tRows.getRow29(), addRowView(layout,views), "29. Godsspecifik utrustning (ADR 8.1.5.2/8.1.5.3)","");
         setControlRow(tRows.getRow31(), addRowView(layout,views), "31. Brandsläckare (ADR 8.1.4.1/8.1.4.2/10.6)","");
+        int counter = 1;
+        for(ControlRow row : tRows.getRows40()){
+            setControlRow(row, addRowView(layout,views), "40." + counter + ". " + row.getName(),"");
+            counter++;
+        }
+        setControlRowRisk(getString(tRows.getRiskCategory().label), addRowView(layout, views));
         displayViews(layout, views);
     }
 
@@ -241,6 +247,7 @@ public class ViewControlActivity extends AppCompatActivity {
         views.add(view);
         return view;
     }
+
     private View addRowsCardView(List<View> views){
         View view = layoutInflater.inflate(R.layout.view_control_rows_card, cardsLinearLayout,false);
         views.add(view);
@@ -262,6 +269,12 @@ public class ViewControlActivity extends AppCompatActivity {
         for(View v : views) {
             layout.addView(v);
         }
+    }
+    private void setControlRowRisk(String category, View view){
+        TextView left = view.findViewById(R.id.left);
+        TextView right = view.findViewById(R.id.right);
+        setText(left, "Riskkategori vid brister ovan: ");
+        setText(right, line("", category));
     }
     private void setControlRow(ControlRow row, View view, String title, String text){
         TextView left = view.findViewById(R.id.left);
