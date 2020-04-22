@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
+import com.svanberggroup.pfago.Models.Fault;
 import com.svanberggroup.pfago.Models.Goods;
 import com.svanberggroup.pfago.Models.Quantity;
+import com.svanberggroup.pfago.Models.SafetyAdvisor;
 import com.svanberggroup.pfago.Models.TransportDocumentRows;
 import com.svanberggroup.pfago.Models.TransportLocation;
 import com.svanberggroup.pfago.Models.TransportRows;
@@ -58,8 +60,9 @@ public class ViewControlActivity extends AppCompatActivity {
         setCargoCard(addCardView(cards));
         setTdCard(addRowsCardView((cards)));
         setTCard(addRowsCardView(cards));
-
         setGoodsCard(addRowsCardView(cards));
+        setFaultsCard(addRowsCardView(cards));
+        setSafetyAdvisorCard(addCardView(cards));
         displayViews(cardsLinearLayout, cards);
     }
     private TextView cardLeft(View card) {
@@ -267,6 +270,49 @@ public class ViewControlActivity extends AppCompatActivity {
         str.append(line("Fraktsedel:", goods.getWayBill()));
         str.append(line("LQ:", goods.isLq() ? "Ja" : "Nej"));
         setText(right, (str.toString()));
+    }
+    private void setFaultsCard(View card){
+
+        setText(cardTitle(card), "Brister");
+        LinearLayout layout = card.findViewById(R.id.card_rows);
+        ArrayList<View> views = new ArrayList<>();
+        List<Fault> faults = control.getFaultList();
+        for(int i = 0; i < faults.size(); i++){
+            setFaultRow(faults.get(i), addRowView(layout, views));
+        }
+        displayViews(layout, views);
+    }
+
+    private void setFaultRow(Fault fault, View card){
+        StringBuilder str = new StringBuilder();
+        TextView left = card.findViewById(R.id.left);
+        TextView right = card.findViewById(R.id.right);
+
+        str.append(line("Fältnr:", String.valueOf(fault.getFieldNr())));
+        str.append(line("Anmärkning:", fault.getFault()));
+
+        setText(left, str.toString());
+
+        str = new StringBuilder();
+        str.append(line("Gods pos:", fault.getGoodsPos()));
+        str.append(line("Marginalnummer i ADR/ADR-S:", fault.getMarginal()));
+
+        setText(right, (str.toString()));
+    }
+    private void setSafetyAdvisorCard(View card){
+        setText(cardTitle(card), "Säkerhetsrådgivare");
+        SafetyAdvisor carrier = control.getSafetyAdvisorCarrier();
+        SafetyAdvisor sender = control.getSafetyAdvisorSender();
+
+        setText(cardLeft(card), safetyAdvisorText(carrier, "Transportör"));
+        setText(cardRight(card), safetyAdvisorText(sender, "Avsändare"));
+    }
+    private String safetyAdvisorText(SafetyAdvisor safetyAdvisor, String title){
+        StringBuilder str = new StringBuilder();
+        str.append(line("", title));
+        str.append(line("Namn:", safetyAdvisor.getName()));
+        str.append(line("Svar:", getString(safetyAdvisor.getAnswer().label)));
+        return str.toString();
     }
 
     private View addCardView(List<View> views){
