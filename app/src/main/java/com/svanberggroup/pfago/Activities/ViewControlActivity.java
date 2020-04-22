@@ -504,8 +504,10 @@ public class ViewControlActivity extends AppCompatActivity {
         StringBuilder str = new StringBuilder();
         if(row != null){
             str.append(line("",title));
-            str.append(line("Riskkategori:", row.getRiskCategory()));
-            str.append(line("Anteckningar:", row.getNotes()));
+            if(row.getField() == ControlRow.Field.BreakingTheLaw) {
+                str.append(line("Riskkategori:", row.getRiskCategory()));
+                str.append(line("Anteckningar:", row.getNotes()));
+            }
         }   else {
             str.append(title);
         }
@@ -516,10 +518,12 @@ public class ViewControlActivity extends AppCompatActivity {
         StringBuilder str = new StringBuilder();
         if(row != null){
             str.append(line("", getString(row.getField().label)));
-            str.append(line("Förbud:", row.isBanned() ? "Ja" : "Nej"));
-            str.append(line("Föreläggande:", row.isImposed() ? "Ja" : "Nej"));
-            if(text != null){
-                str.append(text);
+            if(row.getField() == ControlRow.Field.BreakingTheLaw) {
+                str.append(line("Förbud:", row.isBanned() ? "Ja" : "Nej"));
+                str.append(line("Föreläggande:", row.isImposed() ? "Ja" : "Nej"));
+                if (text != null) {
+                    str.append(text);
+                }
             }
         }else {
             str.append("Ej tillagt");

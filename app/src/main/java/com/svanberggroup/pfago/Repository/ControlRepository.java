@@ -102,16 +102,16 @@ public class ControlRepository {
         a.setTransportType(Control.TransportType.Bulk);
         a.setTransportStandard(Control.TransportStandard.ADRS);
 
-        ControlRow aGoodsDeclaration = new ControlRow(13, "Skriftliga instruktioner", ControlRow.Field.Controlled, "Normal", true, true, "Det sämstaste någonsin");
-
+        ControlRow aGoodsDeclaration = new ControlRow(13, "Skriftliga instruktioner", ControlRow.Field.Controlled, "Normal", false, false, "");
+        ControlRow abc= new ControlRow(13, "blaha", ControlRow.Field.BreakingTheLaw, "Hög", true, true, "Dödsfarligt");
         a.getTdRows().setGoodsDeclarationRow(aGoodsDeclaration);
         a.getTdRows().setDeclaration(TransportDocumentRows.Declaration.LoadingPlane);
 
-        a.getTdRows().setWrittenInstructionsRow(aGoodsDeclaration);
+        a.getTdRows().setWrittenInstructionsRow(abc);
         a.getTdRows().setApprovalRow(aGoodsDeclaration);
         a.getTdRows().setApproval(TransportDocumentRows.Approval.Bilateral);
 
-        a.getTdRows().setApprovalCertificateRow(aGoodsDeclaration);
+        a.getTdRows().setApprovalCertificateRow(abc);
         a.getTdRows().setDriverCertificationRow(aGoodsDeclaration);
         a.getTdRows().setOtherADRTrainingRow(aGoodsDeclaration);
 
@@ -125,7 +125,7 @@ public class ControlRepository {
         tr.setRow22_2(q);
         tr.setRow22_3(q);
         tr.setRow23_1(q);
-        tr.setRow23_2(q);
+        tr.setRow23_2(abc);
         tr.setRow24(q);
         tr.setRow25_1(q);
         tr.setRow25_2(q);
@@ -134,7 +134,7 @@ public class ControlRepository {
         tr.setRow28_1(q);
         tr.setRow28_2(q);
         tr.setRow28_3(q);
-        tr.setRow28_4(q);
+        tr.setRow28_4(abc);
         tr.setRow29(q);
         tr.setRow31(q);
         ControlRow w = new ControlRow(40, "Något nytt", ControlRow.Field.NotApplicable, "Uddda", false, true, "Det bästaste någonsin");
