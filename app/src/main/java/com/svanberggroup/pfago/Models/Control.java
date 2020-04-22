@@ -4,6 +4,7 @@ import com.svanberggroup.pfago.R;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Control implements Serializable {
 
@@ -75,7 +76,30 @@ public class Control implements Serializable {
         }
     };
     private TransportStandard transportStandard;
+    private List<Goods> goodsList;
+    private List<Fault> faultList;
+    private SafetyAdvisor safetyAdvisorCarrier;
+    private SafetyAdvisor safetyAdvisorSender;
 
+    private List<Integer> prohibitetFieldNrList;
+    private boolean allowedToContinueTrip;
+    private String destination;
+    private List<Integer> submissionFieldNrList;
+
+    public enum ReportedEntity{
+        Sender(R.string.sender),
+        Carrier(R.string.carrier),
+        Driver(R.string.driver),
+        Receiver(R.string.receiver),
+        Passenger(R.string.passenger),
+        Other(R.string.other);
+        public final int label;
+        ReportedEntity(int label) {
+            this.label = label;
+        }
+    };
+    private ReportedEntity reportedEntity;
+    private List<String> penaltiesList;
 
     public Control() {
         startDate = new Date();
@@ -233,5 +257,85 @@ public class Control implements Serializable {
 
     public void setTRows(TransportRows tRows) {
         this.tRows = tRows;
+    }
+
+    public List<Goods> getGoodsList() {
+        return goodsList;
+    }
+
+    public void setGoodsList(List<Goods> goodsList) {
+        this.goodsList = goodsList;
+    }
+
+    public List<Fault> getFaultList() {
+        return faultList;
+    }
+
+    public void setFaultList(List<Fault> faultList) {
+        this.faultList = faultList;
+    }
+
+    public SafetyAdvisor getSafetyAdvisorCarrier() {
+        return safetyAdvisorCarrier;
+    }
+
+    public void setSafetyAdvisorCarrier(SafetyAdvisor safetyAdvisorCarrier) {
+        this.safetyAdvisorCarrier = safetyAdvisorCarrier;
+    }
+
+    public SafetyAdvisor getSafetyAdvisorSender() {
+        return safetyAdvisorSender;
+    }
+
+    public void setSafetyAdvisorSender(SafetyAdvisor safetyAdvisorSender) {
+        this.safetyAdvisorSender = safetyAdvisorSender;
+    }
+
+    public List<Integer> getProhibitetFieldNrList() {
+        return prohibitetFieldNrList;
+    }
+
+    public void setProhibitetFieldNrList(List<Integer> prohibitetFieldNrList) {
+        this.prohibitetFieldNrList = prohibitetFieldNrList;
+    }
+
+    public boolean isAllowedToContinueTrip() {
+        return allowedToContinueTrip;
+    }
+
+    public void setAllowedToContinueTrip(boolean allowedToContinueTrip) {
+        this.allowedToContinueTrip = allowedToContinueTrip;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public List<Integer> getSubmissionFieldNrList() {
+        return submissionFieldNrList;
+    }
+
+    public void setSubmissionFieldNrList(List<Integer> submissionFieldNrList) {
+        this.submissionFieldNrList = submissionFieldNrList;
+    }
+
+    public ReportedEntity getReportedEntity() {
+        return reportedEntity;
+    }
+
+    public void setReportedEntity(ReportedEntity reportedEntity) {
+        this.reportedEntity = reportedEntity;
+    }
+
+    public List<String> getPenaltiesList() {
+        return penaltiesList;
+    }
+
+    public void setPenaltiesList(List<String> penaltiesList) {
+        this.penaltiesList = penaltiesList;
     }
 }

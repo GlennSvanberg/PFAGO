@@ -39,4 +39,12 @@
     <string name="category1">Kategori I</string>
     <string name="category2">Kategori II</string>
     <string name="category3">Kategori III</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nej</string>
+    <string name="unknown">Vet ej</string>
+    <string name="passenger">Annan besättningsmedlem</string>
+    <string name="receiver">Mottagare</string>
+    <string name="driver">Förare</string>
+    <string name="carrier">Transportör</string>
+    <string name="sender">Avsändare</string>
 </resources>
