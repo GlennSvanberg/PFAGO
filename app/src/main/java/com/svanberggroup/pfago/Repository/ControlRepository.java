@@ -4,7 +4,10 @@ import android.util.Log;
 
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
+import com.svanberggroup.pfago.Models.Fault;
+import com.svanberggroup.pfago.Models.Goods;
 import com.svanberggroup.pfago.Models.Quantity;
+import com.svanberggroup.pfago.Models.SafetyAdvisor;
 import com.svanberggroup.pfago.Models.TransportDocumentRows;
 import com.svanberggroup.pfago.Models.TransportLocation;
 import com.svanberggroup.pfago.Models.TransportRows;
@@ -139,6 +142,26 @@ public class ControlRepository {
         tr.addRow40(w);
         controls.add(a);
         tr.setRiskCategory(TransportRows.RiskCategory.category2);
+
+        
+        Goods g = new Goods("A", "UN-4523", "Avgasrenad bensin", "GHL", "45", "100Kg", "Faltibt", true);
+        Goods g2 = new Goods("B", "UN-5133", "Flytande kväve", "GBD", "53", "99Liter", "Faltibt", true);
+        a.addGoods(g);
+        a.addGoods(g2);
+        Fault f = new Fault(1, "A", "Transporteras utan lock", "ADR 8.1.2.3");
+        Fault f2= new Fault(2, "B", "Transporteras utan lock", "ADR 18.11.22.3");
+        a.addFault(f);
+        a.addFault(f2);
+        a.setSafetyAdvisorCarrier(new SafetyAdvisor(SafetyAdvisor.Answer.Yes, "Göran Stenfeldt"));
+        a.setSafetyAdvisorSender(new SafetyAdvisor(SafetyAdvisor.Answer.Unknown, ""));
+        a.addProhibitedField(1);
+        a.addSubmissionFieldNr(2);
+        a.setAllowedToContinueTrip(true);
+        a.setDestination("Norra korsvägen 28");
+        a.addSubmissionFieldNr(2);
+        a.setReportedEntity(Control.ReportedEntity.Carrier);
+        a.addPenalty("OF-23");
+
 
         //------------------------b
         Control b = new Control();

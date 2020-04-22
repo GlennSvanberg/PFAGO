@@ -3,6 +3,7 @@ package com.svanberggroup.pfago.Models;
 import com.svanberggroup.pfago.R;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,9 +44,6 @@ public class Control implements Serializable {
 
     private TransportDocumentRows tdRows;
     private TransportRows tRows;
-
-
-
 
     public enum TransportType{
         Tank(R.string.tank),
@@ -105,6 +103,10 @@ public class Control implements Serializable {
         startDate = new Date();
         tdRows = new TransportDocumentRows();
         tRows = new TransportRows();
+        goodsList = new ArrayList<>();
+        faultList = new ArrayList<>();
+        prohibitetFieldNrList = new ArrayList<>();
+        submissionFieldNrList = new ArrayList<>();
     }
 
     public int getId() {
@@ -267,12 +269,19 @@ public class Control implements Serializable {
         this.goodsList = goodsList;
     }
 
+    public void addGoods(Goods goods){
+        goodsList.add(goods);
+    }
+
     public List<Fault> getFaultList() {
         return faultList;
     }
 
     public void setFaultList(List<Fault> faultList) {
         this.faultList = faultList;
+    }
+    public void addFault(Fault fault) {
+        faultList.add(fault);
     }
 
     public SafetyAdvisor getSafetyAdvisorCarrier() {
@@ -299,6 +308,10 @@ public class Control implements Serializable {
         this.prohibitetFieldNrList = prohibitetFieldNrList;
     }
 
+    public void addProhibitedField(int nr){
+        prohibitetFieldNrList.add(nr);
+    }
+
     public boolean isAllowedToContinueTrip() {
         return allowedToContinueTrip;
     }
@@ -323,6 +336,10 @@ public class Control implements Serializable {
         this.submissionFieldNrList = submissionFieldNrList;
     }
 
+    public void addSubmissionFieldNr(int nr){
+        submissionFieldNrList.add(nr);
+    }
+
     public ReportedEntity getReportedEntity() {
         return reportedEntity;
     }
@@ -337,5 +354,8 @@ public class Control implements Serializable {
 
     public void setPenaltiesList(List<String> penaltiesList) {
         this.penaltiesList = penaltiesList;
+    }
+    public void addPenalty(String penalty){
+        penaltiesList.add(penalty);
     }
 }

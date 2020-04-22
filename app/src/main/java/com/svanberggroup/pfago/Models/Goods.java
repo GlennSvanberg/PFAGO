@@ -6,10 +6,11 @@ public class Goods {
     private String description;
     private String label;
     private String PG;
-    private int qty;
+    private String qty;
     private String wayBill;
+    private boolean lq;
 
-    public Goods(String position, String unNr, String description, String label, String PG, int qty, String wayBill) {
+    public Goods(String position, String unNr, String description, String label, String PG, String qty, String wayBill, boolean lq) {
         this.position = position;
         this.unNr = unNr;
         this.description = description;
@@ -17,6 +18,7 @@ public class Goods {
         this.PG = PG;
         this.qty = qty;
         this.wayBill = wayBill;
+        this.lq = lq;
     }
 
     public String getPosition() {
@@ -59,11 +61,11 @@ public class Goods {
         this.PG = PG;
     }
 
-    public int getQty() {
+    public String getQty() {
         return qty;
     }
 
-    public void setQty(int qty) {
+    public void setQty(String qty) {
         this.qty = qty;
     }
 
