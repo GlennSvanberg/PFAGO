@@ -3,12 +3,15 @@ package com.svanberggroup.pfago.Models;
 import com.svanberggroup.pfago.R;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Control implements Serializable {
 
     private int id;
-    private Date date;
+    private Date startDate;
+    private Date endDate;
     private String location;
 
     public enum LocationType{
@@ -18,7 +21,7 @@ public class Control implements Serializable {
         PortTerminal(R.string.port_terminal),
         System(R.string.system);
 
-        private final int label;
+        public final int label;
         LocationType(int label) {
             this.label = label;
         }
@@ -32,9 +35,15 @@ public class Control implements Serializable {
     private Vehicle truck;
     private Vehicle trailer;
 
+    private TransportLocation sender;
+    private TransportLocation receiver;
+
     private Quantity quantity;
     private boolean valueQuantityExceeded;
     private int valueQuantity;
+
+    private TransportDocumentRows tdRows;
+    private TransportRows tRows;
 
     public enum TransportType{
         Tank(R.string.tank),
@@ -42,7 +51,7 @@ public class Control implements Serializable {
         MixedCargo(R.string.mixed_cargo),
         Other(R.string.other);
 
-        private final int label;
+        public final int label;
         TransportType(int label) {
             this.label = label;
         }
@@ -65,10 +74,40 @@ public class Control implements Serializable {
         }
     };
     private TransportStandard transportStandard;
+    private List<Goods> goodsList;
+    private List<Fault> faultList;
+    private SafetyAdvisor safetyAdvisorCarrier;
+    private SafetyAdvisor safetyAdvisorSender;
 
+    private List<Integer> prohibitetFieldNrList;
+    private boolean allowedToContinueTrip;
+    private String destination;
+    private List<Integer> submissionFieldNrList;
+
+    public enum ReportedEntity{
+        Sender(R.string.sender),
+        Carrier(R.string.carrier),
+        Driver(R.string.driver),
+        Receiver(R.string.receiver),
+        Passenger(R.string.passenger),
+        Other(R.string.other);
+        public final int label;
+        ReportedEntity(int label) {
+            this.label = label;
+        }
+    };
+    private ReportedEntity reportedEntity;
+    private List<String> penaltiesList;
 
     public Control() {
-        date = new Date();
+        startDate = new Date();
+        tdRows = new TransportDocumentRows();
+        tRows = new TransportRows();
+        goodsList = new ArrayList<>();
+        faultList = new ArrayList<>();
+        prohibitetFieldNrList = new ArrayList<>();
+        submissionFieldNrList = new ArrayList<>();
+        penaltiesList = new ArrayList<>();
     }
 
     public int getId() {
@@ -79,12 +118,12 @@ public class Control implements Serializable {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public String getLocation() {
@@ -181,5 +220,143 @@ public class Control implements Serializable {
 
     public void setTransportStandard(TransportStandard transportStandard) {
         this.transportStandard = transportStandard;
+    }
+
+    public TransportLocation getSender() {
+        return sender;
+    }
+
+    public void setSender(TransportLocation sender) {
+        this.sender = sender;
+    }
+
+    public TransportLocation getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(TransportLocation receiver) {
+        this.receiver = receiver;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public TransportDocumentRows getTdRows() {
+        return tdRows;
+    }
+
+    public void setTdRows(TransportDocumentRows tdRows) {
+        this.tdRows = tdRows;
+    }
+
+    public TransportRows getTRows() {
+        return tRows;
+    }
+
+    public void setTRows(TransportRows tRows) {
+        this.tRows = tRows;
+    }
+
+    public List<Goods> getGoodsList() {
+        return goodsList;
+    }
+
+    public void setGoodsList(List<Goods> goodsList) {
+        this.goodsList = goodsList;
+    }
+
+    public void addGoods(Goods goods){
+        goodsList.add(goods);
+    }
+
+    public List<Fault> getFaultList() {
+        return faultList;
+    }
+
+    public void setFaultList(List<Fault> faultList) {
+        this.faultList = faultList;
+    }
+    public void addFault(Fault fault) {
+        faultList.add(fault);
+    }
+
+    public SafetyAdvisor getSafetyAdvisorCarrier() {
+        return safetyAdvisorCarrier;
+    }
+
+    public void setSafetyAdvisorCarrier(SafetyAdvisor safetyAdvisorCarrier) {
+        this.safetyAdvisorCarrier = safetyAdvisorCarrier;
+    }
+
+    public SafetyAdvisor getSafetyAdvisorSender() {
+        return safetyAdvisorSender;
+    }
+
+    public void setSafetyAdvisorSender(SafetyAdvisor safetyAdvisorSender) {
+        this.safetyAdvisorSender = safetyAdvisorSender;
+    }
+
+    public List<Integer> getProhibitetFieldNrList() {
+        return prohibitetFieldNrList;
+    }
+
+    public void setProhibitetFieldNrList(List<Integer> prohibitetFieldNrList) {
+        this.prohibitetFieldNrList = prohibitetFieldNrList;
+    }
+
+    public void addProhibitedField(int nr){
+        prohibitetFieldNrList.add(nr);
+    }
+
+    public boolean isAllowedToContinueTrip() {
+        return allowedToContinueTrip;
+    }
+
+    public void setAllowedToContinueTrip(boolean allowedToContinueTrip) {
+        this.allowedToContinueTrip = allowedToContinueTrip;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public List<Integer> getSubmissionFieldNrList() {
+        return submissionFieldNrList;
+    }
+
+    public void setSubmissionFieldNrList(List<Integer> submissionFieldNrList) {
+        this.submissionFieldNrList = submissionFieldNrList;
+    }
+
+    public void addSubmissionFieldNr(int nr){
+        submissionFieldNrList.add(nr);
+    }
+
+    public ReportedEntity getReportedEntity() {
+        return reportedEntity;
+    }
+
+    public void setReportedEntity(ReportedEntity reportedEntity) {
+        this.reportedEntity = reportedEntity;
+    }
+
+    public List<String> getPenaltiesList() {
+        return penaltiesList;
+    }
+
+    public void setPenaltiesList(List<String> penaltiesList) {
+        this.penaltiesList = penaltiesList;
+    }
+    public void addPenalty(String penalty){
+        penaltiesList.add(penalty);
     }
 }

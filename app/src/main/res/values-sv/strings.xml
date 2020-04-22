@@ -28,4 +28,23 @@
     <string name="rid">RID</string>
     <string name="rids">RID-S</string>
     <string name="mou">Västersjöavtalet</string>
+    <string name="controlled">Kontrollerat</string>
+    <string name="breaking_the_law">Ej enligt regler</string>
+    <string name="not_applicable">Ej tillämpligt</string>
+    <string name="loading_plane">Lastplan</string>
+    <string name="stowing_certificate">Stuvnings-intyg/CPC</string>
+    <string name="bilateral">Bilateral</string>
+    <string name="multilateral">Multilateral</string>
+    <string name="natninal_approval">Nationellt tillstånd</string>
+    <string name="category1">Kategori I</string>
+    <string name="category2">Kategori II</string>
+    <string name="category3">Kategori III</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nej</string>
+    <string name="unknown">Vet ej</string>
+    <string name="passenger">Annan besättningsmedlem</string>
+    <string name="receiver">Mottagare</string>
+    <string name="driver">Förare</string>
+    <string name="carrier">Transportör</string>
+    <string name="sender">Avsändare</string>
 </resources>

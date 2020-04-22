@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
         controls = ControlRepository.get().getAllControls();
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setVisibility(View.GONE);
+        //temp change to see recyclerview should be View.GONE
+        recyclerView.setVisibility(View.VISIBLE);
 
         ribButton = findViewById(R.id.rib_search_button);
         ribButton.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
                     searchButton.setImageResource(R.drawable.ic_search);
                 }
             }
-
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
         public void bind(Control control) {
             this.control = control;
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
-            String date = formatter.format(control.getDate());
+            String date = formatter.format(control.getStartDate());
             title.setText(control.getTruck().getRegNr() + " Datum: " +  date);
             String text  = "";
             if(control.getCarrier()!= null) {
