@@ -233,6 +233,7 @@ public class ViewControlActivity extends AppCompatActivity {
         LinearLayout layout = card.findViewById(R.id.card_rows);
         ArrayList<View> views = new ArrayList<>();
         TransportDocumentRows tdRows = control.getTdRows();
+        setText(cardTitle(card), "Transporthandlingar");
         String declaration = "";
         if(tdRows.getDeclaration() != null){
             declaration = Html.fromHtml(line("", getString(tdRows.getDeclaration().label))).toString();
@@ -253,6 +254,8 @@ public class ViewControlActivity extends AppCompatActivity {
         LinearLayout layout = card.findViewById(R.id.card_rows);
         ArrayList<View> views = new ArrayList<>();
         TransportRows tRows = control.getTRows();
+
+        setText(cardTitle(card), "Transport");
 
         setControlRow(tRows.getRow18(), addRowView(layout,views), "18. Gods tillåtet för transport","");
         setControlRow(tRows.getRow19(), addRowView(layout,views), "19. Fordonet godkänt för det transporterade godset","");
@@ -276,7 +279,7 @@ public class ViewControlActivity extends AppCompatActivity {
         setControlRow(tRows.getRow31(), addRowView(layout,views), "31. Brandsläckare (ADR 8.1.4.1/8.1.4.2/10.6)","");
         int counter = 1;
         for(ControlRow row : tRows.getRows40()){
-            setControlRow(row, addRowView(layout,views), "40." + counter + ". " + row.getName(),"");
+            setControlRow(row, addRowView(layout,views), "40." + counter + ". " + row.getName(),""); 
             counter++;
         }
         String risk = "";
