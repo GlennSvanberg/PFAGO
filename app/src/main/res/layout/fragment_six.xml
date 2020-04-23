@@ -10,6 +10,525 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/safetyEquipmentTopTextView"
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Allmän säkerhetsutrustning (ADR 8.1.5.2)"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/stopBlockTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Stoppkloss"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/safetyEquipmentTopTextView" />
+
+        <RadioGroup
+            android:id="@+id/stopBlockABCRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stopBlockTextView">
+
+            <RadioButton
+                android:id="@+id/stopBlockControlledRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kontrollerat" />
+
+            <RadioButton
+                android:id="@+id/stopBlockNotApprovedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ej enligt regler" />
+
+            <RadioButton
+                android:id="@+id/stopBlockNotApplicableRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ej tillämpligt" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/stopBlockRiskCategoryEditText"
+            android:layout_width="139dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Riskkategori"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="@+id/stopBlockABCRadioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/stopBlockABCRadioGroup" />
+
+        <RadioGroup
+            android:id="@+id/stopBlockRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/stopBlockRiskCategoryEditText"
+            app:layout_constraintStart_toEndOf="@+id/stopBlockRiskCategoryEditText"
+            app:layout_constraintTop_toTopOf="@+id/stopBlockRiskCategoryEditText">
+
+            <RadioButton
+                android:id="@+id/stopBlockImposeRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Förelägg" />
+
+            <RadioButton
+                android:id="@+id/stopBlockBannedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Förbud" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/stopBlockNotesRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Anteckningar"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/stopBlockRiskCategoryEditText"
+            app:layout_constraintTop_toBottomOf="@+id/stopBlockRiskCategoryEditText" />
+
+        // stopblock end
+
+        <TextView
+            android:id="@+id/warningDeviceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Varningsanordning"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stopBlockNotesRadioButton" />
+
+        <RadioGroup
+            android:id="@+id/warningDeviceABCRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/warningDeviceTextView">
+
+            <RadioButton
+                android:id="@+id/warningDeviceControlledRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kontrollerat" />
+
+            <RadioButton
+                android:id="@+id/warningDeviceNotApprovedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ej enligt regler" />
+
+            <RadioButton
+                android:id="@+id/warningDeviceNotApplicableRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ej tillämpligt" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/warningDeviceRiskCategoryEditText"
+            android:layout_width="139dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Riskkategori"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="@+id/warningDeviceABCRadioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/warningDeviceABCRadioGroup" />
+
+        <RadioGroup
+            android:id="@+id/warningDeviceRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/warningDeviceRiskCategoryEditText"
+            app:layout_constraintStart_toEndOf="@+id/warningDeviceRiskCategoryEditText"
+            app:layout_constraintTop_toTopOf="@+id/warningDeviceRiskCategoryEditText">
+
+            <RadioButton
+                android:id="@+id/warningDeviceImposeRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Förelägg" />
+
+            <RadioButton
+                android:id="@+id/warningDeviceBannedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Förbud" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/warningDeviceNotesRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Anteckningar"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/warningDeviceRiskCategoryEditText"
+            app:layout_constraintTop_toBottomOf="@+id/warningDeviceRiskCategoryEditText" />
+
+        // warningdevice end
+
+        <TextView
+            android:id="@+id/safetyEquipmentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Varningsväst / ögonskydd / handskar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/warningDeviceNotesRadioButton" />
+
+        <RadioGroup
+            android:id="@+id/safetyEquipmentABCRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/safetyEquipmentTextView">
+
+            <RadioButton
+                android:id="@+id/safetyEquipmentControlledRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kontrollerat" />
+
+            <RadioButton
+                android:id="@+id/safetyEquipmentNotApprovedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ej enligt regler" />
+
+            <RadioButton
+                android:id="@+id/safetyEquipmentNotApplicableRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ej tillämpligt" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/safetyEquipmentRiskCategoryEditText"
+            android:layout_width="139dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Riskkategori"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="@+id/safetyEquipmentABCRadioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/safetyEquipmentABCRadioGroup" />
+
+        <RadioGroup
+            android:id="@+id/safetyEquipmentRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/safetyEquipmentRiskCategoryEditText"
+            app:layout_constraintStart_toEndOf="@+id/safetyEquipmentRiskCategoryEditText"
+            app:layout_constraintTop_toTopOf="@+id/safetyEquipmentRiskCategoryEditText">
+
+            <RadioButton
+                android:id="@+id/safetyEquipmentImposeRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Förelägg" />
+
+            <RadioButton
+                android:id="@+id/safetyEquipmentBannedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Förbud" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/safetyEquipmentNotesRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Anteckningar"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/safetyEquipmentRiskCategoryEditText"
+            app:layout_constraintTop_toBottomOf="@+id/safetyEquipmentRiskCategoryEditText" />
+
+        // end safetyEquipment
+
+        <TextView
+            android:id="@+id/portableLightSourceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Portabel ljuskälla"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/safetyEquipmentNotesRadioButton" />
+
+        <RadioGroup
+            android:id="@+id/portableLightSourceABCRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/portableLightSourceTextView">
+
+            <RadioButton
+                android:id="@+id/portableLightSourceControlledRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kontrollerat" />
+
+            <RadioButton
+                android:id="@+id/portableLightSourceNotApprovedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ej enligt regler" />
+
+            <RadioButton
+                android:id="@+id/portableLightSourceNotApplicableRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ej tillämpligt" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/portableLightSourceRiskCategoryEditText"
+            android:layout_width="139dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Riskkategori"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="@+id/portableLightSourceABCRadioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/portableLightSourceABCRadioGroup" />
+
+        <RadioGroup
+            android:id="@+id/portableLightSourceRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/portableLightSourceRiskCategoryEditText"
+            app:layout_constraintStart_toEndOf="@+id/portableLightSourceRiskCategoryEditText"
+            app:layout_constraintTop_toTopOf="@+id/portableLightSourceRiskCategoryEditText">
+
+            <RadioButton
+                android:id="@+id/portableLightSourceImposeRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Förelägg" />
+
+            <RadioButton
+                android:id="@+id/portableLightSourceBannedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Förbud" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/portableLightSourceNotesRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Anteckningar"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/portableLightSourceRiskCategoryEditText"
+            app:layout_constraintTop_toBottomOf="@+id/portableLightSourceRiskCategoryEditText" />
+
+        // end portableLightSource
+
+        <TextView
+            android:id="@+id/godsSpecificEquipmentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Godsspecifik utrustning(ADR 8.1.5.2 / 8.1.5.3)"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/portableLightSourceNotesRadioButton" />
+
+        <RadioGroup
+            android:id="@+id/godsSpecificEquipmentABCRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/godsSpecificEquipmentTextView">
+
+            <RadioButton
+                android:id="@+id/godsSpecificEquipmentControlledRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kontrollerat" />
+
+            <RadioButton
+                android:id="@+id/godsSpecificEquipmentNotApprovedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ej enligt regler" />
+
+            <RadioButton
+                android:id="@+id/godsSpecificEquipmentNotApplicableRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ej tillämpligt" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/godsSpecificEquipmentRiskCategoryEditText"
+            android:layout_width="139dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Riskkategori"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="@+id/godsSpecificEquipmentABCRadioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/godsSpecificEquipmentABCRadioGroup" />
+
+        <RadioGroup
+            android:id="@+id/godsSpecificEquipmentRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/godsSpecificEquipmentRiskCategoryEditText"
+            app:layout_constraintStart_toEndOf="@+id/godsSpecificEquipmentRiskCategoryEditText"
+            app:layout_constraintTop_toTopOf="@+id/godsSpecificEquipmentRiskCategoryEditText">
+
+            <RadioButton
+                android:id="@+id/godsSpecificEquipmentImposeRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Förelägg" />
+
+            <RadioButton
+                android:id="@+id/godsSpecificEquipmentBannedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Förbud" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/godsSpecificEquipmentNotesRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Anteckningar"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/godsSpecificEquipmentRiskCategoryEditText"
+            app:layout_constraintTop_toBottomOf="@+id/godsSpecificEquipmentRiskCategoryEditText" />
+
+        // end gods spec
+
+        <TextView
+            android:id="@+id/fireExtinguisherTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Brandsläckare"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/godsSpecificEquipmentNotesRadioButton" />
+
+        <RadioGroup
+            android:id="@+id/fireExtinguisherABCRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fireExtinguisherTextView">
+
+            <RadioButton
+                android:id="@+id/fireExtinguisherControlledRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kontrollerat" />
+
+            <RadioButton
+                android:id="@+id/fireExtinguisherNotApprovedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ej enligt regler" />
+
+            <RadioButton
+                android:id="@+id/fireExtinguisherNotApplicableRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ej tillämpligt" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/fireExtinguisherRiskCategoryEditText"
+            android:layout_width="139dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Riskkategori"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="@+id/fireExtinguisherABCRadioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/fireExtinguisherABCRadioGroup" />
+
+        <RadioGroup
+            android:id="@+id/fireExtinguisherRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/fireExtinguisherRiskCategoryEditText"
+            app:layout_constraintStart_toEndOf="@+id/fireExtinguisherRiskCategoryEditText"
+            app:layout_constraintTop_toTopOf="@+id/fireExtinguisherRiskCategoryEditText">
+
+            <RadioButton
+                android:id="@+id/fireExtinguisherImposeRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Förelägg" />
+
+            <RadioButton
+                android:id="@+id/fireExtinguisherBannedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Förbud" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/fireExtinguisherNotesRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Anteckningar"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/fireExtinguisherRiskCategoryEditText"
+            app:layout_constraintTop_toBottomOf="@+id/fireExtinguisherRiskCategoryEditText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
