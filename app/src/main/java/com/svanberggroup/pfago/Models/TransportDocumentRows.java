@@ -2,7 +2,9 @@ package com.svanberggroup.pfago.Models;
 
 import com.svanberggroup.pfago.R;
 
-public class TransportDocumentRows {
+import java.io.Serializable;
+
+public class TransportDocumentRows implements Serializable {
 
     private ControlRow goodsDeclarationRow;
     public enum Declaration {

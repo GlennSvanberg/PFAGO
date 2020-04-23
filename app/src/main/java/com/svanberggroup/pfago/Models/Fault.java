@@ -1,6 +1,8 @@
 package com.svanberggroup.pfago.Models;
 
-public class Fault {
+import java.io.Serializable;
+
+public class Fault implements Serializable {
     private int fieldNr;
     private String goodsPos;
     private String fault;

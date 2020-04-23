@@ -2,7 +2,9 @@ package com.svanberggroup.pfago.Models;
 
 import com.svanberggroup.pfago.R;
 
-public class ControlRow {
+import java.io.Serializable;
+
+public class ControlRow implements Serializable {
     private String name;
     private String title;
     public enum Field{

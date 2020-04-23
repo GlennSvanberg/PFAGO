@@ -2,10 +2,11 @@ package com.svanberggroup.pfago.Models;
 
 import com.svanberggroup.pfago.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransportRows {
+public class TransportRows implements Serializable {
     private ControlRow row18;
     private ControlRow row19;
     private ControlRow row20;
