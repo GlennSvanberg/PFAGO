@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Control> controls;
 
     private EditText queryField;
+    private TextView messageTextView;
     private ImageButton searchButton;
     private Button ribButton, addControlButton;
     private RecyclerView recyclerView;
@@ -56,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         controls = ControlRepository.get().getAllControls();
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        //temp change to see recyclerview should be View.GONE
-        recyclerView.setVisibility(View.VISIBLE);
+        //temp change to see recyclerview should be View.GONE - View.VISIBLE
+        recyclerView.setVisibility(View.GONE);
 
         ribButton = findViewById(R.id.rib_search_button);
         ribButton.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
         });
         buttonsLinearLayout = (LinearLayout) findViewById(R.id.buttons_linear_layout);
         buttonsLinearLayout.setVisibility(View.VISIBLE);
+
+        messageTextView = findViewById(R.id.message_text_view);
+
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -111,17 +115,26 @@ public class MainActivity extends AppCompatActivity {
 
                 if(isSearchMode) {
                     controls = ControlRepository.get().getControlsByRegNr(queryField.getText().toString());
-                    recyclerView.setVisibility(View.VISIBLE);
-                    buttonsLinearLayout.setVisibility(View.GONE);
+                    if(controls.size() == 0){
+                        messageTextView.setVisibility(View.VISIBLE);
+                        messageTextView.setText("Inga kontroller för: " + queryField.getText().toString());
+                        buttonsLinearLayout.setVisibility(View.VISIBLE);
+                    } else {
+                        buttonsLinearLayout.setVisibility(View.GONE);
+                        messageTextView.setVisibility(View.GONE);
+                        searchButton.setImageResource(R.drawable.ic_clear);
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+
                     updateUI();
-                    searchButton.setImageResource(R.drawable.ic_clear);
-                    isSearchMode = false;
+                    isSearchMode = !isSearchMode;
+
                 } else {
                     queryField.setText("");
                     searchButton.setImageResource(R.drawable.ic_search);
-                    isSearchMode = true;
+                    //messageTextView.setVisibility(View.GONE);
+                    isSearchMode = !isSearchMode;
                 }
-
             }
         });
     }
@@ -140,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //controls = ControlRepository.get().getAllControls();
-        Log.i("TEST", "onStart");
         adapter.notifyDataSetChanged();
     }
 
