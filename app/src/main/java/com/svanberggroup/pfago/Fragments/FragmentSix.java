@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,9 +24,7 @@ public class FragmentSix extends Fragment {
 
     private static final String NEW_CONTROL = "new_control";
 
-    private TextView textView;
-
-    private Control control;
+    private Control    control;
 
     private FragmentSix() {
     }
@@ -46,9 +48,6 @@ public class FragmentSix extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_six, container, false);
 
-        textView = view.findViewById(R.id.title);
-        textView.setText("Fragment six");
-
         return  view;
     }
 
@@ -57,4 +56,5 @@ public class FragmentSix extends Fragment {
 
 
     }
+
 }

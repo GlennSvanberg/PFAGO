@@ -3,10 +3,18 @@ package com.svanberggroup.pfago.Repository;
 import android.util.Log;
 
 import com.svanberggroup.pfago.Models.Control;
+import com.svanberggroup.pfago.Models.ControlRow;
+import com.svanberggroup.pfago.Models.Fault;
+import com.svanberggroup.pfago.Models.Goods;
 import com.svanberggroup.pfago.Models.Quantity;
+import com.svanberggroup.pfago.Models.SafetyAdvisor;
+import com.svanberggroup.pfago.Models.TransportDocumentRows;
+import com.svanberggroup.pfago.Models.TransportLocation;
+import com.svanberggroup.pfago.Models.TransportRows;
 import com.svanberggroup.pfago.Models.Transporter;
 import com.svanberggroup.pfago.Models.Vehicle;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +43,10 @@ public class ControlRepository {
     public List<Control> getControlsByRegNr(String regNr) {
         List<Control> matchedControls = new ArrayList<>();
         for(Control control : controls) {
-            if(control.getTruck().getRegNr().equals(regNr) || control.getTrailer().getRegNr().equals(regNr)) {
+            Boolean isTruck = control.getTruck().getRegNr().toLowerCase().equals(regNr.toLowerCase());
+            Boolean isTrailer = control.getTrailer().getRegNr().toLowerCase().equals(regNr.toLowerCase());
+
+            if(isTruck || isTrailer) {
                 matchedControls.add(control);
             }
         }
@@ -62,6 +73,8 @@ public class ControlRepository {
         a.setLocation("Uddevalla");
         a.setLocationType(Control.LocationType.CargoTerminal);
 
+        a.setEndDate(new Date());
+
         Transporter aCarrier = new Transporter("GLÅAB", "0522-132345", "Norra Gåvägen 14", 45123, "Borås", "SE");
         Transporter aDriver = new Transporter("Robin Törnqvist", "070-1234567", "Silltorp 24", 44123, "Vänersborg", "SE");
         Transporter aPassenger = new Transporter("Emil Svenson", "070-2356489", "Norra Botten 1", 45789, "Göteborg", "US");
@@ -75,6 +88,11 @@ public class ControlRepository {
 
         a.setTruck(aTruck);
         a.setTrailer(aTrailer);
+        TransportLocation aSender = new TransportLocation("Södertull 14" , "Port 24", "042-4561232");
+        TransportLocation aReceiver = new TransportLocation("Norgården 54" , "Yttre gången", "0542-458798");
+
+        a.setSender(aSender);
+        a.setReceiver(aReceiver);
 
         Quantity aQuantity = new Quantity(400, Quantity.QuantityType.KG, Quantity.PackagingStandard.EQ);
         a.setQuantity(aQuantity);
@@ -83,7 +101,67 @@ public class ControlRepository {
 
         a.setTransportType(Control.TransportType.Bulk);
         a.setTransportStandard(Control.TransportStandard.ADRS);
+
+        ControlRow aGoodsDeclaration = new ControlRow(13, "Skriftliga instruktioner", ControlRow.Field.Controlled, "Normal", false, false, "");
+        ControlRow abc= new ControlRow(13, "blaha", ControlRow.Field.BreakingTheLaw, "Hög", true, true, "Dödsfarligt");
+        a.getTdRows().setGoodsDeclarationRow(aGoodsDeclaration);
+        a.getTdRows().setDeclaration(TransportDocumentRows.Declaration.LoadingPlane);
+
+        a.getTdRows().setWrittenInstructionsRow(abc);
+        a.getTdRows().setApprovalRow(aGoodsDeclaration);
+        a.getTdRows().setApproval(TransportDocumentRows.Approval.Bilateral);
+
+        a.getTdRows().setApprovalCertificateRow(abc);
+        a.getTdRows().setDriverCertificationRow(aGoodsDeclaration);
+        a.getTdRows().setOtherADRTrainingRow(aGoodsDeclaration);
+
+        TransportRows tr = a.getTRows();
+        ControlRow q = aGoodsDeclaration;
+        tr.setRow18(q);
+        tr.setRow19(q);
+        tr.setRow20(q);
+        tr.setRow21(q);
+        tr.setRow22_1(q);
+        tr.setRow22_2(q);
+        tr.setRow22_3(q);
+        tr.setRow23_1(q);
+        tr.setRow23_2(abc);
+        tr.setRow24(q);
+        tr.setRow25_1(q);
+        tr.setRow25_2(q);
+        tr.setRow26(q);
+        tr.setRow27(q);
+        tr.setRow28_1(q);
+        tr.setRow28_2(q);
+        tr.setRow28_3(q);
+        tr.setRow28_4(abc);
+        tr.setRow29(q);
+        tr.setRow31(q);
+        ControlRow w = new ControlRow(40, "Något nytt", ControlRow.Field.NotApplicable, "Uddda", false, true, "Det bästaste någonsin");
+        tr.addRow40(w);
+        tr.addRow40(w);
         controls.add(a);
+        tr.setRiskCategory(TransportRows.RiskCategory.category2);
+
+
+        Goods g = new Goods("A", "UN-4523", "Avgasrenad bensin", "GHL", "45", "100Kg", "Faltibt", true);
+        Goods g2 = new Goods("B", "UN-5133", "Flytande kväve", "GBD", "53", "99Liter", "Faltibt", true);
+        a.addGoods(g);
+        a.addGoods(g2);
+        Fault f = new Fault(1, "A", "Transporteras utan lock", "ADR 8.1.2.3");
+        Fault f2= new Fault(2, "B", "Transporteras utan lock", "ADR 18.11.22.3");
+        a.addFault(f);
+        a.addFault(f2);
+        a.setSafetyAdvisorCarrier(new SafetyAdvisor(SafetyAdvisor.Answer.Yes, "Göran Stenfeldt"));
+        a.setSafetyAdvisorSender(new SafetyAdvisor(SafetyAdvisor.Answer.Unknown, ""));
+        a.addProhibitedField(1);
+        a.addProhibitedField(1);
+        a.addSubmissionFieldNr(2);
+        a.setAllowedToContinueTrip(true);
+        a.setDestination("Norra korsvägen 28");
+        a.addSubmissionFieldNr(2);
+        a.setReportedEntity(Control.ReportedEntity.Carrier);
+        a.addPenalty("OF-23");
 
 
         //------------------------b
@@ -91,6 +169,7 @@ public class ControlRepository {
         b.setId(2);
         b.setLocation("Trollhättan");
         b.setLocationType(Control.LocationType.CargoTerminal);
+        b.setEndDate(new Date());
 
         b.setCarrier(aCarrier);
         b.setDriver(aDriver);
@@ -101,6 +180,9 @@ public class ControlRepository {
 
         b.setTruck(bTruck);
         b.setTrailer(bTrailer);
+
+        b.setSender(aSender);
+        b.setReceiver(aReceiver);
 
         Quantity bQuantity = new Quantity(9000, Quantity.QuantityType.Liter, Quantity.PackagingStandard.LQ);
         b.setQuantity(bQuantity);
@@ -116,6 +198,7 @@ public class ControlRepository {
         c.setId(3);
         c.setLocation("Stenungsund");
         c.setLocationType(Control.LocationType.CargoTerminal);
+        c.setEndDate(new Date());
 
         c.setCarrier(aCarrier);
         c.setDriver(aDriver);
@@ -126,6 +209,9 @@ public class ControlRepository {
 
         c.setTruck(cTruck);
         c.setTrailer(cTrailer);
+
+        c.setSender(aSender);
+        c.setReceiver(aReceiver);
 
         Quantity cQuantity = new Quantity(90000, Quantity.QuantityType.KG, Quantity.PackagingStandard.LQ);
         c.setQuantity(cQuantity);
