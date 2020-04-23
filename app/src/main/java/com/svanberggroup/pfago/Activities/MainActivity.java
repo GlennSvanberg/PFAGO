@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 //import com.google.android.gms.location.FusedLocationProviderClient;
 //import com.google.android.gms.location.LocationServices;
 import com.svanberggroup.pfago.Models.Control;
+import com.svanberggroup.pfago.Models.Fault;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Repository.ControlRepository;
 
@@ -176,37 +178,64 @@ public class MainActivity extends AppCompatActivity {
     private class ControlHolder extends RecyclerView.ViewHolder {
 
         private Control control;
-        private TextView title;
-        private TextView description;
+        private TextView left, right, title;
         public ControlHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.item_control_list,parent, false));
-             title = itemView.findViewById(R.id.name);
-             description = itemView.findViewById(R.id.description);
+            super(inflater.inflate(R.layout.view_control_card,parent, false));
+             title = itemView.findViewById(R.id.card_title);
+             left = itemView.findViewById(R.id.card_body_left);
+             right = itemView.findViewById(R.id.card_body_right);
         }
         public void bind(Control control) {
             this.control = control;
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
             String date = formatter.format(control.getStartDate());
-            title.setText(control.getTruck().getRegNr() + " Datum: " +  date);
-            String text  = "";
-            if(control.getCarrier()!= null) {
-                text = text + "Företag: " + control.getCarrier().getName() + "\n";
-            }
-            if(control.getDriver() != null) {
-                text = text + "Förare: " + control.getDriver().getName() + "\n";
-            }
-            if(control.getTruck() != null) {
-                text = text + "Lastbil: " +control.getTruck().getRegNr() + " " + control.getTruck().getNationality() + "\n";
-            }
+            setText(title,"<strong>" + date + "</strong> - " +  control.getTruck().getRegNr());
 
-            if(control.getTrailer() != null) {
-                text = text + "Släp: " + control.getTrailer().getRegNr() + " " + control.getTrailer().getNationality() + " " + getString(control.getTrailer().getVehicleType().label) +"\n";
-            }
-
-            description.setText(text);
+            setText(left, cardTextLeft(control));
+            setText(right, cardTextRight(control));
         }
 
     }
+
+    private String cardTextLeft(Control control){
+        StringBuilder str =new StringBuilder();
+        if(control.getCarrier()!= null) {
+            str.append(line("Företag:", control.getCarrier().getName()));
+        }
+        if(control.getDriver() != null) {
+            str.append(line("Förare: ", control.getDriver().getName()));
+        }
+        if(control.getTruck() != null) {
+            str.append(line(getString(control.getTruck().getVehicleType().label) + ":", control.getTruck().getRegNr() + " " + control.getTruck().getNationality()));
+        }
+        if(control.getTrailer() != null) {
+            str.append(line(getString(control.getTrailer().getVehicleType().label) + ":", control.getTrailer().getRegNr() + " " + control.getTrailer().getNationality()));
+        }
+        return str.toString();
+    }
+
+    private String cardTextRight(Control control){
+        StringBuilder str =new StringBuilder();
+        List<Fault> faults = control.getFaultList();
+
+        if(faults.size() > 0){
+            for(Fault fault : faults) {
+                str.append(line("Brist " + fault.getFieldNr() + ":", fault.getFault()));
+            }
+        } else {
+            str.append(line("", "Inga brister"));
+        }
+        return str.toString();
+    }
+
+    private String line(String title, String data) {
+        return title + " <strong>" + data + "</strong>" + "<br>";
+    }
+
+    private void setText(TextView textView, String str) {
+        textView.setText(Html.fromHtml(str));
+    }
+
     private class ControlAdapter extends RecyclerView.Adapter<ControlHolder> {
         private List<Control> controls;
 
