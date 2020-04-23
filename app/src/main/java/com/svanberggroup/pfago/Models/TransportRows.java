@@ -42,6 +42,27 @@ public class TransportRows {
 
     public TransportRows() {
         rows40 = new ArrayList<>();
+        row18 = new ControlRow("18. Gods tillåtet för transport");
+        row19 = new ControlRow("19. Fordonet godkänt för det transporterade godset");
+        row20 = new ControlRow("20. Bestämmelser för transportsätt");
+        row21 = new ControlRow("21. Förbud mot samlastning");
+        row22_1 = new ControlRow("22.1. Hantering");
+        row22_2 = new ControlRow("22.2. Lastning/Stuvning");
+        row22_3 = new ControlRow("22.3. Lastsäkring");
+        row23_1 = new ControlRow("23.1. Läckage");
+        row23_2 = new ControlRow("23.2. Skador på kolli/fordon");
+        row24 = new ControlRow("24. Godkännandemärkning av kolli/tankar (ADR kapitel 6)");
+        row25_1 = new ControlRow("25.1. Märkning av kolli (5.2.1)");
+        row25_2 = new ControlRow("25.2. Ettikering av kolli (5.2.2");
+        row26 = new ControlRow("26. Storetiketter (5.3.1");
+        row27 = new ControlRow("27. Skyltning/märkning av fordon/transporthenhet");
+        row28_1 = new ControlRow("28.1. Stoppklots");
+        row28_2 = new ControlRow("28.2. Varningsanordning");
+        row28_3 = new ControlRow("28.3. Varningsväst/ögonskydd/handskar");
+        row28_4 = new ControlRow("28.4. Bärbar ljuskälla");
+        row29 = new ControlRow("29. Godsspecifik utrustning (ADR 8.1.5.2/8.1.5.3)");
+        row31 = new ControlRow("31. Brandsläckare (ADR 8.1.4.1/8.1.4.2/10.6)");
+        //40
     }
 
     public ControlRow getRow22_3() {

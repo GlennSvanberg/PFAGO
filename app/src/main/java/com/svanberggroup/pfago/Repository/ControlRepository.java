@@ -102,42 +102,25 @@ public class ControlRepository {
         a.setTransportType(Control.TransportType.Bulk);
         a.setTransportStandard(Control.TransportStandard.ADRS);
 
-        ControlRow aGoodsDeclaration = new ControlRow(13, "Skriftliga instruktioner", ControlRow.Field.Controlled, "Normal", false, false, "");
-        ControlRow abc= new ControlRow(13, "blaha", ControlRow.Field.BreakingTheLaw, "Hög", true, true, "Dödsfarligt");
-        a.getTdRows().setGoodsDeclarationRow(aGoodsDeclaration);
+        ControlRow aGoodsDeclaration = new ControlRow("Skriftliga instruktioner", ControlRow.Field.Controlled, "Normal", false, false, "");
+
+        ControlRow abc= new ControlRow("blaha", ControlRow.Field.BreakingTheLaw, "Hög", true, true, "Dödsfarligt");
+
         a.getTdRows().setDeclaration(TransportDocumentRows.Declaration.LoadingPlane);
-
-        a.getTdRows().setWrittenInstructionsRow(abc);
-        a.getTdRows().setApprovalRow(aGoodsDeclaration);
         a.getTdRows().setApproval(TransportDocumentRows.Approval.Bilateral);
+        a.getTdRows().getGoodsDeclarationRow().setField(ControlRow.Field.BreakingTheLaw);
+        a.getTdRows().getGoodsDeclarationRow().setBanned(true);
+        a.getTdRows().getGoodsDeclarationRow().setNotes("Detta var inte bra");
+        a.getTdRows().getGoodsDeclarationRow().setRiskCategory("Turbulent");
 
-        a.getTdRows().setApprovalCertificateRow(abc);
-        a.getTdRows().setDriverCertificationRow(aGoodsDeclaration);
-        a.getTdRows().setOtherADRTrainingRow(aGoodsDeclaration);
+        a.getTdRows().getDriverCertificationRow().setField(ControlRow.Field.Controlled);
+        a.getTdRows().getApprovalCertificateRow().setField(ControlRow.Field.Controlled);
+        a.getTdRows().getApprovalRow().setField(ControlRow.Field.NotApplicable);
 
         TransportRows tr = a.getTRows();
-        ControlRow q = aGoodsDeclaration;
-        tr.setRow18(q);
-        tr.setRow19(q);
-        tr.setRow20(q);
-        tr.setRow21(q);
-        tr.setRow22_1(q);
-        tr.setRow22_2(q);
-        tr.setRow22_3(q);
-        tr.setRow23_1(q);
-        tr.setRow23_2(abc);
-        tr.setRow24(q);
-        tr.setRow25_1(q);
-        tr.setRow25_2(q);
-        tr.setRow26(q);
-        tr.setRow27(q);
-        tr.setRow28_1(q);
-        tr.setRow28_2(q);
-        tr.setRow28_3(q);
-        tr.setRow28_4(abc);
-        tr.setRow29(q);
-        tr.setRow31(q);
-        ControlRow w = new ControlRow(40, "Något nytt", ControlRow.Field.NotApplicable, "Uddda", false, true, "Det bästaste någonsin");
+
+
+        ControlRow w = new ControlRow("Något nytt", ControlRow.Field.NotApplicable, "Uddda", false, true, "Det bästaste någonsin");
         tr.addRow40(w);
         tr.addRow40(w);
         controls.add(a);

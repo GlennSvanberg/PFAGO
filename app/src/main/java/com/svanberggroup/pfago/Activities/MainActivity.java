@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
                         searchButton.setImageResource(R.drawable.ic_clear);
                         recyclerView.setVisibility(View.VISIBLE);
                     }
-
                     updateUI();
                     isSearchMode = !isSearchMode;
 

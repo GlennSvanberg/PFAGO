@@ -3,7 +3,6 @@ package com.svanberggroup.pfago.Models;
 import com.svanberggroup.pfago.R;
 
 public class ControlRow {
-    private int fieldNr;
     private String name;
     public enum Field{
         Controlled(R.string.controlled),
@@ -21,11 +20,11 @@ public class ControlRow {
     private boolean banned;
     private String notes;
 
-    public ControlRow() {
+    public ControlRow(String name) {
+        this.name = name;
     }
 
-    public ControlRow(int fieldNr, String name, Field field, String riskCategory, boolean imposed, boolean banned, String notes) {
-        this.fieldNr = fieldNr;
+    public ControlRow(String name, Field field, String riskCategory, boolean imposed, boolean banned, String notes) {
         this.name = name;
         this.field = field;
         this.riskCategory = riskCategory;
@@ -40,14 +39,6 @@ public class ControlRow {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getFieldNr() {
-        return fieldNr;
-    }
-
-    public void setFieldNr(int fieldNr) {
-        this.fieldNr = fieldNr;
     }
 
     public String getRiskCategory() {
