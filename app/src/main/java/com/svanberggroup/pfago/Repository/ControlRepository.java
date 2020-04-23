@@ -149,7 +149,7 @@ public class ControlRepository {
         a.addGoods(g);
         a.addGoods(g2);
         Fault f = new Fault(1, "A", "Transporteras utan lock", "ADR 8.1.2.3");
-        Fault f2= new Fault(2, "B", "Transporteras utan lock", "ADR 18.11.22.3");
+        Fault f2= new Fault(2, "B", "Ingen stoppkloss", "ADR 18.11.22.3");
         a.addFault(f);
         a.addFault(f2);
         a.setSafetyAdvisorCarrier(new SafetyAdvisor(SafetyAdvisor.Answer.Yes, "Göran Stenfeldt"));

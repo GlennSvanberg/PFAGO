@@ -36,6 +36,14 @@
             android:background="@android:color/transparent"/>
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/message_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout"></TextView>
 
     <LinearLayout
         android:id="@+id/buttons_linear_layout"
@@ -44,7 +52,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout"
+        app:layout_constraintTop_toBottomOf="@+id/message_text_view"
         android:layout_margin="16dp">
         <Button
             android:id="@+id/rib_search_button"
@@ -75,6 +83,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/message_text_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
