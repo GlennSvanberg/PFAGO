@@ -133,7 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="Skriftliga instruktioner"
             android:textSize="15dp"
             android:textStyle="bold"
@@ -219,7 +219,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="Tillstånd"
             android:textSize="15dp"
             android:textStyle="bold"
@@ -268,7 +268,7 @@
                 android:text="Kontrollerat" />
 
             <RadioButton
-                android:id="@+id/janneNotApprovedRadioButton"
+                android:id="@+id/notApprovedRadioButton2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ej enligt regler" />
@@ -332,6 +332,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:text="Godkännandecertifikat"
             android:textSize="15dp"
             android:textStyle="bold"

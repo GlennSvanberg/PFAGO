@@ -76,6 +76,7 @@ public class FragmentFour extends Fragment {
 
         addSubViewToView(view);
         setVisibilityGone(view);
+        handleVisibility();
 
         return  view;
     }
@@ -143,4 +144,90 @@ public class FragmentFour extends Fragment {
         otherApprovalCertificateNotesEditText.setVisibility(view.GONE);
     }
 
+    private void handleVisibility() {
+        typeOfDocumentABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.notApprovedRadioButton) {
+                    typeOfDocumentRiskCategoryEditText.setVisibility(View.VISIBLE);
+                    typeOfDocumentRadioGroup.setVisibility(View.VISIBLE);
+                    typeOfDocumentNotesEditText.setVisibility(View.VISIBLE);
+                } else {
+                    typeOfDocumentRiskCategoryEditText.setVisibility(View.GONE);
+                    typeOfDocumentRadioGroup.setVisibility(View.GONE);
+                    typeOfDocumentNotesEditText.setVisibility(View.GONE);
+                }
+            }
+        });
+        writenInstruktionABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.notApprovedRadioButton1) {
+                    writenInstruktionRiskCategoryEditText.setVisibility(View.VISIBLE);
+                    writenInstruktionRadioGroup.setVisibility(View.VISIBLE);
+                    writenInstruktionNotesEditText.setVisibility(View.VISIBLE);
+                } else {
+                    writenInstruktionRiskCategoryEditText.setVisibility(View.GONE);
+                    writenInstruktionRadioGroup.setVisibility(View.GONE);
+                    writenInstruktionNotesEditText.setVisibility(View.GONE);
+                }
+            }
+        });
+        typeOfApprovalABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.notApprovedRadioButton2) {
+                    typeOfApprovalRiskCategoryEditText.setVisibility(View.VISIBLE);
+                    typeOfApprovalRadioGroup.setVisibility(View.VISIBLE);
+                    typeOfApprovalNotesEditText.setVisibility(View.VISIBLE);
+                } else {
+                    typeOfApprovalRiskCategoryEditText.setVisibility(View.GONE);
+                    typeOfApprovalRadioGroup.setVisibility(View.GONE);
+                    typeOfApprovalNotesEditText.setVisibility(View.GONE);
+                }
+            }
+        });
+        truckApprovalCertificateABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.truckApprovalNotApprovedRadioButton) {
+                    truckApprovalCertificateRiskCategoryEditText.setVisibility(View.VISIBLE);
+                    truckApprovalCertificateRadioGroup.setVisibility(View.VISIBLE);
+                    truckApprovalCertificateNotesEditText.setVisibility(View.VISIBLE);
+                } else {
+                    truckApprovalCertificateRiskCategoryEditText.setVisibility(View.GONE);
+                    truckApprovalCertificateRadioGroup.setVisibility(View.GONE);
+                    truckApprovalCertificateNotesEditText.setVisibility(View.GONE);
+                }
+            }
+        });
+        driverApprovalCertificateABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.driverApprovalNotApprovedRadioButton) {
+                    driverApprovalCertificateRiskCategoryEditText.setVisibility(View.VISIBLE);
+                    driverApprovalCertificateRadioGroup.setVisibility(View.VISIBLE);
+                    driverApprovalCertificateNotesEditText.setVisibility(View.VISIBLE);
+                } else {
+                    driverApprovalCertificateRiskCategoryEditText.setVisibility(View.GONE);
+                    driverApprovalCertificateRadioGroup.setVisibility(View.GONE);
+                    driverApprovalCertificateNotesEditText.setVisibility(View.GONE);
+                }
+            }
+        });
+        otherApprovalCertificateABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.otherApprovalNotApprovedRadioButton) {
+                    otherApprovalCertificateRiskCategoryEditText.setVisibility(View.VISIBLE);
+                    otherApprovalCertificateRadioGroup.setVisibility(View.VISIBLE);
+                    otherApprovalCertificateNotesEditText.setVisibility(View.VISIBLE);
+                } else {
+                    otherApprovalCertificateRiskCategoryEditText.setVisibility(View.GONE);
+                    otherApprovalCertificateRadioGroup.setVisibility(View.GONE);
+                    otherApprovalCertificateNotesEditText.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
 }
