@@ -115,8 +115,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                carrier.setName(s.toString());
-                control.setCarrier(carrier);
+                if(s.length() > 0) {
+                    carrier.setName(s.toString());
+                    control.setCarrier(carrier);
+                } else if (s.length() == 0) {
+                    control.setCarrier(null);
+                }
             }
 
             @Override
@@ -128,10 +132,13 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                carrier.setAddress(s.toString());
-                control.setCarrier(carrier);
+                if(s.length() > 0) {
+                    carrier.setAddress(s.toString());
+                    control.setCarrier(carrier);
+                } else if (s.length() == 0) {
+                    control.setCarrier(null);
+                }
             }
-
             @Override
             public void afterTextChanged(Editable s) { }
         });
@@ -141,8 +148,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                carrier.setPhone(s.toString());
-                control.setCarrier(carrier);
+                if (s.length() > 0) {
+                    carrier.setPhone(s.toString());
+                    control.setCarrier(carrier);
+                } else if (s.length() == 0) {
+                    control.setCarrier(null);
+                }
             }
 
             @Override
@@ -157,7 +168,7 @@ public class FragmentTwo extends Fragment {
                 if (s.toString().length() > 0) {
                     carrier.setZipNr(Integer.parseInt(s.toString()));
                     control.setCarrier(carrier);
-                } else {
+                } else if (s.length() == 0) {
                     carrier.setZipNr(0);
                 }
             }
@@ -171,8 +182,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                carrier.setCity(s.toString());
-                control.setCarrier(carrier);
+                if(s.length() > 0) {
+                    carrier.setCity(s.toString());
+                    control.setCarrier(carrier);
+                } else {
+                    control.setCarrier(null);
+                }
             }
 
             @Override
@@ -184,8 +199,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                carrier.setNationality(s.toString());
-                control.setCarrier(carrier);
+                if (s.length() > 0) {
+                    carrier.setNationality(s.toString());
+                    control.setCarrier(carrier);
+                } else if(s.length() == 0) {
+                    control.setCarrier(null);
+                }
             }
 
             @Override
@@ -200,8 +219,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                driver.setName(s.toString());
-                control.setCarrier(carrier);
+                if (s.length() > 0) {
+                    driver.setName(s.toString());
+                    control.setDriver(driver);
+                } else if (s.length() == 0) {
+                    control.setDriver(null);
+                }
             }
 
             @Override
@@ -213,8 +236,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                driver.setAddress(s.toString());
-                control.setCarrier(carrier);
+                if (s.length() > 0) {
+                    driver.setAddress(s.toString());
+                    control.setDriver(driver);
+                } else if (s.length() == 0 ){
+                    control.setDriver(null);
+                }
             }
 
             @Override
@@ -226,8 +253,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                driver.setPhone(s.toString());
-                control.setCarrier(carrier);
+                if (s.length() > 0) {
+                    driver.setPhone(s.toString());
+                    control.setDriver(driver);
+                } else if (s.length() == 0) {
+                    control.setDriver(null);
+                }
             }
 
             @Override
@@ -241,9 +272,9 @@ public class FragmentTwo extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().length() > 0) {
                     driver.setZipNr(Integer.parseInt(s.toString()));
-                    control.setCarrier(carrier);
-                } else {
-                    driver.setZipNr(0);
+                    control.setDriver(driver);
+                } else if (s.length() == 0){
+                    control.setDriver(null);
                 }
             }
 
@@ -256,8 +287,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                driver.setCity(s.toString());
-                control.setCarrier(carrier);
+                if (s.length() > 0) {
+                    driver.setCity(s.toString());
+                    control.setDriver(driver);
+                } else if (s.length() == 0) {
+                    control.setDriver(null);
+                }
             }
 
             @Override
@@ -269,8 +304,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                driver.setNationality(s.toString());
-                control.setCarrier(carrier);
+                if (s.length() > 0) {
+                    driver.setNationality(s.toString());
+                    control.setDriver(driver);
+                } else if (s.length() == 0) {
+                    control.setDriver(null);
+                }
             }
 
             @Override
@@ -285,8 +324,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                coDriver.setName(s.toString());
-                control.setCarrier(carrier);
+                if (s.length() > 0) {
+                    coDriver.setName(s.toString());
+                    control.setPassenger(coDriver);
+                } else if (s.length() == 0) {
+                    control.setPassenger(null);
+                }
             }
 
             @Override
@@ -298,8 +341,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                coDriver.setAddress(s.toString());
-                control.setCarrier(carrier);
+                if (s.length() > 0) {
+                    coDriver.setAddress(s.toString());
+                    control.setPassenger(coDriver);
+                } else if (s.length() == 0) {
+                    control.setPassenger(null);
+                }
             }
 
             @Override
@@ -311,8 +358,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                coDriver.setPhone(s.toString());
-                control.setCarrier(carrier);
+                if (s.length() > 0) {
+                    coDriver.setPhone(s.toString());
+                    control.setPassenger(coDriver);
+                } else if (s.length() == 0) {
+                    control.setPassenger(null);
+                }
             }
 
             @Override
@@ -324,11 +375,11 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().length() > 0) {
+                if (s.length() > 0) {
                     coDriver.setZipNr(Integer.parseInt(s.toString()));
-                    control.setCarrier(carrier);
-                } else {
-                    coDriver.setZipNr(0);
+                    control.setPassenger(coDriver);
+                } else if (s.length() == 0){
+                    control.setPassenger(null);
                 }
             }
 
@@ -341,8 +392,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                coDriver.setCity(s.toString());
-                control.setCarrier(carrier);
+                if (s.length() > 0) {
+                    coDriver.setCity(s.toString());
+                    control.setPassenger(coDriver);
+                } else if (s.length() == 0) {
+                    control.setPassenger(null);
+                }
             }
 
             @Override
@@ -354,8 +409,12 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                coDriver.setNationality(s.toString());
-                control.setCarrier(carrier);
+                if (s.length() > 0) {
+                    coDriver.setNationality(s.toString());
+                    control.setPassenger(coDriver);
+                } else if (s.length() == 0) {
+                    control.setPassenger(null);
+                }
             }
 
             @Override
