@@ -278,8 +278,8 @@ public class ViewControlActivity extends AppCompatActivity {
         setControlRow(tRows.getRow31(), addRowView(layout,views));
         int counter = 1;
         for(ControlRow row : tRows.getRows40()){
-            row.setName("40." + counter + ". " + row.getName());
-            setControlRow(row, addRowView(layout,views), "");
+            row.setName("40." + counter + ". " + row.getTitle());
+            setControlRow(row, addRowView(layout,views));
             counter++;
         }
         String risk = "";
@@ -448,7 +448,6 @@ public class ViewControlActivity extends AppCompatActivity {
             str.append(line("", of));
         }
         setText(cardRight(card), str.toString());
-
     }
 
     private View addCardView(List<View> views){

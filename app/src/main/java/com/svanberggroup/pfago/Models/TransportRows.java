@@ -62,7 +62,7 @@ public class TransportRows {
         row28_4 = new ControlRow("28.4. Bärbar ljuskälla");
         row29 = new ControlRow("29. Godsspecifik utrustning (ADR 8.1.5.2/8.1.5.3)");
         row31 = new ControlRow("31. Brandsläckare (ADR 8.1.4.1/8.1.4.2/10.6)");
-        //40
+
     }
 
     public ControlRow getRow22_3() {

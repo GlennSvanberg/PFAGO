@@ -4,6 +4,7 @@ import com.svanberggroup.pfago.R;
 
 public class ControlRow {
     private String name;
+    private String title;
     public enum Field{
         Controlled(R.string.controlled),
         BreakingTheLaw(R.string.breaking_the_law),
@@ -24,13 +25,21 @@ public class ControlRow {
         this.name = name;
     }
 
-    public ControlRow(String name, Field field, String riskCategory, boolean imposed, boolean banned, String notes) {
-        this.name = name;
+    public ControlRow(String title, Field field, String riskCategory, boolean imposed, boolean banned, String notes) {
+        this.title = title;
         this.field = field;
         this.riskCategory = riskCategory;
         this.imposed = imposed;
         this.banned = banned;
         this.notes = notes;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getName() {

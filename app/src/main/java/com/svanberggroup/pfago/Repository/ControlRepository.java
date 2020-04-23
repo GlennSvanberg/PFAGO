@@ -120,9 +120,10 @@ public class ControlRepository {
         TransportRows tr = a.getTRows();
 
 
-        ControlRow w = new ControlRow("Något nytt", ControlRow.Field.NotApplicable, "Uddda", false, true, "Det bästaste någonsin");
+        ControlRow w = new ControlRow("Något nytt", ControlRow.Field.NotApplicable, "Udda", false, true, "Det bästaste någonsin");
+        ControlRow wy = new ControlRow("Något annat", ControlRow.Field.BreakingTheLaw, "Majs", true, true, "Det braigaste någonsin");
         tr.addRow40(w);
-        tr.addRow40(w);
+        tr.addRow40(wy);
         controls.add(a);
         tr.setRiskCategory(TransportRows.RiskCategory.category2);
 
