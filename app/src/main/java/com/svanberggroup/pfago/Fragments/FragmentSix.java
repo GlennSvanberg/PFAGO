@@ -165,7 +165,7 @@ public class FragmentSix extends Fragment {
         warningDeviceABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.loadingNotApprovedRadioButton) {
+                if(checkedId == R.id.warningDeviceNotApprovedRadioButton) {
                     warningDeviceRiskCategoryEditText.setVisibility(View.VISIBLE);
                     warningDeviceRadioGroup.setVisibility(View.VISIBLE);
                     warningDeviceNotesEditText.setVisibility(View.VISIBLE);
@@ -179,7 +179,7 @@ public class FragmentSix extends Fragment {
         safetyEquipmentABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.securingCargoNotApprovedRadioButton) {
+                if(checkedId == R.id.safetyEquipmentNotApprovedRadioButton) {
                     safetyEquipmentRiskCategoryEditText.setVisibility(View.VISIBLE);
                     safetyEquipmentRadioGroup.setVisibility(View.VISIBLE);
                     safetyEquipmentNotesEditText.setVisibility(View.VISIBLE);
@@ -193,7 +193,7 @@ public class FragmentSix extends Fragment {
         portableLightSourceABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.leakageNotApprovedRadioButton) {
+                if(checkedId == R.id.portableLightSourceNotApprovedRadioButton) {
                     portableLightSourceCategoryEditText.setVisibility(View.VISIBLE);
                     portableLightSourceRadioGroup.setVisibility(View.VISIBLE);
                     portableLightSourceNotesEditText.setVisibility(View.VISIBLE);
@@ -207,7 +207,7 @@ public class FragmentSix extends Fragment {
         godsSpecificEquipmentABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.damagesNotApprovedRadioButton) {
+                if(checkedId == R.id.godsSpecificEquipmentNotApprovedRadioButton) {
                     godsSpecificEquipmentRiskCategoryEditText.setVisibility(View.VISIBLE);
                     godsSpecificEquipmentRadioGroup.setVisibility(View.VISIBLE);
                     godsSpecificEquipmentNotesEditText.setVisibility(View.VISIBLE);
@@ -221,7 +221,7 @@ public class FragmentSix extends Fragment {
         fireExtinguisherABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.godsApprovedNotApprovedRadioButton) {
+                if(checkedId == R.id.fireExtinguisherNotApprovedRadioButton) {
                     fireExtinguisherRiskCategoryEditText.setVisibility(View.VISIBLE);
                     fireExtinguisherRadioGroup.setVisibility(View.VISIBLE);
                     fireExtinguisherNotesEditText.setVisibility(View.VISIBLE);
