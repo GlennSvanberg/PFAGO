@@ -13,13 +13,13 @@
 
 
         <RadioGroup
-            android:id="@+id/ABCRadioGroup"
+            android:id="@+id/typeOfDocumentABCRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/typeOfDocumentRadioGroup">
+            app:layout_constraintTop_toBottomOf="@+id/chooseTypeOfDocumentRadioGroup">
 
             <RadioButton
                 android:id="@+id/controlledRadioButton"
@@ -53,7 +53,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <RadioGroup
-            android:id="@+id/typeOfDocumentRadioGroup"
+            android:id="@+id/chooseTypeOfDocumentRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -83,7 +83,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/riskCategoryEditText"
+            android:id="@+id/typeOfDocumentRiskCategoryEditText"
             android:layout_width="139dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -91,16 +91,16 @@
             android:hint="Riskkategori"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ABCRadioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/typeOfDocumentABCRadioGroup" />
 
         <RadioGroup
-            android:id="@+id/janneRadioGroup"
+            android:id="@+id/typeOfDocumentRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/riskCategoryEditText"
-            app:layout_constraintStart_toEndOf="@+id/riskCategoryEditText"
-            app:layout_constraintTop_toTopOf="@+id/riskCategoryEditText">
+            app:layout_constraintBottom_toBottomOf="@+id/typeOfDocumentRiskCategoryEditText"
+            app:layout_constraintStart_toEndOf="@+id/typeOfDocumentRiskCategoryEditText"
+            app:layout_constraintTop_toTopOf="@+id/typeOfDocumentRiskCategoryEditText">
 
             <RadioButton
                 android:id="@+id/imposeRadioButton"
@@ -116,7 +116,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/typeOfDocumentNotesEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -125,22 +125,23 @@
             android:hint="Anteckningar"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/riskCategoryEditText"
-            app:layout_constraintTop_toBottomOf="@+id/riskCategoryEditText" />
+            app:layout_constraintStart_toStartOf="@+id/typeOfDocumentRiskCategoryEditText"
+            app:layout_constraintTop_toBottomOf="@+id/typeOfDocumentRiskCategoryEditText" />
 
         <TextView
             android:id="@+id/writenInstruktionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:text="Skriftliga instruktioner"
             android:textSize="15dp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/editText4"
-            app:layout_constraintTop_toBottomOf="@+id/editText4" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/typeOfDocumentNotesEditText" />
 
         <RadioGroup
-            android:id="@+id/ABCRadioGroup1"
+            android:id="@+id/writenInstruktionABCRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -168,7 +169,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/riskCategoryEditText1"
+            android:id="@+id/writenInstruktionRiskCategoryEditText"
             android:layout_width="139dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -176,16 +177,16 @@
             android:hint="Riskkategori"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ABCRadioGroup1" />
+            app:layout_constraintTop_toBottomOf="@+id/writenInstruktionABCRadioGroup" />
 
         <RadioGroup
-            android:id="@+id/janneRadioGroup1"
+            android:id="@+id/writenInstruktionRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/riskCategoryEditText1"
-            app:layout_constraintStart_toEndOf="@+id/riskCategoryEditText1"
-            app:layout_constraintTop_toTopOf="@+id/riskCategoryEditText1">
+            app:layout_constraintBottom_toBottomOf="@+id/writenInstruktionRiskCategoryEditText"
+            app:layout_constraintStart_toEndOf="@+id/writenInstruktionRiskCategoryEditText"
+            app:layout_constraintTop_toTopOf="@+id/writenInstruktionRiskCategoryEditText">
 
             <RadioButton
                 android:id="@+id/imposeRadioButton1"
@@ -201,7 +202,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/notesEditText1"
+            android:id="@+id/writenInstruktionNotesEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -210,11 +211,11 @@
             android:hint="Anteckningar"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/riskCategoryEditText1"
-            app:layout_constraintTop_toBottomOf="@+id/riskCategoryEditText1" />
+            app:layout_constraintStart_toStartOf="@+id/writenInstruktionRiskCategoryEditText"
+            app:layout_constraintTop_toBottomOf="@+id/writenInstruktionRiskCategoryEditText" />
 
         <TextView
-            android:id="@+id/countryEditText"
+            android:id="@+id/typeOfApprovalTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -223,15 +224,15 @@
             android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/notesEditText1" />
+            app:layout_constraintTop_toBottomOf="@+id/writenInstruktionNotesEditText" />
 
         <RadioGroup
-            android:id="@+id/radioGroup3"
+            android:id="@+id/chooseTypeOfApprovalRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@+id/countryEditText"
-            app:layout_constraintTop_toBottomOf="@+id/countryEditText">
+            app:layout_constraintStart_toStartOf="@+id/typeOfApprovalTextView"
+            app:layout_constraintTop_toBottomOf="@+id/typeOfApprovalTextView">
 
             <RadioButton
                 android:id="@+id/biRadioButton"
@@ -253,12 +254,12 @@
         </RadioGroup>
 
         <RadioGroup
-            android:id="@+id/janneABCRadioGroup"
+            android:id="@+id/typeOfApprovalABCRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@+id/radioGroup3"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup3">
+            app:layout_constraintStart_toStartOf="@+id/chooseTypeOfApprovalRadioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/chooseTypeOfApprovalRadioGroup">
 
             <RadioButton
                 android:id="@+id/janneControlledRadioButton"
@@ -280,7 +281,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/riskCategoryEditText3"
+            android:id="@+id/typeOfApprovalRiskCategoryEditText"
             android:layout_width="139dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -288,17 +289,17 @@
             android:hint="Riskkategori"
             android:inputType="textPersonName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/janneABCRadioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/typeOfApprovalABCRadioGroup" />
 
 
         <RadioGroup
-            android:id="@+id/janneRadioGroup3"
+            android:id="@+id/typeOfApprovalRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/riskCategoryEditText3"
-            app:layout_constraintStart_toEndOf="@+id/riskCategoryEditText3"
-            app:layout_constraintTop_toTopOf="@+id/riskCategoryEditText3">
+            app:layout_constraintBottom_toBottomOf="@+id/typeOfApprovalRiskCategoryEditText"
+            app:layout_constraintStart_toEndOf="@+id/typeOfApprovalRiskCategoryEditText"
+            app:layout_constraintTop_toTopOf="@+id/typeOfApprovalRiskCategoryEditText">
 
             <RadioButton
                 android:id="@+id/imposeRadioButton2"
@@ -314,7 +315,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/notesEditText2"
+            android:id="@+id/typeOfApprovalNotesEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -323,21 +324,22 @@
             android:hint="Anteckningar"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/riskCategoryEditText3"
-            app:layout_constraintTop_toBottomOf="@+id/riskCategoryEditText3" />
+            app:layout_constraintStart_toStartOf="@+id/typeOfApprovalRiskCategoryEditText"
+            app:layout_constraintTop_toBottomOf="@+id/typeOfApprovalRiskCategoryEditText" />
 
         <TextView
             android:id="@+id/approvalCertificateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:text="Godkännandecertifikat"
             android:textSize="15dp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/notesEditText2"
-            app:layout_constraintTop_toBottomOf="@+id/notesEditText2" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/typeOfApprovalNotesEditText" />
 
         <TextView
-            android:id="@+id/truckApprovalCertificateEditText"
+            android:id="@+id/truckApprovalCertificateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -350,8 +352,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@+id/truckApprovalCertificateEditText"
-            app:layout_constraintTop_toBottomOf="@+id/truckApprovalCertificateEditText">
+            app:layout_constraintStart_toStartOf="@+id/truckApprovalCertificateTextView"
+            app:layout_constraintTop_toBottomOf="@+id/truckApprovalCertificateTextView">
 
             <RadioButton
                 android:id="@+id/truckApprovalControlledRadioButton"
@@ -373,7 +375,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/truckApprovalRiskCategoryEditText"
+            android:id="@+id/truckApprovalCertificateRiskCategoryEditText"
             android:layout_width="139dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -389,9 +391,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/truckApprovalRiskCategoryEditText"
-            app:layout_constraintStart_toEndOf="@+id/truckApprovalRiskCategoryEditText"
-            app:layout_constraintTop_toTopOf="@+id/truckApprovalRiskCategoryEditText">
+            app:layout_constraintBottom_toBottomOf="@+id/truckApprovalCertificateRiskCategoryEditText"
+            app:layout_constraintStart_toEndOf="@+id/truckApprovalCertificateRiskCategoryEditText"
+            app:layout_constraintTop_toTopOf="@+id/truckApprovalCertificateRiskCategoryEditText">
 
             <RadioButton
                 android:id="@+id/truckApprovalImposeRadioButton"
@@ -407,7 +409,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/truckApprovalNotesEditText"
+            android:id="@+id/truckApprovalCertificateNotesEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -416,18 +418,19 @@
             android:hint="Anteckningar"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/truckApprovalRiskCategoryEditText"
-            app:layout_constraintTop_toBottomOf="@+id/truckApprovalRiskCategoryEditText" />
+            app:layout_constraintStart_toStartOf="@+id/truckApprovalCertificateRiskCategoryEditText"
+            app:layout_constraintTop_toBottomOf="@+id/truckApprovalCertificateRiskCategoryEditText" />
 
 
         <TextView
             android:id="@+id/driverApprovalCertificateEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:text="Förarintyg (ADR 8.2.1, 8.2.2)"
-            app:layout_constraintStart_toStartOf="@+id/truckApprovalNotesEditText"
-            app:layout_constraintTop_toBottomOf="@+id/truckApprovalNotesEditText" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/truckApprovalCertificateNotesEditText" />
 
         <RadioGroup
             android:id="@+id/driverApprovalCertificateABCRadioGroup"
@@ -457,7 +460,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/driverApprovalRiskCategoryEditText"
+            android:id="@+id/driverApprovalCertificateRiskCategoryEditText"
             android:layout_width="139dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -473,9 +476,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/driverApprovalRiskCategoryEditText"
-            app:layout_constraintStart_toEndOf="@+id/driverApprovalRiskCategoryEditText"
-            app:layout_constraintTop_toTopOf="@+id/driverApprovalRiskCategoryEditText">
+            app:layout_constraintBottom_toBottomOf="@+id/driverApprovalCertificateRiskCategoryEditText"
+            app:layout_constraintStart_toEndOf="@+id/driverApprovalCertificateRiskCategoryEditText"
+            app:layout_constraintTop_toTopOf="@+id/driverApprovalCertificateRiskCategoryEditText">
 
             <RadioButton
                 android:id="@+id/driverApprovalImposeRadioButton"
@@ -491,7 +494,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/driverApprovalNotesEditText"
+            android:id="@+id/driverApprovalCertificateNotesEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -500,18 +503,19 @@
             android:hint="Anteckningar"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/driverApprovalRiskCategoryEditText"
-            app:layout_constraintTop_toBottomOf="@+id/driverApprovalRiskCategoryEditText" />
+            app:layout_constraintStart_toStartOf="@+id/driverApprovalCertificateRiskCategoryEditText"
+            app:layout_constraintTop_toBottomOf="@+id/driverApprovalCertificateRiskCategoryEditText" />
 
 
         <TextView
             android:id="@+id/otherApprovalCertificateEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:text="Annan ADR-utbildning"
-            app:layout_constraintStart_toStartOf="@+id/driverApprovalNotesEditText"
-            app:layout_constraintTop_toBottomOf="@+id/driverApprovalNotesEditText" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/driverApprovalCertificateNotesEditText" />
 
         <RadioGroup
             android:id="@+id/otherApprovalCertificateABCRadioGroup"
@@ -541,7 +545,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/otherApprovalRiskCategoryEditText"
+            android:id="@+id/otherApprovalCertificateRiskCategoryEditText"
             android:layout_width="139dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -557,9 +561,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/otherApprovalRiskCategoryEditText"
-            app:layout_constraintStart_toEndOf="@+id/otherApprovalRiskCategoryEditText"
-            app:layout_constraintTop_toTopOf="@+id/otherApprovalRiskCategoryEditText">
+            app:layout_constraintBottom_toBottomOf="@+id/otherApprovalCertificateRiskCategoryEditText"
+            app:layout_constraintStart_toEndOf="@+id/otherApprovalCertificateRiskCategoryEditText"
+            app:layout_constraintTop_toTopOf="@+id/otherApprovalCertificateRiskCategoryEditText">
 
             <RadioButton
                 android:id="@+id/otherApprovalImposeRadioButton"
@@ -575,7 +579,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/otherApprovalNotesEditText"
+            android:id="@+id/otherApprovalCertificateNotesEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -584,8 +588,8 @@
             android:hint="Anteckningar"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/otherApprovalRiskCategoryEditText"
-            app:layout_constraintTop_toBottomOf="@+id/otherApprovalRiskCategoryEditText" />
+            app:layout_constraintStart_toStartOf="@+id/otherApprovalCertificateRiskCategoryEditText"
+            app:layout_constraintTop_toBottomOf="@+id/otherApprovalCertificateRiskCategoryEditText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
