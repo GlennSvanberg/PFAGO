@@ -1,6 +1,8 @@
 package com.svanberggroup.pfago.Fragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.svanberggroup.pfago.Models.Control;
+import com.svanberggroup.pfago.Models.ControlRow;
+import com.svanberggroup.pfago.Models.TransportDocumentRows;
 import com.svanberggroup.pfago.R;
 
 import java.io.Serializable;
@@ -21,6 +25,7 @@ public class FragmentFour extends Fragment {
 
     private static final String NEW_CONTROL = "new_control";
 
+    private RadioGroup chooseTypeOfDocumentRadioGroup;
     private RadioGroup typeOfDocumentABCRadioGroup;
     private EditText typeOfDocumentRiskCategoryEditText;
     private RadioGroup typeOfDocumentRadioGroup;
@@ -52,6 +57,8 @@ public class FragmentFour extends Fragment {
     private EditText otherApprovalCertificateNotesEditText;
 
     private Control control;
+    private TransportDocumentRows tdRows;
+    private ControlRow goodsDeclarationRow;
 
     private FragmentFour() {
     }
@@ -66,6 +73,10 @@ public class FragmentFour extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        control = (Control) getArguments().getSerializable(NEW_CONTROL);
+
+        tdRows = new TransportDocumentRows();
+        goodsDeclarationRow = new ControlRow();
 
     }
 
@@ -77,6 +88,8 @@ public class FragmentFour extends Fragment {
         addSubViewToView(view);
         setVisibilityGone(view);
         handleVisibility();
+        handleRadioButtonChecked();
+        handleTextInput();
 
         return  view;
     }
@@ -87,6 +100,7 @@ public class FragmentFour extends Fragment {
     }
 
     private void addSubViewToView(View view) {
+        chooseTypeOfDocumentRadioGroup = view.findViewById(R.id.chooseTypeOfDocumentRadioGroup);
         typeOfDocumentABCRadioGroup = view.findViewById(R.id.typeOfDocumentABCRadioGroup);
         typeOfDocumentRiskCategoryEditText = view.findViewById(R.id.typeOfDocumentRiskCategoryEditText);
         typeOfDocumentRadioGroup = view.findViewById(R.id.typeOfDocumentRadioGroup);
@@ -145,6 +159,7 @@ public class FragmentFour extends Fragment {
     }
 
     private void handleVisibility() {
+
         typeOfDocumentABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -230,4 +245,92 @@ public class FragmentFour extends Fragment {
             }
         });
     }
+
+    private void handleRadioButtonChecked() {
+        chooseTypeOfDocumentRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.loadPlanRadioButton:
+                        tdRows.setDeclaration(TransportDocumentRows.Declaration.LoadingPlane);
+                    case R.id.CPCRadionButton:
+                        tdRows.setDeclaration(TransportDocumentRows.Declaration.StowageCertificate);
+                }
+            }
+        });
+        typeOfDocumentABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.controlledRadioButton:
+                        goodsDeclarationRow.setField(ControlRow.Field.Controlled);
+                        tdRows.setGoodsDeclarationRow(goodsDeclarationRow);
+                    case R.id.notApprovedRadioButton:
+                        goodsDeclarationRow.setField(ControlRow.Field.BreakingTheLaw);
+                        tdRows.setGoodsDeclarationRow(goodsDeclarationRow);
+                    case R.id.notApplicableRadioButton:
+                        goodsDeclarationRow.setField(ControlRow.Field.NotApplicable);
+                        tdRows.setGoodsDeclarationRow(goodsDeclarationRow);
+                }
+            }
+        });
+        typeOfDocumentRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.imposeRadioButton:
+                        goodsDeclarationRow.setImposed(true);
+                        goodsDeclarationRow.setBanned(false);
+                    case R.id.bannedRadioButton:
+                        goodsDeclarationRow.setBanned(true);
+                        goodsDeclarationRow.setImposed(false);
+                }
+            }
+        });
+        writenInstruktionABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.controlledRadioButton1:
+
+                }
+            }
+        });
+    }
+    private void handleTextInput() {
+        typeOfDocumentRiskCategoryEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    goodsDeclarationRow.setRiskCategory(s.toString());
+                    tdRows.setGoodsDeclarationRow(goodsDeclarationRow);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+        typeOfDocumentNotesEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    goodsDeclarationRow.setNotes(s.toString());
+                    tdRows.setGoodsDeclarationRow(goodsDeclarationRow);
+                } else if (s.length() == 0) {
+                    goodsDeclarationRow.setNotes(null);
+                    tdRows.setGoodsDeclarationRow(goodsDeclarationRow);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+    }
+
 }

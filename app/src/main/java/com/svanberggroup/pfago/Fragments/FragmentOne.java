@@ -21,6 +21,7 @@ import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 
 public class FragmentOne extends Fragment {
 
@@ -231,5 +232,46 @@ public class FragmentOne extends Fragment {
             @Override
             public void afterTextChanged(Editable s) { }
         });
+    }
+
+    private void setTruck() {
+
+        Vehicle truck;
+        EditText[] views = { vehicleCountryEditText, vehicleLicensePlateEditText };
+
+        if (truck == null) {
+            truck = new Vehicle();
+        }
+        for (EditText e: views) {
+            if (e.getText().length() > 0) {
+                switch (e.getId()) {
+                    case R.id.vehicleCountryEditText:
+                        truck.setNationality(e.toString());
+
+                    case R.id.VehicleLicensePlateEditText:
+                        truck.setRegNr(vehicleLicensePlateEditText.getText().toString());
+                }
+            } else if (e.getText().length() == 0) {
+
+            }
+        }
+
+        if (vehicleCountryEditText.getText().length() > 0) {
+            truck.setNationality(vehicleCountryEditText.getText().toString());
+            else if (vehicleCountryEditText.getText().length() == 0) {
+                truck.setNationality(null);
+            }
+        }
+        if (vehicleLicensePlateEditText.getText().length() > 0) {
+            truck.setRegNr(vehicleLicensePlateEditText.getText().toString());
+        } else if (vehicleLicensePlateEditText.getText().length() == 0) {
+            truck.setRegNr(null);
+        }
+
+
+
+
+
+
     }
 }

@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.svanberggroup.pfago.Models.Control;
+import com.svanberggroup.pfago.Models.TransportLocation;
 import com.svanberggroup.pfago.Models.Transporter;
 import com.svanberggroup.pfago.R;
 
@@ -48,6 +49,17 @@ public class FragmentTwo extends Fragment {
     private Transporter driver;
     private Transporter coDriver;
 
+    private EditText senderPlace;
+    private EditText senderPhone;
+    private EditText senderAdress;
+
+    private EditText reciverPlace;
+    private EditText reciverPhone;
+    private EditText reciverAdress;
+
+    private TransportLocation sender;
+    private TransportLocation reciver;
+
     private Control control;
 
     private FragmentTwo() {
@@ -68,6 +80,8 @@ public class FragmentTwo extends Fragment {
         carrier = new Transporter();
         driver = new Transporter();
         coDriver = new Transporter();
+        sender = new TransportLocation();
+        reciver = new TransportLocation();
     }
 
     @Override
@@ -79,6 +93,7 @@ public class FragmentTwo extends Fragment {
         handleTextChangedforCarrier();
         handleTextChangedforDriver();
         handleTextChangedforCoDriver();
+        handleTextChangeForSender();
 
         return  view;
     }
@@ -105,6 +120,14 @@ public class FragmentTwo extends Fragment {
         coDriverZIPEditText     = view.findViewById(R.id.coDriverZIPEditText);
         coDriverCityEditText    = view.findViewById(R.id.coDriverCityEditText);
         coDriverCountryEditText = view.findViewById(R.id.coDriverCountryEditText);
+
+        senderPlace = view.findViewById(R.id.senderLoadPlaceEditText);
+        senderPhone = view.findViewById(R.id.senderPhoneEditText);
+        senderAdress = view.findViewById(R.id.senderEditText);
+
+        reciverPlace = view.findViewById(R.id.reciverUnloadPlaceEditText);
+        reciverPhone = view.findViewById(R.id.reciverPhoneEditText);
+        reciverAdress = view.findViewById(R.id.reciverAdressEditText);
 
     }
 
@@ -419,6 +442,116 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) { }
+        });
+    }
+
+    private void handleTextChangeForSender() {
+        senderPlace.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    reciver.setPlace(s.toString());
+                    control.setSender(reciver);
+                } else if (s.length() == 0) {
+                    control.setSender(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+        senderAdress.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    sender.setAddress(s.toString());
+                    control.setSender(sender);
+                } else if (s.length() == 0) {
+                    control.setSender(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+        senderPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    sender.setPhone(s.toString());
+                    control.setSender(sender);
+                } else if (s.length() == 0) {
+                    control.setSender(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+    }
+
+    private void handleTextchangeForReciver() {
+        reciverPlace.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    reciver.setPlace(s.toString());
+                    control.setReceiver(reciver);
+                } else if (s.length() == 0) {
+                    control.setReceiver(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+        reciverAdress.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    reciver.setAddress(s.toString());
+                    control.setReceiver(reciver);
+                } else if (s.length() == 0) {
+                    control.setReceiver(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+        reciverPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    reciver.setPhone(s.toString());
+                    control.setReceiver(reciver);
+                } else if (s.length() == 0) {
+                    control.setReceiver(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
         });
     }
 
