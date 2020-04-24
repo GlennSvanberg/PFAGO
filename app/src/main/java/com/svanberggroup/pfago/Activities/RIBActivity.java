@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,11 +14,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 //import com.google.android.gms.location.FusedLocationProviderClient;
 //import com.google.android.gms.location.LocationServices;
@@ -31,7 +34,7 @@ import java.util.concurrent.ExecutionException;
 
 public class RIBActivity extends AppCompatActivity {
 
-   // private List<Control> controls;
+    // private List<Control> controls;
     private ArrayList<RibSearchResult> ribSearchResults;
 
     private EditText queryField;
@@ -121,7 +124,7 @@ public class RIBActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_activity_menu, menu);
+        inflater.inflate(R.menu.rib_control_only_menu, menu);
         return true;
     }
 
@@ -144,10 +147,6 @@ public class RIBActivity extends AppCompatActivity {
             if (control.getNote() != null) {
                 text = text + control.getNote() + "\n";
             }
-
-/*            if (control.getLink() != null) {
-                text = text + control.getLink() + "\n";
-            }*/
 
             description.setText(text);
         }
@@ -175,10 +174,9 @@ public class RIBActivity extends AppCompatActivity {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    Intent intent = new Intent(getApplicationContext(), ViewControlActivity.class);
-                    intent.putExtra("control_id", controls.get(position).getId());
-                    startActivity(intent);
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(controls.get(position).getLink()));
+                    startActivity(browserIntent);
+                    //   Toast.makeText(getApplicationContext(), controls.get(position).getLink(), Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -193,6 +191,7 @@ public class RIBActivity extends AppCompatActivity {
             this.controls = controls;
         }
     }
+
     public ArrayList<RibSearchResult> startRibQuery(String term) {
         try {
             return new RibSearch(term).makeRequestAsync();
@@ -201,4 +200,19 @@ public class RIBActivity extends AppCompatActivity {
             return null;
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.add_control) {
+            startAddControlActivity();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void startAddControlActivity() {
+        Intent intent = new Intent(this, AddControlActivity.class);
+        startActivity(intent);
+    }
+
 }

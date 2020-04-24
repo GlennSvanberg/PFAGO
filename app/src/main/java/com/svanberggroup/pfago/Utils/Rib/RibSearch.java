@@ -1,6 +1,6 @@
 package com.svanberggroup.pfago.Utils.Rib;
 
-import android.widget.Toast;
+import android.util.Log;
 
 import com.svanberggroup.pfago.Models.RibSearchResult;
 
@@ -48,6 +48,7 @@ public class RibSearch {
         Elements results = response.select(HtmlAttr.RESULT);
 
         for (Element result : results) {
+            // Log.i("Test", result.html());
 
             String Substance = null;
             String Notes = null;
@@ -55,12 +56,25 @@ public class RibSearch {
 
             Substance = result.select(HtmlAttr.LINK).html().split(">")[1].split("<")[0];
             Notes = result.select(HtmlAttr.INFO).html().replaceAll("\\<.*?\\>", "");
-            Link = RibUrl.SUBSTANCE_BASE + result.select(HtmlAttr.LINK).toString().split("\"")[1].split("\"")[0];
+            Link =  parseLink(result.select(HtmlAttr.LINK).toString(), Substance);
+            Log.i("Test", parseLink(result.select(HtmlAttr.LINK).toString(), Substance));
 
             SearchResults.add(new RibSearchResult(Substance, Notes, Link));
         }
 
         return SearchResults;
+    }
+
+    private String parseLink(String unparsedLink, String substance) {
+        String linkQuery = "&q=fenol&p=1";
+        String substanceParsed = null;
+        if(substance.contains(",")){
+            substanceParsed = substance.trim().split(",")[0];
+        }
+        else
+            substanceParsed = substance;
+        String Link = RibUrl.SUBSTANCE_BASE + unparsedLink.split("=\"", 2)[1].split("&a")[0] + "&q=" + substanceParsed + "&p=1";
+        return Link;
     }
 }
 
