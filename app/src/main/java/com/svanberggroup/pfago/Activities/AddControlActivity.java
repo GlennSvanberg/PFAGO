@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -170,6 +171,7 @@ public class AddControlActivity extends AppCompatActivity {
 
              */
             setPic();
+            Toast.makeText(this,"Bild sparad", Toast.LENGTH_LONG);
 
         }
     }
@@ -190,6 +192,7 @@ public class AddControlActivity extends AppCompatActivity {
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
         control.addPhotoPath(image.getAbsolutePath());
+
         return image;
     }
     private void setPic() {
