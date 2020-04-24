@@ -60,8 +60,8 @@ public class AddControlActivity extends AppCompatActivity {
     private ViewPager2 viewPager;
     private Control control;
 
+    private String currentPhotoPath;
     private File photoFile;
-    private ImageView imageView;
 
 
     @Override
@@ -73,8 +73,6 @@ public class AddControlActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabs);
         control = new Control();
         viewPager.setAdapter(createCardAdapter());
-
-        imageView = findViewById(R.id.image_view);
 
         new TabLayoutMediator(tabLayout, viewPager,
                 new TabLayoutMediator.TabConfigurationStrategy() {
@@ -164,22 +162,13 @@ public class AddControlActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            /*
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imageView.setImageBitmap(imageBitmap);
-
-             */
-            setPic();
-            Toast.makeText(this,"Bild sparad", Toast.LENGTH_LONG);
-
+            Toast.makeText(this, "Bild sparad i fliken bilder", Toast.LENGTH_LONG).show();
+            control.addPhotoPath(currentPhotoPath);
         }
     }
 
-    String currentPhotoPath;
 
     private File createImageFile() throws IOException {
-        // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -188,34 +177,8 @@ public class AddControlActivity extends AppCompatActivity {
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
-
-        // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
-        control.addPhotoPath(image.getAbsolutePath());
-
         return image;
     }
-    private void setPic() {
-        // Get the dimensions of the View
-        int targetW = imageView.getWidth();
-        int targetH = imageView.getHeight();
 
-        // Get the dimensions of the bitmap
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
-        imageView.setImageBitmap(bitmap);
-    }
 }

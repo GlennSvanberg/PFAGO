@@ -3,6 +3,8 @@ package com.svanberggroup.pfago.Fragments;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -20,6 +22,7 @@ import android.widget.LinearLayout;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.R;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +67,7 @@ public class ImagesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_images, container, false);
         cardsLinearLayout = view.findViewById(R.id.linear_layout);
-
+        int width = view.getWidth();
 
         List<View> views = new ArrayList<>();
 
@@ -73,7 +76,7 @@ public class ImagesFragment extends Fragment {
             View v = inflater.inflate(R.layout.image_card, cardsLinearLayout, false);
             views.add(v);
             ImageView imageView = v.findViewById(R.id.image_view);
-            Bitmap bitmap = getScaledBitmap(path, 400,400);
+            Bitmap bitmap = getScaledBitmap(path, 1400,800);
             imageView.setImageBitmap(bitmap);
         }
         displayViews(cardsLinearLayout, views);
@@ -85,6 +88,8 @@ public class ImagesFragment extends Fragment {
             layout.addView(v);
         }
     }
+
+
 
 
     public static Bitmap getScaledBitmap(String path, int destWidth, int destHeight) {
@@ -108,8 +113,43 @@ public class ImagesFragment extends Fragment {
 
         options = new BitmapFactory.Options();
         options.inSampleSize = inSampleSize;
-
+        Bitmap bitmap = BitmapFactory.decodeFile(path, options);
         // Read in and create final bitmap
-        return BitmapFactory.decodeFile(path, options);
+        ExifInterface ei = null;
+        try {
+            ei = new ExifInterface(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_UNDEFINED);
+
+        Bitmap rotatedBitmap = null;
+        switch(orientation) {
+
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                rotatedBitmap = rotateImage(bitmap, 90);
+                break;
+
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                rotatedBitmap = rotateImage(bitmap, 180);
+                break;
+
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                rotatedBitmap = rotateImage(bitmap, 270);
+                break;
+
+            case ExifInterface.ORIENTATION_NORMAL:
+            default:
+                rotatedBitmap = bitmap;
+        }
+
+        return rotatedBitmap;
+    }
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                matrix, true);
     }
 }
