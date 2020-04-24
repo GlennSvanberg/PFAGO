@@ -4,13 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,29 +18,21 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-//import com.google.android.gms.location.FusedLocationProviderClient;
-//import com.google.android.gms.location.LocationServices;
 import com.svanberggroup.pfago.Models.RibSearchResult;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Utils.Rib.RibSearch;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class RIBActivity extends AppCompatActivity {
 
-    // private List<Control> controls;
     private ArrayList<RibSearchResult> ribSearchResults;
-
     private EditText queryField;
     private ImageButton searchButton;
     private RecyclerView recyclerView;
     private RIBActivity.ControlAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    // private FusedLocationProviderClient fusedLocationClient;
 
     private boolean isSearchMode = true;
 
@@ -51,14 +41,12 @@ public class RIBActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rib);
 
-        //  controls = ControlRepository.get().getAllControls();
-
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        //temp change to see recyclerview should be View.GONE
         recyclerView.setVisibility(View.GONE);
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
         updateUI();
 
         queryField = (EditText) findViewById(R.id.query);
@@ -78,8 +66,7 @@ public class RIBActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-            }
+            public void afterTextChanged(Editable editable) {}
         });
 
         searchButton = findViewById(R.id.search_button);
@@ -107,6 +94,7 @@ public class RIBActivity extends AppCompatActivity {
         if (adapter == null) {
             adapter = new RIBActivity.ControlAdapter(ribSearchResults);
             recyclerView.setAdapter(adapter);
+
         } else {
             adapter.setControls(ribSearchResults);
             adapter.notifyDataSetChanged();
@@ -116,8 +104,6 @@ public class RIBActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //controls = ControlRepository.get().getAllControls();
-        Log.i("TEST", "onStart");
         adapter.notifyDataSetChanged();
     }
 
@@ -129,7 +115,6 @@ public class RIBActivity extends AppCompatActivity {
     }
 
     private class ControlHolder extends RecyclerView.ViewHolder {
-        private RibSearchResult control;
         private TextView title;
         private TextView description;
 
@@ -140,12 +125,11 @@ public class RIBActivity extends AppCompatActivity {
         }
 
         public void bind(RibSearchResult control) {
-            this.control = control;
             title.setText(control.getSubstance());
-            String text = "";
+            String text = null;
 
             if (control.getNote() != null) {
-                text = text + control.getNote() + "\n";
+                text = control.getNote() + "\n";
             }
 
             description.setText(text);
@@ -176,7 +160,6 @@ public class RIBActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(controls.get(position).getLink()));
                     startActivity(browserIntent);
-                    //   Toast.makeText(getApplicationContext(), controls.get(position).getLink(), Toast.LENGTH_LONG).show();
                 }
             });
 

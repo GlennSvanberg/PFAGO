@@ -1,18 +1,13 @@
 package com.svanberggroup.pfago.Utils.Rib;
 
-import android.util.Log;
 
 import com.svanberggroup.pfago.Models.RibSearchResult;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-
 import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.util.ArrayList;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -29,7 +24,6 @@ public class RibSearch {
         return future.get();
     }
 
-    // @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<RibSearchResult> runRequest() {
         Document response = null;
         try {
@@ -48,16 +42,14 @@ public class RibSearch {
         Elements results = response.select(HtmlAttr.RESULT);
 
         for (Element result : results) {
-            // Log.i("Test", result.html());
-
             String Substance = null;
             String Notes = null;
             String Link = null;
 
             Substance = result.select(HtmlAttr.LINK).html().split(">")[1].split("<")[0];
-            Notes = result.select(HtmlAttr.INFO).html().replaceAll("\\<.*?\\>", "");
+            Notes = result.select(HtmlAttr.INFO).html().replaceAll("\\<.*?\\>", "").replace(", ","\n\n");
             Link =  parseLink(result.select(HtmlAttr.LINK).toString(), Substance);
-            Log.i("Test", parseLink(result.select(HtmlAttr.LINK).toString(), Substance));
+
 
             SearchResults.add(new RibSearchResult(Substance, Notes, Link));
         }
@@ -66,15 +58,14 @@ public class RibSearch {
     }
 
     private String parseLink(String unparsedLink, String substance) {
-        String linkQuery = "&q=fenol&p=1";
         String substanceParsed = null;
         if(substance.contains(",")){
             substanceParsed = substance.trim().split(",")[0];
         }
         else
             substanceParsed = substance;
-        String Link = RibUrl.SUBSTANCE_BASE + unparsedLink.split("=\"", 2)[1].split("&a")[0] + "&q=" + substanceParsed + "&p=1";
-        return Link;
+        return RibUrl.SUBSTANCE_BASE + unparsedLink.
+                split("=\"", 2)[1].split("&a")[0] + "&q=" + substanceParsed + "&p=1";
     }
 }
 
