@@ -24,6 +24,7 @@ import java.io.Serializable;
 public class FragmentThree extends Fragment {
 
 
+
     private static final String NEW_CONTROL = "new_control";
 
     private EditText amountEditText;
@@ -101,7 +102,7 @@ public class FragmentThree extends Fragment {
                 if (s.length() > 0) {
                     quantity.setQuantity(Integer.parseInt(s.toString()));
                     control.setQuantity(quantity);
-                } else if (s.length() == 0) {
+                } else if (viewsEmpty()) {
                     control.setQuantity(null);
                 }
             }
@@ -145,7 +146,6 @@ public class FragmentThree extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.LQRadioButton:
-
                         quantity.setPackagingStandard(Quantity.PackagingStandard.LQ);
                         control.setQuantity(quantity);
                     case R.id.EQRadioButton:
@@ -204,5 +204,11 @@ public class FragmentThree extends Fragment {
                 }
             }
         });
+    }
+    private boolean viewsEmpty() {
+        if (control.getQuantity().getQuantityType() == null) {
+            return true;
+        }
+        return false;
     }
 }
