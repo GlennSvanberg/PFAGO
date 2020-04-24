@@ -97,6 +97,9 @@ public class AddControlActivity extends AppCompatActivity {
                             case 5:
                                 tab.setText("Transport");
                                 break;
+                            case 6:
+                                tab.setText("Bilder");
+                                break;
                         }
                     }
                 }).attach();
@@ -108,7 +111,6 @@ public class AddControlActivity extends AppCompatActivity {
         inflater.inflate(R.menu.add_control_menu, menu);
         return true;
     }
-
 
 
     @Override
@@ -187,6 +189,7 @@ public class AddControlActivity extends AppCompatActivity {
 
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
+        control.addPhotoPath(image.getAbsolutePath());
         return image;
     }
     private void setPic() {

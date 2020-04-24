@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,9 @@ public class ImagesFragment extends Fragment {
         if (getArguments() != null) {
             control = (Control) getArguments().getSerializable(NEW_CONTROL);
         }
+        for(String path : control.getPhotoPathList()) {
+            Log.i("IMAGE_PATH", path);
+        }
     }
 
     @Override
@@ -48,5 +52,4 @@ public class ImagesFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_images, container, false);
     }
-
 }

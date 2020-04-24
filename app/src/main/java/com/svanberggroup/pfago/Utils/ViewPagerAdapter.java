@@ -30,11 +30,13 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
                 return FragmentFive.newInstance(control);
             case 5:
                 return FragmentSix.newInstance(control);
+            case 6:
+                return ImagesFragment.newInstance(control);
         }
         return null;
     }
 
     @Override public int getItemCount() {
-        return 6;
+        return 7;
     }
 }
