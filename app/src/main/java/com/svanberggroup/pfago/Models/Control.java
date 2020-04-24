@@ -98,6 +98,7 @@ public class Control implements Serializable {
     };
     private ReportedEntity reportedEntity;
     private List<String> penaltiesList;
+    private List<String> photoPathList;
 
     public Control() {
         startDate = new Date();
@@ -108,6 +109,19 @@ public class Control implements Serializable {
         prohibitetFieldNrList = new ArrayList<>();
         submissionFieldNrList = new ArrayList<>();
         penaltiesList = new ArrayList<>();
+        photoPathList = new ArrayList<>();
+    }
+
+    public List<String> getPhotoPathList() {
+        return photoPathList;
+    }
+
+    public void setPhotoPathList(List<String> photoPathList) {
+        this.photoPathList = photoPathList;
+    }
+
+    public void addPhotoPath(String path){
+        photoPathList.add(path);
     }
 
     public int getId() {
