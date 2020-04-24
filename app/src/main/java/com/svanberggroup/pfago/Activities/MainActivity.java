@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         //temp change to see recyclerview should be View.GONE
-        recyclerView.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
 
         ribButton = findViewById(R.id.rib_search_button);
         ribButton.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
         updateUI();
 
         queryField = (EditText) findViewById(R.id.query);
@@ -83,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         queryField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -178,11 +178,13 @@ public class MainActivity extends AppCompatActivity {
         private Control control;
         private TextView title;
         private TextView description;
+
         public ControlHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.item_control_list,parent, false));
              title = itemView.findViewById(R.id.name);
              description = itemView.findViewById(R.id.description);
         }
+
         public void bind(Control control) {
             this.control = control;
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
@@ -207,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     private class ControlAdapter extends RecyclerView.Adapter<ControlHolder> {
         private List<Control> controls;
 
