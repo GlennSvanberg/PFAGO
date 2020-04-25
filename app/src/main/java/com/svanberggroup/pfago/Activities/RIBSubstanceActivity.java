@@ -3,6 +3,7 @@ package com.svanberggroup.pfago.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -23,14 +24,15 @@ public class RIBSubstanceActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
         WebView substanceView = findViewById(R.id.substance_view);
+        substanceView.setVisibility(View.GONE);
 
         substanceView.getSettings().setLoadWithOverviewMode(true);
         substanceView.getSettings().setUseWideViewPort(true);
         substanceView.getSettings().getBuiltInZoomControls();
         substanceView.getSettings().setJavaScriptEnabled(true);
-        substanceView.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
-        substanceView.setInitialScale(125);
-        substanceView.getSettings().setTextZoom(175);
+        substanceView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+
+        substanceView.getSettings().setTextZoom(118);
 
         substanceView.setWebViewClient(new WebViewClient() {
             @Override
@@ -40,6 +42,7 @@ public class RIBSubstanceActivity extends AppCompatActivity {
                         "document.getElementById('flik9').style.display='block';})();" +
                         "javascript:(function() { " +
                         "document.getElementById('viewport').style.left='0px';})();");
+                substanceView.setVisibility(View.VISIBLE);
             }
 
         });
