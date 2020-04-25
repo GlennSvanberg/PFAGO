@@ -21,6 +21,7 @@ import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 
 public class FragmentOne extends Fragment {
 
@@ -36,9 +37,6 @@ public class FragmentOne extends Fragment {
     private RadioGroup trailerTypeRadioGroup;
 
     private RadioGroup controlPlaceTypeRadioGroup;
-
-    private Vehicle vehicle;
-    private Vehicle trailer;
 
     private Control control;
 
@@ -58,8 +56,6 @@ public class FragmentOne extends Fragment {
         super.onCreate(savedInstanceState);
         control = (Control) getArguments().getSerializable(NEW_CONTROL);
 
-        vehicle = new Vehicle();
-        trailer = new Vehicle();
     }
 
     @Override
@@ -111,14 +107,7 @@ public class FragmentOne extends Fragment {
         trailerTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.trailerRadioButton:
-                        trailer.setVehicleType(Vehicle.VehicleType.Trailer);
-                    case R.id.semiTrailerRadioButton:
-                        trailer.setVehicleType(Vehicle.VehicleType.SemiTrailer);
-                    case R.id.containerRadioButton:
-                        trailer.setVehicleType(Vehicle.VehicleType.Container);
-                }
+                setTruck();
             }
         });
     }
@@ -148,18 +137,7 @@ public class FragmentOne extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() > 0) {
-
-                    vehicle.setRegNr(s.toString());
-                    control.setTruck(vehicle);
-
-                } else if (s.length() == 0 && vehicle.getNationality() == null) {
-
-                    control.setTruck(null);
-
-                } else {
-                    // säg att fältet måste fyllas i.
-                }
+                setTruck();
             }
 
             @Override
@@ -172,17 +150,7 @@ public class FragmentOne extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
-
-                    vehicle.setNationality(s.toString());
-                    control.setTruck(vehicle);
-
-                } else if (s.length() == 0 && vehicle.getRegNr() != null){
-
-                    control.setTruck(null);
-                } else {
-                    // säga att fältet måste fyllas i.
-                }
+                setTruck();
             }
             @Override
             public void afterTextChanged(Editable s) { }
@@ -194,16 +162,7 @@ public class FragmentOne extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
-
-                    trailer.setRegNr(s.toString());
-                    control.setTrailer(trailer);
-
-                } else if (s.length() == 0 && trailer.getNationality() == null && trailer.getVehicleType() == null) {
-
-                    control.setTrailer(null);
-
-                }
+                setTrailer();
             }
 
             @Override
@@ -216,20 +175,70 @@ public class FragmentOne extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
-
-                    trailer.setNationality(s.toString());
-                    control.setTrailer(vehicle);
-
-                } else if(s.length() == 0 && trailer.getRegNr() == null && trailer.getVehicleType() == null) {
-
-                    control.setTrailer(null);
-
-                }
+                setTrailer();
             }
 
             @Override
             public void afterTextChanged(Editable s) { }
         });
+    }
+
+    private void setTruck() {
+
+        Vehicle truck = control.getTruck();
+
+        if (truck == null) { truck = new Vehicle(); }
+
+        if (vehicleCountryEditText.getText().length() > 0) {
+            truck.setNationality(vehicleCountryEditText.getText().toString());
+        } else if (vehicleCountryEditText.getText().length() == 0) {
+            truck.setNationality(null);
+        }
+
+        if (vehicleLicensePlateEditText.getText().length() > 0) {
+            truck.setRegNr(vehicleLicensePlateEditText.getText().toString());
+        } else if (vehicleLicensePlateEditText.getText().length() == 0) {
+            truck.setRegNr(null);
+        }
+
+        if (vehicleLicensePlateEditText.getText().length() == 0 && vehicleCountryEditText.getText().length() == 0) {
+            truck = null;
+        }
+        control.setTruck(truck);
+    }
+
+    private void setTrailer() {
+        Vehicle trailer = control.getTrailer();
+        int id = 0;
+
+        if (trailer == null) { trailer = new Vehicle(); }
+
+        switch (trailerTypeRadioGroup.getCheckedRadioButtonId()) {
+            case R.id.trailerRadioButton:
+                trailer.setVehicleType(Vehicle.VehicleType.Trailer);
+                id = R.id.trailerRadioButton;
+            case R.id.semiTrailerRadioButton:
+                trailer.setVehicleType(Vehicle.VehicleType.SemiTrailer);
+                id = R.id.semiTrailerRadioButton;
+            case R.id.containerRadioButton:
+                trailer.setVehicleType(Vehicle.VehicleType.Container);
+                id = R.id.containerRadioButton;
+        }
+
+        if (trailerCountryEditText.getText().length() > 0) {
+            trailer.setNationality(trailerCountryEditText.getText().toString());
+        } else if (trailerCountryEditText.getText().length() == 0) {
+            trailer.setNationality(null);
+        }
+        if (trailerLicensePlateEditText.getText().length() > 0) {
+            trailer.setRegNr(trailerLicensePlateEditText.getText().toString());
+        } else if (trailerLicensePlateEditText.getText().length() == 0) {
+            trailer.setRegNr(null);
+        }
+
+        if (trailerLicensePlateEditText.getText().length() == 0 && trailerCountryEditText.getText().length() == 0 && id == 0) {
+            trailer = null;
+        }
+        control.setTrailer(trailer);
     }
 }

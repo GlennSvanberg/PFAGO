@@ -39,7 +39,7 @@
             app:layout_constraintTop_toBottomOf="@+id/amountTextView" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/amountEditText"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -55,9 +55,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/editText"
-            app:layout_constraintStart_toEndOf="@+id/editText"
-            app:layout_constraintTop_toTopOf="@+id/editText">
+            app:layout_constraintBottom_toBottomOf="@+id/amountEditText"
+            app:layout_constraintStart_toEndOf="@+id/amountEditText"
+            app:layout_constraintTop_toTopOf="@+id/amountEditText">
 
             <RadioButton
                 android:id="@+id/kgRadioButton"
@@ -79,8 +79,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Förpackningsstandard"
-            app:layout_constraintStart_toStartOf="@+id/editText"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintStart_toStartOf="@+id/amountEditText"
+            app:layout_constraintTop_toBottomOf="@+id/amountEditText" />
 
         <RadioGroup
             android:id="@+id/packagingStandardRadioGroup"
@@ -144,7 +144,7 @@
                 android:text="Nej" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/valueQuantityEditText"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -167,7 +167,7 @@
             app:layout_constraintTop_toBottomOf="@+id/valueQuantityRadioGroup" />
 
         <RadioGroup
-            android:id="@+id/radioGroup"
+            android:id="@+id/transportedWithRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -214,8 +214,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Transport enligt"
-            app:layout_constraintStart_toStartOf="@+id/radioGroup"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            app:layout_constraintStart_toStartOf="@+id/transportedWithRadioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/transportedWithRadioGroup" />
 
         <RadioGroup
             android:id="@+id/transportedAccordingRadioGroup"
