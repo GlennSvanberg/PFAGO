@@ -34,6 +34,7 @@ public class ImagesFragment extends Fragment {
     private static final String NEW_CONTROL = "new_control";
     private Control control;
     private LinearLayout  cardsLinearLayout;
+    private List<View> views;
 
     public ImagesFragment() {
         // Required empty public constructor
@@ -50,7 +51,7 @@ public class ImagesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        views = new ArrayList<>();
         if (getArguments() != null) {
             control = (Control) getArguments().getSerializable(NEW_CONTROL);
         }
@@ -67,9 +68,8 @@ public class ImagesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_images, container, false);
         cardsLinearLayout = view.findViewById(R.id.linear_layout);
-        int width = view.getWidth();
 
-        List<View> views = new ArrayList<>();
+
 
         for(String path : control.getPhotoPathList()) {
             Log.i("IMAGE_PATH", path);
@@ -88,8 +88,6 @@ public class ImagesFragment extends Fragment {
             layout.addView(v);
         }
     }
-
-
 
 
     public static Bitmap getScaledBitmap(String path, int destWidth, int destHeight) {

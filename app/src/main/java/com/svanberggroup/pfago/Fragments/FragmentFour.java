@@ -53,7 +53,7 @@ public class FragmentFour extends Fragment {
 
     private Control control;
 
-    private FragmentFour() {
+    public  FragmentFour() {
     }
 
     public static FragmentFour newInstance(Control control) {

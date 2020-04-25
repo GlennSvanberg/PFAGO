@@ -26,7 +26,7 @@ public class FragmentSix extends Fragment {
 
     private Control    control;
 
-    private FragmentSix() {
+    public FragmentSix() {
     }
 
     public static FragmentSix newInstance(Control control) {
