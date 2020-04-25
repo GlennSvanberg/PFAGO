@@ -206,7 +206,7 @@ public class FragmentThree extends Fragment {
         });
     }
     private boolean viewsEmpty() {
-        if (control.getQuantity().getQuantityType() == null) {
+        if (control.getQuantity() != null && control.getQuantity().getQuantityType() == null) {
             return true;
         }
         return false;

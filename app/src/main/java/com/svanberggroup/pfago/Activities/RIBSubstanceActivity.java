@@ -12,6 +12,7 @@ import com.svanberggroup.pfago.R;
 public class RIBSubstanceActivity extends AppCompatActivity {
     private String url;
     private String title;
+    private WebView substanceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +24,15 @@ public class RIBSubstanceActivity extends AppCompatActivity {
         title = bundle.getString("substance");
 
         getSupportActionBar().hide();
-        WebView substanceView = findViewById(R.id.substance_view);
-        substanceView.setVisibility(View.GONE);
 
+        substanceView = findViewById(R.id.substance_view);
+        substanceView.setVisibility(View.GONE);
         substanceView.getSettings().setLoadWithOverviewMode(true);
         substanceView.getSettings().setUseWideViewPort(true);
         substanceView.getSettings().getBuiltInZoomControls();
         substanceView.getSettings().setJavaScriptEnabled(true);
         substanceView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 
-        substanceView.getSettings().setTextZoom(118);
 
         substanceView.setWebViewClient(new WebViewClient() {
             @Override
