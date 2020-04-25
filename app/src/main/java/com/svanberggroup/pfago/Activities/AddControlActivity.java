@@ -42,6 +42,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.svanberggroup.pfago.Fragments.FragmentOne;
 import com.svanberggroup.pfago.Models.Control;
+import com.svanberggroup.pfago.Models.ImageData;
 import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Repository.ControlRepository;
@@ -163,7 +164,7 @@ public class AddControlActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Toast.makeText(this, "Bild sparad i fliken bilder", Toast.LENGTH_LONG).show();
-            control.addPhotoPath(currentPhotoPath);
+            control.addImage(new ImageData(currentPhotoPath));
         }
     }
 
