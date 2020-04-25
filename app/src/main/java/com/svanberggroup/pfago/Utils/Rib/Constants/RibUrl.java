@@ -1,4 +1,4 @@
-package com.svanberggroup.pfago.Utils.Rib;
+package com.svanberggroup.pfago.Utils.Rib.Constants;
 
 public final class RibUrl {
     public static final String BASE = "https://rib.msb.se/portal/template/pages/kemi/kemsearch.aspx?q=";

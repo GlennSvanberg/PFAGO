@@ -1,4 +1,4 @@
-package com.svanberggroup.pfago.Utils.Rib;
+package com.svanberggroup.pfago.Utils.Rib.Constants;
 
 public final class HtmlAttr {
     public static final String RESULT = "div[data-rib]";

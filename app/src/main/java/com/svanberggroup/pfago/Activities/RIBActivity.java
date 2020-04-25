@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,12 +18,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import com.svanberggroup.pfago.Models.RibSearchResult;
 import com.svanberggroup.pfago.R;
-import com.svanberggroup.pfago.Utils.Rib.RibSearch;
+import com.svanberggroup.pfago.Utils.WebProvider;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class RIBActivity extends AppCompatActivity {
 
@@ -33,7 +34,8 @@ public class RIBActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RIBActivity.ControlAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-
+    private final String TITLE = "RIB: Farliga Ämnen";
+    private final String QUERY_HINT = "Ämne, UN-nr.";
     private boolean isSearchMode = true;
 
     @Override
@@ -41,15 +43,20 @@ public class RIBActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rib);
 
+        setTitle(TITLE);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setVisibility(View.GONE);
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        ribSearchResults = new ArrayList<>();
+        ribSearchResults.add(new RibSearchResult("Ämnesnamn", "Klassifiering", "empty"));
+        recyclerView.setVisibility(View.VISIBLE);
 
         updateUI();
 
         queryField = (EditText) findViewById(R.id.query);
+        queryField.setHint(QUERY_HINT);
         queryField.requestFocus();
         queryField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -66,7 +73,8 @@ public class RIBActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {}
+            public void afterTextChanged(Editable editable) {
+            }
         });
 
         searchButton = findViewById(R.id.search_button);
@@ -74,9 +82,10 @@ public class RIBActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                WebProvider webProvider = new WebProvider();
 
                 if (isSearchMode) {
-                    ribSearchResults = startRibQuery(queryField.getText().toString());
+                    ribSearchResults = webProvider.searchRib(queryField.getText().toString());
                     recyclerView.setVisibility(View.VISIBLE);
                     updateUI();
                     searchButton.setImageResource(R.drawable.ic_clear);
@@ -153,15 +162,23 @@ public class RIBActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull RIBActivity.ControlHolder holder, final int position) {
-            RibSearchResult control = controls.get(position);
-            holder.bind(control);
+            RibSearchResult ribSearchResult = controls.get(position);
+            holder.bind(ribSearchResult);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View view) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(controls.get(position).getLink()));
-                    startActivity(browserIntent);
+                    if (!ribSearchResult.getLink().equals("empty")) {
+                        Intent ribSubstanceIntent = new Intent(RIBActivity.this, RIBSubstanceActivity.class);
+                        ribSubstanceIntent.putExtra("url", ribSearchResult.getLink());
+                        ribSubstanceIntent.putExtra("substance", ribSearchResult.getSubstance());
+                        startActivity(ribSubstanceIntent);
+                    }
+                    else
+                        onStart();
                 }
             });
+
 
         }
 
@@ -172,15 +189,6 @@ public class RIBActivity extends AppCompatActivity {
 
         public void setControls(ArrayList<RibSearchResult> controls) {
             this.controls = controls;
-        }
-    }
-
-    public ArrayList<RibSearchResult> startRibQuery(String term) {
-        try {
-            return new RibSearch(term).makeRequestAsync();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-            return null;
         }
     }
 
