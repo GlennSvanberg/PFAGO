@@ -47,4 +47,10 @@
     <string name="driver">Förare</string>
     <string name="carrier">Transportör</string>
     <string name="sender">Avsändare</string>
+    <string name="title_activity_r_i_b_substance">RIBSubstanceActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 </resources>

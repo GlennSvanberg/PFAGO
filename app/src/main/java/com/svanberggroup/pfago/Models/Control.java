@@ -55,8 +55,8 @@ public class Control implements Serializable {
         TransportType(int label) {
             this.label = label;
         }
-
     };
+
     private TransportType transportType;
 
     public enum TransportStandard{
@@ -73,6 +73,7 @@ public class Control implements Serializable {
             this.label = label;
         }
     };
+
     private TransportStandard transportStandard;
     private List<Goods> goodsList;
     private List<Fault> faultList;
@@ -95,7 +96,8 @@ public class Control implements Serializable {
         ReportedEntity(int label) {
             this.label = label;
         }
-    };
+    }
+
     private ReportedEntity reportedEntity;
     private List<String> penaltiesList;
 

@@ -29,6 +29,7 @@ public class ControlRepository {
             controlRepository = new ControlRepository();
             Log.i("TEST", "new repo created");
         }
+
         return controlRepository;
     }
 
@@ -41,7 +42,9 @@ public class ControlRepository {
     }
 
     public List<Control> getControlsByRegNr(String regNr) {
+
         List<Control> matchedControls = new ArrayList<>();
+
         for(Control control : controls) {
             Boolean isTruck = control.getTruck().getRegNr().toLowerCase().equals(regNr.toLowerCase());
             Boolean isTrailer = control.getTrailer().getRegNr().toLowerCase().equals(regNr.toLowerCase());
@@ -50,6 +53,7 @@ public class ControlRepository {
                 matchedControls.add(control);
             }
         }
+
         return matchedControls;
     }
 
@@ -67,7 +71,8 @@ public class ControlRepository {
 
 
     private void dummyData() {
-        // -------------------------a
+
+        // -------------------------
         Control a = new Control();
         a.setId(1);
         a.setLocation("Uddevalla");
