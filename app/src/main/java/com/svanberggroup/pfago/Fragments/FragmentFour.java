@@ -76,7 +76,7 @@ public class FragmentFour extends Fragment {
         control = (Control) getArguments().getSerializable(NEW_CONTROL);
 
         tdRows = new TransportDocumentRows();
-        goodsDeclarationRow = new ControlRow();
+        goodsDeclarationRow = tdRows.getGoodsDeclarationRow();
 
     }
 
