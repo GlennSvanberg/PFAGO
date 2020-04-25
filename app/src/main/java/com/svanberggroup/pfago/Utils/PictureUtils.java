@@ -19,11 +19,8 @@ import java.util.Date;
 
 public class PictureUtils {
 
-    private String currentPhotoPath;
-    private File photoFile;
-
-
-    private Intent dispatchTakePictureIntent(Context context) {
+    public static Intent dispatchTakePictureIntent(Context context) {
+        File photoFile;
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
@@ -33,7 +30,6 @@ public class PictureUtils {
                 photoFile = createImageFile(context);
             } catch (IOException ex) {
                 // Error occurred while creating the File
-
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
@@ -41,14 +37,16 @@ public class PictureUtils {
                         "com.svanberggroup.pfago.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                takePictureIntent.putExtra("path", photoFile.getAbsolutePath());
                 return takePictureIntent;
             }
         }
+        return null;
     }
 
 
 
-    private File createImageFile(Context context) throws IOException {
+    private static File createImageFile(Context context) throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -57,7 +55,6 @@ public class PictureUtils {
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
-        currentPhotoPath = image.getAbsolutePath();
         return image;
     }
 }

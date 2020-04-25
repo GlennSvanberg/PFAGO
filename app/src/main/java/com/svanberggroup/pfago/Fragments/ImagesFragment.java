@@ -1,6 +1,7 @@
 package com.svanberggroup.pfago.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -25,9 +26,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.svanberggroup.pfago.Activities.AddControlActivity;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ImageData;
 import com.svanberggroup.pfago.R;
+import com.svanberggroup.pfago.Utils.PictureUtils;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -39,6 +42,7 @@ public class ImagesFragment extends Fragment {
 
 
     private static final String NEW_CONTROL = "new_control";
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
     private Control control;
     private LinearLayout  cardsLinearLayout;
     private Button addImageButton;
@@ -84,7 +88,7 @@ public class ImagesFragment extends Fragment {
         addImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Tar en bild", Toast.LENGTH_LONG).show();
+                ((AddControlActivity)getActivity()).dispatchTakePictureIntent();
             }
         });
         return view;
@@ -125,6 +129,9 @@ public class ImagesFragment extends Fragment {
                 });
 
                 EditText editText = v.findViewById(R.id.edit_image_text);
+                if(image.getText() != ""){
+                    editText.setText(image.getText());
+                }
                 editText.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {

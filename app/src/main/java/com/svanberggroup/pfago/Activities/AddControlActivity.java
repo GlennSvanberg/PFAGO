@@ -46,6 +46,7 @@ import com.svanberggroup.pfago.Models.ImageData;
 import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Repository.ControlRepository;
+import com.svanberggroup.pfago.Utils.PictureUtils;
 import com.svanberggroup.pfago.Utils.ViewPagerAdapter;
 
 import java.io.File;
@@ -64,6 +65,7 @@ public class AddControlActivity extends AppCompatActivity {
     private String currentPhotoPath;
     private File photoFile;
 
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +123,7 @@ public class AddControlActivity extends AppCompatActivity {
                 break;
             case R.id.cameraControl:
                 dispatchTakePictureIntent();
+
                 break;
             default: return super.onOptionsItemSelected(item);
         }
@@ -134,9 +137,7 @@ public class AddControlActivity extends AppCompatActivity {
 
     // CAMERA ----------STUFF
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-
-    private void dispatchTakePictureIntent() {
+    public void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
