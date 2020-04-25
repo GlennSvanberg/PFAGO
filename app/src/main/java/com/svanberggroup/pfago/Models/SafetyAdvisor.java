@@ -2,7 +2,9 @@ package com.svanberggroup.pfago.Models;
 
 import com.svanberggroup.pfago.R;
 
-public class SafetyAdvisor {
+import java.io.Serializable;
+
+public class SafetyAdvisor implements Serializable {
     public enum Answer{
         Unknown(R.string.unknown),
         No(R.string.no),

@@ -40,7 +40,7 @@ public class FragmentOne extends Fragment {
 
     private Control control;
 
-    private FragmentOne() {
+    public FragmentOne() {
     }
 
     public static FragmentOne newInstance(Control control) {

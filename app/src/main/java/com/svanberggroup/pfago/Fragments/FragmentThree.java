@@ -42,7 +42,7 @@ public class FragmentThree extends Fragment {
     private Control control;
     private Quantity quantity;
 
-    private FragmentThree() {
+    public FragmentThree() {
     }
 
     public static FragmentThree newInstance(Control control) {

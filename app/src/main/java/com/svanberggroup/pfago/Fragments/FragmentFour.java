@@ -60,7 +60,7 @@ public class FragmentFour extends Fragment {
     private TransportDocumentRows tdRows;
     private ControlRow goodsDeclarationRow;
 
-    private FragmentFour() {
+    public  FragmentFour() {
     }
 
     public static FragmentFour newInstance(Control control) {

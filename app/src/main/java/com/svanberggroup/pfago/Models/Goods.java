@@ -1,6 +1,8 @@
 package com.svanberggroup.pfago.Models;
 
-public class Goods {
+import java.io.Serializable;
+
+public class Goods implements Serializable {
     private String position;
     private String unNr;
     private String description;

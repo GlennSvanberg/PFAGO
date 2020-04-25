@@ -238,16 +238,15 @@ public class ViewControlActivity extends AppCompatActivity {
         if(tdRows.getDeclaration() != null){
             declaration = Html.fromHtml(line("", getString(tdRows.getDeclaration().label))).toString();
         }
-        setControlRow(tdRows.getGoodsDeclarationRow(), addRowView(layout,views), "13. Godsdeklaration",declaration);
-        setControlRow(tdRows.getWrittenInstructionsRow(), addRowView(layout,views), "14. Skriftliga instruktioner","");
-        String approval = "15. bilateral/multilateral/nat. tillstånd";
+        setControlRow(tdRows.getGoodsDeclarationRow(), addRowView(layout,views),declaration);
+        setControlRow(tdRows.getWrittenInstructionsRow(), addRowView(layout,views));
         if(tdRows.getApproval()!= null){
-            approval = "15." + getString(tdRows.getApproval().label);
+            tdRows.getApprovalRow().setName("15." + getString(tdRows.getApproval().label));
         }
-        setControlRow(tdRows.getApprovalRow(), addRowView(layout,views), approval,"");
-        setControlRow(tdRows.getApprovalCertificateRow(), addRowView(layout,views), "16. Godkännandecertifikat","");
-        setControlRow(tdRows.getDriverCertificationRow(), addRowView(layout,views), "17.1. Förarintyg (ADR 8.2.1, 8.2.2)","");
-        setControlRow(tdRows.getOtherADRTrainingRow(), addRowView(layout,views), "17.2. Annan ADR-utbildning","");
+        setControlRow(tdRows.getApprovalRow(), addRowView(layout,views));
+        setControlRow(tdRows.getApprovalCertificateRow(), addRowView(layout,views));
+        setControlRow(tdRows.getDriverCertificationRow(), addRowView(layout,views));
+        setControlRow(tdRows.getOtherADRTrainingRow(), addRowView(layout,views));
         displayViews(layout, views);
     }
     private void setTCard(View card) {
@@ -257,29 +256,30 @@ public class ViewControlActivity extends AppCompatActivity {
 
         setText(cardTitle(card), "Transport");
 
-        setControlRow(tRows.getRow18(), addRowView(layout,views), "18. Gods tillåtet för transport","");
-        setControlRow(tRows.getRow19(), addRowView(layout,views), "19. Fordonet godkänt för det transporterade godset","");
-        setControlRow(tRows.getRow20(), addRowView(layout,views), "20. Bestämmelser för transportsätt","");
-        setControlRow(tRows.getRow21(), addRowView(layout,views), "21. Förbud mot samlastning","");
-        setControlRow(tRows.getRow22_1(), addRowView(layout,views), "22.1. Hantering","");
-        setControlRow(tRows.getRow22_2(), addRowView(layout,views), "22.2. Lastning/Stuvning ","");
-        setControlRow(tRows.getRow22_3(), addRowView(layout,views), "22.3. Lastsäkring","");
-        setControlRow(tRows.getRow23_1(), addRowView(layout,views), "23.1. Läckage","");
-        setControlRow(tRows.getRow23_2(), addRowView(layout,views), "23.2. Skador på kolli/fordon","");
-        setControlRow(tRows.getRow24(), addRowView(layout,views), "24. Godkännandemärkning av kolli/tankar (ADR kapitel 6)","");
-        setControlRow(tRows.getRow25_1(), addRowView(layout,views), "25.1. Märkning av kolli (5.2.1)","");
-        setControlRow(tRows.getRow25_2(), addRowView(layout,views), "25.2. Ettikering av kolli (5.2.2","");
-        setControlRow(tRows.getRow26(), addRowView(layout,views), "26. Storetiketter (5.3.1","");
-        setControlRow(tRows.getRow27(), addRowView(layout,views), "27. Skyltning/märkning av fordon/transporthenhet","");
-        setControlRow(tRows.getRow28_1(), addRowView(layout,views), "28.1. Stoppklots","");
-        setControlRow(tRows.getRow28_2(), addRowView(layout,views), "28.2. Varningsanordning","");
-        setControlRow(tRows.getRow28_3(), addRowView(layout,views), "28.3. Varningsväst/ögonskydd/handskar","");
-        setControlRow(tRows.getRow28_4(), addRowView(layout,views), "28.4. Bärbar ljuskälla","");
-        setControlRow(tRows.getRow29(), addRowView(layout,views), "29. Godsspecifik utrustning (ADR 8.1.5.2/8.1.5.3)","");
-        setControlRow(tRows.getRow31(), addRowView(layout,views), "31. Brandsläckare (ADR 8.1.4.1/8.1.4.2/10.6)","");
+        setControlRow(tRows.getRow18(), addRowView(layout,views));
+        setControlRow(tRows.getRow19(), addRowView(layout,views));
+        setControlRow(tRows.getRow20(), addRowView(layout,views));
+        setControlRow(tRows.getRow21(), addRowView(layout,views));
+        setControlRow(tRows.getRow22_1(), addRowView(layout,views));
+        setControlRow(tRows.getRow22_2(), addRowView(layout,views));
+        setControlRow(tRows.getRow22_3(), addRowView(layout,views));
+        setControlRow(tRows.getRow23_1(), addRowView(layout,views));
+        setControlRow(tRows.getRow23_2(), addRowView(layout,views));
+        setControlRow(tRows.getRow24(), addRowView(layout,views));
+        setControlRow(tRows.getRow25_1(), addRowView(layout,views));
+        setControlRow(tRows.getRow25_2(), addRowView(layout,views));
+        setControlRow(tRows.getRow26(), addRowView(layout,views));
+        setControlRow(tRows.getRow27(), addRowView(layout,views));
+        setControlRow(tRows.getRow28_1(), addRowView(layout,views));
+        setControlRow(tRows.getRow28_2(), addRowView(layout,views));
+        setControlRow(tRows.getRow28_3(), addRowView(layout,views));
+        setControlRow(tRows.getRow28_4(), addRowView(layout,views));
+        setControlRow(tRows.getRow29(), addRowView(layout,views));
+        setControlRow(tRows.getRow31(), addRowView(layout,views));
         int counter = 1;
         for(ControlRow row : tRows.getRows40()){
-            setControlRow(row, addRowView(layout,views), "40." + counter + ". " + row.getName(),""); 
+            row.setName("40." + counter + ". " + row.getTitle());
+            setControlRow(row, addRowView(layout,views));
             counter++;
         }
         String risk = "";
@@ -448,7 +448,6 @@ public class ViewControlActivity extends AppCompatActivity {
             str.append(line("", of));
         }
         setText(cardRight(card), str.toString());
-
     }
 
     private View addCardView(List<View> views){
@@ -495,24 +494,27 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(left, "Riskkategori vid brister ovan: ");
         setText(right, line("", category));
     }
-    private void setControlRow(ControlRow row, View view, String title, String text){
+    private void setControlRow(ControlRow row, View view){
+        setControlRow(row,view, "");
+    }
+    private void setControlRow(ControlRow row, View view, String text){
         TextView left = view.findViewById(R.id.left);
         TextView right = view.findViewById(R.id.right);
 
-        setControlRowLeft(row, left, title);
+        setControlRowLeft(row, left);
         setControlRowRight(row,right, text);
     }
 
-    private void setControlRowLeft(ControlRow row, TextView textView, String title) {
+    private void setControlRowLeft(ControlRow row, TextView textView) {
         StringBuilder str = new StringBuilder();
         if(row != null){
-            str.append(line("",title));
+            str.append(line("",row.getName()));
             if(row.getField() == ControlRow.Field.BreakingTheLaw) {
                 str.append(line("Riskkategori:", row.getRiskCategory()));
                 str.append(line("Anteckningar:", row.getNotes()));
             }
         }   else {
-            str.append(title);
+            str.append(row.getName());
         }
         setText(textView, str.toString());
 
@@ -520,7 +522,12 @@ public class ViewControlActivity extends AppCompatActivity {
     private void setControlRowRight(ControlRow row, TextView textView, String text){
         StringBuilder str = new StringBuilder();
         if(row != null){
-            str.append(line("", getString(row.getField().label)));
+            if(row.getField() != null){
+                str.append(line("", getString(row.getField().label)));
+            }else {
+                //str.append(line("", "Ej kontrollerat"));
+            }
+
             if(row.getField() == ControlRow.Field.BreakingTheLaw) {
                 str.append(line("Förbud:", row.isBanned() ? "Ja" : "Nej"));
                 str.append(line("Föreläggande:", row.isImposed() ? "Ja" : "Nej"));

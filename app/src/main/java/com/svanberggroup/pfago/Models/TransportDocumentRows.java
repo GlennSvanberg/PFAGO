@@ -2,7 +2,9 @@ package com.svanberggroup.pfago.Models;
 
 import com.svanberggroup.pfago.R;
 
-public class TransportDocumentRows {
+import java.io.Serializable;
+
+public class TransportDocumentRows implements Serializable {
 
     private ControlRow goodsDeclarationRow;
     public enum Declaration {
@@ -33,6 +35,15 @@ public class TransportDocumentRows {
     private ControlRow approvalCertificateRow;
     private ControlRow driverCertificationRow;
     private ControlRow otherADRTrainingRow;
+
+    public TransportDocumentRows() {
+        goodsDeclarationRow = new ControlRow("13. Godsdeklaration");
+        writtenInstructionsRow = new ControlRow("14. Skriftliga instruktioner");
+        approvalRow = new ControlRow("15. bilateral/multilateral/nat. tillstånd");
+        approvalCertificateRow = new ControlRow("16. Godkännandecertifikat");
+        driverCertificationRow = new ControlRow("17.1. Förarintyg (ADR 8.2.1, 8.2.2)");
+        otherADRTrainingRow = new ControlRow("17.2. Annan ADR-utbildning");
+    }
 
     public ControlRow getGoodsDeclarationRow() {
         return goodsDeclarationRow;

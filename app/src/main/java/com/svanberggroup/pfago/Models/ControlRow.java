@@ -2,9 +2,11 @@ package com.svanberggroup.pfago.Models;
 
 import com.svanberggroup.pfago.R;
 
-public class ControlRow {
-    private int fieldNr;
+import java.io.Serializable;
+
+public class ControlRow implements Serializable {
     private String name;
+    private String title;
     public enum Field{
         Controlled(R.string.controlled),
         BreakingTheLaw(R.string.breaking_the_law),
@@ -21,17 +23,25 @@ public class ControlRow {
     private boolean banned;
     private String notes;
 
-    public ControlRow() {
+    public ControlRow(String name) {
+        this.name = name;
     }
 
-    public ControlRow(int fieldNr, String name, Field field, String riskCategory, boolean imposed, boolean banned, String notes) {
-        this.fieldNr = fieldNr;
-        this.name = name;
+    public ControlRow(String title, Field field, String riskCategory, boolean imposed, boolean banned, String notes) {
+        this.title = title;
         this.field = field;
         this.riskCategory = riskCategory;
         this.imposed = imposed;
         this.banned = banned;
         this.notes = notes;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getName() {
@@ -40,14 +50,6 @@ public class ControlRow {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getFieldNr() {
-        return fieldNr;
-    }
-
-    public void setFieldNr(int fieldNr) {
-        this.fieldNr = fieldNr;
     }
 
     public String getRiskCategory() {

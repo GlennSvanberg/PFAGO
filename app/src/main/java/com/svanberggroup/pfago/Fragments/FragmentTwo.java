@@ -69,7 +69,7 @@ public class FragmentTwo extends Fragment {
 
     private Control control;
 
-    private FragmentTwo() {
+    public FragmentTwo() {
     }
 
     public static FragmentTwo newInstance(Control control) {
