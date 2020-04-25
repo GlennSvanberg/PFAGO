@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <item android:id="@+id/add_control"
-        android:icon="@drawable/ic_add"
-        android:title="Add"
-        app:showAsAction="always"></item>
+        android:titleCondensed="Ny Kontroll"
+        app:showAsAction="always">
+    </item>
 </menu>
