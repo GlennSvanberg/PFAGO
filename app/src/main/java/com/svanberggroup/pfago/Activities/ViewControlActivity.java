@@ -3,12 +3,15 @@ package com.svanberggroup.pfago.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
@@ -31,18 +34,21 @@ import java.util.List;
 
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
+    private boolean isApprovalMode;
     private LinearLayout  cardsLinearLayout;
+
+    private static final int REQUEST_CONTROL_APPROVAL = 5;
 
     private LayoutInflater layoutInflater;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_control);
-        int id = getIntent().getIntExtra("control_id", 0);
 
+        control = (Control) getIntent().getSerializableExtra("control");
+        isApprovalMode =getIntent().getBooleanExtra("approvalMode", false);
         ControlRepository repo = ControlRepository.get();
         layoutInflater = (LayoutInflater) getApplicationContext().getSystemService((Context.LAYOUT_INFLATER_SERVICE));
-        control = repo.getControlById(id);
 
         cardsLinearLayout = findViewById(R.id.cards_linear_layout);
 
@@ -67,6 +73,9 @@ public class ViewControlActivity extends AppCompatActivity {
         setProhibitionCard(addCardView(cards));
         setSubmissionCard(addCardViewFullWidth(cards));
         setReportsCard(addCardView(cards));
+        if(isApprovalMode){
+            setApprovalButtons(cards);
+        }
 
         displayViews(cardsLinearLayout, cards);
     }
@@ -448,6 +457,33 @@ public class ViewControlActivity extends AppCompatActivity {
             str.append(line("", of));
         }
         setText(cardRight(card), str.toString());
+    }
+
+    private void setApprovalButtons(List<View> views){
+        Toast.makeText(this, "Approval mode is on", Toast.LENGTH_LONG).show();
+        View view = layoutInflater.inflate(R.layout.control_approval_buttons, cardsLinearLayout,false);
+        Button approvalButton = view.findViewById(R.id.approve_button);
+        approvalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                approveControl(true);
+            }
+        });
+        Button declineButton = view.findViewById(R.id.decline_button);
+        declineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                approveControl(false);
+            }
+        });
+        views.add(view);
+
+    }
+    private void approveControl(boolean decision){
+        Intent intent = new Intent();
+        intent.putExtra("approved", decision);
+        setResult(REQUEST_CONTROL_APPROVAL, intent);
+        finish();
     }
 
     private View addCardView(List<View> views){

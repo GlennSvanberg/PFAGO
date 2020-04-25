@@ -66,6 +66,7 @@ public class AddControlActivity extends AppCompatActivity {
     private File photoFile;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_CONTROL_APPROVAL = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +121,10 @@ public class AddControlActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.doneControl:
                 ControlRepository.get().addControl(control);
+                Intent intent = new Intent(this, ViewControlActivity.class);
+                intent.putExtra("control", control);
+                intent.putExtra("approvalMode", true);
+                startActivityForResult(intent, REQUEST_CONTROL_APPROVAL);
                 break;
             case R.id.cameraControl:
                 dispatchTakePictureIntent();
@@ -133,6 +138,24 @@ public class AddControlActivity extends AppCompatActivity {
     private ViewPagerAdapter createCardAdapter() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(this, control);
         return adapter;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Toast.makeText(this, "Bild sparad i fliken bilder", Toast.LENGTH_LONG).show();
+            control.addImage(new ImageData(currentPhotoPath));
+        }
+        if (requestCode == REQUEST_CONTROL_APPROVAL && resultCode == RESULT_OK) {
+            //Toast.makeText(this, "Kontrollen är godkänd", Toast.LENGTH_LONG).show();
+            Boolean approved = data.getBooleanExtra("approved", false);
+            if(approved){
+                ControlRepository.get().addControl(control);
+                finish();
+            }
+
+        }
     }
 
     // CAMERA ----------STUFF
@@ -160,14 +183,7 @@ public class AddControlActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Toast.makeText(this, "Bild sparad i fliken bilder", Toast.LENGTH_LONG).show();
-            control.addImage(new ImageData(currentPhotoPath));
-        }
-    }
+
 
 
     private File createImageFile() throws IOException {

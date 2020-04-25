@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
 
                     Intent intent = new Intent(getApplicationContext(), ViewControlActivity.class);
-                    intent.putExtra("control_id", controls.get(position).getId());
+                    intent.putExtra("control", controls.get(position));
                     startActivity(intent);
                 }
             });
