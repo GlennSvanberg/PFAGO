@@ -171,15 +171,16 @@ public class AddControlActivity extends AppCompatActivity {
             Toast.makeText(this, "Bild sparad i fliken bilder", Toast.LENGTH_LONG).show();
             control.addImage(new ImageData(currentPhotoPath));
         } else if (requestCode == REQUEST_CONTROL_APPROVAL) {
-            Toast.makeText(this,"Kontrollen sparad", Toast.LENGTH_LONG).show();
-            Boolean approved = data.getBooleanExtra("approved", false);
-            if(approved){
-                ControlRepository.get().addControl(control);
-                finish();
+            if(data != null){
+                Boolean approved = data.getBooleanExtra("approved", false);
+                if(approved){
+                    Toast.makeText(this,"Kontrollen sparad", Toast.LENGTH_LONG).show();
+                    ControlRepository.get().addControl(control);
+                    finish();
+                }
             }
         }
             Log.i("CAMERA_RESULT", "requestCode:" + requestCode + " RESULT: " + resultCode);
-
     }
 
     // CAMERA ----------STUFF
