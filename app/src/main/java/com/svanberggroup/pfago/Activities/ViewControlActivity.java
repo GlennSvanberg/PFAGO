@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +19,7 @@ import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.Fault;
 import com.svanberggroup.pfago.Models.Goods;
+import com.svanberggroup.pfago.Models.ImageData;
 import com.svanberggroup.pfago.Models.Quantity;
 import com.svanberggroup.pfago.Models.SafetyAdvisor;
 import com.svanberggroup.pfago.Models.TransportDocumentRows;
@@ -26,6 +29,7 @@ import com.svanberggroup.pfago.Models.Transporter;
 import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Repository.ControlRepository;
+import com.svanberggroup.pfago.Utils.PictureUtils;
 
 
 import java.text.SimpleDateFormat;
@@ -73,6 +77,7 @@ public class ViewControlActivity extends AppCompatActivity {
         setProhibitionCard(addCardView(cards));
         setSubmissionCard(addCardViewFullWidth(cards));
         setReportsCard(addCardView(cards));
+        setImagesCard(addImagesCardView(cards));
         if(isApprovalMode){
             setApprovalButtons(cards);
         }
@@ -480,6 +485,23 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(cardRight(card), str.toString());
     }
 
+    private void setImagesCard(View card){
+        setText(cardTitle(card), "Bilder");
+        LinearLayout linearLayout = card.findViewById(R.id.row_linear_layout);
+        ArrayList<View> rows = new ArrayList<>();
+        for(ImageData image : control.getImages()){
+            View row = layoutInflater.inflate(R.layout.images_card_row, linearLayout,false);
+            TextView textView = row.findViewById(R.id.image_text);
+            textView.setText(image.getText());
+
+            ImageView imageView = row.findViewById(R.id.image);
+            Bitmap bitmap = PictureUtils.getScaledBitmap(image.getPath(), 1000, 800);
+            imageView.setImageBitmap(bitmap);
+            rows.add(row);
+        }
+        displayViews(linearLayout, rows);
+    }
+
     private void setApprovalButtons(List<View> views){
         View view = layoutInflater.inflate(R.layout.control_approval_buttons, cardsLinearLayout,false);
         Button approvalButton = view.findViewById(R.id.approve_button);
@@ -524,6 +546,11 @@ public class ViewControlActivity extends AppCompatActivity {
 
     private View addRowsCardView(List<View> views){
         View view = layoutInflater.inflate(R.layout.view_control_rows_card, cardsLinearLayout,false);
+        views.add(view);
+        return view;
+    }
+    private View addImagesCardView(List<View> views){
+        View view = layoutInflater.inflate(R.layout.view_control_images_card, cardsLinearLayout,false);
         views.add(view);
         return view;
     }

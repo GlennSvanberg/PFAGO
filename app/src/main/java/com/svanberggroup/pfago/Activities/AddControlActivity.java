@@ -67,7 +67,7 @@ public class AddControlActivity extends AppCompatActivity {
     private String currentPhotoPath;
     private File photoFile;
 
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 115;
     private static final int REQUEST_CONTROL_APPROVAL = 5;
 
     @Override
@@ -166,16 +166,20 @@ public class AddControlActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.i("CAMERA_RESULT", "onActivityResult");
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Toast.makeText(this, "Bild sparad i fliken bilder", Toast.LENGTH_LONG).show();
             control.addImage(new ImageData(currentPhotoPath));
         } else if (requestCode == REQUEST_CONTROL_APPROVAL) {
+            Toast.makeText(this,"Kontrollen sparad", Toast.LENGTH_LONG).show();
             Boolean approved = data.getBooleanExtra("approved", false);
             if(approved){
                 ControlRepository.get().addControl(control);
                 finish();
             }
         }
+            Log.i("CAMERA_RESULT", "requestCode:" + requestCode + " RESULT: " + resultCode);
+
     }
 
     // CAMERA ----------STUFF
@@ -189,6 +193,8 @@ public class AddControlActivity extends AppCompatActivity {
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
+                Log.i("CAMERA_RESULT", "Error: "+ ex.getMessage());
+                ex.printStackTrace();
                 // Error occurred while creating the File
 
             }
@@ -198,6 +204,7 @@ public class AddControlActivity extends AppCompatActivity {
                         "com.svanberggroup.pfago.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                Log.i("CAMERA_RESULT", "requestCode:" + REQUEST_IMAGE_CAPTURE + " photofile path: " + photoFile.getAbsolutePath());
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
