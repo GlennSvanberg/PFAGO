@@ -19,6 +19,19 @@ import java.io.Serializable;
 public class FragmentFive extends Fragment {
 
 
+    private enum Transport {
+        handling,
+        loading,
+        securing,
+        leakage,
+        damages,
+        gods,
+        truck,
+        transport,
+        banned,
+    }
+
+
     private static final String NEW_CONTROL = "new_control";
 
     private RadioGroup godsApprovedABCRadioGroup;
@@ -92,7 +105,7 @@ public class FragmentFive extends Fragment {
 
         addSubViewToView(view);
         setVisibilityGone(view);
-        handleVisibility();
+        handleRadioButtonInput();
         return  view;
     }
 
@@ -188,130 +201,199 @@ public class FragmentFive extends Fragment {
 
     }
 
-    private void handleVisibility() {
+    private void setVisibilityFor(Transport transport, int visibility) {
+        switch (transport) {
+            case handling:
+                handlingRiskCategoryEditText.setVisibility(visibility);
+                handlingRadioGroup.setVisibility(visibility);
+                handlingNotesEditText.setVisibility(visibility);
+                break;
+            case loading:
+                loadingRiskCategoryEditText.setVisibility(visibility);
+                loadingRadioGroup.setVisibility(visibility);
+                loadingNotesEditText.setVisibility(visibility);
+                break;
+            case securing:
+                securingCargoRiskCategoryEditText.setVisibility(visibility);
+                securingCargoNotesEditText.setVisibility(visibility);
+                securingCargoRadioGroup.setVisibility(visibility);
+                break;
+            case leakage:
+                leakageRiskCategotyEditText.setVisibility(visibility);
+                leakageRadioGroup.setVisibility(visibility);
+                leakageNotesEditText.setVisibility(visibility);
+                break;
+            case damages:
+                damagesRiskCategotyEditText.setVisibility(visibility);
+                damagesRadioGroup.setVisibility(visibility);
+                damagesNotesEditText.setVisibility(visibility);
+                break;
+            case gods:
+                godsApprovedRiskCategoryEditText.setVisibility(visibility);
+                godsApprovedRadioGroup.setVisibility(visibility);
+                godsApprovedNotesEditText.setVisibility(visibility);
+                break;
+            case truck:
+                truckApprovedRiskCategoryEditText.setVisibility(visibility);
+                truckApprovedNotesEditText.setVisibility(visibility);
+                truckApprovedRadioGroup.setVisibility(visibility);
+                break;
+            case transport:
+                wayOfTransportRiskCategoryEditText.setVisibility(visibility);
+                wayOfTransportRadioGroup.setVisibility(visibility);
+                wayOfTransportNotesEditText.setVisibility(visibility);
+                break;
+            case banned:
+                bannedMixedCargoRiskCategoryEditText.setVisibility(visibility);
+                bannedMixedCargoRadioGroup.setVisibility(visibility);
+                bannedMixedCargoNotesEditText.setVisibility(visibility);
+                break;
+
+        }
+    }
+
+    private void handleRadioButtonInput() {
         handlingABCRadioButton.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.handlingNotApprovedRadioButton) {
-                    handlingRiskCategoryEditText.setVisibility(View.VISIBLE);
-                    handlingRadioGroup.setVisibility(View.VISIBLE);
-                    handlingNotesEditText.setVisibility(View.VISIBLE);
-                } else {
-                    handlingRiskCategoryEditText.setVisibility(View.GONE);
-                    handlingRadioGroup.setVisibility(View.GONE);
-                    handlingNotesEditText.setVisibility(View.GONE);
+                switch (checkedId) {
+                    case R.id.handlingControlledRadioButton:
+                        setVisibilityFor(Transport.handling, View.GONE);
+                        break;
+                    case R.id.handlingNotApprovedRadioButton:
+                        setVisibilityFor(Transport.handling, View.VISIBLE);
+                        break;
+                    case R.id.handlingNotApplicableRadioButton:
+                        setVisibilityFor(Transport.handling, View.GONE);
+                        break;
                 }
             }
         });
         loadingABCRadioButton.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.loadingNotApprovedRadioButton) {
-                    loadingRiskCategoryEditText.setVisibility(View.VISIBLE);
-                    loadingRadioGroup.setVisibility(View.VISIBLE);
-                    loadingNotesEditText.setVisibility(View.VISIBLE);
-                } else {
-                    loadingRiskCategoryEditText.setVisibility(View.GONE);
-                    loadingRadioGroup.setVisibility(View.GONE);
-                    loadingNotesEditText.setVisibility(View.GONE);
+                switch (checkedId) {
+                    case R.id.loadingControlledRadioButton:
+                        setVisibilityFor(Transport.loading, View.GONE);
+                        break;
+                    case R.id.loadingNotApprovedRadioButton:
+                        setVisibilityFor(Transport.loading, View.VISIBLE);
+                        break;
+                    case R.id.loadingNotApplicableRadioButton:
+                        setVisibilityFor(Transport.loading, View.GONE);
+                        break;
                 }
             }
         });
         securingCargoABCRadioButton.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.securingCargoNotApprovedRadioButton) {
-                    securingCargoRiskCategoryEditText.setVisibility(View.VISIBLE);
-                    securingCargoRadioGroup.setVisibility(View.VISIBLE);
-                    securingCargoNotesEditText.setVisibility(View.VISIBLE);
-                } else {
-                    securingCargoRiskCategoryEditText.setVisibility(View.GONE);
-                    securingCargoNotesEditText.setVisibility(View.GONE);
-                    securingCargoRadioGroup.setVisibility(View.GONE);
+                switch (checkedId) {
+                    case R.id.securingCargoControlledRadioButton:
+                        setVisibilityFor(Transport.securing, View.GONE);
+                        break;
+                    case R.id.securingCargoNotApprovedRadioButton:
+                        setVisibilityFor(Transport.securing, View.VISIBLE);
+                        break;
+                    case R.id.securingCargoNotApplicableRadioButton:
+                        setVisibilityFor(Transport.securing, View.GONE);
+                        break;
                 }
             }
         });
         leakageABCRadioButton.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.leakageNotApprovedRadioButton) {
-                    leakageRiskCategotyEditText.setVisibility(View.VISIBLE);
-                    leakageRadioGroup.setVisibility(View.VISIBLE);
-                    leakageNotesEditText.setVisibility(View.VISIBLE);
-                } else {
-                    leakageRiskCategotyEditText.setVisibility(View.GONE);
-                    leakageRadioGroup.setVisibility(View.GONE);
-                    leakageNotesEditText.setVisibility(View.GONE);
+                switch (checkedId) {
+                    case R.id.leakageControlledRadioButton:
+                        setVisibilityFor(Transport.leakage, View.GONE);
+                        break;
+                    case R.id.leakageNotApprovedRadioButton:
+                        setVisibilityFor(Transport.leakage, View.VISIBLE);
+                        break;
+                    case R.id.leakageNotApplicableRadioButton:
+                        setVisibilityFor(Transport.leakage, View.GONE);
+                        break;
                 }
             }
         });
         damagesABCRadioButton.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.damagesNotApprovedRadioButton) {
-                    damagesRiskCategotyEditText.setVisibility(View.VISIBLE);
-                    damagesRadioGroup.setVisibility(View.VISIBLE);
-                    damagesNotesEditText.setVisibility(View.VISIBLE);
-                } else {
-                    damagesRiskCategotyEditText.setVisibility(View.GONE);
-                    damagesRadioGroup.setVisibility(View.GONE);
-                    damagesNotesEditText.setVisibility(View.GONE);
+                switch (checkedId) {
+                    case R.id.damagesControlledRadioButton:
+                        setVisibilityFor(Transport.damages, View.GONE);
+                        break;
+                    case R.id.damagesNotApprovedRadioButton:
+                        setVisibilityFor(Transport.damages, View.VISIBLE);
+                        break;
+                    case R.id.damagesNotApplicableRadioButton:
+                        setVisibilityFor(Transport.damages, View.GONE);
+                        break;
                 }
             }
         });
         godsApprovedABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.godsApprovedNotApprovedRadioButton) {
-                    godsApprovedRiskCategoryEditText.setVisibility(View.VISIBLE);
-                    godsApprovedRadioGroup.setVisibility(View.VISIBLE);
-                    godsApprovedNotesEditText.setVisibility(View.VISIBLE);
-                } else {
-                    godsApprovedRiskCategoryEditText.setVisibility(View.GONE);
-                    godsApprovedRadioGroup.setVisibility(View.GONE);
-                    godsApprovedNotesEditText.setVisibility(View.GONE);
+                switch (checkedId) {
+                    case R.id.godsApproveControlledRadioButton:
+                        setVisibilityFor(Transport.gods, View.GONE);
+                        break;
+                    case R.id.godsApprovedNotApprovedRadioButton:
+                        setVisibilityFor(Transport.gods, View.VISIBLE);
+                        break;
+                    case R.id.godsApproveNotApplicableRadioButton:
+                        setVisibilityFor(Transport.gods, View.GONE);
+                        break;
                 }
             }
         });
         truckApprovedABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.truckApprovedNotApprovedRadioButton) {
-                    truckApprovedRiskCategoryEditText.setVisibility(View.VISIBLE);
-                    truckApprovedRadioGroup.setVisibility(View.VISIBLE);
-                    truckApprovedNotesEditText.setVisibility(View.VISIBLE);
-                } else {
-                    truckApprovedRiskCategoryEditText.setVisibility(View.GONE);
-                    truckApprovedRadioGroup.setVisibility(View.GONE);
-                    truckApprovedNotesEditText.setVisibility(View.GONE);
+                switch (checkedId) {
+                    case R.id.truckApprovedControlledRadioButton:
+                        setVisibilityFor(Transport.truck, View.GONE);
+                        break;
+                    case R.id.truckApprovedNotApprovedRadioButton:
+                        setVisibilityFor(Transport.truck, View.VISIBLE);
+                        break;
+                    case R.id.truckApprovedNotApplicableRadioButton:
+                        setVisibilityFor(Transport.truck, View.GONE);
+                        break;
                 }
             }
         });
         wayOfTransportABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.wayOfTransportNotApprovedRadioButton) {
-                    wayOfTransportRiskCategoryEditText.setVisibility(View.VISIBLE);
-                    wayOfTransportRadioGroup.setVisibility(View.VISIBLE);
-                    wayOfTransportNotesEditText.setVisibility(View.VISIBLE);
-                } else {
-                    wayOfTransportRiskCategoryEditText.setVisibility(View.GONE);
-                    wayOfTransportRadioGroup.setVisibility(View.GONE);
-                    wayOfTransportNotesEditText.setVisibility(View.GONE);
+                switch (checkedId) {
+                    case R.id.wayOfTransportControlledRadioButton:
+                        setVisibilityFor(Transport.transport, View.GONE);
+                        break;
+                    case R.id.wayOfTransportNotApprovedRadioButton:
+                        setVisibilityFor(Transport.transport, View.VISIBLE);
+                        break;
+                    case R.id.wayOfTransportNotApplicableRadioButton:
+                        setVisibilityFor(Transport.transport, View.GONE);
+                        break;
                 }
             }
         });
         bannedMixedCargoABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.bannedMixedCargoNotApprovedRadioButton) {
-                    bannedMixedCargoRiskCategoryEditText.setVisibility(View.VISIBLE);
-                    bannedMixedCargoRadioGroup.setVisibility(View.VISIBLE);
-                    bannedMixedCargoNotesEditText.setVisibility(View.VISIBLE);
-                } else {
-                    bannedMixedCargoRiskCategoryEditText.setVisibility(View.GONE);
-                    bannedMixedCargoRadioGroup.setVisibility(View.GONE);
-                    bannedMixedCargoNotesEditText.setVisibility(View.GONE);
+                switch (checkedId) {
+                    case R.id.bannedMixedCargoControlledRadioButton:
+                        setVisibilityFor(Transport.banned, View.GONE);
+                        break;
+                    case R.id.bannedMixedCargoNotApprovedRadioButton:
+                        setVisibilityFor(Transport.banned, View.VISIBLE);
+                        break;
+                    case R.id.bannedMixedCargoNotApplicableRadioButton:
+                        setVisibilityFor(Transport.banned, View.GONE);
+                        break;
                 }
             }
         });

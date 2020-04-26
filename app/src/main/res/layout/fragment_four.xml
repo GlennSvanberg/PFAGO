@@ -22,19 +22,19 @@
             app:layout_constraintTop_toBottomOf="@+id/chooseTypeOfDocumentRadioGroup">
 
             <RadioButton
-                android:id="@+id/controlledRadioButton"
+                android:id="@+id/documemtControlledRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Kontrollerat" />
 
             <RadioButton
-                android:id="@+id/notApprovedRadioButton"
+                android:id="@+id/documentNotApprovedRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ej enligt regler" />
 
             <RadioButton
-                android:id="@+id/notApplicableRadioButton"
+                android:id="@+id/documentNotApplicableRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ej tillämpligt" />
@@ -103,13 +103,13 @@
             app:layout_constraintTop_toTopOf="@+id/typeOfDocumentRiskCategoryEditText">
 
             <RadioButton
-                android:id="@+id/imposeRadioButton"
+                android:id="@+id/documentImposeRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Förelägg" />
 
             <RadioButton
-                android:id="@+id/bannedRadioButton"
+                android:id="@+id/documentBannedRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Förbud" />
@@ -150,19 +150,19 @@
             app:layout_constraintTop_toBottomOf="@+id/writenInstruktionTextView">
 
             <RadioButton
-                android:id="@+id/controlledRadioButton1"
+                android:id="@+id/writtenControlledRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Kontrollerat" />
 
             <RadioButton
-                android:id="@+id/notApprovedRadioButton1"
+                android:id="@+id/writtenNotApprovedRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ej enligt regler" />
 
             <RadioButton
-                android:id="@+id/notApplicableRadioButton1"
+                android:id="@+id/writtenNotApplicableRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ej tillämpligt" />
@@ -189,13 +189,13 @@
             app:layout_constraintTop_toTopOf="@+id/writenInstruktionRiskCategoryEditText">
 
             <RadioButton
-                android:id="@+id/imposeRadioButton1"
+                android:id="@+id/writtenImposeRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Förelägg" />
 
             <RadioButton
-                android:id="@+id/bannedRadioButton1"
+                android:id="@+id/writtenBannedRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Förbud" />
@@ -262,19 +262,19 @@
             app:layout_constraintTop_toBottomOf="@+id/chooseTypeOfApprovalRadioGroup">
 
             <RadioButton
-                android:id="@+id/janneControlledRadioButton"
+                android:id="@+id/typeOfApprovalControlledRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Kontrollerat" />
 
             <RadioButton
-                android:id="@+id/notApprovedRadioButton2"
+                android:id="@+id/typeOfApprovalNotApprovedRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ej enligt regler" />
 
             <RadioButton
-                android:id="@+id/janneNotApplicableRadioButton"
+                android:id="@+id/typeOfApprovalNotApplicableRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ej tillämpligt" />
@@ -302,13 +302,13 @@
             app:layout_constraintTop_toTopOf="@+id/typeOfApprovalRiskCategoryEditText">
 
             <RadioButton
-                android:id="@+id/imposeRadioButton2"
+                android:id="@+id/approvalImposeRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Förelägg" />
 
             <RadioButton
-                android:id="@+id/bannedRadioButton2"
+                android:id="@+id/approvalBannedRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Förbud" />

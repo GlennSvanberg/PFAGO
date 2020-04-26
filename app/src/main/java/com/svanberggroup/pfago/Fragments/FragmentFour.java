@@ -3,7 +3,6 @@ package com.svanberggroup.pfago.Fragments;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.transition.Visibility;
 
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
@@ -33,7 +31,7 @@ public class FragmentFour extends Fragment {
         Other
     }
 
-    private enum visibilityType {
+    private enum Visibility {
         Gone,
         Visible
     }
@@ -101,8 +99,8 @@ public class FragmentFour extends Fragment {
         goodsDeclarationRow = new ControlRow();
         writtenInstructionsRow = new ControlRow();
         typeOfApprovalRow = new ControlRow();
-        driverCertificationRow = new ControlRow();
         truckCertificateRow = new ControlRow();
+        driverCertificationRow = new ControlRow();
         otherADRTrainingRow = new ControlRow();
 
     }
@@ -113,7 +111,7 @@ public class FragmentFour extends Fragment {
         View view = inflater.inflate(R.layout.fragment_four, container, false);
 
         addSubViewToView(view);
-
+        setVisibilityGone(view);
         handleRadioButtonChecked();
         handleTextInput();
 
@@ -159,6 +157,67 @@ public class FragmentFour extends Fragment {
         otherApprovalCertificateNotesEditText = view.findViewById(R.id.otherApprovalCertificateNotesEditText);
     }
 
+    private void setVisibilityGone(View view){
+        typeOfDocumentRiskCategoryEditText.setVisibility(view.GONE);
+        typeOfDocumentRadioGroup.setVisibility(view.GONE);
+        typeOfDocumentNotesEditText.setVisibility(view.GONE);
+
+        writenInstruktionRiskCategoryEditText.setVisibility(view.GONE);
+        writenInstruktionRadioGroup.setVisibility(view.GONE);
+        writenInstruktionNotesEditText.setVisibility(view.GONE);
+
+        typeOfApprovalRiskCategoryEditText.setVisibility(view.GONE);
+        typeOfApprovalRadioGroup.setVisibility(view.GONE);
+        typeOfApprovalNotesEditText.setVisibility(view.GONE);
+
+        truckApprovalCertificateRiskCategoryEditText.setVisibility(view.GONE);
+        truckApprovalCertificateRadioGroup.setVisibility(view.GONE);
+        truckApprovalCertificateNotesEditText.setVisibility(view.GONE);
+
+        driverApprovalCertificateRiskCategoryEditText.setVisibility(view.GONE);
+        driverApprovalCertificateRadioGroup.setVisibility(view.GONE);
+        driverApprovalCertificateNotesEditText.setVisibility(view.GONE);
+
+        otherApprovalCertificateRiskCategoryEditText.setVisibility(view.GONE);
+        otherApprovalCertificateRadioGroup.setVisibility(view.GONE);
+        otherApprovalCertificateNotesEditText.setVisibility(view.GONE);
+    }
+
+    private void setVisibilityFor(TransportRowType transportRowType, int visibility) {
+        switch (transportRowType) {
+            case Document:
+                typeOfDocumentRiskCategoryEditText.setVisibility(visibility);
+                typeOfDocumentNotesEditText.setVisibility(visibility);
+                typeOfDocumentRadioGroup.setVisibility(visibility);
+                break;
+            case WritenInstruction:
+                writenInstruktionRiskCategoryEditText.setVisibility(visibility);
+                writenInstruktionRadioGroup.setVisibility(visibility);
+                writenInstruktionNotesEditText.setVisibility(visibility);
+                break;
+            case Approval:
+                typeOfApprovalRiskCategoryEditText.setVisibility(visibility);
+                typeOfApprovalRadioGroup.setVisibility(visibility);
+                typeOfApprovalNotesEditText.setVisibility(visibility);
+                break;
+            case Truck:
+                truckApprovalCertificateRiskCategoryEditText.setVisibility(visibility);
+                truckApprovalCertificateRadioGroup.setVisibility(visibility);
+                truckApprovalCertificateNotesEditText.setVisibility(visibility);
+                break;
+            case Driver:
+                driverApprovalCertificateRiskCategoryEditText.setVisibility(visibility);
+                driverApprovalCertificateRadioGroup.setVisibility(visibility);
+                driverApprovalCertificateNotesEditText.setVisibility(visibility);
+                break;
+            case Other:
+                otherApprovalCertificateRiskCategoryEditText.setVisibility(visibility);
+                otherApprovalCertificateRadioGroup.setVisibility(visibility);
+                otherApprovalCertificateNotesEditText.setVisibility(visibility);
+                break;
+        }
+    }
+
     private void handleRadioButtonChecked() {
 
         chooseTypeOfDocumentRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -168,9 +227,11 @@ public class FragmentFour extends Fragment {
                     case R.id.loadPlanRadioButton:
                         tdRows.setDeclaration(TransportDocumentRows.Declaration.LoadingPlane);
                         control.setTdRows(tdRows);
+                        break;
                     case R.id.CPCRadionButton:
                         tdRows.setDeclaration(TransportDocumentRows.Declaration.StowageCertificate);
                         control.setTdRows(tdRows);
+                        break;
                 }
             }
         });
@@ -178,26 +239,23 @@ public class FragmentFour extends Fragment {
         typeOfDocumentABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.documemtControlledRadioButton) {
-                    typeOfDocumentRiskCategoryEditText.setVisibility(View.GONE);
-                    typeOfDocumentNotesEditText.setVisibility(View.GONE);
-                    typeOfDocumentRadioGroup.setVisibility(View.GONE);
-                    clearFieldsForView(TransportRowType.Document);
-                    setTdRowFor(goodsDeclarationRow, ControlRow.Field.Controlled, TransportRowType.Document);
+                switch (checkedId) {
+                    case R.id.documemtControlledRadioButton:
+                        setVisibilityFor(TransportRowType.Document, View.GONE);
+                        clearFieldsForView(TransportRowType.Document);
+                        setTdRowFor(goodsDeclarationRow, ControlRow.Field.Controlled, TransportRowType.Document);
+                        break;
 
-                } else if (checkedId == R.id.documentNotApprovedRadioButton) {
-                    typeOfDocumentRiskCategoryEditText.setVisibility(View.VISIBLE);
-                    typeOfDocumentRadioGroup.setVisibility(View.VISIBLE);
-                    typeOfDocumentNotesEditText.setVisibility(View.VISIBLE);
+                    case R.id.documentNotApprovedRadioButton:
+                        setVisibilityFor(TransportRowType.Document, View.VISIBLE);
+                        setTdRowFor(goodsDeclarationRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Document);
+                        break;
 
-                    setTdRowFor(goodsDeclarationRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Document);
-                } else if (checkedId == R.id.documentNotApplicableRadioButton) {
-                    typeOfDocumentRiskCategoryEditText.setVisibility(View.GONE);
-                    typeOfDocumentRadioGroup.setVisibility(View.GONE);
-                    typeOfDocumentNotesEditText.setVisibility(View.GONE);
-
-                    clearFieldsForView(TransportRowType.Document);
-                    setTdRowFor(goodsDeclarationRow, ControlRow.Field.NotApplicable, TransportRowType.Document);
+                    case R.id.documentNotApplicableRadioButton:
+                        setVisibilityFor(TransportRowType.Document, View.GONE);
+                        clearFieldsForView(TransportRowType.Document);
+                        setTdRowFor(goodsDeclarationRow, ControlRow.Field.NotApplicable, TransportRowType.Document);
+                        break;
                 }
             }
         });
@@ -205,16 +263,18 @@ public class FragmentFour extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.imposeRadioButton:
+                    case R.id.documentImposeRadioButton:
                         goodsDeclarationRow.setImposed(true);
                         goodsDeclarationRow.setBanned(false);
                         tdRows.setGoodsDeclarationRow(goodsDeclarationRow);
                         control.setTdRows(tdRows);
-                    case R.id.bannedRadioButton:
+                        break;
+                    case R.id.documentBannedRadioButton:
                         goodsDeclarationRow.setBanned(true);
                         goodsDeclarationRow.setImposed(false);
                         tdRows.setGoodsDeclarationRow(goodsDeclarationRow);
                         control.setTdRows(tdRows);
+                        break;
                 }
             }
         });
@@ -222,21 +282,22 @@ public class FragmentFour extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.controlledRadioButton1:
-                     //   setVisibility(writenViews, visibilityType.Gone);
-
+                    case R.id.writtenControlledRadioButton:
+                        setVisibilityFor(TransportRowType.WritenInstruction, View.GONE);
                         clearFieldsForView(TransportRowType.WritenInstruction);
                         setTdRowFor(writtenInstructionsRow, ControlRow.Field.Controlled, TransportRowType.WritenInstruction);
+                        break;
 
-                    case R.id.notApprovedRadioButton1:
-                     //   setVisibility(writenViews, visibilityType.Visible);
+                    case R.id.writtenNotApprovedRadioButton:
+                        setVisibilityFor(TransportRowType.WritenInstruction, View.VISIBLE);
                         setTdRowFor(writtenInstructionsRow, ControlRow.Field.BreakingTheLaw, TransportRowType.WritenInstruction);
+                        break;
 
-                    case R.id.notApplicableRadioButton1:
-                     //   setVisibility(writenViews, visibilityType.Gone);
-
+                    case R.id.writtenNotApplicableRadioButton:
+                        setVisibilityFor(TransportRowType.WritenInstruction, View.GONE);
                         clearFieldsForView(TransportRowType.WritenInstruction);
                         setTdRowFor(writtenInstructionsRow, ControlRow.Field.NotApplicable, TransportRowType.WritenInstruction);
+                        break;
                 }
 
             }
@@ -245,16 +306,18 @@ public class FragmentFour extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.imposeRadioButton1:
+                    case R.id.writtenImposeRadioButton:
                         writtenInstructionsRow.setImposed(true);
                         writtenInstructionsRow.setBanned(false);
                         tdRows.setWrittenInstructionsRow(writtenInstructionsRow);
                         control.setTdRows(tdRows);
-                    case R.id.bannedRadioButton1:
+                        break;
+                    case R.id.writtenBannedRadioButton:
                         writtenInstructionsRow.setImposed(false);
                         writtenInstructionsRow.setBanned(true);
                         tdRows.setWrittenInstructionsRow(writtenInstructionsRow);
                         control.setTdRows(tdRows);
+                        break;
                 }
             }
         });
@@ -265,12 +328,15 @@ public class FragmentFour extends Fragment {
                     case R.id.biRadioButton:
                         tdRows.setApproval(TransportDocumentRows.Approval.Bilateral);
                         control.setTdRows(tdRows);
+                        break;
                     case R.id.multiRadioButton:
                         tdRows.setApproval(TransportDocumentRows.Approval.Multilateral);
                         control.setTdRows(tdRows);
+                        break;
                     case R.id.natRadioButton:
                         tdRows.setApproval(TransportDocumentRows.Approval.NationalApproval);
                         control.setTdRows(tdRows);
+                        break;
                 }
             }
         });
@@ -278,21 +344,22 @@ public class FragmentFour extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.janneControlledRadioButton:
-                     //   setVisibility(approvalViews, visibilityType.Gone);
-
+                    case R.id.typeOfApprovalControlledRadioButton:
+                        setVisibilityFor(TransportRowType.Approval, View.GONE);
                         clearFieldsForView(TransportRowType.Approval);
                         setTdRowFor(typeOfApprovalRow, ControlRow.Field.Controlled, TransportRowType.Approval);
+                        break;
 
-                    case R.id.notApprovedRadioButton2:
-                     //   setVisibility(approvalViews, visibilityType.Visible);
+                    case R.id.typeOfApprovalNotApprovedRadioButton:
+                        setVisibilityFor(TransportRowType.Approval, View.VISIBLE);
                         setTdRowFor(typeOfApprovalRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Approval);
+                        break;
 
-                    case R.id.janneNotApplicableRadioButton:
-                     //   setVisibility(approvalViews, visibilityType.Gone);
-
+                    case R.id.typeOfApprovalNotApplicableRadioButton:
+                        setVisibilityFor(TransportRowType.Approval, View.GONE);
                         clearFieldsForView(TransportRowType.Approval);
                         setTdRowFor(typeOfApprovalRow, ControlRow.Field.NotApplicable, TransportRowType.Approval);
+                        break;
                 }
             }
         });
@@ -300,16 +367,18 @@ public class FragmentFour extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.imposeRadioButton2:
+                    case R.id.approvalImposeRadioButton:
                         typeOfApprovalRow.setImposed(true);
                         typeOfApprovalRow.setBanned(false);
                         tdRows.setApprovalRow(typeOfApprovalRow);
                         control.setTdRows(tdRows);
-                    case R.id.bannedRadioButton2:
+                        break;
+                    case R.id.approvalBannedRadioButton:
                         typeOfApprovalRow.setBanned(true);
                         typeOfApprovalRow.setImposed(false);
                         tdRows.setApprovalRow(typeOfApprovalRow);
                         control.setTdRows(tdRows);
+                        break;
                 }
             }
         });
@@ -318,20 +387,21 @@ public class FragmentFour extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.truckApprovalControlledRadioButton:
-                     //   setVisibility(truckViews, visibilityType.Gone);
-
+                        setVisibilityFor(TransportRowType.Truck, View.GONE);
                         clearFieldsForView(TransportRowType.Truck);
                         setTdRowFor(truckCertificateRow, ControlRow.Field.Controlled, TransportRowType.Truck);
+                        break;
 
                     case R.id.truckApprovalNotApprovedRadioButton:
-                     //   setVisibility(truckViews, visibilityType.Visible);
+                        setVisibilityFor(TransportRowType.Truck, View.VISIBLE);
                         setTdRowFor(truckCertificateRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Truck);
+                        break;
 
                     case R.id.truckApprovalNotApplicableRadioButton:
-                     //   setVisibility(truckViews, visibilityType.Gone);
-
+                        setVisibilityFor(TransportRowType.Truck, View.GONE);
                         clearFieldsForView(TransportRowType.Truck);
                         setTdRowFor(truckCertificateRow, ControlRow.Field.NotApplicable, TransportRowType.Truck);
+                        break;
                 }
             }
         });
@@ -344,11 +414,13 @@ public class FragmentFour extends Fragment {
                         truckCertificateRow.setBanned(false);
                         tdRows.setApprovalCertificateRow(truckCertificateRow);
                         control.setTdRows(tdRows);
+                        break;
                     case R.id.truckApprovalBannedRadioButton:
                         truckCertificateRow.setBanned(true);
                         truckCertificateRow.setImposed(false);
                         tdRows.setApprovalCertificateRow(truckCertificateRow);
                         control.setTdRows(tdRows);
+                        break;
                 }
             }
         });
@@ -357,18 +429,21 @@ public class FragmentFour extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.driverApprovalControlledRadioButton:
-                     //   setVisibility(driverViews, visibilityType.Gone);
-
+                        setVisibilityFor(TransportRowType.Driver, View.GONE);
                         clearFieldsForView(TransportRowType.Driver);
                         setTdRowFor(driverCertificationRow, ControlRow.Field.Controlled, TransportRowType.Driver);
-                    case R.id.driverApprovalNotApprovedRadioButton:
-                     //   setVisibility(driverViews, visibilityType.Visible);
-                        setTdRowFor(driverCertificationRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Driver);
-                    case R.id.driverApprovalImposeRadioButton:
-                     //   setVisibility(driverViews, visibilityType.Gone);
+                        break;
 
+                    case R.id.driverApprovalNotApprovedRadioButton:
+                        setVisibilityFor(TransportRowType.Driver, View.VISIBLE);
+                        setTdRowFor(driverCertificationRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Driver);
+                        break;
+
+                    case R.id.driverApprovalImposeRadioButton:
+                        setVisibilityFor(TransportRowType.Driver, View.GONE);
                         clearFieldsForView(TransportRowType.Driver);
                         setTdRowFor(driverCertificationRow, ControlRow.Field.NotApplicable, TransportRowType.Driver);
+                        break;
                 }
             }
         });
@@ -381,11 +456,13 @@ public class FragmentFour extends Fragment {
                         driverCertificationRow.setBanned(false);
                         tdRows.setApprovalCertificateRow(driverCertificationRow);
                         control.setTdRows(tdRows);
+                        break;
                     case R.id.driverApprovalBannedRadioButton:
                         driverCertificationRow.setBanned(true);
                         driverCertificationRow.setImposed(false);
                         tdRows.setApprovalCertificateRow(driverCertificationRow);
                         control.setTdRows(tdRows);
+                        break;
                 }
             }
         });
@@ -394,18 +471,21 @@ public class FragmentFour extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.otherApprovalControlledRadioButton:
-                     //   setVisibility(otherViews, visibilityType.Gone);
-
+                        setVisibilityFor(TransportRowType.Other, View.GONE);
                         clearFieldsForView(TransportRowType.Other);
                         setTdRowFor(otherADRTrainingRow, ControlRow.Field.Controlled, TransportRowType.Other);
-                    case R.id.otherApprovalNotApprovedRadioButton:
-                     //   setVisibility(otherViews, visibilityType.Visible);
-                        setTdRowFor(otherADRTrainingRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Other);
-                    case R.id.otherApprovalNotApplicableRadioButton:
-                     //   setVisibility(otherViews, visibilityType.Gone);
+                        break;
 
+                    case R.id.otherApprovalNotApprovedRadioButton:
+                        setVisibilityFor(TransportRowType.Other, View.VISIBLE);
+                        setTdRowFor(otherADRTrainingRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Other);
+                        break;
+
+                    case R.id.otherApprovalNotApplicableRadioButton:
+                        setVisibilityFor(TransportRowType.Other, View.GONE);
                         clearFieldsForView(TransportRowType.Other);
                         setTdRowFor(otherADRTrainingRow, ControlRow.Field.NotApplicable, TransportRowType.Other);
+                        break;
                 }
             }
         });
@@ -418,11 +498,13 @@ public class FragmentFour extends Fragment {
                         otherADRTrainingRow.setBanned(false);
                         tdRows.setOtherADRTrainingRow(otherADRTrainingRow);
                         control.setTdRows(tdRows);
+                        break;
                     case R.id.otherApprovalBannedRadioButton:
                         otherADRTrainingRow.setBanned(true);
                         otherADRTrainingRow.setImposed(false);
                         tdRows.setOtherADRTrainingRow(otherADRTrainingRow);
                         control.setTdRows(tdRows);
+                        break;
                 }
             }
         });
@@ -720,16 +802,22 @@ public class FragmentFour extends Fragment {
 
             case Document:
                 tdRows.setGoodsDeclarationRow(controlRow);
+                break;
             case WritenInstruction:
                 tdRows.setWrittenInstructionsRow(controlRow);
+                break;
             case Approval:
                 tdRows.setApprovalRow(controlRow);
+                break;
             case Truck:
                 tdRows.setApprovalCertificateRow(controlRow);
+                break;
             case Driver:
                 tdRows.setDriverCertificationRow(controlRow);
+                break;
             case Other:
                 tdRows.setOtherADRTrainingRow(controlRow);
+                break;
 
         }
         control.setTdRows(tdRows);
@@ -795,6 +883,7 @@ public class FragmentFour extends Fragment {
                 goodsDeclarationRow.setBanned(false);
                 tdRows.setGoodsDeclarationRow(goodsDeclarationRow);
                 control.setTdRows(tdRows);
+                break;
 
             case WritenInstruction:
                 writtenInstructionsRow.setRiskCategory(null);
@@ -803,6 +892,7 @@ public class FragmentFour extends Fragment {
                 writtenInstructionsRow.setBanned(false);
                 tdRows.setWrittenInstructionsRow(writtenInstructionsRow);
                 control.setTdRows(tdRows);
+                break;
 
             case Approval:
                typeOfApprovalRow.setRiskCategory(null);
@@ -811,23 +901,25 @@ public class FragmentFour extends Fragment {
                typeOfApprovalRow.setBanned(false);
                tdRows.setApprovalRow(typeOfApprovalRow);
                control.setTdRows(tdRows);
+               break;
 
             case Truck:
-
                 truckCertificateRow.setRiskCategory(null);
                 truckCertificateRow.setNotes(null);
                 truckCertificateRow.setImposed(false);
                 truckCertificateRow.setBanned(false);
                 tdRows.setApprovalCertificateRow(truckCertificateRow);
                 control.setTdRows(tdRows);
-            case Driver:
+                break;
 
+            case Driver:
                 driverCertificationRow.setRiskCategory(null);
                 driverCertificationRow.setNotes(null);
                 driverCertificationRow.setImposed(false);
                 driverCertificationRow.setBanned(false);
                 tdRows.setDriverCertificationRow(driverCertificationRow);
                 control.setTdRows(tdRows);
+                break;
 
             case Other:
 
@@ -837,6 +929,7 @@ public class FragmentFour extends Fragment {
                 otherADRTrainingRow.setBanned(false);
                 tdRows.setOtherADRTrainingRow(otherADRTrainingRow);
                 control.setTdRows(tdRows);
+                break;
 
         }
     }

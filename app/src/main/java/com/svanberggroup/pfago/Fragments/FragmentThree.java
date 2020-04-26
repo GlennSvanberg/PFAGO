@@ -135,9 +135,11 @@ public class FragmentThree extends Fragment {
                     case R.id.kgRadioButton:
                         quantity.setQuantityType(Quantity.QuantityType.KG);
                         control.setQuantity(quantity);
+                        break;
                     case R.id.literRadioButton:
                         quantity.setQuantityType(Quantity.QuantityType.Liter);
                         control.setQuantity(quantity);
+                        break;
                 }
             }
         });
@@ -148,12 +150,15 @@ public class FragmentThree extends Fragment {
                     case R.id.LQRadioButton:
                         quantity.setPackagingStandard(Quantity.PackagingStandard.LQ);
                         control.setQuantity(quantity);
+                        break;
                     case R.id.EQRadioButton:
                         quantity.setPackagingStandard(Quantity.PackagingStandard.EQ);
                         control.setQuantity(quantity);
+                        break;
                     case R.id.emptyNotCleandRadioButton:
                         quantity.setPackagingStandard(Quantity.PackagingStandard.EmptyNotCleaned);
                         control.setQuantity(quantity);
+                        break;
                 }
             }
         });
@@ -163,8 +168,10 @@ public class FragmentThree extends Fragment {
                 switch (checkedId) {
                     case R.id.valueQuantityTrueRadioButton:
                         control.setValueQuantityExceeded(true);
+                        break;
                     case R.id.valueQuantityFalseRadioButton:
                         control.setValueQuantityExceeded(false);
+                        break;
                 }
             }
         });
@@ -174,12 +181,16 @@ public class FragmentThree extends Fragment {
                 switch (checkedId) {
                     case R.id.tankRadioButton:
                         control.setTransportType(Control.TransportType.Tank);
+                        break;
                     case R.id.bulkRadioButton:
                         control.setTransportType(Control.TransportType.Bulk);
+                        break;
                     case R.id.mixedCargoRadioButton:
                         control.setTransportType(Control.TransportType.MixedCargo);
+                        break;
                     case R.id.otherRadioButton:
                         control.setTransportType(Control.TransportType.Other);
+                        break;
                 }
             }
         });
@@ -189,18 +200,25 @@ public class FragmentThree extends Fragment {
                 switch (checkedId) {
                     case R.id.adrRadioButton:
                         control.setTransportStandard(Control.TransportStandard.ADR);
+                        break;
                     case R.id.adrsRadioButton:
                         control.setTransportStandard(Control.TransportStandard.ADRS);
+                        break;
                     case R.id.imdgRadioButton:
                         control.setTransportStandard(Control.TransportStandard.IMDG);
+                        break;
                     case R.id.icoaRadioButton:
                         control.setTransportStandard(Control.TransportStandard.ICAO);
+                        break;
                     case R.id.ridRadioButton:
                         control.setTransportStandard(Control.TransportStandard.RID);
+                        break;
                     case R.id.ridsRadioButton:
                         control.setTransportStandard(Control.TransportStandard.RIDS);
+                        break;
                     case R.id.baltikSeaRadioButton:
                         control.setTransportStandard(Control.TransportStandard.MOU);
+                        break;
                 }
             }
         });
