@@ -178,29 +178,26 @@ public class FragmentFour extends Fragment {
         typeOfDocumentABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.controlledRadioButton:
-                        typeOfDocumentRiskCategoryEditText.setVisibility(View.GONE);
-                        typeOfDocumentNotesEditText.setVisibility(View.GONE);
-                        typeOfDocumentRadioGroup.setVisibility(View.GONE);
+                if (checkedId == R.id.documemtControlledRadioButton) {
+                    typeOfDocumentRiskCategoryEditText.setVisibility(View.GONE);
+                    typeOfDocumentNotesEditText.setVisibility(View.GONE);
+                    typeOfDocumentRadioGroup.setVisibility(View.GONE);
+                    clearFieldsForView(TransportRowType.Document);
+                    setTdRowFor(goodsDeclarationRow, ControlRow.Field.Controlled, TransportRowType.Document);
 
-                        clearFieldsForView(TransportRowType.Document);
-                        setTdRowFor(goodsDeclarationRow, ControlRow.Field.Controlled, TransportRowType.Document);
+                } else if (checkedId == R.id.documentNotApprovedRadioButton) {
+                    typeOfDocumentRiskCategoryEditText.setVisibility(View.VISIBLE);
+                    typeOfDocumentRadioGroup.setVisibility(View.VISIBLE);
+                    typeOfDocumentNotesEditText.setVisibility(View.VISIBLE);
 
-                    case R.id.notApprovedRadioButton:
-                        typeOfDocumentRiskCategoryEditText.setVisibility(View.VISIBLE);
-                        typeOfDocumentRadioGroup.setVisibility(View.VISIBLE);
-                        typeOfDocumentNotesEditText.setVisibility(View.VISIBLE);
+                    setTdRowFor(goodsDeclarationRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Document);
+                } else if (checkedId == R.id.documentNotApplicableRadioButton) {
+                    typeOfDocumentRiskCategoryEditText.setVisibility(View.GONE);
+                    typeOfDocumentRadioGroup.setVisibility(View.GONE);
+                    typeOfDocumentNotesEditText.setVisibility(View.GONE);
 
-                        setTdRowFor(goodsDeclarationRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Document);
-
-                    case R.id.notApplicableRadioButton:
-                        typeOfDocumentRiskCategoryEditText.setVisibility(View.GONE);
-                        typeOfDocumentRadioGroup.setVisibility(View.GONE);
-                        typeOfDocumentNotesEditText.setVisibility(View.GONE);
-
-                        clearFieldsForView(TransportRowType.Document);
-                        setTdRowFor(goodsDeclarationRow, ControlRow.Field.NotApplicable, TransportRowType.Document);
+                    clearFieldsForView(TransportRowType.Document);
+                    setTdRowFor(goodsDeclarationRow, ControlRow.Field.NotApplicable, TransportRowType.Document);
                 }
             }
         });
