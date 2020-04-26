@@ -628,6 +628,7 @@ public class FragmentTwo extends Fragment {
                         return false;
                     }
                 }
+                break;
             case driver:
                 EditText[] driverEdits = {driverEditText, driverPhoneEditText, driverAddressEditText,
                         driverZIPEditText, driverCityEditText, driverCountryEditText};
@@ -636,6 +637,7 @@ public class FragmentTwo extends Fragment {
                         return false;
                     }
                 }
+                break;
             case coDriver:
                 EditText[] coDriverEdits = {coDriverEditText, coDriverPhoneEditText, coDriverAddressEditText,
                         coDriverZIPEditText, coDriverCityEditText, coDriverCountryEditText};
@@ -644,6 +646,7 @@ public class FragmentTwo extends Fragment {
                         return false;
                     }
                 }
+                break;
             case sender:
                 EditText[] senderEdits = {senderAdress, senderPhone, senderPlace};
                 for (EditText e: senderEdits) {
@@ -651,6 +654,7 @@ public class FragmentTwo extends Fragment {
                         return false;
                     }
                 }
+                break;
             case reciver:
                 EditText[] reciverEdits = {reciverAdress, reciverPhone, reciverPlace};
                 for (EditText e: reciverEdits) {
@@ -658,6 +662,7 @@ public class FragmentTwo extends Fragment {
                         return false;
                     }
                 }
+                break;
         }
         return true;
     }
