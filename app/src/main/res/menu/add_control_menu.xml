@@ -2,13 +2,14 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/doneControl"
-        android:icon="@drawable/ic_save"
-        android:title="done"
-        app:showAsAction="always"></item>
-    <item
         android:id="@+id/cameraControl"
         android:icon="@drawable/ic_camera"
-        android:title="done"
+        android:title="Bild"
         app:showAsAction="always"></item>
+    <item
+        android:id="@+id/doneControl"
+        android:icon="@drawable/ic_save"
+        android:title="Spara"
+        app:showAsAction="always"></item>
+
 </menu>
