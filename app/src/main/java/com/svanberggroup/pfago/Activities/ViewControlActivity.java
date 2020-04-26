@@ -139,7 +139,11 @@ public class ViewControlActivity extends AppCompatActivity {
 
         StringBuilder str = new StringBuilder();
         if(vehicle != null){
-            str.append(line("", getString(vehicle.getVehicleType().label)));
+            if(vehicle.getVehicleType()!= null){
+                str.append(line("", getString(vehicle.getVehicleType().label)));
+            } else {
+                str.append(line("", "Ingen fodrdonstyp angedd"));
+            }
             str.append(line("RegNr:", vehicle.getRegNr()));
             str.append(line("Nationalitet:", vehicle.getNationality()));
         } else {
@@ -220,16 +224,33 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(cardTitle(card), "Gods");
         Quantity qty = control.getQuantity();
         if(qty != null){
-            str.append(line("Mängd:", qty.getQuantity() + getString(qty.getQuantityType().label)));
-            str.append(line("Standard:", getString(qty.getPackagingStandard().label)));
+            if(qty.getQuantityType() != null) {
+                str.append(line("Mängd:", qty.getQuantity() + getString(qty.getQuantityType().label)));
+            }else {
+                str.append(line("Mängd:", ""));
+            }
+            if(qty.getPackagingStandard()!= null){
+                str.append(line("Standard:", getString(qty.getPackagingStandard().label)));
+            }else {
+                str.append(line("Mängd:",  ""));
+            }
             str.append(line("Värdeberäknad mängd:", "" + control.getValueQuantity()));
 
             str.append(line("Överskriden:", control.isValueQuantityExceeded() ? "Ja" : "Nej"));
             setText(cardLeft(card), str.toString());
 
             str = new StringBuilder();
-            str.append(line("Transport med:", getString(control.getTransportType().label)));
-            str.append(line("Transport enligt:", getString(control.getTransportStandard().label)));
+            if(control.getTransportType()!=null){
+                str.append(line("Transport med:", getString(control.getTransportType().label)));
+            } else {
+                str.append(line("Transport med:", ""));
+            }
+            if(control.getTransportStandard()!=null){
+                str.append(line("Transport enligt:", getString(control.getTransportStandard().label)));
+            }else {
+                str.append(line("Transport enligt:", ""));
+            }
+
             setText(cardRight(card), str.toString());
         } else {
             str.append("Ej tillagt");
@@ -460,7 +481,6 @@ public class ViewControlActivity extends AppCompatActivity {
     }
 
     private void setApprovalButtons(List<View> views){
-        Toast.makeText(this, "Approval mode is on", Toast.LENGTH_LONG).show();
         View view = layoutInflater.inflate(R.layout.control_approval_buttons, cardsLinearLayout,false);
         Button approvalButton = view.findViewById(R.id.approve_button);
         approvalButton.setOnClickListener(new View.OnClickListener() {

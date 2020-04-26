@@ -120,7 +120,6 @@ public class AddControlActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.doneControl:
-                ControlRepository.get().addControl(control);
                 Intent intent = new Intent(this, ViewControlActivity.class);
                 intent.putExtra("control", control);
                 intent.putExtra("approvalMode", true);
@@ -146,15 +145,13 @@ public class AddControlActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Toast.makeText(this, "Bild sparad i fliken bilder", Toast.LENGTH_LONG).show();
             control.addImage(new ImageData(currentPhotoPath));
-        }
-        if (requestCode == REQUEST_CONTROL_APPROVAL && resultCode == RESULT_OK) {
-            //Toast.makeText(this, "Kontrollen är godkänd", Toast.LENGTH_LONG).show();
+        } else if (requestCode == REQUEST_CONTROL_APPROVAL) {
+
             Boolean approved = data.getBooleanExtra("approved", false);
             if(approved){
                 ControlRepository.get().addControl(control);
                 finish();
             }
-
         }
     }
 

@@ -19,5 +19,5 @@
         android:layout_weight="1"
         android:layout_margin="16dp"
         android:background="@color/green"></Button>
-    
+
 </LinearLayout>

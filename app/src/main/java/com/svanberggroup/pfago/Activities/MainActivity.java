@@ -218,10 +218,20 @@ public class MainActivity extends AppCompatActivity {
             str.append(line("Förare: ", control.getDriver().getName()));
         }
         if(control.getTruck() != null) {
-            str.append(line(getString(control.getTruck().getVehicleType().label) + ":", control.getTruck().getRegNr() + " " + control.getTruck().getNationality()));
+            if(control.getTruck().getVehicleType()!=null){
+                str.append(line(getString(control.getTruck().getVehicleType().label) + ":", control.getTruck().getRegNr() + " " + control.getTruck().getNationality()));
+            } else {
+                str.append(line("Lastbil:", control.getTruck().getRegNr() + " " + control.getTruck().getNationality()));
+            }
+
         }
         if(control.getTrailer() != null) {
-            str.append(line(getString(control.getTrailer().getVehicleType().label) + ":", control.getTrailer().getRegNr() + " " + control.getTrailer().getNationality()));
+            if(control.getTrailer().getVehicleType() != null) {
+                str.append(line(getString(control.getTrailer().getVehicleType().label) + ":", control.getTrailer().getRegNr() + " " + control.getTrailer().getNationality()));
+            } else {
+                str.append(line("Okänd släptyp:", control.getTrailer().getRegNr() + " " + control.getTrailer().getNationality()));
+            }
+
         }
         return str.toString();
     }
