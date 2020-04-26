@@ -175,14 +175,43 @@ public class AddControlActivity extends AppCompatActivity {
                 Boolean approved = data.getBooleanExtra("approved", false);
                 if(approved){
                     Toast.makeText(this,"Kontrollen sparad", Toast.LENGTH_LONG).show();
+                    control.setEndDate(new Date());
                     ControlRepository.get().addControl(control);
-                    finish();
+                    showOptionsAlert();
+
                 }
             }
         }
             Log.i("CAMERA_RESULT", "requestCode:" + requestCode + " RESULT: " + resultCode);
     }
+    private void showOptionsAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+        builder.setCancelable(false);
+        builder.setMessage("Vill du skicka rapporten i ett mail?");
+        builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_SUBJECT, "FAGO Kontroll");
+                if(control.getTruck()!=null){
+                    intent.putExtra(Intent.EXTRA_TEXT, "Se bifogat PDF av FAGO kontroll för " + control.getTruck().getRegNr());
+                }
+                intent.setType("message/rfc822");
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.setNegativeButton("Nej", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                finish();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
     // CAMERA ----------STUFF
 
     public void dispatchTakePictureIntent() {

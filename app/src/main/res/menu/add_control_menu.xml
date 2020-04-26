@@ -5,11 +5,11 @@
         android:id="@+id/cameraControl"
         android:icon="@drawable/ic_camera"
         android:title="Bild"
-        app:showAsAction="always"></item>
+        app:showAsAction="ifRoom|withText"></item>
     <item
         android:id="@+id/doneControl"
         android:icon="@drawable/ic_save"
         android:title="Spara"
-        app:showAsAction="always"></item>
+        app:showAsAction="ifRoom|withText"></item>
 
 </menu>

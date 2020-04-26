@@ -55,6 +55,21 @@ public class ViewControlActivity extends AppCompatActivity {
         layoutInflater = (LayoutInflater) getApplicationContext().getSystemService((Context.LAYOUT_INFLATER_SERVICE));
 
         cardsLinearLayout = findViewById(R.id.cards_linear_layout);
+        if(!isApprovalMode){
+            if(control.getTruck()!= null){
+                setTitle("Kontroll: " + control.getTruck().getRegNr());
+            } else {
+                setTitle("Kontroll");
+            }
+
+        } else {
+            if(control.getTruck()!= null){
+                setTitle("Granska Kontroll: " + control.getTruck().getRegNr());
+            } else {
+                setTitle("Granska Kontroll");
+            }
+
+        }
 
         setCards();
     }
