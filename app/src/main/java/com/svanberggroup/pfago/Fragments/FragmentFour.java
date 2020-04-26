@@ -235,7 +235,6 @@ public class FragmentFour extends Fragment {
                 }
             }
         });
-
         typeOfDocumentABCRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -835,6 +834,7 @@ public class FragmentFour extends Fragment {
                         || chooseTypeOfDocumentRadioGroup.getCheckedRadioButtonId() != -1) {
                     return false;
                 }
+                break;
             case WritenInstruction:
                 if (writenInstruktionRiskCategoryEditText.getText().length() > 0
                         || writenInstruktionNotesEditText.getText().length() > 0
@@ -842,6 +842,7 @@ public class FragmentFour extends Fragment {
                         || writenInstruktionRadioGroup.getCheckedRadioButtonId() != -1) {
                     return false;
                 }
+                break;
             case Approval:
                 if (typeOfApprovalRiskCategoryEditText.getText().length() > 0
                         || typeOfApprovalNotesEditText.getText().length() > 0
@@ -849,6 +850,7 @@ public class FragmentFour extends Fragment {
                         || typeOfDocumentRadioGroup.getCheckedRadioButtonId() != -1) {
                     return false;
                 }
+                break;
             case Truck:
                 if (truckApprovalCertificateRiskCategoryEditText.getText().length() > 0
                         || truckApprovalCertificateNotesEditText.getText().length() > 0
@@ -856,6 +858,7 @@ public class FragmentFour extends Fragment {
                         || truckApprovalCertificateRadioGroup.getCheckedRadioButtonId() != -1) {
                     return false;
                 }
+                break;
             case Driver:
                 if (driverApprovalCertificateRiskCategoryEditText.getText().length() > 0
                         || truckApprovalCertificateNotesEditText.getText().length() > 0
@@ -863,6 +866,7 @@ public class FragmentFour extends Fragment {
                         || truckApprovalCertificateRadioGroup.getCheckedRadioButtonId() != -1) {
                     return false;
                 }
+                break;
             case Other:
                 if (otherApprovalCertificateRiskCategoryEditText.getText().length() > 0
                         || driverApprovalCertificateNotesEditText.getText().length() > 0
@@ -870,6 +874,7 @@ public class FragmentFour extends Fragment {
                         || driverApprovalCertificateRadioGroup.getCheckedRadioButtonId() != -1) {
                     return false;
                 }
+                break;
         }
         return true;
     }
