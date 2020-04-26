@@ -96,12 +96,12 @@ public class FragmentFour extends Fragment {
         control = (Control) getArguments().getSerializable(NEW_CONTROL);
 
         tdRows = new TransportDocumentRows();
-        goodsDeclarationRow = new ControlRow();
-        writtenInstructionsRow = new ControlRow();
-        typeOfApprovalRow = new ControlRow();
-        truckCertificateRow = new ControlRow();
-        driverCertificationRow = new ControlRow();
-        otherADRTrainingRow = new ControlRow();
+        goodsDeclarationRow = tdRows.getGoodsDeclarationRow();
+        writtenInstructionsRow = tdRows.getWrittenInstructionsRow();
+        typeOfApprovalRow = tdRows.getApprovalRow();
+        truckCertificateRow = tdRows.getApprovalCertificateRow();
+        driverCertificationRow = tdRows.getDriverCertificationRow();
+        otherADRTrainingRow = tdRows.getOtherADRTrainingRow();
 
     }
 
