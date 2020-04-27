@@ -93,14 +93,19 @@ public class FragmentOne extends Fragment {
                 switch (checkedId) {
                     case R.id.godsTerminalRadioButton:
                         control.setLocationType(Control.LocationType.CargoTerminal);
+                        break;
                     case R.id.companyVisitRadioButton:
                         control.setLocationType(Control.LocationType.CompanyVisit);
+                        break;
                     case R.id.roadRadioButton:
                         control.setLocationType(Control.LocationType.Road);
+                        break;
                     case R.id.harbourTerminalRadioButton:
                         control.setLocationType(Control.LocationType.PortTerminal);
+                        break;
                     case R.id.systemRadioButton:
                         control.setLocationType(Control.LocationType.System);
+                        break;
                 }
             }
         });
@@ -217,12 +222,15 @@ public class FragmentOne extends Fragment {
             case R.id.trailerRadioButton:
                 trailer.setVehicleType(Vehicle.VehicleType.Trailer);
                 id = R.id.trailerRadioButton;
+                break;
             case R.id.semiTrailerRadioButton:
                 trailer.setVehicleType(Vehicle.VehicleType.SemiTrailer);
                 id = R.id.semiTrailerRadioButton;
+                break;
             case R.id.containerRadioButton:
                 trailer.setVehicleType(Vehicle.VehicleType.Container);
                 id = R.id.containerRadioButton;
+                break;
         }
 
         if (trailerCountryEditText.getText().length() > 0) {
