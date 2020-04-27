@@ -46,14 +46,19 @@ public class ControlRepository {
         List<Control> matchedControls = new ArrayList<>();
 
         for(Control control : controls) {
-            Boolean isTruck = control.getTruck().getRegNr().toLowerCase().equals(regNr.toLowerCase());
-            Boolean isTrailer = control.getTrailer().getRegNr().toLowerCase().equals(regNr.toLowerCase());
+            Boolean isTruck = false;
+            Boolean isTrailer = false;
 
+            if(control.getTruck() != null){
+                isTruck = control.getTruck().getRegNr().toLowerCase().equals(regNr.toLowerCase());
+            }
+            if(control.getTrailer() != null){
+                isTrailer = control.getTrailer().getRegNr().toLowerCase().equals(regNr.toLowerCase());
+            }
             if(isTruck || isTrailer) {
                 matchedControls.add(control);
             }
         }
-
         return matchedControls;
     }
 

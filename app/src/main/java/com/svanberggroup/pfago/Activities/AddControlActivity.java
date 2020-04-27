@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -42,9 +44,11 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.svanberggroup.pfago.Fragments.FragmentOne;
 import com.svanberggroup.pfago.Models.Control;
+import com.svanberggroup.pfago.Models.ImageData;
 import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Repository.ControlRepository;
+import com.svanberggroup.pfago.Utils.PictureUtils;
 import com.svanberggroup.pfago.Utils.ViewPagerAdapter;
 
 import java.io.File;
@@ -63,6 +67,8 @@ public class AddControlActivity extends AppCompatActivity {
     private String currentPhotoPath;
     private File photoFile;
 
+    private static final int REQUEST_IMAGE_CAPTURE = 115;
+    private static final int REQUEST_CONTROL_APPROVAL = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,14 +122,40 @@ public class AddControlActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.doneControl:
-                ControlRepository.get().addControl(control);
+                Intent intent = new Intent(this, ViewControlActivity.class);
+                intent.putExtra("control", control);
+                intent.putExtra("approvalMode", true);
+                startActivityForResult(intent, REQUEST_CONTROL_APPROVAL);
                 break;
             case R.id.cameraControl:
                 dispatchTakePictureIntent();
+
                 break;
             default: return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage("Är du säker på att du vill avsluta utan att spara?");
+        builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("Nej", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private ViewPagerAdapter createCardAdapter() {
@@ -131,11 +163,58 @@ public class AddControlActivity extends AppCompatActivity {
         return adapter;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("CAMERA_RESULT", "onActivityResult");
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Toast.makeText(this, "Bild sparad i fliken bilder", Toast.LENGTH_LONG).show();
+            control.addImage(new ImageData(currentPhotoPath));
+        } else if (requestCode == REQUEST_CONTROL_APPROVAL) {
+            if(data != null){
+                Boolean approved = data.getBooleanExtra("approved", false);
+                if(approved){
+                    Toast.makeText(this,"Kontrollen sparad", Toast.LENGTH_LONG).show();
+                    control.setEndDate(new Date());
+                    ControlRepository.get().addControl(control);
+                    showOptionsAlert();
+
+                }
+            }
+        }
+            Log.i("CAMERA_RESULT", "requestCode:" + requestCode + " RESULT: " + resultCode);
+    }
+    private void showOptionsAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setCancelable(false);
+        builder.setMessage("Vill du skicka rapporten i ett mail?");
+        builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra(Intent.EXTRA_SUBJECT, "FAGO Kontroll");
+                if(control.getTruck()!=null){
+                    intent.putExtra(Intent.EXTRA_TEXT, "Se bifogat PDF av FAGO kontroll för " + control.getTruck().getRegNr());
+                }
+                intent.setType("message/rfc822");
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.setNegativeButton("Nej", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                finish();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
     // CAMERA ----------STUFF
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-
-    private void dispatchTakePictureIntent() {
+    public void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -144,6 +223,8 @@ public class AddControlActivity extends AppCompatActivity {
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
+                Log.i("CAMERA_RESULT", "Error: "+ ex.getMessage());
+                ex.printStackTrace();
                 // Error occurred while creating the File
 
             }
@@ -153,19 +234,13 @@ public class AddControlActivity extends AppCompatActivity {
                         "com.svanberggroup.pfago.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                Log.i("CAMERA_RESULT", "requestCode:" + REQUEST_IMAGE_CAPTURE + " photofile path: " + photoFile.getAbsolutePath());
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Toast.makeText(this, "Bild sparad i fliken bilder", Toast.LENGTH_LONG).show();
-            control.addPhotoPath(currentPhotoPath);
-        }
-    }
+
 
 
     private File createImageFile() throws IOException {

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
@@ -13,18 +15,44 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/card_title"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="Bild"
-                android:textColor="@color/white"
-                android:background="@color/colorPrimary"/>
+                android:orientation="horizontal"
+                android:background="@color/colorPrimary">
+                <TextView
+                    android:id="@+id/card_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="Bild"
+                    android:textColor="@color/white"
+                    />
+                <ImageButton
+                    android:id="@+id/delete_button"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginRight="16dp"
+                    app:srcCompat="@drawable/ic_delete"
+                    android:background="@android:color/transparent"/>
 
+            </LinearLayout>
+            <EditText
+                android:hint="Beskrivning"
+                android:layout_margin="8dp"
+                android:id="@+id/edit_image_text"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="text"
+                android:background="@color/cardview_light_background"
+
+                ></EditText>
             <androidx.appcompat.widget.AppCompatImageView
 
                 android:id="@+id/image_view"
+                android:layout_margin="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
@@ -32,6 +60,7 @@
 
             </androidx.appcompat.widget.AppCompatImageView>
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

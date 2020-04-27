@@ -3,17 +3,23 @@ package com.svanberggroup.pfago.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.Fault;
 import com.svanberggroup.pfago.Models.Goods;
+import com.svanberggroup.pfago.Models.ImageData;
 import com.svanberggroup.pfago.Models.Quantity;
 import com.svanberggroup.pfago.Models.SafetyAdvisor;
 import com.svanberggroup.pfago.Models.TransportDocumentRows;
@@ -23,6 +29,7 @@ import com.svanberggroup.pfago.Models.Transporter;
 import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Repository.ControlRepository;
+import com.svanberggroup.pfago.Utils.PictureUtils;
 
 
 import java.text.SimpleDateFormat;
@@ -31,20 +38,38 @@ import java.util.List;
 
 public class ViewControlActivity extends AppCompatActivity {
     private Control control;
+    private boolean isApprovalMode;
     private LinearLayout  cardsLinearLayout;
+
+    private static final int REQUEST_CONTROL_APPROVAL = 5;
 
     private LayoutInflater layoutInflater;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_control);
-        int id = getIntent().getIntExtra("control_id", 0);
 
+        control = (Control) getIntent().getSerializableExtra("control");
+        isApprovalMode = getIntent().getBooleanExtra("approvalMode", false);
         ControlRepository repo = ControlRepository.get();
         layoutInflater = (LayoutInflater) getApplicationContext().getSystemService((Context.LAYOUT_INFLATER_SERVICE));
-        control = repo.getControlById(id);
 
         cardsLinearLayout = findViewById(R.id.cards_linear_layout);
+        if(!isApprovalMode){
+            if(control.getTruck()!= null){
+                setTitle("Kontroll: " + control.getTruck().getRegNr());
+            } else {
+                setTitle("Kontroll");
+            }
+
+        } else {
+            if(control.getTruck()!= null){
+                setTitle("Granska Kontroll: " + control.getTruck().getRegNr());
+            } else {
+                setTitle("Granska Kontroll");
+            }
+
+        }
 
         setCards();
     }
@@ -67,6 +92,10 @@ public class ViewControlActivity extends AppCompatActivity {
         setProhibitionCard(addCardView(cards));
         setSubmissionCard(addCardViewFullWidth(cards));
         setReportsCard(addCardView(cards));
+        setImagesCard(addImagesCardView(cards));
+        if(isApprovalMode){
+            setApprovalButtons(cards);
+        }
 
         displayViews(cardsLinearLayout, cards);
     }
@@ -109,7 +138,7 @@ public class ViewControlActivity extends AppCompatActivity {
         str = new StringBuilder();
         formatter = new SimpleDateFormat("HH:mm");
 
-        str.append(line("Start:", startDate));
+        str.append(line("Start:", formatter.format(control.getStartDate())));
 
         String endDate = "";
         if(control.getEndDate() != null){
@@ -130,7 +159,11 @@ public class ViewControlActivity extends AppCompatActivity {
 
         StringBuilder str = new StringBuilder();
         if(vehicle != null){
-            str.append(line("", getString(vehicle.getVehicleType().label)));
+            if(vehicle.getVehicleType()!= null){
+                str.append(line("", getString(vehicle.getVehicleType().label)));
+            } else {
+                str.append(line("", "Ingen fodrdonstyp angedd"));
+            }
             str.append(line("RegNr:", vehicle.getRegNr()));
             str.append(line("Nationalitet:", vehicle.getNationality()));
         } else {
@@ -211,16 +244,33 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(cardTitle(card), "Gods");
         Quantity qty = control.getQuantity();
         if(qty != null){
-            str.append(line("Mängd:", qty.getQuantity() + getString(qty.getQuantityType().label)));
-            str.append(line("Standard:", getString(qty.getPackagingStandard().label)));
+            if(qty.getQuantityType() != null) {
+                str.append(line("Mängd:", qty.getQuantity() + getString(qty.getQuantityType().label)));
+            }else {
+                str.append(line("Mängd:", ""));
+            }
+            if(qty.getPackagingStandard()!= null){
+                str.append(line("Standard:", getString(qty.getPackagingStandard().label)));
+            }else {
+                str.append(line("Mängd:",  ""));
+            }
             str.append(line("Värdeberäknad mängd:", "" + control.getValueQuantity()));
 
             str.append(line("Överskriden:", control.isValueQuantityExceeded() ? "Ja" : "Nej"));
             setText(cardLeft(card), str.toString());
 
             str = new StringBuilder();
-            str.append(line("Transport med:", getString(control.getTransportType().label)));
-            str.append(line("Transport enligt:", getString(control.getTransportStandard().label)));
+            if(control.getTransportType()!=null){
+                str.append(line("Transport med:", getString(control.getTransportType().label)));
+            } else {
+                str.append(line("Transport med:", ""));
+            }
+            if(control.getTransportStandard()!=null){
+                str.append(line("Transport enligt:", getString(control.getTransportStandard().label)));
+            }else {
+                str.append(line("Transport enligt:", ""));
+            }
+
             setText(cardRight(card), str.toString());
         } else {
             str.append("Ej tillagt");
@@ -450,6 +500,49 @@ public class ViewControlActivity extends AppCompatActivity {
         setText(cardRight(card), str.toString());
     }
 
+    private void setImagesCard(View card){
+        setText(cardTitle(card), "Bilder");
+        LinearLayout linearLayout = card.findViewById(R.id.row_linear_layout);
+        ArrayList<View> rows = new ArrayList<>();
+        for(ImageData image : control.getImages()){
+            View row = layoutInflater.inflate(R.layout.images_card_row, linearLayout,false);
+            TextView textView = row.findViewById(R.id.image_text);
+            textView.setText(image.getText());
+
+            ImageView imageView = row.findViewById(R.id.image);
+            Bitmap bitmap = PictureUtils.getScaledBitmap(image.getPath(), 1000, 800);
+            imageView.setImageBitmap(bitmap);
+            rows.add(row);
+        }
+        displayViews(linearLayout, rows);
+    }
+
+    private void setApprovalButtons(List<View> views){
+        View view = layoutInflater.inflate(R.layout.control_approval_buttons, cardsLinearLayout,false);
+        Button approvalButton = view.findViewById(R.id.approve_button);
+        approvalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                approveControl(true);
+            }
+        });
+        Button declineButton = view.findViewById(R.id.decline_button);
+        declineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                approveControl(false);
+            }
+        });
+        views.add(view);
+
+    }
+    private void approveControl(boolean decision){
+        Intent intent = new Intent();
+        intent.putExtra("approved", decision);
+        setResult(REQUEST_CONTROL_APPROVAL, intent);
+        finish();
+    }
+
     private View addCardView(List<View> views){
         View view = layoutInflater.inflate(R.layout.view_control_card, cardsLinearLayout,false);
         views.add(view);
@@ -468,6 +561,11 @@ public class ViewControlActivity extends AppCompatActivity {
 
     private View addRowsCardView(List<View> views){
         View view = layoutInflater.inflate(R.layout.view_control_rows_card, cardsLinearLayout,false);
+        views.add(view);
+        return view;
+    }
+    private View addImagesCardView(List<View> views){
+        View view = layoutInflater.inflate(R.layout.view_control_images_card, cardsLinearLayout,false);
         views.add(view);
         return view;
     }

@@ -195,13 +195,13 @@ public class FragmentOne extends Fragment {
         if (truck == null) { truck = new Vehicle(); }
 
         if (vehicleCountryEditText.getText().length() > 0) {
-            truck.setNationality(vehicleCountryEditText.getText().toString());
+            truck.setNationality(vehicleCountryEditText.getText().toString().toUpperCase());
         } else if (vehicleCountryEditText.getText().length() == 0) {
             truck.setNationality(null);
         }
 
         if (vehicleLicensePlateEditText.getText().length() > 0) {
-            truck.setRegNr(vehicleLicensePlateEditText.getText().toString());
+            truck.setRegNr(vehicleLicensePlateEditText.getText().toString().toUpperCase());
         } else if (vehicleLicensePlateEditText.getText().length() == 0) {
             truck.setRegNr(null);
         }
@@ -234,12 +234,12 @@ public class FragmentOne extends Fragment {
         }
 
         if (trailerCountryEditText.getText().length() > 0) {
-            trailer.setNationality(trailerCountryEditText.getText().toString());
+            trailer.setNationality(trailerCountryEditText.getText().toString().toUpperCase());
         } else if (trailerCountryEditText.getText().length() == 0) {
             trailer.setNationality(null);
         }
         if (trailerLicensePlateEditText.getText().length() > 0) {
-            trailer.setRegNr(trailerLicensePlateEditText.getText().toString());
+            trailer.setRegNr(trailerLicensePlateEditText.getText().toString().toUpperCase());
         } else if (trailerLicensePlateEditText.getText().length() == 0) {
             trailer.setRegNr(null);
         }

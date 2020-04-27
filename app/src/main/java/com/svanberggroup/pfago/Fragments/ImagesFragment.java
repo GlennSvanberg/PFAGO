@@ -1,26 +1,36 @@
 package com.svanberggroup.pfago.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.svanberggroup.pfago.Activities.AddControlActivity;
 import com.svanberggroup.pfago.Models.Control;
+import com.svanberggroup.pfago.Models.ImageData;
 import com.svanberggroup.pfago.R;
+import com.svanberggroup.pfago.Utils.PictureUtils;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -32,9 +42,13 @@ public class ImagesFragment extends Fragment {
 
 
     private static final String NEW_CONTROL = "new_control";
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
     private Control control;
     private LinearLayout  cardsLinearLayout;
+    private Button addImageButton;
+
     private List<View> views;
+
 
     public ImagesFragment() {
         // Required empty public constructor
@@ -68,19 +82,81 @@ public class ImagesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_images, container, false);
         cardsLinearLayout = view.findViewById(R.id.linear_layout);
+        addImageButton = view.findViewById(R.id.add_image_button);
 
-
-
-        for(String path : control.getPhotoPathList()) {
-            Log.i("IMAGE_PATH", path);
-            View v = inflater.inflate(R.layout.image_card, cardsLinearLayout, false);
-            views.add(v);
-            ImageView imageView = v.findViewById(R.id.image_view);
-            Bitmap bitmap = getScaledBitmap(path, 1400,800);
-            imageView.setImageBitmap(bitmap);
-        }
-        displayViews(cardsLinearLayout, views);
+        updateUI(inflater);
+        addImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((AddControlActivity)getActivity()).dispatchTakePictureIntent();
+            }
+        });
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService((Context.LAYOUT_INFLATER_SERVICE));
+        updateUI(inflater);
+
+
+    }
+    private void updateUI(LayoutInflater inflater){
+        if(views.size() != control.getImages().size()){
+            cardsLinearLayout.removeAllViews();
+
+            views = new ArrayList<>();
+            List<ImageData> images = control.getImages();
+            for(int i = 0; i < images.size(); i++) {
+                View v = inflater.inflate(R.layout.image_card, cardsLinearLayout, false);
+                views.add(v);
+                final ImageData image = images.get(i);
+                ImageView imageView = v.findViewById(R.id.image_view);
+                Bitmap bitmap = getScaledBitmap(image.getPath(), 1400,800);
+                imageView.setImageBitmap(bitmap);
+
+                TextView textView = v.findViewById(R.id.card_title);
+                textView.setText("Bild " + (i + 1));
+
+                ImageButton deleteButton = v.findViewById(R.id.delete_button);
+                deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        images.remove(image);
+                        updateUI(inflater);
+                    }
+                });
+
+                EditText editText = v.findViewById(R.id.edit_image_text);
+                if(image.getText() != ""){
+                    editText.setText(image.getText());
+                }
+                editText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        if(s.length() > 0) {
+                            control.setLocation(s.toString());
+                            image.setText(s.toString());
+                        } else {
+                            image.setText("");
+                        }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+            }
+            displayViews(cardsLinearLayout, views);
+        }
+
     }
 
     private void displayViews(LinearLayout layout, List<View> views) {

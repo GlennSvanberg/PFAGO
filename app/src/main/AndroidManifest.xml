@@ -29,7 +29,7 @@
             android:label="@string/title_activity_r_i_b_substance" />
         <activity
             android:name=".Activities.AddControlActivity"
-            android:label="@string/add_control_activity_name" />
+            android:label="@string/add_control_activity_name"/>
         <activity
             android:name=".Activities.RIBActivity"
             android:label="@string/rib_activity_name" />

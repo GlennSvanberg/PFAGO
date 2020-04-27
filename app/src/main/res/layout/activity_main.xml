@@ -49,6 +49,8 @@
         android:id="@+id/buttons_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingTop="20dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +64,10 @@
             android:layout_height="wrap_content"
             android:text="RIB sök"
             android:background="@color/colorPrimary"
-            android:textColor="@color/white"></Button>
+            android:textColor="@color/white"
+            android:drawableRight="@drawable/ic_rib"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"></Button>
         <Button
             android:id="@+id/add_control_button"
             android:layout_margin="16dp"
@@ -71,7 +76,10 @@
             android:layout_height="wrap_content"
             android:text="Ny kontroll"
             android:background="@color/colorPrimary"
-            android:textColor="@color/white"></Button>
+            android:textColor="@color/white"
+            android:drawableRight="@drawable/ic_add"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"></Button>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

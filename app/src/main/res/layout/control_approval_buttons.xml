@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+    <Button
+        android:text="Redigera"
+        android:id="@+id/decline_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="16dp"
+        android:background="@color/red"
+        android:textColor="@color/white"
+        android:drawableRight="@drawable/ic_edit"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"></Button>
+    <Button
+        android:text="Godkänn"
+        android:id="@+id/approve_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="16dp"
+        android:background="@color/green"
+        android:textColor="@color/white"
+        android:drawableRight="@drawable/ic_approve"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"></Button>
+
+</LinearLayout>
