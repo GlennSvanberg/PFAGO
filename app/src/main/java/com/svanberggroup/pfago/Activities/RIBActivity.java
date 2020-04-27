@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -34,6 +35,7 @@ public class RIBActivity extends AppCompatActivity {
 
     private ArrayList<RibSearchResult> ribSearchResults;
     private EditText queryField;
+    private FrameLayout welcomeLayout;
     private ImageButton searchButton;
     private RecyclerView recyclerView;
     private RIBActivity.ControlAdapter adapter;
@@ -41,8 +43,6 @@ public class RIBActivity extends AppCompatActivity {
     private TextView welcomeText;
     private TextView noResults;
     private ProgressBar searchingRib;
-    private final String TITLE = "RIB: Farliga Ämnen";
-    private final String QUERY_HINT = "Ämne eller UN-nr.";
     private boolean isSearchMode = true;
 
     @SuppressLint("SetTextI18n")
@@ -50,30 +50,29 @@ public class RIBActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rib);
+        setTitle(RibMain.TITLE);
 
-        setTitle(TITLE);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setVisibility(View.GONE);
 
+        welcomeLayout = findViewById(R.id.ribWelcomeLayout);
         layoutManager = new LinearLayoutManager(this);
+
         recyclerView.setLayoutManager(layoutManager);
         ribSearchResults = new ArrayList<>();
-        ribSearchResults.add(new RibSearchResult("Ämnesnamn", "Klassifiering", "empty"));
-        //recyclerView.setVisibility(View.VISIBLE);
+
         welcomeText = findViewById(R.id.ribWelcome);
-        welcomeText.setAlpha((float)0.5);
-        welcomeText.setVisibility(View.VISIBLE);
+        welcomeText.setAlpha((float) 0.5);
 
         noResults = findViewById(R.id.noResults);
 
         searchingRib = findViewById(R.id.ridSearching);
 
 
-
         updateUI();
 
         queryField = (EditText) findViewById(R.id.query);
-        queryField.setHint(QUERY_HINT);
+        queryField.setHint(RibMain.QUERY_HINT);
+
         queryField.requestFocus();
         queryField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -83,11 +82,12 @@ public class RIBActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 isSearchMode = true;
+                noResults.setVisibility(View.GONE);
+
                 if (charSequence.length() == 0) {
-                    noResults.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.GONE);
                     searchingRib.setVisibility(View.GONE);
-                    welcomeText.setVisibility(View.VISIBLE);
+                    welcomeLayout.setVisibility(View.VISIBLE);
                     searchButton.setImageResource(R.drawable.ic_search);
                 }
             }
@@ -103,15 +103,17 @@ public class RIBActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 WebProvider webProvider = new WebProvider();
-                welcomeText.setVisibility(View.GONE);
-                searchingRib.setVisibility(View.VISIBLE);
+               // welcomeLayout.setVisibility(View.GONE);
+
                 if (isSearchMode) {
+                    welcomeLayout.setVisibility(View.GONE);
+                    searchingRib.setVisibility(View.VISIBLE);
                     ribSearchResults = webProvider.searchRib(queryField.getText().toString());
-                    if(ribSearchResults == null || ribSearchResults.isEmpty()){
-                        noResults.setText("Sökningen på [" + queryField.getText().toString() + "] gav inga resultat");
+                    if (ribSearchResults == null || ribSearchResults.isEmpty()) {
+                        noResults.setText("Sökningen på " + queryField.getText().toString() + " gav inga resultat");
                         noResults.setVisibility(View.VISIBLE);
                         searchingRib.setVisibility(View.GONE);
-                        welcomeText.setVisibility(View.GONE);
+                        welcomeLayout.setVisibility(View.GONE);
 
                     }
                     searchingRib.setVisibility(View.GONE);
@@ -142,7 +144,7 @@ public class RIBActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        welcomeText.setText(RibMain.Welcome);
+        welcomeText.setText(RibMain.WELCOME);
         adapter.notifyDataSetChanged();
     }
 
@@ -155,23 +157,38 @@ public class RIBActivity extends AppCompatActivity {
 
     private class ControlHolder extends RecyclerView.ViewHolder {
         private TextView title;
-        private TextView description;
+        private TextView descriptionStart;
+        private TextView descriptionEnd;
 
         public ControlHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.item_rib_list, parent, false));
+            findViewById(R.id.description1);
+            findViewById(R.id.description1);
             title = itemView.findViewById(R.id.name);
-            description = itemView.findViewById(R.id.description);
+            descriptionStart = itemView.findViewById(R.id.description1);
+            descriptionEnd = itemView.findViewById(R.id.description2);
         }
 
-        public void bind(RibSearchResult control) {
-            title.setText(control.getSubstance());
-            String text = null;
+        public void bind(RibSearchResult result) {
+            StringBuilder noteStart = new StringBuilder();
+            StringBuilder noteEnd = new StringBuilder();
+            ArrayList<String> notes = result.getNote();
+            title.setText(result.getSubstance());
+            if (notes != null) {
 
-            if (control.getNote() != null) {
-                text = control.getNote() + "\n";
+                for (int i = 0; i < notes.size(); i++) {
+                    if (i % 2 == 0) {
+                        if (i == notes.size() - 1) noteStart.append(notes.toArray()[i]);
+                        else noteStart.append(notes.toArray()[i]).append("\n");
+                    } else {
+                        if (i == notes.size() - 1) noteEnd.append(notes.toArray()[i]);
+                        else noteEnd.append(notes.toArray()[i]).append("\n");
+                    }
+                }
             }
 
-            description.setText(text);
+            descriptionStart.setText(noteStart.toString());
+            descriptionEnd.setText(noteEnd.toString());
         }
 
     }
@@ -198,14 +215,9 @@ public class RIBActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View view) {
-                    if (!ribSearchResult.getLink().equals("empty")) {
-                        Intent ribSubstanceIntent = new Intent(RIBActivity.this, RIBSubstanceActivity.class);
-                        ribSubstanceIntent.putExtra("url", ribSearchResult.getLink());
-                        ribSubstanceIntent.putExtra("substance", ribSearchResult.getSubstance());
-                        startActivity(ribSubstanceIntent);
-                    }
-                    else
-                        onStart();
+                    Intent ribSubstanceIntent = new Intent(RIBActivity.this, RIBSubstanceActivity.class);
+                    ribSubstanceIntent.putExtra("url", ribSearchResult.getLink());
+                    startActivity(ribSubstanceIntent);
                 }
             });
 

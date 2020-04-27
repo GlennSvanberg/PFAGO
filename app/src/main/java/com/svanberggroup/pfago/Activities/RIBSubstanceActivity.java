@@ -6,16 +6,13 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.svanberggroup.pfago.R;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+import com.svanberggroup.pfago.Utils.Rib.Constants.RibWebJSInjection;
 
 public class RIBSubstanceActivity extends AppCompatActivity {
     private String url;
@@ -30,7 +27,6 @@ public class RIBSubstanceActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         url = bundle.getString("url");
-        String title = bundle.getString("substance");
 
         adrLoading = findViewById(R.id.adrLoading);
 
@@ -52,8 +48,8 @@ public class RIBSubstanceActivity extends AppCompatActivity {
         substanceView.getSettings().setUseWideViewPort(true);
         substanceView.getSettings().getBuiltInZoomControls();
         substanceView.getSettings().setJavaScriptEnabled(true);
-        substanceView.getSettings().setTextZoom(120);
-        substanceView.getSettings().setMinimumFontSize(10);
+        substanceView.getSettings().setTextZoom(160);
+        substanceView.getSettings().setMinimumFontSize(30);
         substanceView.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
         substanceView.setBackgroundColor(Color.argb(1, 0, 0, 0));
         substanceView.loadUrl(url);
@@ -67,10 +63,14 @@ public class RIBSubstanceActivity extends AppCompatActivity {
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                substanceView.loadUrl("javascript:(function() { " +
-                        "document.getElementById('flik9').style.display='block';})();" +
-                        "javascript:(function() { " +
-                        "document.getElementById('viewport').style.left='0px';})();");
+                substanceView.loadUrl(RibWebJSInjection.REMOVE_SIDE_MENU +
+                                RibWebJSInjection.SHOW_TRANSPORT +
+                                RibWebJSInjection.REMOVE_RIB_LINK+
+                                RibWebJSInjection.REMOVE_COLUMNS +
+                                RibWebJSInjection.ALIGN_VALUES
+
+
+                );
 
                 substanceView.setVisibility(View.VISIBLE);
 

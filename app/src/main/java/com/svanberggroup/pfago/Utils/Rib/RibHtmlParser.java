@@ -5,16 +5,29 @@ import com.svanberggroup.pfago.Utils.Rib.Constants.RibUrl;
 
 import org.jsoup.nodes.Element;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class RibHtmlParser {
     private String substance;
 
-    public String parseSubstance(Element element){
-       substance = element.select(HtmlAttr.LINK).html().split(">")[1].split("<")[0];
-       return substance;
+    public String parseSubstance(Element element) {
+        substance = element.select(HtmlAttr.LINK).html().split(">")[1].split("<")[0];
+        return substance;
     }
 
-    public String parseNote(Element element){
-      return element.select(HtmlAttr.INFO).html().replaceAll("\\<.*?\\>", "").replace(", ", "\n\n");
+    public ArrayList<String> parseNote(Element element) {
+        ArrayList<String> notes = new ArrayList<>();
+        String noteSelected = element.select(HtmlAttr.INFO).html()
+                .replaceAll("\\<.*?\\>", "");
+
+        if (noteSelected.contains(",")) {
+            String[] noteSplit = noteSelected.split(",");
+            Collections.addAll(notes, noteSplit);
+        } else {
+            notes.add("       Kategoriserat under " + noteSelected.replace("(", "").replace(")", "") + "\n");
+        }
+        return notes;
     }
 
     //Substance must be allocated

@@ -5,16 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
+    android:backgroundTint="#F44336"
+    android:backgroundTintMode="multiply"
     tools:context=".Activities.RIBActivity">
 
     <LinearLayout
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="62dp"
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
+        android:paddingLeft="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -22,21 +25,17 @@
             android:id="@+id/query"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="4dp"
             android:layout_weight="6"
             android:backgroundTint="#ec832d"
-            android:hint="Ämne"
             android:inputType="text"
-            android:textColor="#050404"
             android:textStyle="italic" />
 
         <ImageButton
             android:id="@+id/search_button"
-            android:layout_width="wrap_content"
+            android:layout_width="61dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="10dp"
+            android:layout_gravity="end"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:paddingLeft="5dp"
@@ -44,26 +43,53 @@
             app:srcCompat="@drawable/ic_search" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/ribWelcome"
+    <FrameLayout
+        android:id="@+id/ribWelcomeLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30sp"
-        android:alpha="50"
-        android:background="#D7EC832D"
-        android:backgroundTint="#FFFFFF"
-        android:lineSpacingExtra="8sp"
-        android:padding="10dp"
-        android:textAlignment="viewStart"
-        android:textColor="@color/black"
-        android:textStyle="italic"
-        android:visibility="visible"
+        android:layout_height="291dp"
+        android:alpha="20"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linear_layout"
-        app:layout_constraintVertical_bias="0.14" />
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout"
+        app:layout_constraintVertical_bias="0.204"
+        tools:layout_editor_absoluteX="43dp">
+
+        <TextView
+            android:id="@+id/ribWelcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:alpha="50"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linear_layout"
+            app:layout_constraintVertical_bias="0.14" />
+        <ProgressBar
+            android:id="@+id/ridSearching"
+            android:layout_width="237dp"
+            android:layout_height="169dp"
+            android:layout_gravity="bottom|center"
+            android:alpha="10"
+            android:elevation="@dimen/cardview_compat_inset_shadow"
+            android:indeterminateTint="@color/adrOrange"
+            android:progressTint="@color/adrOrange"
+            android:visibility="gone" />
+        <ImageView
+            android:layout_width="237dp"
+            android:layout_height="169dp"
+            android:layout_gravity="bottom|center"
+            android:alpha="10"
+            android:elevation="@dimen/cardview_compat_inset_shadow"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_search" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/noResults"
@@ -84,13 +110,7 @@
         app:layout_constraintTop_toTopOf="@+id/linear_layout"
         app:layout_constraintVertical_bias="0.14" />
 
-    <ProgressBar
-        android:id="@+id/ridSearching"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:indeterminateTint="@color/adrOrange"
-        android:progressTint="@color/adrOrange"
-        android:visibility="gone" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -99,7 +119,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="22dp"
         android:layout_marginEnd="16dp"
-        android:background="#666"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

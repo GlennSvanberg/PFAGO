@@ -7,7 +7,7 @@
     android:background="#666"
     tools:context=".Activities.RIBSubstanceActivity">
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/web_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,10 +19,11 @@
 
         <ProgressBar
             android:id="@+id/adrLoading"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             android:layout_gravity="top"
             android:background="#666"
+            android:layout_centerInParent="true"
             android:indeterminateTint="@color/adrOrange"
             android:progressTint="@color/adrOrange"
             android:visibility="visible"
@@ -35,6 +36,6 @@
             android:background="#666"
             android:visibility="gone"
             android:layout_gravity="bottom" />
-    </FrameLayout>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
