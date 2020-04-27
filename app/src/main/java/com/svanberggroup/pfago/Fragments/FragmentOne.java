@@ -192,7 +192,9 @@ public class FragmentOne extends Fragment {
 
         Vehicle truck = control.getTruck();
 
+
         if (truck == null) { truck = new Vehicle(); }
+        truck.setVehicleType(Vehicle.VehicleType.Truck);
 
         if (vehicleCountryEditText.getText().length() > 0) {
             truck.setNationality(vehicleCountryEditText.getText().toString().toUpperCase());
