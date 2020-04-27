@@ -299,8 +299,8 @@ public class FragmentFive extends Fragment {
                         handlingRow.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow22_1(handlingRow);
                         control.setTRows(tRows);
-
                         break;
+
                     case R.id.handlingNotApplicableRadioButton:
                         setVisibilityFor(Transport.handling, View.GONE);
                         handlingRow.setField(ControlRow.Field.NotApplicable);
@@ -324,8 +324,8 @@ public class FragmentFive extends Fragment {
                         loadingRow.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow22_2(loadingRow);
                         control.setTRows(tRows);
-
                         break;
+
                     case R.id.loadingNotApplicableRadioButton:
                         setVisibilityFor(Transport.loading, View.GONE);
                         clearFieldsForView(Transport.loading);
@@ -1023,6 +1023,7 @@ public class FragmentFive extends Fragment {
                 bannedMixedCargoRow.setBanned(false);
                 tRows.setRow21(bannedMixedCargoRow);
                 control.setTRows(tRows);
+                break;
         }
 
     }

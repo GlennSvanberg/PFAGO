@@ -100,9 +100,15 @@ public class AddControlActivity extends AppCompatActivity {
                                 tab.setText("Handlingar");
                                 break;
                             case 5:
-                                tab.setText("Transport");
+                                tab.setText("Handlingar1");
                                 break;
                             case 6:
+                                tab.setText("Transport");
+                                break;
+                            case 7:
+                                tab.setText("Övrigt");
+                                break;
+                            case 8:
                                 tab.setText("Bilder");
                                 break;
                         }

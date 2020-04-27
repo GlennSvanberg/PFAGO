@@ -3,10 +3,13 @@ package com.svanberggroup.pfago.Fragments;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +31,7 @@ public class FragmentTwo extends Fragment {
         sender,
         reciver
     }
+
 
     private static final String NEW_CONTROL = "new_control";
 
@@ -67,6 +71,11 @@ public class FragmentTwo extends Fragment {
     private TransportLocation sender;
     private TransportLocation reciver;
 
+    private ToggleButton coDriverToggleButton;
+    private ToggleButton senderToggleButton;
+    private ToggleButton reciverToggleButton;
+
+
     private Control control;
 
     public FragmentTwo() {
@@ -103,8 +112,36 @@ public class FragmentTwo extends Fragment {
         handleTextChangedforCoDriver();
         handleTextChangeForSender();
         handleTextChangeForReciver();
+        handleToggleShowHide();
+
+        setViewsVisibility(TransporterType.sender, View.GONE);
+        setViewsVisibility(TransporterType.coDriver, View.GONE);
+        setViewsVisibility(TransporterType.reciver, View.GONE);
 
         return view;
+    }
+
+    private void setViewsVisibility(TransporterType transporterType, int visibility) {
+        switch (transporterType) {
+            case coDriver:
+                coDriverEditText.setVisibility(visibility);
+                coDriverAddressEditText.setVisibility(visibility);
+                coDriverCityEditText.setVisibility(visibility);
+                coDriverCountryEditText.setVisibility(visibility);
+                coDriverPhoneEditText.setVisibility(visibility);
+                coDriverZIPEditText.setVisibility(visibility);
+                break;
+            case sender:
+                senderPlace.setVisibility(visibility);
+                senderPhone.setVisibility(visibility);
+                senderAdress.setVisibility(visibility);
+                break;
+            case reciver:
+                reciverPhone.setVisibility(visibility);
+                reciverAdress.setVisibility(visibility);
+                reciverPlace.setVisibility(visibility);
+                break;
+        }
     }
 
     private void addViewById(View view) {
@@ -129,14 +166,17 @@ public class FragmentTwo extends Fragment {
         coDriverZIPEditText = view.findViewById(R.id.coDriverZIPEditText);
         coDriverCityEditText = view.findViewById(R.id.coDriverCityEditText);
         coDriverCountryEditText = view.findViewById(R.id.coDriverCountryEditText);
+        coDriverToggleButton = view.findViewById(R.id.coDriverToggleButton);
 
         senderPlace = view.findViewById(R.id.senderLoadPlaceEditText);
         senderPhone = view.findViewById(R.id.senderPhoneEditText);
         senderAdress = view.findViewById(R.id.senderEditText);
+        senderToggleButton = view.findViewById(R.id.senderToggleButton);
 
         reciverPlace = view.findViewById(R.id.reciverUnloadPlaceEditText);
         reciverPhone = view.findViewById(R.id.reciverPhoneEditText);
         reciverAdress = view.findViewById(R.id.reciverAdressEditText);
+        reciverToggleButton = view.findViewById(R.id.reciverToggleButton);
 
     }
 
@@ -487,6 +527,31 @@ public class FragmentTwo extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    private void handleToggleShowHide() {
+        coDriverToggleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked) {
+
+                setViewsVisibility(TransporterType.coDriver, View.VISIBLE);
+            } else {
+                setViewsVisibility(TransporterType.coDriver, View.GONE);
+            }
+        });
+        senderToggleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                setViewsVisibility(TransporterType.sender, View.VISIBLE);
+            } else {
+                setViewsVisibility(TransporterType.sender, View.GONE);
+            }
+        });
+        reciverToggleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                setViewsVisibility(TransporterType.reciver, View.VISIBLE);
+            } else {
+                setViewsVisibility(TransporterType.reciver, View.GONE);
             }
         });
     }

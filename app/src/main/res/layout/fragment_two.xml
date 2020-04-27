@@ -382,6 +382,39 @@
             app:layout_constraintStart_toEndOf="@+id/reciverUnloadPlaceEditText"
             app:layout_constraintTop_toBottomOf="@+id/reciverAdressEditText" />
 
+        <ToggleButton
+            android:id="@+id/coDriverToggleButton"
+            android:layout_width="65dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="10dp"
+            android:textOff="Visa"
+            android:textOn="Dölj"
+            app:layout_constraintBottom_toBottomOf="@+id/coDriverTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/coDriverTextView" />
+
+        <ToggleButton
+            android:id="@+id/senderToggleButton"
+            android:layout_width="65dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="10dp"
+            android:textOff="Visa"
+            android:textOn="Dölj"
+            app:layout_constraintBottom_toBottomOf="@+id/senderTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/senderTextView" />
+
+        <ToggleButton
+            android:id="@+id/reciverToggleButton"
+            android:layout_width="65dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="10dp"
+            android:textOff="Visa"
+            android:textOn="Dölj"
+            app:layout_constraintBottom_toBottomOf="@+id/reciverTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/reciverTextView" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
