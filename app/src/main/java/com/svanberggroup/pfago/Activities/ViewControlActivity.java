@@ -50,7 +50,7 @@ public class ViewControlActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_control);
 
         control = (Control) getIntent().getSerializableExtra("control");
-        isApprovalMode =getIntent().getBooleanExtra("approvalMode", false);
+        isApprovalMode = getIntent().getBooleanExtra("approvalMode", false);
         ControlRepository repo = ControlRepository.get();
         layoutInflater = (LayoutInflater) getApplicationContext().getSystemService((Context.LAYOUT_INFLATER_SERVICE));
 
@@ -138,7 +138,7 @@ public class ViewControlActivity extends AppCompatActivity {
         str = new StringBuilder();
         formatter = new SimpleDateFormat("HH:mm");
 
-        str.append(line("Start:", startDate));
+        str.append(line("Start:", formatter.format(control.getStartDate())));
 
         String endDate = "";
         if(control.getEndDate() != null){
