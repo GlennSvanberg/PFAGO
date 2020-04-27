@@ -22,10 +22,10 @@ public class RibHtmlParser {
                 .replaceAll("\\<.*?\\>", "");
 
         if (noteSelected.contains(",")) {
-            String[] noteSplit = noteSelected.split(",");
+            String[] noteSplit = noteSelected.split(", ");
             Collections.addAll(notes, noteSplit);
         } else {
-            notes.add("       Kategoriserat under " + noteSelected.replace("(", "").replace(")", "") + "\n");
+            notes.add("       Kategoriserad under " + noteSelected.replace("(", "").replace(")", ""));
         }
         return notes;
     }

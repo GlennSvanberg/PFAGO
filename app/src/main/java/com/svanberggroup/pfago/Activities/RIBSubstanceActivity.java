@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import com.svanberggroup.pfago.R;
 import com.svanberggroup.pfago.Utils.Rib.Constants.RibWebJSInjection;
 
+
 public class RIBSubstanceActivity extends AppCompatActivity {
     private String url;
     private WebView substanceView;
@@ -45,11 +46,12 @@ public class RIBSubstanceActivity extends AppCompatActivity {
         substanceView = findViewById(R.id.substance_view);
         substanceView.setVisibility(View.GONE);
         substanceView.getSettings().setLoadWithOverviewMode(true);
-        substanceView.getSettings().setUseWideViewPort(true);
-        substanceView.getSettings().getBuiltInZoomControls();
+        substanceView.setInitialScale(90);
+        substanceView.getSettings().setUseWideViewPort(false);
+        substanceView.getSettings().setDisplayZoomControls(true);
         substanceView.getSettings().setJavaScriptEnabled(true);
-        substanceView.getSettings().setTextZoom(160);
-        substanceView.getSettings().setMinimumFontSize(30);
+        substanceView.getSettings().setTextZoom(45);
+        substanceView.getSettings().setMinimumFontSize(28);
         substanceView.getSettings().setJavaScriptCanOpenWindowsAutomatically(false);
         substanceView.setBackgroundColor(Color.argb(1, 0, 0, 0));
         substanceView.loadUrl(url);
@@ -64,10 +66,11 @@ public class RIBSubstanceActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 substanceView.loadUrl(RibWebJSInjection.REMOVE_SIDE_MENU +
-                                RibWebJSInjection.SHOW_TRANSPORT +
-                                RibWebJSInjection.REMOVE_RIB_LINK+
-                                RibWebJSInjection.REMOVE_COLUMNS +
-                                RibWebJSInjection.ALIGN_VALUES
+                        RibWebJSInjection.SHOW_TRANSPORT +
+                        RibWebJSInjection.REMOVE_RIB_LINK +
+                        RibWebJSInjection.REMOVE_HELP_LINK +
+                        RibWebJSInjection.ALIGN_VALUES +
+                        RibWebJSInjection.PADDING_BOTTOM_TRANSPORT
 
 
                 );

@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ec832d"
-                android:fontFamily="sans-serif"
+                android:fontFamily="sans-serif-condensed-light"
                 android:padding="7dp"
                 android:textAlignment="center"
                 android:textColor="@color/black"
@@ -37,6 +37,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:paddingTop="10sp"
+                android:paddingBottom="10sp"
                 android:textAlignment="center">
 
                 <TextView
@@ -45,7 +46,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:lineSpacingExtra="4sp"
-                    android:textAlignment="center"
+                    android:paddingStart="15dp"
+                    android:textAlignment="textStart"
                     android:textColor="@color/black" />
 
                 <TextView
@@ -54,7 +56,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:lineSpacingExtra="4sp"
-                    android:textAlignment="center"
+                    android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </LinearLayout>
         </LinearLayout>

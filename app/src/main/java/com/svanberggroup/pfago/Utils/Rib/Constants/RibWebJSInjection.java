@@ -3,6 +3,7 @@ package com.svanberggroup.pfago.Utils.Rib.Constants;
 public final class RibWebJSInjection {
 
     public final static String SHOW_TRANSPORT = "javascript:(function(){ document.getElementById('flik9').style.display='block';})();";
+   // public final static String PADDING_BOTTOM_IDENTITET = "javascript:(function(){ document.querySelector('#trpt h1').style.marginTop='10px';})();";
     public final static String REMOVE_SIDE_MENU = "javascript:(function(){document.getElementById('viewport').style.left='0px';})();";
     public final static String REMOVE_RIB_LINK = "javascript:(function(){" +
             "    var elems = document.querySelectorAll('.long.regellank');" +
@@ -10,18 +11,30 @@ public final class RibWebJSInjection {
             "    for ( ; index < length; index++) {" +
             "        elems[index].style.display='none'}" +
             "})();";
-    public final static String REMOVE_COLUMNS = "javascript:(function(){" +
-            "    var elems = document.querySelectorAll('.kolumn');" +
+    public final static String REMOVE_HELP_LINK = "javascript:(function(){" +
+            "    var elems = document.querySelectorAll('#helplink');" +
             "    var index = 0, length = elems.length;" +
             "    for ( ; index < length; index++) {" +
-            "        elems[index].style.cssFloat='none';}" +
+            "        elems[index].style.display='none';}" +
             "})();";
 
     public final static String ALIGN_VALUES = "javascript:(function(){" +
-            "    var elems = document.querySelectorAll('p');" +
+            "    var elems = document.querySelectorAll('#viewport');" +
             "    var index = 0, length = elems.length;" +
             "    for ( ; index < length; index++) {" +
-            "        elems[index].style.marginLeft='50px';}" +
+            "        elems[index].style.paddingLeft='10px';}" +
+            "})();";
+    public final static String PADDING_BOTTOM_TRANSPORT= "javascript:(function(){" +
+            "    var elems = document.querySelectorAll('#breadcrumb');" +
+            "    var index = 0, length = elems.length;" +
+            "    for ( ; index < length; index++) {" +
+            "        elems[index].style.display='none';}" +
+            "})();";
+    public final static String PADDING_BOTTOM_IDENTITET = "javascript:(function(){" +
+            "    var elems = document.querySelectorAll('#flik2 > div.anmarkning > p > strong');" +
+            "    var index = 0, length = elems.length;" +
+            "    for ( ; index < length; index++) {" +
+            "        elems[index].innerHtml='';}" +
             "})();";
 
     private RibWebJSInjection() {
