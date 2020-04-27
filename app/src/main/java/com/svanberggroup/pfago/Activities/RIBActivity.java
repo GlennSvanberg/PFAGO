@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,10 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.RibSearchResult;
 import com.svanberggroup.pfago.R;
+import com.svanberggroup.pfago.Utils.Rib.Constants.RibMain;
 import com.svanberggroup.pfago.Utils.WebProvider;
 
 import java.util.ArrayList;
@@ -34,10 +38,14 @@ public class RIBActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RIBActivity.ControlAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private TextView welcomeText;
+    private TextView noResults;
+    private ProgressBar searchingRib;
     private final String TITLE = "RIB: Farliga Ämnen";
-    private final String QUERY_HINT = "Ämne, UN-nr.";
+    private final String QUERY_HINT = "Ämne eller UN-nr.";
     private boolean isSearchMode = true;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +59,16 @@ public class RIBActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         ribSearchResults = new ArrayList<>();
         ribSearchResults.add(new RibSearchResult("Ämnesnamn", "Klassifiering", "empty"));
-        recyclerView.setVisibility(View.VISIBLE);
+        //recyclerView.setVisibility(View.VISIBLE);
+        welcomeText = findViewById(R.id.ribWelcome);
+        welcomeText.setAlpha((float)0.5);
+        welcomeText.setVisibility(View.VISIBLE);
+
+        noResults = findViewById(R.id.noResults);
+
+        searchingRib = findViewById(R.id.ridSearching);
+
+
 
         updateUI();
 
@@ -67,7 +84,10 @@ public class RIBActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 isSearchMode = true;
                 if (charSequence.length() == 0) {
+                    noResults.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.GONE);
+                    searchingRib.setVisibility(View.GONE);
+                    welcomeText.setVisibility(View.VISIBLE);
                     searchButton.setImageResource(R.drawable.ic_search);
                 }
             }
@@ -83,9 +103,18 @@ public class RIBActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 WebProvider webProvider = new WebProvider();
-
+                welcomeText.setVisibility(View.GONE);
+                searchingRib.setVisibility(View.VISIBLE);
                 if (isSearchMode) {
                     ribSearchResults = webProvider.searchRib(queryField.getText().toString());
+                    if(ribSearchResults == null || ribSearchResults.isEmpty()){
+                        noResults.setText("Sökningen på [" + queryField.getText().toString() + "] gav inga resultat");
+                        noResults.setVisibility(View.VISIBLE);
+                        searchingRib.setVisibility(View.GONE);
+                        welcomeText.setVisibility(View.GONE);
+
+                    }
+                    searchingRib.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.VISIBLE);
                     updateUI();
                     searchButton.setImageResource(R.drawable.ic_clear);
@@ -113,6 +142,7 @@ public class RIBActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        welcomeText.setText(RibMain.Welcome);
         adapter.notifyDataSetChanged();
     }
 

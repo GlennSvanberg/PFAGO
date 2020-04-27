@@ -36,6 +36,7 @@
             android:background="@android:color/transparent"/>
 
     </LinearLayout>
+
     <TextView
         android:id="@+id/message_text_view"
         android:layout_width="match_parent"
