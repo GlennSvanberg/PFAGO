@@ -1,6 +1,7 @@
 package com.svanberggroup.pfago.Fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,13 @@ import androidx.fragment.app.Fragment;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.TransportRows;
+import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentEight extends Fragment {
 
@@ -73,7 +77,7 @@ public class FragmentEight extends Fragment {
         views.add(child2);
 
         displayViews();
-
+        addRadioButtonCheckedListner();
         return  view;
     }
 
@@ -86,19 +90,17 @@ public class FragmentEight extends Fragment {
     }
 
     private void addRadioButtonCheckedListner() {
+        tRows = control.getTRows();
+
         for (View v: views) {
 
-            tRows = control.getTRows();
-            ControlRow cRow = new ControlRow("janne");
             RadioGroup group = v.findViewById(R.id.radioGroupABC);
-
+            ControlRow cRow = new ControlRow("janne");
             group.setOnCheckedChangeListener((group1, checkedId) -> {
-                if (v == child) {
                     switch (checkedId) {
                         case R.id.radioButtonControlled:
                             cRow.setField(ControlRow.Field.Controlled);
                             tRows.addRow40(cRow);
-                            break;
                         case R.id.radioButtonNotApproved:
                             cRow.setField(ControlRow.Field.BreakingTheLaw);
                             tRows.addRow40(cRow);
@@ -106,7 +108,6 @@ public class FragmentEight extends Fragment {
                             cRow.setField(ControlRow.Field.NotApplicable);
                             tRows.addRow40(cRow);
                     }
-                }
             });
         }
     }
@@ -115,6 +116,4 @@ public class FragmentEight extends Fragment {
     @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-
-
 }
