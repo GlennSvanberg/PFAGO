@@ -7,13 +7,15 @@
     tools:context=".Activities.RIBActivity">
 
     <LinearLayout
-        android:id="@+id/linear_layout"
-        android:paddingHorizontal="16dp"
+        android:id="@+id/searchBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="0dp"
         android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,38 +23,120 @@
             android:id="@+id/query"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="4dp"
             android:layout_weight="6"
             android:backgroundTint="#ec832d"
-            android:hint="Ämne"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:textStyle="italic" />
 
         <ImageButton
             android:id="@+id/search_button"
-            android:layout_width="wrap_content"
+            android:layout_width="61dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
+            android:layout_gravity="end"
             android:layout_weight="1"
             android:background="@android:color/transparent"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             app:srcCompat="@drawable/ic_search" />
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/ribWelcomeScreen"
+        android:layout_width="match_parent"
+        android:layout_height="291dp"
+        android:alpha="20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"
+        app:layout_constraintVertical_bias="0.204"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="43dp">
+
+        <TextView
+            android:id="@+id/ribWelcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linear_layout"
+            app:layout_constraintVertical_bias="0.14" />
+        <ImageView
+            android:layout_width="237dp"
+            android:layout_height="169dp"
+            android:layout_gravity="bottom|center"
+            android:alpha="10"
+            android:elevation="@dimen/cardview_compat_inset_shadow"
+            app:srcCompat="@drawable/ic_search" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/ribSearching"
+        android:layout_width="match_parent"
+        android:layout_height="291dp"
+        android:alpha="20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"
+        app:layout_constraintVertical_bias="0.204"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="43dp">
+
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/adrOrange"
+            android:progressTint="@color/adrOrange"
+            />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/noResults"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar">
+
+        <TextView
+            android:id="@+id/noResultsText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:layout_margin="30sp"
+            android:lineSpacingExtra="8sp"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textStyle="italic"/>
+    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/searchResults"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="30dp"
+        android:scrollIndicators="end"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="horizontal"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
