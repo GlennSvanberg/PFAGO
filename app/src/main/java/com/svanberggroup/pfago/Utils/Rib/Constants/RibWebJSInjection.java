@@ -31,10 +31,10 @@ public final class RibWebJSInjection {
             "        elems[index].style.display='none';}" +
             "})();";
     public final static String PADDING_BOTTOM_IDENTITET = "javascript:(function(){" +
-            "    var elems = document.querySelectorAll('#flik2 > div.anmarkning > p > strong');" +
+            "    var elems = document.querySelectorAll('#sitefoot');" +
             "    var index = 0, length = elems.length;" +
             "    for ( ; index < length; index++) {" +
-            "        elems[index].innerHtml='';}" +
+            "        elems[index].style.display='none';}" +
             "})();";
 
     private RibWebJSInjection() {

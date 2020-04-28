@@ -1,5 +1,7 @@
 package com.svanberggroup.pfago.Utils.Rib;
 
+import android.util.Log;
+
 import com.svanberggroup.pfago.Utils.Rib.Constants.HtmlAttr;
 import com.svanberggroup.pfago.Utils.Rib.Constants.RibUrl;
 
@@ -23,7 +25,13 @@ public class RibHtmlParser {
 
         if (noteSelected.contains(",")) {
             String[] noteSplit = noteSelected.split(", ");
-            Collections.addAll(notes, noteSplit);
+            for (String note : noteSplit) {
+              //  Log.i("NOTE", note);
+
+                if (note == null || note.isEmpty()) break;
+
+                notes.add(note.trim());
+            }
         } else {
             notes.add("       Kategoriserad under " + noteSelected.replace("(", "").replace(")", ""));
         }

@@ -7,12 +7,13 @@
     tools:context=".Activities.RIBActivity">
 
     <LinearLayout
-        android:id="@+id/linear_layout"
+        android:id="@+id/searchBar"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="0dp"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,13 +42,14 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/ribWelcomeLayout"
+        android:id="@+id/ribWelcomeScreen"
         android:layout_width="match_parent"
         android:layout_height="291dp"
         android:alpha="20"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"
         app:layout_constraintVertical_bias="0.204"
+        android:visibility="gone"
         tools:layout_editor_absoluteX="43dp">
 
         <TextView
@@ -55,65 +57,75 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:alpha="50"
+            android:layout_marginTop="20dp"
             android:padding="10dp"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/black"
             android:textStyle="italic"
-            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linear_layout"
             app:layout_constraintVertical_bias="0.14" />
-        <ProgressBar
-            android:id="@+id/ridSearching"
-            android:layout_width="237dp"
-            android:layout_height="169dp"
-            android:layout_gravity="bottom|center"
-            android:alpha="10"
-            android:elevation="@dimen/cardview_compat_inset_shadow"
-            android:indeterminateTint="@color/adrOrange"
-            android:progressTint="@color/adrOrange"
-            android:visibility="gone" />
         <ImageView
             android:layout_width="237dp"
             android:layout_height="169dp"
             android:layout_gravity="bottom|center"
             android:alpha="10"
             android:elevation="@dimen/cardview_compat_inset_shadow"
-            android:visibility="visible"
             app:srcCompat="@drawable/ic_search" />
     </FrameLayout>
 
-    <TextView
+    <FrameLayout
+        android:id="@+id/ribSearching"
+        android:layout_width="match_parent"
+        android:layout_height="291dp"
+        android:alpha="20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"
+        app:layout_constraintVertical_bias="0.204"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="43dp">
+
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/adrOrange"
+            android:progressTint="@color/adrOrange"
+            />
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/noResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30sp"
-        android:alpha="50"
-        android:lineSpacingExtra="8sp"
-        android:padding="10dp"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textStyle="italic"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linear_layout"
-        app:layout_constraintVertical_bias="0.14" />
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar">
 
+        <TextView
+            android:id="@+id/noResultsText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:layout_margin="30sp"
+            android:lineSpacingExtra="8sp"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textStyle="italic"/>
+    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/searchResults"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="30dp"
         android:scrollIndicators="end"
         android:scrollbarAlwaysDrawHorizontalTrack="true"
@@ -124,7 +136,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -70,7 +70,8 @@ public class RIBSubstanceActivity extends AppCompatActivity {
                         RibWebJSInjection.REMOVE_RIB_LINK +
                         RibWebJSInjection.REMOVE_HELP_LINK +
                         RibWebJSInjection.ALIGN_VALUES +
-                        RibWebJSInjection.PADDING_BOTTOM_TRANSPORT
+                        RibWebJSInjection.PADDING_BOTTOM_TRANSPORT +
+                        RibWebJSInjection.PADDING_BOTTOM_IDENTITET
 
 
                 );

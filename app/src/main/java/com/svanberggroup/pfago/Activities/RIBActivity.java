@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,8 +21,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.RibSearchResult;
@@ -35,14 +36,15 @@ public class RIBActivity extends AppCompatActivity {
 
     private ArrayList<RibSearchResult> ribSearchResults;
     private EditText queryField;
-    private FrameLayout welcomeLayout;
+    private FrameLayout ribWelcomeScreen;
     private ImageButton searchButton;
     private RecyclerView recyclerView;
     private RIBActivity.ControlAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private TextView welcomeText;
-    private TextView noResults;
-    private ProgressBar searchingRib;
+    private FrameLayout noResults;
+    private TextView noResultText;
+    private FrameLayout searchingRib;
     private boolean isSearchMode = true;
 
     @SuppressLint("SetTextI18n")
@@ -52,9 +54,9 @@ public class RIBActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rib);
         setTitle(RibMain.TITLE);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.searchResults);
 
-        welcomeLayout = findViewById(R.id.ribWelcomeLayout);
+        ribWelcomeScreen = findViewById(R.id.ribWelcomeScreen);
         layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
@@ -62,15 +64,11 @@ public class RIBActivity extends AppCompatActivity {
 
         welcomeText = findViewById(R.id.ribWelcome);
         welcomeText.setAlpha((float) 0.5);
-
+        noResultText = findViewById(R.id.noResultsText);
         noResults = findViewById(R.id.noResults);
-
-        searchingRib = findViewById(R.id.ridSearching);
-
-
+        searchingRib = findViewById(R.id.ribSearching);
         updateUI();
-
-        queryField = (EditText) findViewById(R.id.query);
+        queryField = findViewById(R.id.query);
         queryField.setHint(RibMain.QUERY_HINT);
 
         queryField.requestFocus();
@@ -82,13 +80,13 @@ public class RIBActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 isSearchMode = true;
-                noResults.setVisibility(View.GONE);
-
                 if (charSequence.length() == 0) {
-                    recyclerView.setVisibility(View.GONE);
-                    searchingRib.setVisibility(View.GONE);
-                    welcomeLayout.setVisibility(View.VISIBLE);
+                    toggleWelcomeScreen();
                     searchButton.setImageResource(R.drawable.ic_search);
+                }
+
+                if (charSequence.length() > 1) {
+                    toggleLoadingScreen();
                 }
             }
 
@@ -103,21 +101,14 @@ public class RIBActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 WebProvider webProvider = new WebProvider();
-               // welcomeLayout.setVisibility(View.GONE);
-
                 if (isSearchMode) {
-                    welcomeLayout.setVisibility(View.GONE);
-                    searchingRib.setVisibility(View.VISIBLE);
                     ribSearchResults = webProvider.searchRib(queryField.getText().toString());
                     if (ribSearchResults == null || ribSearchResults.isEmpty()) {
-                        noResults.setText("Sökningen på " + queryField.getText().toString() + " gav inga resultat");
-                        noResults.setVisibility(View.VISIBLE);
-                        searchingRib.setVisibility(View.GONE);
-                        welcomeLayout.setVisibility(View.GONE);
+                        Log.i("FAILED_SEARCH", RibMain.getResultText(queryField.getText().toString()));
+                        noResultText.setText(RibMain.getResultText(queryField.getText().toString()));
+                        toggleFailedScreen();
+                    } else toggleResultScreen();
 
-                    }
-                    searchingRib.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
                     updateUI();
                     searchButton.setImageResource(R.drawable.ic_clear);
                     isSearchMode = false;
@@ -144,6 +135,7 @@ public class RIBActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        toggleWelcomeScreen();
         welcomeText.setText(RibMain.WELCOME);
         adapter.notifyDataSetChanged();
     }
@@ -175,7 +167,6 @@ public class RIBActivity extends AppCompatActivity {
             ArrayList<String> notes = result.getNote();
             title.setText(result.getSubstance());
             if (notes != null) {
-
                 for (int i = 0; i < notes.size(); i++) {
                     if (i % 2 == 0) {
                         if (i == notes.size() - 1) noteStart.append(notes.toArray()[i]);
@@ -194,10 +185,10 @@ public class RIBActivity extends AppCompatActivity {
     }
 
     private class ControlAdapter extends RecyclerView.Adapter<RIBActivity.ControlHolder> {
-        private List<RibSearchResult> controls;
+        private List<RibSearchResult> ribResults;
 
-        private ControlAdapter(List<RibSearchResult> controls) {
-            this.controls = controls;
+        private ControlAdapter(List<RibSearchResult> ribResults) {
+            this.ribResults = ribResults;
         }
 
         @NonNull
@@ -209,7 +200,7 @@ public class RIBActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull RIBActivity.ControlHolder holder, final int position) {
-            RibSearchResult ribSearchResult = controls.get(position);
+            RibSearchResult ribSearchResult = ribResults.get(position);
             holder.bind(ribSearchResult);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
 
@@ -220,17 +211,15 @@ public class RIBActivity extends AppCompatActivity {
                     startActivity(ribSubstanceIntent);
                 }
             });
-
-
         }
 
         @Override
         public int getItemCount() {
-            return controls.size();
+            return ribResults.size();
         }
 
-        public void setControls(ArrayList<RibSearchResult> controls) {
-            this.controls = controls;
+        public void setControls(ArrayList<RibSearchResult> ribResults) {
+            this.ribResults = ribResults;
         }
     }
 
@@ -248,4 +237,31 @@ public class RIBActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void toggleWelcomeScreen() {
+        recyclerView.setVisibility(View.GONE);
+        noResults.setVisibility(View.GONE);
+        searchingRib.setVisibility(View.GONE);
+        ribWelcomeScreen.setVisibility(View.VISIBLE);
+    }
+
+    private void toggleLoadingScreen() {
+        recyclerView.setVisibility(View.GONE);
+        noResults.setVisibility(View.GONE);
+        ribWelcomeScreen.setVisibility(View.GONE);
+        searchingRib.setVisibility(View.VISIBLE);
+    }
+
+    private void toggleResultScreen() {
+        recyclerView.setVisibility(View.VISIBLE);
+        noResults.setVisibility(View.GONE);
+        searchingRib.setVisibility(View.GONE);
+        ribWelcomeScreen.setVisibility(View.GONE);
+    }
+
+    private void toggleFailedScreen() {
+        recyclerView.setVisibility(View.GONE);
+        noResults.setVisibility(View.VISIBLE);
+        searchingRib.setVisibility(View.GONE);
+        ribWelcomeScreen.setVisibility(View.GONE);
+    }
 }
