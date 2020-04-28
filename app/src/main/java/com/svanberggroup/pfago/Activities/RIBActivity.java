@@ -85,8 +85,8 @@ public class RIBActivity extends AppCompatActivity {
                     searchButton.setImageResource(R.drawable.ic_search);
                 }
 
-                if (charSequence.length() > 1) {
-                    toggleLoadingScreen();
+                if (charSequence.length() >= 3) {
+                    searchButton.callOnClick();
                 }
             }
 
