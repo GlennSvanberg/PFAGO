@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,11 +19,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.RibSearchResult;
 import com.svanberggroup.pfago.R;
+import com.svanberggroup.pfago.Utils.Rib.Constants.RibMain;
 import com.svanberggroup.pfago.Utils.WebProvider;
 
 import java.util.ArrayList;
@@ -30,33 +36,41 @@ public class RIBActivity extends AppCompatActivity {
 
     private ArrayList<RibSearchResult> ribSearchResults;
     private EditText queryField;
+    private FrameLayout ribWelcomeScreen;
     private ImageButton searchButton;
     private RecyclerView recyclerView;
     private RIBActivity.ControlAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private final String TITLE = "RIB: Farliga Ämnen";
-    private final String QUERY_HINT = "Ämne, UN-nr.";
+    private TextView welcomeText;
+    private FrameLayout noResults;
+    private TextView noResultText;
+    private FrameLayout searchingRib;
     private boolean isSearchMode = true;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rib);
+        setTitle(RibMain.TITLE);
 
-        setTitle(TITLE);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setVisibility(View.GONE);
+        recyclerView = findViewById(R.id.searchResults);
 
+        ribWelcomeScreen = findViewById(R.id.ribWelcomeScreen);
         layoutManager = new LinearLayoutManager(this);
+
         recyclerView.setLayoutManager(layoutManager);
         ribSearchResults = new ArrayList<>();
-        ribSearchResults.add(new RibSearchResult("Ämnesnamn", "Klassifiering", "empty"));
-        recyclerView.setVisibility(View.VISIBLE);
 
+        welcomeText = findViewById(R.id.ribWelcome);
+        welcomeText.setAlpha((float) 0.5);
+        noResultText = findViewById(R.id.noResultsText);
+        noResults = findViewById(R.id.noResults);
+        searchingRib = findViewById(R.id.ribSearching);
         updateUI();
+        queryField = findViewById(R.id.query);
+        queryField.setHint(RibMain.QUERY_HINT);
 
-        queryField = (EditText) findViewById(R.id.query);
-        queryField.setHint(QUERY_HINT);
         queryField.requestFocus();
         queryField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -67,8 +81,12 @@ public class RIBActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 isSearchMode = true;
                 if (charSequence.length() == 0) {
-                    recyclerView.setVisibility(View.GONE);
+                    toggleWelcomeScreen();
                     searchButton.setImageResource(R.drawable.ic_search);
+                }
+
+                if (charSequence.length() >= 3) {
+                    searchButton.callOnClick();
                 }
             }
 
@@ -83,10 +101,14 @@ public class RIBActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 WebProvider webProvider = new WebProvider();
-
                 if (isSearchMode) {
                     ribSearchResults = webProvider.searchRib(queryField.getText().toString());
-                    recyclerView.setVisibility(View.VISIBLE);
+                    if (ribSearchResults == null || ribSearchResults.isEmpty()) {
+                        Log.i("FAILED_SEARCH", RibMain.getResultText(queryField.getText().toString()));
+                        noResultText.setText(RibMain.getResultText(queryField.getText().toString()));
+                        toggleFailedScreen();
+                    } else toggleResultScreen();
+
                     updateUI();
                     searchButton.setImageResource(R.drawable.ic_clear);
                     isSearchMode = false;
@@ -113,6 +135,8 @@ public class RIBActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        toggleWelcomeScreen();
+        welcomeText.setText(RibMain.WELCOME);
         adapter.notifyDataSetChanged();
     }
 
@@ -125,32 +149,46 @@ public class RIBActivity extends AppCompatActivity {
 
     private class ControlHolder extends RecyclerView.ViewHolder {
         private TextView title;
-        private TextView description;
+        private TextView descriptionStart;
+        private TextView descriptionEnd;
 
         public ControlHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.item_rib_list, parent, false));
+            findViewById(R.id.description1);
+            findViewById(R.id.description1);
             title = itemView.findViewById(R.id.name);
-            description = itemView.findViewById(R.id.description);
+            descriptionStart = itemView.findViewById(R.id.description1);
+            descriptionEnd = itemView.findViewById(R.id.description2);
         }
 
-        public void bind(RibSearchResult control) {
-            title.setText(control.getSubstance());
-            String text = null;
-
-            if (control.getNote() != null) {
-                text = control.getNote() + "\n";
+        public void bind(RibSearchResult result) {
+            StringBuilder noteStart = new StringBuilder();
+            StringBuilder noteEnd = new StringBuilder();
+            ArrayList<String> notes = result.getNote();
+            title.setText(result.getSubstance());
+            if (notes != null) {
+                for (int i = 0; i < notes.size(); i++) {
+                    if (i % 2 == 0) {
+                        if (i == notes.size() - 1) noteStart.append(notes.toArray()[i]);
+                        else noteStart.append(notes.toArray()[i]).append("\n");
+                    } else {
+                        if (i == notes.size() - 1) noteEnd.append(notes.toArray()[i]);
+                        else noteEnd.append(notes.toArray()[i]).append("\n");
+                    }
+                }
             }
 
-            description.setText(text);
+            descriptionStart.setText(noteStart.toString());
+            descriptionEnd.setText(noteEnd.toString());
         }
 
     }
 
     private class ControlAdapter extends RecyclerView.Adapter<RIBActivity.ControlHolder> {
-        private List<RibSearchResult> controls;
+        private List<RibSearchResult> ribResults;
 
-        private ControlAdapter(List<RibSearchResult> controls) {
-            this.controls = controls;
+        private ControlAdapter(List<RibSearchResult> ribResults) {
+            this.ribResults = ribResults;
         }
 
         @NonNull
@@ -162,33 +200,26 @@ public class RIBActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull RIBActivity.ControlHolder holder, final int position) {
-            RibSearchResult ribSearchResult = controls.get(position);
+            RibSearchResult ribSearchResult = ribResults.get(position);
             holder.bind(ribSearchResult);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
-                    if (!ribSearchResult.getLink().equals("empty")) {
-                        Intent ribSubstanceIntent = new Intent(RIBActivity.this, RIBSubstanceActivity.class);
-                        ribSubstanceIntent.putExtra("url", ribSearchResult.getLink());
-                        ribSubstanceIntent.putExtra("substance", ribSearchResult.getSubstance());
-                        startActivity(ribSubstanceIntent);
-                    }
-                    else
-                        onStart();
+                    Intent ribSubstanceIntent = new Intent(RIBActivity.this, RIBSubstanceActivity.class);
+                    ribSubstanceIntent.putExtra("url", ribSearchResult.getLink());
+                    startActivity(ribSubstanceIntent);
                 }
             });
-
-
         }
 
         @Override
         public int getItemCount() {
-            return controls.size();
+            return ribResults.size();
         }
 
-        public void setControls(ArrayList<RibSearchResult> controls) {
-            this.controls = controls;
+        public void setControls(ArrayList<RibSearchResult> ribResults) {
+            this.ribResults = ribResults;
         }
     }
 
@@ -206,4 +237,31 @@ public class RIBActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void toggleWelcomeScreen() {
+        recyclerView.setVisibility(View.GONE);
+        noResults.setVisibility(View.GONE);
+        searchingRib.setVisibility(View.GONE);
+        ribWelcomeScreen.setVisibility(View.VISIBLE);
+    }
+
+    private void toggleLoadingScreen() {
+        recyclerView.setVisibility(View.GONE);
+        noResults.setVisibility(View.GONE);
+        ribWelcomeScreen.setVisibility(View.GONE);
+        searchingRib.setVisibility(View.VISIBLE);
+    }
+
+    private void toggleResultScreen() {
+        recyclerView.setVisibility(View.VISIBLE);
+        noResults.setVisibility(View.GONE);
+        searchingRib.setVisibility(View.GONE);
+        ribWelcomeScreen.setVisibility(View.GONE);
+    }
+
+    private void toggleFailedScreen() {
+        recyclerView.setVisibility(View.GONE);
+        noResults.setVisibility(View.VISIBLE);
+        searchingRib.setVisibility(View.GONE);
+        ribWelcomeScreen.setVisibility(View.GONE);
+    }
 }

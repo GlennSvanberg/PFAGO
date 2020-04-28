@@ -4,18 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#666"
     tools:context=".Activities.RIBSubstanceActivity">
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/web_layout"
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" />
-
-    <WebView
-        android:id="@+id/substance_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="#666"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:id="@+id/adrLoading"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_gravity="center"
+            android:background="#666"
+            android:indeterminateTint="@color/adrOrange"
+            android:progressTint="@color/adrOrange"
+            android:visibility="visible"
+            tools:visibility="visible" />
+
+        <WebView
+            android:id="@+id/substance_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="#666"
+            android:focusable="auto"
+            android:visibility="gone" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
