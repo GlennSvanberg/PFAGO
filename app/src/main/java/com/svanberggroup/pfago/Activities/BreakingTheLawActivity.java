@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
@@ -16,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.svanberggroup.pfago.Models.Control;
+import com.svanberggroup.pfago.Models.Fault;
+import com.svanberggroup.pfago.Models.Goods;
 import com.svanberggroup.pfago.R;
 
 import java.util.ArrayList;
@@ -36,8 +39,49 @@ public class BreakingTheLawActivity extends AppCompatActivity {
         return true;
     }
 
+    private List<Goods> createListofGoods() {
+        List<Goods> goods = new ArrayList<>();
+        for (View v: godsViews) {
+            EditText un = v.findViewById(R.id.godsNrEditText);
+            EditText decription = v.findViewById(R.id.godsDescriptionEditText);
+            EditText classs = v.findViewById(R.id.classEditText);
+            EditText gods = v.findViewById(R.id.godsAmountEditText);
+            EditText paper = v.findViewById(R.id.paperEditText);
+            EditText LQ = v.findViewById(R.id.LQeditText);
+            EditText PG = v.findViewById(R.id.PGeditText);
+            Goods good = new Goods("A",
+                    un.getText().toString(),
+                    decription.getText().toString(), classs.getText().toString(),
+                    PG.getText().toString(),
+                    gods.getText().toString(),paper.getText().toString(),
+                    true);
+            goods.add(good);
+        }
+        return goods;
+    }
+    private List<Fault> createListOfFlaws() {
+        List<Fault> faults = new ArrayList<>();
+        for (View v: flawsViews) {
+            EditText field = v.findViewById(R.id.fieldNrEditText);
+            EditText flawsGodsPos = v.findViewById(R.id.flawGodsPosDescriptionEditText);
+            EditText flaw = v.findViewById(R.id.flawEditText);
+            EditText mNumber = v.findViewById(R.id.mNumberEditText);
+            Fault fault = new Fault(Integer.parseInt(field.getText().toString()), flawsGodsPos.getText().toString(),
+                                    flaw.getText().toString(), mNumber.getText().toString());
+            faults.add(fault);
+        }
+        return faults;
+    }
+
+    private void setFieldsInControl() {
+        control.setGoodsList(createListofGoods());
+        control.setFaultList(createListOfFlaws());
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        setFieldsInControl();
+
         Intent intent = new Intent(this, ViewControlActivity.class);
         intent.putExtra("control", control);
         intent.putExtra("approvalMode", true);
