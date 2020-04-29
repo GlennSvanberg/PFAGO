@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +21,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -33,7 +38,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RIBActivity extends AppCompatActivity {
-
     private ArrayList<RibSearchResult> ribSearchResults;
     private EditText queryField;
     private FrameLayout ribWelcomeScreen;
@@ -53,6 +57,7 @@ public class RIBActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rib);
         setTitle(RibMain.TITLE);
+
 
         recyclerView = findViewById(R.id.searchResults);
 
@@ -87,6 +92,10 @@ public class RIBActivity extends AppCompatActivity {
                 if (charSequence.length() == 0) {
                     toggleWelcomeScreen();
                 }
+
+                if (charSequence.length() >= 3) {
+                    searchButton.callOnClick();
+                }
                 isSearchMode = true;
             }
 
@@ -94,6 +103,7 @@ public class RIBActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
             }
         });
+
 
         searchButton = findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -112,11 +122,11 @@ public class RIBActivity extends AppCompatActivity {
                     updateUI();
                     searchButton.setImageResource(R.drawable.ic_clear);
 
-                    isSearchMode = false;
+                   // isSearchMode = true;
                 } else {
-                    queryField.setText("");
-                    searchButton.setImageResource(R.drawable.ic_search);
-                    isSearchMode = true;
+                   // queryField.setText("");
+                    //searchButton.setImageResource(R.drawable.ic_search);
+                    //isSearchMode = true;
                 }
             }
         });

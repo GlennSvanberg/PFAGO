@@ -46,11 +46,11 @@
         android:layout_width="match_parent"
         android:layout_height="291dp"
         android:alpha="20"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBar"
-        app:layout_constraintVertical_bias="0.204"
-        android:visibility="visible"
-        tools:layout_editor_absoluteX="43dp">
+        app:layout_constraintVertical_bias="0.116"
+        tools:layout_editor_absoluteX="-16dp">
 
         <TextView
             android:id="@+id/ribWelcome"
@@ -70,6 +70,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/linear_layout"
             app:layout_constraintVertical_bias="0.14" />
+
         <ImageView
             android:layout_width="237dp"
             android:layout_height="169dp"
@@ -87,7 +88,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBar"
         app:layout_constraintVertical_bias="0.204"
-        android:visibility="invisible"
+        android:visibility="gone"
         tools:layout_editor_absoluteX="43dp">
 
         <ProgressBar
