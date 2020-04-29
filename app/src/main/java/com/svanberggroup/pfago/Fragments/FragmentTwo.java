@@ -536,22 +536,28 @@ public class FragmentTwo extends Fragment {
             if(isChecked) {
 
                 setViewsVisibility(TransporterType.coDriver, View.VISIBLE);
+                coDriverToggleButton.setBackgroundResource(R.drawable.ic_up);
             } else {
                 setViewsVisibility(TransporterType.coDriver, View.GONE);
+                coDriverToggleButton.setBackgroundResource(R.drawable.ic_down);
             }
         });
         senderToggleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 setViewsVisibility(TransporterType.sender, View.VISIBLE);
+                senderToggleButton.setBackgroundResource(R.drawable.ic_up);
             } else {
                 setViewsVisibility(TransporterType.sender, View.GONE);
+                senderToggleButton.setBackgroundResource(R.drawable.ic_down);
             }
         });
         reciverToggleButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 setViewsVisibility(TransporterType.reciver, View.VISIBLE);
+                reciverToggleButton.setBackgroundResource(R.drawable.ic_up);
             } else {
                 setViewsVisibility(TransporterType.reciver, View.GONE);
+                reciverToggleButton.setBackgroundResource(R.drawable.ic_down);
             }
         });
     }
