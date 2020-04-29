@@ -119,6 +119,7 @@ public class RIBActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     private void updateUI() {
