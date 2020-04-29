@@ -28,11 +28,20 @@
                 android:text="Fordon"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/ControlPlaceTypeRadioGroup"
+                app:layout_constraintEnd_toStartOf="@+id/truckSearchButton"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/placeEditText" />
-            
+            <ImageButton
+                android:id="@+id/truckSearchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/ic_search"
+                app:layout_constraintEnd_toStartOf="@+id/ControlPlaceTypeRadioGroup"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/VehicleLicensePlateEditText"
+                app:layout_constraintTop_toBottomOf="@+id/vehicleTextView" ></ImageButton>
 
             <EditText
                 android:id="@+id/VehicleLicensePlateEditText"
@@ -41,8 +50,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:hint="ABC123"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toStartOf="@+id/ControlPlaceTypeRadioGroup"
+                android:inputType="textFilter|textCapCharacters"
+                app:layout_constraintEnd_toStartOf="@+id/truckSearchButton"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/vehicleTextView"></EditText>
@@ -66,13 +75,22 @@
                 android:layout_marginStart="10dp"
                 android:ems="10"
                 android:hint="ABC123"
-                android:inputType="textPersonName"
+                android:inputType="textFilter|textCapCharacters"
                 android:nextFocusDown="@+id/trailerCountryEditText"
-                app:layout_constraintEnd_toStartOf="@+id/trailerCountryEditText"
+                app:layout_constraintEnd_toStartOf="@+id/trailerSearchButton"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/trailerTypeRadioGroup" />
-
+            <ImageButton
+                android:id="@+id/trailerSearchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/ic_search"
+                app:layout_constraintEnd_toStartOf="@+id/trailerCountryEditText"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/trailerLicensePlateEditText"
+                app:layout_constraintTop_toBottomOf="@+id/trailerTypeRadioGroup" ></ImageButton>
             <EditText
                 android:id="@+id/trailerCountryEditText"
                 android:layout_width="0dp"
@@ -82,7 +100,8 @@
                 android:hint="Nationalitet"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/trailerLicensePlateEditText" />
+                app:layout_constraintStart_toEndOf="@id/trailerSearchButton"
+                app:layout_constraintTop_toBottomOf="@+id/trailerTypeRadioGroup" />
 
             <RadioGroup
                 android:id="@+id/trailerTypeRadioGroup"

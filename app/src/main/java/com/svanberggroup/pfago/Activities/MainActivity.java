@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         //temp change to see recyclerview should be View.GONE - View.VISIBLE
         recyclerView.setVisibility(View.GONE);
@@ -95,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
         updateUI();
 
         queryField = (EditText) findViewById(R.id.query);
-        queryField.requestFocus();
+
+        //queryField.requestFocus();
         queryField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -116,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        String query = getIntent().getStringExtra("query");
         searchButton = findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +130,10 @@ public class MainActivity extends AppCompatActivity {
                     if(controls.size() == 0){
                         messageTextView.setVisibility(View.VISIBLE);
                         messageTextView.setText("Inga kontroller för: " + queryField.getText().toString());
-                        buttonsLinearLayout.setVisibility(View.VISIBLE);
+                        if(query != "" &&  query != null) {
+                            buttonsLinearLayout.setVisibility(View.VISIBLE);
+                        }
+
                     } else {
                         buttonsLinearLayout.setVisibility(View.GONE);
                         messageTextView.setVisibility(View.GONE);
@@ -157,6 +164,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setSearchActivityView();
+        if(query != "" && query != null){
+                queryField.setText(query);
+                searchButton.performClick();
+        }
     }
     private void setSearchActivityView() {
         if(isSearchActivity){
