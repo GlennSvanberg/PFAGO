@@ -11,12 +11,14 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -107,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         searchButton = findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +135,17 @@ public class MainActivity extends AppCompatActivity {
                     //messageTextView.setVisibility(View.GONE);
                     isSearchMode = !isSearchMode;
                 }
+            }
+        });
+
+        queryField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)){
+                    searchButton.performClick();
+
+                }
+                return false;
             }
         });
     }

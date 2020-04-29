@@ -24,7 +24,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
             android:hint="reg nr"
-            android:inputType="textFilter|textCapCharacters"/>
+            android:inputType="textFilter|textCapCharacters"
+            android:imeOptions="actionSearch" />
 
         <ImageButton
             android:id="@+id/search_button"
@@ -59,10 +60,10 @@
         android:layout_margin="16dp">
         <Button
             android:id="@+id/rib_search_button"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="RIB sök"
             android:background="@color/colorPrimary"
             android:textColor="@color/white"
@@ -71,10 +72,10 @@
             android:paddingRight="30dp"></Button>
         <Button
             android:id="@+id/add_control_button"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="Ny kontroll"
             android:background="@color/colorPrimary"
             android:textColor="@color/white"

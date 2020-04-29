@@ -643,7 +643,7 @@ public class ViewControlActivity extends AppCompatActivity {
         StringBuilder str = new StringBuilder();
         if(transporter != null){
             str.append(line("Adress:", transporter.getAddress()));
-            str.append(line("Postnummer:", String.valueOf(transporter.getZipNr())));
+            str.append(line("Postnr:", String.valueOf(transporter.getZipNr())));
             str.append(line("Postort:", transporter.getCity()));
             str.append(line("Land:", transporter.getNationality()));
         }
@@ -656,6 +656,9 @@ public class ViewControlActivity extends AppCompatActivity {
     }
 
     private String line(String title, String data) {
+        if(data == null) {
+            data = "";
+        }
         return title + " <strong>" + data + "</strong>" + "<br>";
     }
 }

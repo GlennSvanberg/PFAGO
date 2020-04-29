@@ -126,15 +126,20 @@ public class AddControlActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.doneControl:
-                Intent intent = new Intent(this, ViewControlActivity.class);
+                intent = new Intent(this, ViewControlActivity.class);
                 intent.putExtra("control", control);
                 intent.putExtra("approvalMode", true);
                 startActivityForResult(intent, REQUEST_CONTROL_APPROVAL);
                 break;
             case R.id.cameraControl:
                 dispatchTakePictureIntent();
+                break;
+            case R.id.ribControl:
+                intent = new Intent(this,RIBActivity.class);
+                startActivity(intent);
 
                 break;
             default: return super.onOptionsItemSelected(item);
