@@ -87,6 +87,185 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/flawBreakingTheLawTextView"
             app:layout_constraintBottom_toBottomOf="@id/flawBreakingTheLawTextView"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/safetyAdvisorTransporterTextView">
+
+            <RadioButton
+                android:id="@+id/dontKnowRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vet ej" />
+
+            <RadioButton
+                android:id="@+id/noRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nej" />
+
+            <RadioButton
+                android:id="@+id/yesRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ja" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/safteyAdvisorTransporterNameEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:ems="10"
+            android:hint="Namn"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/radioGroup"
+            app:layout_constraintTop_toTopOf="@+id/radioGroup" />
+
+        <TextView
+            android:id="@+id/safteyAdvisorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Säkerthetsrådgivare"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/flawAddBreakingTheLawButton" />
+
+        <TextView
+            android:id="@+id/safetyAdvisorTransporterTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Transportör"
+            app:layout_constraintStart_toStartOf="@+id/safteyAdvisorTextView"
+            app:layout_constraintTop_toBottomOf="@+id/safteyAdvisorTextView" />
+
+        <TextView
+            android:id="@+id/safteyAdvisorSenderTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sändare"
+            app:layout_constraintStart_toStartOf="@+id/safetyAdvisorTransporterTextView"
+            app:layout_constraintTop_toBottomOf="@+id/safteyAdvisorTransporterNameEditText" />
+
+        <RadioGroup
+            android:id="@+id/safetySenderRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/safteyAdvisorSenderTextView">
+
+            <RadioButton
+                android:id="@+id/dontKnowSenderRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vet ej" />
+
+            <RadioButton
+                android:id="@+id/noSenderRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nej" />
+
+            <RadioButton
+                android:id="@+id/yesSenderRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ja" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/safteyAdvisorSenderNameEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:ems="10"
+            android:hint="Namn"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="@+id/safetySenderRadioGroup"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/safetySenderRadioGroup"
+            app:layout_constraintTop_toTopOf="@+id/safetySenderRadioGroup" />
+
+        <TextView
+            android:id="@+id/consentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medgivande saknas"
+            android:textSize="17sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintStart_toStartOf="@+id/safetyAdvisorTransporterTextView"
+            app:layout_constraintTop_toBottomOf="@+id/safteyAdvisorSenderNameEditText" />
+
+        <RadioGroup
+            android:id="@+id/consentRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/consentTextView"
+            app:layout_constraintTop_toBottomOf="@+id/consentTextView">
+
+            <RadioButton
+                android:id="@+id/YesRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ja" />
+
+            <RadioButton
+                android:id="@+id/NoRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nej" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:text="Trots meddelat förbud medges färd kortast lämpliga väg till uppstälnings/-omlastnings/-lossningsplats"
+            android:textSize="17sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/consentRadioGroup" />
+
+        <RadioGroup
+            android:id="@+id/shortestWayRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/textView8"
+            app:layout_constraintTop_toBottomOf="@+id/textView8">
+
+            <RadioButton
+                android:id="@+id/shortestWayYesRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ja" />
+
+            <RadioButton
+                android:id="@+id/shortestWayNoRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nej" />
+        </RadioGroup>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -68,12 +68,12 @@
         android:ems="10"
         android:hint="Fraktsedel"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/editText9"
+        app:layout_constraintEnd_toStartOf="@+id/LQeditText"
         app:layout_constraintStart_toStartOf="@+id/classEditText"
         app:layout_constraintTop_toBottomOf="@+id/classEditText" />
 
     <EditText
-        android:id="@+id/editText9"
+        android:id="@+id/LQeditText"
         android:layout_width="64dp"
         android:layout_height="45dp"
         android:ems="10"
