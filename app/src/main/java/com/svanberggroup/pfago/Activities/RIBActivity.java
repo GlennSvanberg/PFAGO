@@ -34,7 +34,7 @@ import java.util.List;
 
 public class RIBActivity extends AppCompatActivity {
 
-    private ArrayList<RibSearchResult> ribSearchResults;
+    private ArrayList<RibSearchResult> ribSearchResults = new ArrayList<>();
     private EditText queryField;
     private FrameLayout ribWelcomeScreen;
     private ImageButton searchButton;
@@ -57,6 +57,7 @@ public class RIBActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.searchResults);
 
         ribWelcomeScreen = findViewById(R.id.ribWelcomeScreen);
+
         layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
@@ -64,10 +65,14 @@ public class RIBActivity extends AppCompatActivity {
 
         welcomeText = findViewById(R.id.ribWelcome);
         welcomeText.setAlpha((float) 0.5);
+        welcomeText.setText(RibMain.WELCOME);
+
         noResultText = findViewById(R.id.noResultsText);
         noResults = findViewById(R.id.noResults);
         searchingRib = findViewById(R.id.ribSearching);
+
         updateUI();
+
         queryField = findViewById(R.id.query);
         queryField.setHint(RibMain.QUERY_HINT);
 
@@ -79,14 +84,9 @@ public class RIBActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                isSearchMode = true;
                 if (charSequence.length() == 0) {
                     toggleWelcomeScreen();
                     searchButton.setImageResource(R.drawable.ic_search);
-                }
-
-                if (charSequence.length() >= 3) {
-                    searchButton.callOnClick();
                 }
             }
 
@@ -111,6 +111,7 @@ public class RIBActivity extends AppCompatActivity {
 
                     updateUI();
                     searchButton.setImageResource(R.drawable.ic_clear);
+
                     isSearchMode = false;
                 } else {
                     queryField.setText("");
@@ -125,7 +126,6 @@ public class RIBActivity extends AppCompatActivity {
         if (adapter == null) {
             adapter = new RIBActivity.ControlAdapter(ribSearchResults);
             recyclerView.setAdapter(adapter);
-
         } else {
             adapter.setControls(ribSearchResults);
             adapter.notifyDataSetChanged();
@@ -135,8 +135,6 @@ public class RIBActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        toggleWelcomeScreen();
-        welcomeText.setText(RibMain.WELCOME);
         adapter.notifyDataSetChanged();
     }
 
@@ -242,13 +240,6 @@ public class RIBActivity extends AppCompatActivity {
         noResults.setVisibility(View.GONE);
         searchingRib.setVisibility(View.GONE);
         ribWelcomeScreen.setVisibility(View.VISIBLE);
-    }
-
-    private void toggleLoadingScreen() {
-        recyclerView.setVisibility(View.GONE);
-        noResults.setVisibility(View.GONE);
-        ribWelcomeScreen.setVisibility(View.GONE);
-        searchingRib.setVisibility(View.VISIBLE);
     }
 
     private void toggleResultScreen() {

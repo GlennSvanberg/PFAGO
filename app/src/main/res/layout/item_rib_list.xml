@@ -27,6 +27,7 @@
                 android:fontFamily="sans-serif-condensed-light"
                 android:padding="7dp"
                 android:textAlignment="center"
+                android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 android:textStyle="bold" />

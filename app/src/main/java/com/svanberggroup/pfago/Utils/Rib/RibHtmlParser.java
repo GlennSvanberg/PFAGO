@@ -8,6 +8,7 @@ import com.svanberggroup.pfago.Utils.Rib.Constants.RibUrl;
 import org.jsoup.nodes.Element;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class RibHtmlParser {
@@ -20,20 +21,18 @@ public class RibHtmlParser {
 
     public ArrayList<String> parseNote(Element element) {
         ArrayList<String> notes = new ArrayList<>();
-        String noteSelected = element.select(HtmlAttr.INFO).html()
-                .replaceAll("\\<.*?\\>", "");
+        String noteSelected = element.select(HtmlAttr.INFO).html().replaceAll("\\<.*?\\>", "");
 
         if (noteSelected.contains(",")) {
             String[] noteSplit = noteSelected.split(", ");
             for (String note : noteSplit) {
-              //  Log.i("NOTE", note);
-
                 if (note == null || note.isEmpty()) break;
-
                 notes.add(note.trim());
             }
         } else {
-            notes.add("       Kategoriserad under " + noteSelected.replace("(", "").replace(")", ""));
+            String subCategory = "Underställt," + noteSelected.replace("(", "").replace(")", "");
+            String[] subCategorySplit = subCategory.split(",");
+            notes.addAll(Arrays.asList(subCategorySplit));
         }
         return notes;
     }
