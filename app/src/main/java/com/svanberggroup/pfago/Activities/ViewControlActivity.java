@@ -656,6 +656,9 @@ public class ViewControlActivity extends AppCompatActivity {
     }
 
     private String line(String title, String data) {
+        if(data == null) {
+            data = "";
+        }
         return title + " <strong>" + data + "</strong>" + "<br>";
     }
 }
