@@ -43,5 +43,8 @@ public class BreakingTheLawActivity extends AppCompatActivity {
 
         control = (Control) getIntent().getSerializableExtra("control");
 
+        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+        inflater.inflate(R.layout.activity_breaking_the_law, this);
+
     }
 }
