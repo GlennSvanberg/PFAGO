@@ -203,7 +203,7 @@ public class RIBActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent ribSubstanceIntent = new Intent(RIBActivity.this, RIBSubstanceActivity.class);
-                    ribSubstanceIntent.putExtra("url", ribSearchResult.getLink());
+                    ribSubstanceIntent.putExtra(RibMain.URL_KEY, ribSearchResult.getLink());
                     startActivity(ribSubstanceIntent);
                 }
             });
