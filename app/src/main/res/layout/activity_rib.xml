@@ -59,6 +59,7 @@
             android:layout_gravity="top"
             android:layout_marginTop="20dp"
             android:padding="10dp"
+            android:text="@string/ribWelcome"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/black"

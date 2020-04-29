@@ -72,12 +72,8 @@ public class RIBSubstanceActivity extends AppCompatActivity {
                         RibWebJSInjection.ALIGN_VALUES +
                         RibWebJSInjection.PADDING_BOTTOM_TRANSPORT +
                         RibWebJSInjection.PADDING_BOTTOM_IDENTITET
-
-
                 );
-
                 substanceView.setVisibility(View.VISIBLE);
-
             }
         });
     }

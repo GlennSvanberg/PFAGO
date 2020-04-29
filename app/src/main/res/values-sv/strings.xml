@@ -22,6 +22,7 @@
     <string name="mixed_cargo">Styckegods</string>
     <string name="other">Annat</string>
     <string name="adr">ADR</string>
+    <string name="ribWelcome">Sök bland 5 000 ämnen som finns i RIB</string>
     <string name="adrs">ADR-S</string>
     <string name="imdg">IMDG-koden</string>
     <string name="icao">ICAO-TI/ATA-DGR</string>

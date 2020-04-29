@@ -61,11 +61,11 @@ public class RIBActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
+
         ribSearchResults = new ArrayList<>();
 
         welcomeText = findViewById(R.id.ribWelcome);
         welcomeText.setAlpha((float) 0.5);
-        welcomeText.setText(RibMain.WELCOME);
 
         noResultText = findViewById(R.id.noResultsText);
         noResults = findViewById(R.id.noResults);
@@ -75,7 +75,6 @@ public class RIBActivity extends AppCompatActivity {
 
         queryField = findViewById(R.id.query);
         queryField.setHint(RibMain.QUERY_HINT);
-
         queryField.requestFocus();
         queryField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -175,7 +174,6 @@ public class RIBActivity extends AppCompatActivity {
                     }
                 }
             }
-
             descriptionStart.setText(noteStart.toString());
             descriptionEnd.setText(noteEnd.toString());
         }
@@ -236,10 +234,10 @@ public class RIBActivity extends AppCompatActivity {
     }
 
     private void toggleWelcomeScreen() {
+        ribWelcomeScreen.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
         noResults.setVisibility(View.GONE);
         searchingRib.setVisibility(View.GONE);
-        ribWelcomeScreen.setVisibility(View.VISIBLE);
     }
 
     private void toggleResultScreen() {
@@ -250,8 +248,8 @@ public class RIBActivity extends AppCompatActivity {
     }
 
     private void toggleFailedScreen() {
-        recyclerView.setVisibility(View.GONE);
         noResults.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
         searchingRib.setVisibility(View.GONE);
         ribWelcomeScreen.setVisibility(View.GONE);
     }
