@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:context=".Activities.BreakingTheLawActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutBreakingThelaw"
@@ -28,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/godsBreakingTheLawTextView"></LinearLayout>
+            app:layout_constraintTop_toBottomOf="@id/toggleButton"></LinearLayout>
 
         <Button
             android:id="@+id/addGodsBreakingTheLawButton"
@@ -59,10 +60,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/flawBreakingTheLawTextView"></LinearLayout>
+            app:layout_constraintTop_toBottomOf="@id/toggleButton1"></LinearLayout>
 
         <Button
-            android:id="@+id/flawBreakingTheLawButton"
+            android:id="@+id/flawAddBreakingTheLawButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -70,6 +71,22 @@
             android:text="Lägg till"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/flawLinearLayout" />
+
+        <ToggleButton
+            android:id="@+id/toggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ToggleButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <ToggleButton
+            android:id="@+id/toggleButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ToggleButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/flawBreakingTheLawTextView"
+            app:layout_constraintBottom_toBottomOf="@id/flawBreakingTheLawTextView"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
