@@ -50,13 +50,17 @@ public class MainActivity extends AppCompatActivity {
    // private FusedLocationProviderClient fusedLocationClient;
 
     private boolean isSearchMode = true;
+    private boolean isSearchActivity = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        isSearchActivity = getIntent().getBooleanExtra("searchActivity", false);
         controls = ControlRepository.get().getAllControls();
+
+
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         //temp change to see recyclerview should be View.GONE - View.VISIBLE
@@ -148,6 +152,14 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        setSearchActivityView();
+    }
+    private void setSearchActivityView() {
+        if(isSearchActivity){
+            buttonsLinearLayout.setVisibility(View.GONE);
+
+        }
     }
 
     private void updateUI(){
@@ -170,7 +182,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_activity_menu, menu);
+        if(!isSearchActivity){
+            inflater.inflate(R.menu.main_activity_menu, menu);
+        }
         return true;
     }
 

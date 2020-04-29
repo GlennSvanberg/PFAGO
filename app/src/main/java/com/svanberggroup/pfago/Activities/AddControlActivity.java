@@ -140,7 +140,11 @@ public class AddControlActivity extends AppCompatActivity {
             case R.id.ribControl:
                 intent = new Intent(this,RIBActivity.class);
                 startActivity(intent);
-
+                break;
+            case R.id.mainControl:
+                intent = new Intent(this,MainActivity.class);
+                intent.putExtra("searchActivity", true);
+                startActivity(intent);
                 break;
             default: return super.onOptionsItemSelected(item);
         }

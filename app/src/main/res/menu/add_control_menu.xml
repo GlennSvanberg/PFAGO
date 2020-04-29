@@ -5,16 +5,22 @@
         android:id="@+id/ribControl"
         android:icon="@drawable/ic_rib"
         android:title="RIB"
-        app:showAsAction="ifRoom|withText"></item>
+        app:showAsAction="always"></item>
+    <item
+        android:id="@+id/mainControl"
+        android:icon="@drawable/ic_car"
+        android:title="Fordon"
+        app:showAsAction="always"></item>
     <item
         android:id="@+id/cameraControl"
         android:icon="@drawable/ic_camera"
         android:title="Bild"
-        app:showAsAction="ifRoom|withText"></item>
+        app:showAsAction="always"></item>
     <item
         android:id="@+id/doneControl"
         android:icon="@drawable/ic_save"
         android:title="Spara"
-        app:showAsAction="ifRoom|withText"></item>
+        app:showAsAction="always"></item>
+
 
 </menu>
