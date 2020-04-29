@@ -15,11 +15,16 @@ public class RibSearch {
 
     public ArrayList<RibSearchResult> runRequest(String query) {
         Document response = null;
+        String formatedQuery = query.trim().toLowerCase();
+        if (formatedQuery.matches("un\\d+$")){
+            formatedQuery = formatedQuery.replace("un", "");
+        }
+
         try {
-            if (query.trim().matches("^\\d+$")) {
-                response = Jsoup.connect(RibUrl.BASE + query).get();
+            if (formatedQuery.matches("^\\d+$")) {
+                response = Jsoup.connect(RibUrl.BASE + formatedQuery).get();
             } else
-                response = Jsoup.connect(RibUrl.BASE + query + "/").get();
+                response = Jsoup.connect(RibUrl.BASE + formatedQuery + "/").get();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
