@@ -42,7 +42,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.svanberggroup.pfago.Fragments.FragmentOne;
+import com.svanberggroup.pfago.Fragments.*;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ImageData;
 import com.svanberggroup.pfago.Models.Vehicle;
@@ -70,6 +70,8 @@ public class AddControlActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 115;
     private static final int REQUEST_CONTROL_APPROVAL = 5;
 
+    private ViewPagerAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,40 +80,15 @@ public class AddControlActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tabs);
         control = new Control();
-        viewPager.setAdapter(createCardAdapter());
+        adapter = createCardAdapter();
+        viewPager.setAdapter(adapter);
+        addFragments();
 
         new TabLayoutMediator(tabLayout, viewPager,
                 new TabLayoutMediator.TabConfigurationStrategy() {
                     @Override public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                        switch (position) {
-                            case 0:
-                                tab.setText("Fordon");
-                                break;
-                            case 1:
-                                tab.setText("Förare");
-                                break;
-                            case 2:
-                                tab.setText("Platser");
-                                break;
-                            case 3:
-                                tab.setText("Gods");
-                                break;
-                            case 4:
-                                tab.setText("Handlingar");
-                                break;
-                            case 5:
-                                tab.setText("Handlingar1");
-                                break;
-                            case 6:
-                                tab.setText("Transport");
-                                break;
-                            case 7:
-                                tab.setText("Övrigt");
-                                break;
-                            case 8:
-                                tab.setText("Bilder");
-                                break;
-                        }
+
+                        tab.setText(adapter.getTitle(position));
                     }
                 }).attach();
     }
@@ -124,6 +101,28 @@ public class AddControlActivity extends AppCompatActivity {
     }
 
 
+    private ViewPagerAdapter createCardAdapter() {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this, control);
+        return adapter;
+    }
+
+    private void addFragments() {
+        adapter.addFragment(FragmentOne.newInstance(control), "Fordon", 0);
+        adapter.addFragment(FragmentTwo.newInstance(control), "Förare", 1);
+        adapter.addFragment(FragmentThree.newInstance(control), "Platser", 2);
+        adapter.addFragment(FragmentFour.newInstance(control), "Gods", 3);
+        adapter.addFragment(FragmentFive.newInstance(control), "Handlingar", 4);
+        adapter.addFragment(FragmentSix.newInstance(control), "Handlingar1", 5);
+        adapter.addFragment(FragmentSeven.newInstance(control), "Transport", 6);
+        adapter.addFragment(FragmentEight.newInstance(control), "Övrigt", 7);
+        adapter.addFragment(ImagesFragment.newInstance(control), "Bilder", 8);
+
+    }
+    public void addBreakingTheLawFragment() {
+        Fragment fragment = BreakingTheLawFragment.newInstance(control);
+        adapter.addFragment(fragment, "Rapport", 9);
+        adapter.notifyDataSetChanged();
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
@@ -174,10 +173,7 @@ public class AddControlActivity extends AppCompatActivity {
         alert.show();
     }
 
-    private ViewPagerAdapter createCardAdapter() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this, control);
-        return adapter;
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

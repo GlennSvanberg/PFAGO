@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.svanberggroup.pfago.Activities.AddControlActivity;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.TransportRows;
@@ -338,6 +339,7 @@ public class FragmentSix extends Fragment {
                     break;
 
                 case R.id.fireExtinguisherNotApprovedRadioButton:
+                    ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                     setVisibilityFor(Transport.fire, View.VISIBLE);
                     fireRow31.setField(ControlRow.Field.BreakingTheLaw);
                     tRows.setRow31(fireRow31);
