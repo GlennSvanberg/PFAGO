@@ -3,14 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/ribControl"
-        android:icon="@drawable/ic_rib"
-        android:title="RIB"
-        app:showAsAction="always"></item>
+        android:icon="@drawable/ic_rib_dark"
+        android:title="Sök RIB"
+        app:showAsAction="ifRoom|withText"></item>
     <item
         android:id="@+id/mainControl"
-        android:icon="@drawable/ic_car"
-        android:title="Fordon"
-        app:showAsAction="always"></item>
+        android:icon="@drawable/ic_car_dark"
+        android:title="Sök Kontroller"
+        app:showAsAction="ifRoom|withText"></item>
     <item
         android:id="@+id/cameraControl"
         android:icon="@drawable/ic_camera"
@@ -21,6 +21,5 @@
         android:icon="@drawable/ic_save"
         android:title="Spara"
         app:showAsAction="always"></item>
-
 
 </menu>

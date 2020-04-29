@@ -59,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
 
         isSearchActivity = getIntent().getBooleanExtra("searchActivity", false);
         controls = ControlRepository.get().getAllControls();
+        if(isSearchActivity){
+            setTitle("Sök tidigare kontroller");
+        }
 
 
 
