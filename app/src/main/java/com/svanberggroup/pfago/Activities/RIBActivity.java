@@ -34,7 +34,7 @@ import java.util.List;
 
 public class RIBActivity extends AppCompatActivity {
 
-    private ArrayList<RibSearchResult> ribSearchResults = new ArrayList<>();
+    private ArrayList<RibSearchResult> ribSearchResults;
     private EditText queryField;
     private FrameLayout ribWelcomeScreen;
     private ImageButton searchButton;
@@ -84,9 +84,9 @@ public class RIBActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                searchButton.setImageResource(R.drawable.ic_search);
                 if (charSequence.length() == 0) {
                     toggleWelcomeScreen();
-                    searchButton.setImageResource(R.drawable.ic_search);
                 }
             }
 
