@@ -87,6 +87,7 @@ public class RIBActivity extends AppCompatActivity {
                 if (charSequence.length() == 0) {
                     toggleWelcomeScreen();
                 }
+                isSearchMode = true;
             }
 
             @Override
