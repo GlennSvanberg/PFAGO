@@ -98,6 +98,9 @@ public class FragmentEight extends Fragment {
                 }
 
             }
+            if(cRow.getField() == null && cRow.getTitle() == null && cRow.isBanned() == false && cRow.isImposed() == false && cRow.getNotes() == null && cRow.getRiskCategory() == null) {
+                return;
+            }
 
             boolean allreadyAdded = false;
             cRow.setNotes(notes.getText().toString());
