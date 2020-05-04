@@ -89,7 +89,7 @@
             app:layout_constraintBottom_toBottomOf="@id/flawBreakingTheLawTextView"/>
 
         <RadioGroup
-            android:id="@+id/radioGroup"
+            android:id="@+id/safetyAdvisorTransporterRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -114,6 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ja" />
+
         </RadioGroup>
 
         <EditText
@@ -124,10 +125,10 @@
             android:ems="10"
             android:hint="Namn"
             android:inputType="textPersonName"
-            app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
+            app:layout_constraintBottom_toBottomOf="@+id/safetyAdvisorTransporterRadioGroup"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/radioGroup"
-            app:layout_constraintTop_toTopOf="@+id/radioGroup" />
+            app:layout_constraintStart_toEndOf="@+id/safetyAdvisorTransporterRadioGroup"
+            app:layout_constraintTop_toTopOf="@+id/safetyAdvisorTransporterRadioGroup" />
 
         <TextView
             android:id="@+id/safteyAdvisorTextView"
@@ -264,6 +265,108 @@
                 android:layout_height="wrap_content"
                 android:text="Nej" />
         </RadioGroup>
+
+        <TextView
+            android:id="@+id/decidorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beslutande"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/shortestWayRadioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/shortestWayRadioGroup" />
+
+        <EditText
+            android:id="@+id/decidorNameEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Namn"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="@+id/decidorTextView"
+            app:layout_constraintTop_toBottomOf="@+id/decidorTextView" />
+
+        <EditText
+            android:id="@+id/decidorPhoneEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Telefon"
+            android:inputType="phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/decidorNameEditText"
+            app:layout_constraintTop_toTopOf="@+id/decidorNameEditText" />
+
+        <TextView
+            android:id="@+id/reportsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rapporter"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/decidorNameEditText"
+            app:layout_constraintTop_toBottomOf="@+id/decidorNameEditText" />
+
+        <RadioGroup
+            android:id="@+id/entityReportedRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/reportsTextView"
+            app:layout_constraintTop_toBottomOf="@+id/reportsTextView" >
+
+            <RadioButton
+                android:id="@+id/senderReportedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Avsändare" />
+
+            <RadioButton
+                android:id="@+id/carrierReportedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Transportör" />
+
+            <RadioButton
+                android:id="@+id/driverReportedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Förare" />
+
+            <RadioButton
+                android:id="@+id/reciverReportedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mottagare" />
+
+            <RadioButton
+                android:id="@+id/coDriverReportedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Annan besättningsmedlem" />
+
+            <RadioButton
+                android:id="@+id/otherReportedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Annan delaktig" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/addOfButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lägg till"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/OFlinearLayout" />
+
+        <LinearLayout
+            android:id="@+id/OFlinearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/entityReportedRadioGroup"
+            app:layout_constraintTop_toBottomOf="@+id/decidorPhoneEditText"></LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
