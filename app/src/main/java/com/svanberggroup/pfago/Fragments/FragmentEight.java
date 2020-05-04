@@ -70,7 +70,7 @@ public class FragmentEight extends Fragment {
         views.add(child1);
         views.add(child2);
 
-        displayViews();
+        //displayViews();
         addRadioButtonCheckedListner();
         return  view;
     }

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.svanberggroup.pfago.Activities.AddControlActivity;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.TransportRows;
@@ -337,7 +338,11 @@ public class FragmentSeven extends Fragment {
                     tRows.setRow24(approved24Row);
                     control.setTRows(tRows);
                 } else if (s.length() == 0) {
-                    approved24Row.setRiskCategory(null);
+                    if(approved24Row != null){
+                        approved24Row.setRiskCategory(null);
+                        tRows.setRow24(approved24Row);
+                        control.setTRows(tRows);
+                    }
                     tRows.setRow24(approved24Row);
                     control.setTRows(tRows);
                 }
@@ -361,9 +366,12 @@ public class FragmentSeven extends Fragment {
                     tRows.setRow24(approved24Row);
                     control.setTRows(tRows);
                 } else if (s.length() == 0) {
-                    approved24Row.setNotes(null);
-                    tRows.setRow24(approved24Row);
-                    control.setTRows(tRows);
+                    if(approved24Row != null){
+                        approved24Row.setNotes(null);
+                        tRows.setRow24(approved24Row);
+                        control.setTRows(tRows);
+                    }
+
                 }
                 if (viewEmptyFor(Transport.approved24)) {
                     tRows.setRow18(null);
@@ -392,6 +400,7 @@ public class FragmentSeven extends Fragment {
                 if (viewEmptyFor(Transport.marking25)) {
                     tRows.setRow25_1(null);
                     control.setTRows(tRows);
+
                 }
             }
 
