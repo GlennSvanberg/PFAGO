@@ -210,6 +210,7 @@ public class FragmentSeven extends Fragment {
                         break;
 
                     case R.id.handlingNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.approved24, View.VISIBLE);
                         approved24Row.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow24(approved24Row);
@@ -235,6 +236,7 @@ public class FragmentSeven extends Fragment {
                         break;
 
                     case R.id.loadingNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.marking25, View.VISIBLE);
                         marking25Row.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow25_1(marking25Row);
@@ -260,6 +262,7 @@ public class FragmentSeven extends Fragment {
                         break;
 
                     case R.id.securingCargoNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.labeling252, View.VISIBLE);
                         labeling252Row.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow25_2(labeling252Row);
@@ -285,6 +288,7 @@ public class FragmentSeven extends Fragment {
                         break;
 
                     case R.id.leakageNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.bigLabel26, View.VISIBLE);
                         bigLabel26Row.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow26(bigLabel26Row);
@@ -310,6 +314,7 @@ public class FragmentSeven extends Fragment {
                         break;
 
                     case R.id.damagesNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.signage27, View.VISIBLE);
                         signage27Row.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow27(signage27Row);

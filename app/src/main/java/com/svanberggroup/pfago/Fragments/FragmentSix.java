@@ -229,6 +229,7 @@ public class FragmentSix extends Fragment {
                     break;
 
                 case R.id.stopBlockNotApprovedRadioButton:
+                    ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                     setVisibilityFor(Transport.stopBlock, View.VISIBLE);
                     stopBlockRow281.setField(ControlRow.Field.BreakingTheLaw);
                     tRows.setRow28_1(stopBlockRow281);
@@ -251,6 +252,7 @@ public class FragmentSix extends Fragment {
                     break;
 
                 case R.id.warningDeviceNotApprovedRadioButton:
+                    ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                     setVisibilityFor(Transport.warningDevice, View.VISIBLE);
                     warningDeviceRow282.setField(ControlRow.Field.BreakingTheLaw);
                     tRows.setRow28_2(warningDeviceRow282);
@@ -273,6 +275,7 @@ public class FragmentSix extends Fragment {
                     break;
 
                 case R.id.safetyEquipmentNotApprovedRadioButton:
+                    ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                     setVisibilityFor(Transport.saftey, View.VISIBLE);
                     safetyRow283.setField(ControlRow.Field.BreakingTheLaw);
                     tRows.setRow28_3(safetyRow283);
@@ -295,6 +298,7 @@ public class FragmentSix extends Fragment {
                     break;
 
                 case R.id.portableLightSourceNotApprovedRadioButton:
+                    ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                     setVisibilityFor(Transport.portable, View.VISIBLE);
                     portableRow284.setField(ControlRow.Field.BreakingTheLaw);
                     tRows.setRow28_4(portableRow284);
@@ -317,6 +321,7 @@ public class FragmentSix extends Fragment {
                     break;
 
                 case R.id.godsSpecificEquipmentNotApprovedRadioButton:
+                    ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                     setVisibilityFor(Transport.gods, View.VISIBLE);
                     godsRow29.setField(ControlRow.Field.BreakingTheLaw);
                     tRows.setRow29(godsRow29);
