@@ -70,6 +70,7 @@ public class AddControlActivity extends AppCompatActivity {
     private File photoFile;
     private List<ControlRow> controlRowList;
     private boolean breakingTheLaw;
+    private boolean imagesIsEnabled = false;
 
     private static final int REQUEST_IMAGE_CAPTURE = 115;
     private static final int REQUEST_CONTROL_APPROVAL = 5;
@@ -104,69 +105,6 @@ public class AddControlActivity extends AppCompatActivity {
         return true;
     }
 
-    private void getControlRows() {
-        ControlRow controlRow1 = control.getTdRows().getApprovalRow();
-        ControlRow controlRow2 = control.getTdRows().getApprovalCertificateRow();
-        ControlRow controlRow3 = control.getTdRows().getDriverCertificationRow();
-        ControlRow controlRow4 = control.getTdRows().getGoodsDeclarationRow();
-        ControlRow controlRow5 = control.getTdRows().getWrittenInstructionsRow();
-        ControlRow controlRow6 = control.getTdRows().getOtherADRTrainingRow();
-
-        ControlRow controlRow7 = control.getTRows().getRow18();
-        ControlRow controlRow8 = control.getTRows().getRow19();
-        ControlRow controlRow9 = control.getTRows().getRow20();
-        ControlRow controlRow10 = control.getTRows().getRow21();
-        ControlRow controlRow11 = control.getTRows().getRow22_1();
-        ControlRow controlRow12 = control.getTRows().getRow22_2();
-        ControlRow controlRow13 = control.getTRows().getRow22_3();
-        ControlRow controlRow14 = control.getTRows().getRow23_1();
-        ControlRow controlRow15 = control.getTRows().getRow23_2();
-        ControlRow controlRow16 = control.getTRows().getRow24();
-        ControlRow controlRow17 = control.getTRows().getRow25_1();
-        ControlRow controlRow18 = control.getTRows().getRow25_2();
-        ControlRow controlRow19 = control.getTRows().getRow26();
-        ControlRow controlRow20 = control.getTRows().getRow27();
-        ControlRow controlRow21 = control.getTRows().getRow28_1();
-        ControlRow controlRow22 = control.getTRows().getRow28_2();
-        ControlRow controlRow23 = control.getTRows().getRow28_3();
-        ControlRow controlRow24 = control.getTRows().getRow28_4();
-        ControlRow controlRow25 = control.getTRows().getRow29();
-        ControlRow controlRow26 = control.getTRows().getRow31();
-        List<ControlRow> controlRows = control.getTRows().getRows40();
-
-        controlRowList = new ArrayList<>();
-        controlRowList.add(controlRow1);
-        controlRowList.add(controlRow2);
-        controlRowList.add(controlRow3);
-        controlRowList.add(controlRow4);
-        controlRowList.add(controlRow5);
-        controlRowList.add(controlRow6);
-        controlRowList.add(controlRow7);
-        controlRowList.add(controlRow8);
-        controlRowList.add(controlRow9);
-        controlRowList.add(controlRow10);
-        controlRowList.add(controlRow11);
-        controlRowList.add(controlRow12);
-        controlRowList.add(controlRow13);
-        controlRowList.add(controlRow14);
-        controlRowList.add(controlRow15);
-        controlRowList.add(controlRow16);
-        controlRowList.add(controlRow17);
-        controlRowList.add(controlRow18);
-        controlRowList.add(controlRow19);
-        controlRowList.add(controlRow20);
-        controlRowList.add(controlRow21);
-        controlRowList.add(controlRow22);
-        controlRowList.add(controlRow23);
-        controlRowList.add(controlRow24);
-        controlRowList.add(controlRow25);
-        controlRowList.add(controlRow26);
-        for (ControlRow row: controlRows) {
-            controlRowList.add(row);
-        }
-    }
-
-
     private ViewPagerAdapter createCardAdapter() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(this, control);
         return adapter;
@@ -178,15 +116,20 @@ public class AddControlActivity extends AppCompatActivity {
         adapter.addFragment(FragmentThree.newInstance(control), "Platser", 2);
         adapter.addFragment(FragmentFour.newInstance(control), "Gods", 3);
         adapter.addFragment(FragmentFive.newInstance(control), "Handlingar", 4);
-        adapter.addFragment(FragmentSix.newInstance(control), "Handlingar1", 5);
+        adapter.addFragment(FragmentSix.newInstance(control), "Handlingar", 5);
         adapter.addFragment(FragmentSeven.newInstance(control), "Transport", 6);
         adapter.addFragment(FragmentEight.newInstance(control), "Övrigt", 7);
-        adapter.addFragment(ImagesFragment.newInstance(control), "Bilder", 8);
+        //adapter.addFragment(ImagesFragment.newInstance(control), "Bilder", 8);
 
+    }
+    public void addImagesFragment() {
+        Fragment fragment = ImagesFragment.newInstance(control);
+        adapter.addFragment(fragment, "Bilder", adapter.getItemCount());
+        adapter.notifyDataSetChanged();
     }
     public void addBreakingTheLawFragment() {
         Fragment fragment = BreakingTheLawFragment.newInstance(control);
-        adapter.addFragment(fragment, "Rapport", 9);
+        adapter.addFragment(fragment, "Rapport", adapter.getItemCount());
         adapter.notifyDataSetChanged();
     }
     @Override
@@ -262,6 +205,11 @@ public class AddControlActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Log.i("CAMERA_RESULT", "onActivityResult");
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            if(!imagesIsEnabled){
+                imagesIsEnabled = true;
+                addImagesFragment();
+            }
+
             Toast.makeText(this, "Bild sparad i fliken bilder", Toast.LENGTH_LONG).show();
             control.addImage(new ImageData(currentPhotoPath));
         } else if (requestCode == REQUEST_CONTROL_APPROVAL) {
@@ -332,6 +280,7 @@ public class AddControlActivity extends AppCompatActivity {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
+
     }
 
 
