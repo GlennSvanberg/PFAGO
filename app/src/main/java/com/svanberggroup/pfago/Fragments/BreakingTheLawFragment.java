@@ -19,7 +19,7 @@ import com.svanberggroup.pfago.R;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FragmentEight extends Fragment {
+public class BreakingTheLawFragment extends Fragment {
 
 
 
@@ -33,11 +33,11 @@ public class FragmentEight extends Fragment {
     private ArrayList<View> views = new ArrayList<>();
     private LinearLayout otherLinerLayout;
 
-    public FragmentEight() {
+    public BreakingTheLawFragment() {
     }
 
-    public static FragmentEight newInstance(Control control) {
-        FragmentEight fragment = new FragmentEight();
+    public static BreakingTheLawFragment newInstance(Control control) {
+        BreakingTheLawFragment fragment = new BreakingTheLawFragment();
         Bundle args = new Bundle();
         args.putSerializable(NEW_CONTROL, (Serializable) control);
         fragment.setArguments(args);
@@ -49,29 +49,15 @@ public class FragmentEight extends Fragment {
         super.onCreate(savedInstanceState);
 
         control = (Control) getArguments().getSerializable(NEW_CONTROL);
-
-        if (control.getTRows() != null) {
-            tRows = control.getTRows();
-        } else {
-            tRows = new TransportRows();
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_eight, container, false);
+        View view = inflater.inflate(R.layout.fragment_breaking_the_law, container, false);
 
         otherLinerLayout = (LinearLayout) view.findViewById(R.id.otherLinearLayout);
-        child = inflater.inflate(R.layout.control_layout, null);
-        View child1 = inflater.inflate(R.layout.control_layout, null);
-        View child2 = inflater.inflate(R.layout.control_layout, null);
-        views.add(child);
-        views.add(child1);
-        views.add(child2);
 
-        //displayViews();
-        addRadioButtonCheckedListner();
         return  view;
     }
 
@@ -83,28 +69,7 @@ public class FragmentEight extends Fragment {
         }
     }
 
-    private void addRadioButtonCheckedListner() {
-        tRows = control.getTRows();
 
-        for (View v: views) {
-
-            RadioGroup group = v.findViewById(R.id.radioGroupABC);
-            ControlRow cRow = new ControlRow("janne");
-            group.setOnCheckedChangeListener((group1, checkedId) -> {
-                    switch (checkedId) {
-                        case R.id.radioButtonControlled:
-                            cRow.setField(ControlRow.Field.Controlled);
-                            tRows.addRow40(cRow);
-                        case R.id.radioButtonNotApproved:
-                            cRow.setField(ControlRow.Field.BreakingTheLaw);
-                            tRows.addRow40(cRow);
-                        case R.id.radioButtonNotApplicible:
-                            cRow.setField(ControlRow.Field.NotApplicable);
-                            tRows.addRow40(cRow);
-                    }
-            });
-        }
-    }
 
 
     @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
