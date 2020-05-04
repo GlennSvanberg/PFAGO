@@ -619,7 +619,10 @@ public class ViewControlActivity extends AppCompatActivity {
                 str.append(line("Anteckningar:", row.getNotes()));
             }
         }   else {
-            str.append(row.getName());
+            if(row!=null) {
+                str.append(row.getName());
+            }
+
         }
         setText(textView, str.toString());
 
