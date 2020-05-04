@@ -14,6 +14,9 @@ public class Fault implements Serializable {
         this.fault = fault;
         this.marginal = marginal;
     }
+    public Fault() {
+
+    }
 
     public int getFieldNr() {
         return fieldNr;

@@ -113,6 +113,8 @@ public class Control implements Serializable {
         submissionFieldNrList = new ArrayList<>();
         penaltiesList = new ArrayList<>();
         images = new ArrayList<>();
+        safetyAdvisorSender = new SafetyAdvisor();
+        safetyAdvisorCarrier = new SafetyAdvisor();
     }
 
     public List<ImageData> getImages() {

@@ -295,8 +295,25 @@ public class BreakingTheLawFragment extends Fragment {
             EditText flawsGodsPos = v.findViewById(R.id.flawGodsPosDescriptionEditText);
             EditText flaw = v.findViewById(R.id.flawEditText);
             EditText mNumber = v.findViewById(R.id.mNumberEditText);
-            Fault fault = new Fault(Integer.parseInt(field.getText().toString()), flawsGodsPos.getText().toString(),
-                    flaw.getText().toString(), mNumber.getText().toString());
+
+            Fault fault = new Fault();
+            if(field.getText()!= null){
+                try {
+                    fault.setFieldNr(Integer.parseInt(field.getText().toString()));
+                } catch(NumberFormatException e){
+                    // Nothing to do
+                }
+
+            }
+            if(flawsGodsPos.getText()!=null){
+                fault.setGoodsPos(flawsGodsPos.getText().toString());
+            }
+            if(flaw.getText()!= null){
+                fault.setFault(flaw.getText().toString());
+            }
+            if(mNumber.getText()!=null){
+                fault.setMarginal(mNumber.getText().toString());
+            }
             faults.add(fault);
         }
         return faults;
@@ -307,8 +324,18 @@ public class BreakingTheLawFragment extends Fragment {
         control.setGoodsList(createListofGoods());
         control.setFaultList(createListOfFlaws());
         addOFs();
-        control.getSafetyAdvisorSender().setName(safteyAdvisorSenderName.getText().toString());
-        control.getSafetyAdvisorCarrier().setName(safteyAdvisorTransporterName.getText().toString());
+        
+        String safetyAdvisorSenderName = "";
+        if(safteyAdvisorSenderName.getText() != null) {
+            safetyAdvisorSenderName = safteyAdvisorSenderName.getText().toString();
+        }
+        control.getSafetyAdvisorSender().setName(safetyAdvisorSenderName);
+
+        String safetyAdvisorCarrierName = "";
+        if(safteyAdvisorTransporterName.getText() != null) {
+            safetyAdvisorCarrierName = safteyAdvisorTransporterName.getText().toString();
+        }
+        control.getSafetyAdvisorCarrier().setName(safetyAdvisorCarrierName);
     }
     private void addOFs() {
         for (EditText e: ofEdits) {
