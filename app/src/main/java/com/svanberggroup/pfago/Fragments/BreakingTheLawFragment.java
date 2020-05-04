@@ -20,6 +20,7 @@ import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.Fault;
 import com.svanberggroup.pfago.Models.Goods;
+import com.svanberggroup.pfago.Models.SafetyAdvisor;
 import com.svanberggroup.pfago.Models.TransportRows;
 import com.svanberggroup.pfago.R;
 
@@ -38,6 +39,10 @@ public class BreakingTheLawFragment extends Fragment {
     private Button flawsAddButton;
     private List<View> godsViews;
     private List<View> flawsViews;
+    private LinearLayout ofLinearLayout;
+    private List<EditText> ofEdits;
+    private EditText safteyAdvisorTransporterName;
+    private EditText safteyAdvisorSenderName;
 
     public BreakingTheLawFragment() {
     }
@@ -62,22 +67,36 @@ public class BreakingTheLawFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_breaking_the_law, container, false);
 
+        safteyAdvisorSenderName = view.findViewById(R.id.safteyAdvisorSenderNameEditText);
+        safteyAdvisorTransporterName = view.findViewById(R.id.safteyAdvisorTransporterNameEditText);
+
         flawLinearLayout = (LinearLayout) view.findViewById(R.id.flawLinearLayout);
         godsLinearLayout = (LinearLayout) view.findViewById(R.id.godsLinearLayout);
+        ofLinearLayout = (LinearLayout) view.findViewById(R.id.OFlinearLayout);
+
         View childGods = getLayoutInflater().inflate(R.layout.gods_input_layout, null);
         View childFlaw = getLayoutInflater().inflate(R.layout.flaws_input_layout, null);
+        EditText text = new EditText(getActivity());
+        text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        text.setHint(R.string.of);
+        ofLinearLayout.addView(text);
+
+
+
 
         //godsLinearLayout.addView(childGods);
         //flawLinearLayout.addView(childFlaw);
 
         godsViews = new ArrayList<>();
-        flawsViews= new ArrayList<>();
+        flawsViews = new ArrayList<>();
+        ofEdits = new ArrayList<>();
+
+        ofEdits.add(text);
         godsViews.add(childGods);
         flawsViews.add(childFlaw);
 
         addButtonListners(view);
         toggleViewButton(view);
-
         return  view;
     }
 
@@ -94,7 +113,13 @@ public class BreakingTheLawFragment extends Fragment {
     private void addButtonListners(View view) {
         godsAddButton = view.findViewById(R.id.addGodsBreakingTheLawButton);
         flawsAddButton = view.findViewById(R.id.flawAddBreakingTheLawButton);
+        Button ofAddButton = view.findViewById(R.id.addOfButton);
+        RadioGroup safteyAdvisorTranporterRadioGroup = view.findViewById(R.id.safetyAdvisorTransporterRadioGroup);
+        RadioGroup safetyAdvisorSenderRadioGroup = view.findViewById(R.id.safetySenderRadioGroup);
         LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        RadioGroup consentRadioGroup = view.findViewById(R.id.consentRadioGroup);
+        RadioGroup isAllowedToContinueTrip = view.findViewById(R.id.shortestWayRadioGroup);
+        RadioGroup reportedRadioGroup = view.findViewById(R.id.entityReportedRadioGroup);
 
         godsAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +136,103 @@ public class BreakingTheLawFragment extends Fragment {
                 View addView = layoutInflater.inflate(R.layout.flaws_input_layout, null);
                 flawLinearLayout.addView(addView);
                 flawsViews.add(addView);
+            }    private LinearLayout ofLinearLayout;
+            private List<EditText> ofEdits;
+        });
+        ofAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText text = new EditText(getActivity());
+                text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                text.setHint(R.string.of);
+                ofLinearLayout.addView(text);
+                ofEdits.add(text);
+            }
+        });
+        safteyAdvisorTranporterRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.dontKnowRadioButton:
+
+                        control.getSafetyAdvisorCarrier().setAnswer(SafetyAdvisor.Answer.Unknown);
+                        break;
+                    case R.id.yesRadioButton:
+                        control.getSafetyAdvisorCarrier().setAnswer(SafetyAdvisor.Answer.Yes);
+                        break;
+                    case R.id.noRadioButton:
+                        control.getSafetyAdvisorCarrier().setAnswer(SafetyAdvisor.Answer.No);
+                        break;
+                }
+            }
+        });
+        safetyAdvisorSenderRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.dontKnowSenderRadioButton:
+                        control.getSafetyAdvisorSender().setAnswer(SafetyAdvisor.Answer.Unknown);
+                        break;
+                    case R.id.noSenderRadioButton:
+                        control.getSafetyAdvisorSender().setAnswer(SafetyAdvisor.Answer.No);
+                        break;
+                    case R.id.yesRadioButton:
+                        control.getSafetyAdvisorSender().setAnswer(SafetyAdvisor.Answer.Yes);
+                        break;
+                }
+            }
+        });
+        consentRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            ArrayList<Integer> list = new ArrayList<>();
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.YesRadioButton:
+                        control.setAdmissionGiven(true);
+                        break;
+                    case R.id.NoRadioButton:
+                        control.setAdmissionGiven(false);
+                        break;
+                }
+            }
+        });
+        isAllowedToContinueTrip.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.shortestWayYesRadioButton:
+                        control.setAllowedToContinueTrip(true);
+                        break;
+                    case R.id.shortestWayNoRadioButton:
+                        control.setAllowedToContinueTrip(false);
+                        break;
+                }
+            }
+        });
+        reportedRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.driverReportedRadioButton:
+                        control.setReportedEntity(Control.ReportedEntity.Driver);
+                        break;
+                    case R.id.carrierReportedRadioButton:
+                        control.setReportedEntity(Control.ReportedEntity.Carrier);
+                        break;
+                    case R.id.coDriverReportedRadioButton:
+                        control.setReportedEntity(Control.ReportedEntity.Passenger);
+                        break;
+                    case R.id.senderReportedRadioButton:
+                        control.setReportedEntity(Control.ReportedEntity.Sender);
+                        break;
+                    case R.id.reciverReportedRadioButton:
+                        control.setReportedEntity(Control.ReportedEntity.Receiver);
+                        break;
+                    case R.id.otherReportedRadioButton:
+                        control.setReportedEntity(Control.ReportedEntity.Other);
+                        break;
+                }
             }
         });
     }
@@ -186,5 +308,14 @@ public class BreakingTheLawFragment extends Fragment {
     private void setFieldsInControl() {
         control.setGoodsList(createListofGoods());
         control.setFaultList(createListOfFlaws());
+        addOFs();
+        control.getSafetyAdvisorSender().setName(safteyAdvisorSenderName.getText().toString());
+        control.getSafetyAdvisorCarrier().setName(safteyAdvisorTransporterName.getText().toString());
     }
+    private void addOFs() {
+        for (EditText e: ofEdits) {
+            control.addPenalty(e.getText().toString());
+        }
+    }
+
 }
