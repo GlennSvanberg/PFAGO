@@ -150,6 +150,9 @@ public class BreakingTheLawFragment extends Fragment {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(control.getSafetyAdvisorCarrier() == null) {
+                    control.setSafetyAdvisorCarrier(new SafetyAdvisor());
+                }
                 switch (checkedId) {
                     case R.id.dontKnowRadioButton:
 
@@ -167,6 +170,9 @@ public class BreakingTheLawFragment extends Fragment {
         safetyAdvisorSenderRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(control.getSafetyAdvisorSender() == null) {
+                    control.setSafetyAdvisorSender(new SafetyAdvisor());
+                }
                 switch (checkedId) {
                     case R.id.dontKnowSenderRadioButton:
                         control.getSafetyAdvisorSender().setAnswer(SafetyAdvisor.Answer.Unknown);
@@ -326,16 +332,24 @@ public class BreakingTheLawFragment extends Fragment {
         addOFs();
 
         String safetyAdvisorSenderName = "";
+
         if(safteyAdvisorSenderName.getText() != null) {
             safetyAdvisorSenderName = safteyAdvisorSenderName.getText().toString();
+            if(control.getSafetyAdvisorSender() == null) {
+                control.setSafetyAdvisorSender(new SafetyAdvisor());
+            }
+            control.getSafetyAdvisorSender().setName(safetyAdvisorSenderName);
         }
-        control.getSafetyAdvisorSender().setName(safetyAdvisorSenderName);
+
 
         String safetyAdvisorCarrierName = "";
         if(safteyAdvisorTransporterName.getText() != null) {
             safetyAdvisorCarrierName = safteyAdvisorTransporterName.getText().toString();
+            if(control.getSafetyAdvisorCarrier() == null) {
+                control.setSafetyAdvisorCarrier(new SafetyAdvisor());
+            }
+            control.getSafetyAdvisorCarrier().setName(safetyAdvisorCarrierName);
         }
-        control.getSafetyAdvisorCarrier().setName(safetyAdvisorCarrierName);
     }
     private void addOFs() {
         for (EditText e: ofEdits) {

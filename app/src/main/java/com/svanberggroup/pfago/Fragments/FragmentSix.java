@@ -373,8 +373,10 @@ public class FragmentSix extends Fragment {
                     tRows.setRow28_1(stopBlockRow281);
                     control.setTRows(tRows);
                 } else if (s.length() == 0) {
-                    stopBlockRow281.setRiskCategory(null);
-                    tRows.setRow28_1(stopBlockRow281);
+                    if(stopBlockRow281 != null){
+                        stopBlockRow281.setRiskCategory(null);
+                        tRows.setRow28_1(stopBlockRow281);
+                    }
                     control.setTRows(tRows);
                 }
                 if (viewEmptyFor(Transport.stopBlock)) {

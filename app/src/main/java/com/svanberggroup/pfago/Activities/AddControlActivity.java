@@ -114,10 +114,10 @@ public class AddControlActivity extends AppCompatActivity {
     private void addFragments() {
         adapter.addFragment(FragmentOne.newInstance(control), "Fordon", 0);
         adapter.addFragment(FragmentTwo.newInstance(control), "Förare", 1);
-        adapter.addFragment(FragmentThree.newInstance(control), "Platser", 2);
-        adapter.addFragment(FragmentFour.newInstance(control), "Gods", 3);
-        adapter.addFragment(FragmentFive.newInstance(control), "Handlingar", 4);
-        adapter.addFragment(FragmentSeven.newInstance(control), "Transport", 5);
+        adapter.addFragment(FragmentThree.newInstance(control), "Gods", 2);
+        adapter.addFragment(FragmentFour.newInstance(control), "Handlingar", 3);
+        adapter.addFragment(FragmentFive.newInstance(control), "Transport", 4);
+        adapter.addFragment(FragmentSeven.newInstance(control), "Märkning", 5);
         adapter.addFragment(FragmentSix.newInstance(control), "Utrustning", 6);
         adapter.addFragment(FragmentEight.newInstance(control), "Övrigt", 7);
         //adapter.addFragment(ImagesFragment.newInstance(control), "Bilder", 8);
@@ -142,11 +142,9 @@ public class AddControlActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.doneControl:
-                Log.i("TESTTEST", "going to viewControl");
                 intent = new Intent(this, ViewControlActivity.class);
                 intent.putExtra("control", control);
                 intent.putExtra("approvalMode", true);
-                Log.i("TESTTEST", "about to startForResult" + intent);
                 startActivityForResult(intent, REQUEST_CONTROL_APPROVAL);
                 break;
             case R.id.cameraControl:
