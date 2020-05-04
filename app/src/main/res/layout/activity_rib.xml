@@ -12,18 +12,33 @@
         android:layout_height="62dp"
         android:layout_marginTop="0dp"
         android:orientation="horizontal"
-        android:paddingLeft="16dp"
+
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ProgressBar
+            android:id="@+id/search_progress"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="start|bottom"
+            android:layout_weight="1"
+            android:indeterminateTint="@color/adrOrange"
+            android:paddingLeft="5dp"
+            android:paddingRight="2dp"
+            android:progressTint="@color/adrOrange"
+            android:visibility="invisible" />
+
         <EditText
             android:id="@+id/query"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="5dp"
             android:layout_marginTop="4dp"
+            android:layout_marginBottom="7dp"
+            android:layout_gravity="center"
             android:layout_weight="6"
             android:backgroundTint="#ec832d"
             android:inputType="text"
@@ -35,6 +50,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="end"
             android:layout_weight="1"
+            android:visibility="visible"
             android:background="@android:color/transparent"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
@@ -91,13 +107,6 @@
         android:visibility="gone"
         tools:layout_editor_absoluteX="43dp">
 
-        <ProgressBar
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:indeterminateTint="@color/adrOrange"
-            android:progressTint="@color/adrOrange"
-            />
     </FrameLayout>
 
     <FrameLayout

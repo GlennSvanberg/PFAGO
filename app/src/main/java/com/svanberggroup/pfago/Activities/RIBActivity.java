@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.RibSearchResult;
@@ -49,7 +50,9 @@ public class RIBActivity extends AppCompatActivity {
     private FrameLayout noResults;
     private TextView noResultText;
     private FrameLayout searchingRib;
+    private ProgressBar searchProgress;
     private boolean isSearchMode = true;
+    private boolean isSearching = true;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -72,6 +75,8 @@ public class RIBActivity extends AppCompatActivity {
         welcomeText = findViewById(R.id.ribWelcome);
         welcomeText.setAlpha((float) 0.5);
 
+        searchProgress = findViewById(R.id.search_progress);
+
         noResultText = findViewById(R.id.noResultsText);
         noResults = findViewById(R.id.noResults);
         searchingRib = findViewById(R.id.ribSearching);
@@ -82,54 +87,58 @@ public class RIBActivity extends AppCompatActivity {
         queryField.setHint(RibMain.QUERY_HINT);
         queryField.requestFocus();
         queryField.addTextChangedListener(new TextWatcher() {
+
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                searchButton.setImageResource(R.drawable.ic_search);
-                if (charSequence.length() == 0) {
-                    toggleWelcomeScreen();
-                }
-
-                if (charSequence.length() >= 3) {
-                    searchButton.callOnClick();
-                }
+                if(charSequence.length() > 0) searchButton.setImageResource(R.drawable.ic_clear);
                 isSearchMode = true;
             }
 
             @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() == 0) {
+                    searchButton.setImageResource(R.drawable.ic_search);
+                    toggleWelcomeScreen();
+                }
+
+                if(charSequence.length() < 3){
+                    searchProgress.setVisibility(View.INVISIBLE);
+                }
+
+                if (charSequence.length() >= 3) {
+                    searchProgress.setVisibility(View.VISIBLE);
+                    getSearchResults();
+                    if (ribSearchResults == null || ribSearchResults.isEmpty()) {
+                        Log.i("FAILED_SEARCH", RibMain.getResultText(queryField.getText().toString()));
+                        noResultText.setText(RibMain.getResultText(queryField.getText().toString()));
+                        toggleFailedScreen();
+                    } else toggleResultScreen();
+                }
+
+            }
+
+            @Override
             public void afterTextChanged(Editable editable) {
+                updateUI();
             }
         });
-
 
         searchButton = findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                WebProvider webProvider = new WebProvider();
-                if (isSearchMode) {
-                    ribSearchResults = webProvider.searchRib(queryField.getText().toString());
-                    if (ribSearchResults == null || ribSearchResults.isEmpty()) {
-                        Log.i("FAILED_SEARCH", RibMain.getResultText(queryField.getText().toString()));
-                        noResultText.setText(RibMain.getResultText(queryField.getText().toString()));
-                        toggleFailedScreen();
-                    } else toggleResultScreen();
-
-                    updateUI();
-                    searchButton.setImageResource(R.drawable.ic_clear);
-
-                   // isSearchMode = true;
-                } else {
-                   // queryField.setText("");
-                    //searchButton.setImageResource(R.drawable.ic_search);
-                    //isSearchMode = true;
-                }
+                queryField.setText("");
             }
         });
+    }
+
+    private void getSearchResults() {
+        isSearching = true;
+        WebProvider webProvider = new WebProvider();
+        ribSearchResults = webProvider.searchRib(queryField.getText().toString());
+        isSearching = false;
     }
 
     private void updateUI() {
@@ -140,6 +149,7 @@ public class RIBActivity extends AppCompatActivity {
             adapter.setControls(ribSearchResults);
             adapter.notifyDataSetChanged();
         }
+        searchProgress.setVisibility(View.INVISIBLE);
     }
 
     @Override
