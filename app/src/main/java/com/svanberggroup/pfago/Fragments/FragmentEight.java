@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.svanberggroup.pfago.Activities.AddControlActivity;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.TransportRows;
@@ -96,6 +97,7 @@ public class FragmentEight extends Fragment {
                             cRow.setField(ControlRow.Field.Controlled);
                             tRows.addRow40(cRow);
                         case R.id.radioButtonNotApproved:
+                            ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                             cRow.setField(ControlRow.Field.BreakingTheLaw);
                             tRows.addRow40(cRow);
                         case R.id.radioButtonNotApplicible:
