@@ -70,6 +70,7 @@ public class AddControlActivity extends AppCompatActivity {
     private File photoFile;
     private List<ControlRow> controlRowList;
     private boolean breakingTheLaw;
+    private boolean breakingTheLawIsEnabled = false;
     private boolean imagesIsEnabled = false;
 
     private static final int REQUEST_IMAGE_CAPTURE = 115;
@@ -128,9 +129,13 @@ public class AddControlActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
     public void addBreakingTheLawFragment() {
-        Fragment fragment = BreakingTheLawFragment.newInstance(control);
-        adapter.addFragment(fragment, "Rapport", adapter.getItemCount());
-        adapter.notifyDataSetChanged();
+        if(!breakingTheLawIsEnabled) {
+            breakingTheLawIsEnabled = true;
+            Fragment fragment = BreakingTheLawFragment.newInstance(control);
+            adapter.addFragment(fragment, "Rapport", adapter.getItemCount());
+            adapter.notifyDataSetChanged();
+        }
+
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -220,7 +225,6 @@ public class AddControlActivity extends AppCompatActivity {
                     control.setEndDate(new Date());
                     ControlRepository.get().addControl(control);
                     showOptionsAlert();
-
                 }
             }
         }
