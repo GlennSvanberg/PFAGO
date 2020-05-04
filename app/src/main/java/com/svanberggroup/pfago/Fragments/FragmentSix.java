@@ -236,7 +236,7 @@ public class FragmentSix extends Fragment {
                     control.setTRows(tRows);
                     break;
 
-                case R.id.handlingNotApplicableRadioButton:
+                case R.id.stopBlockNotApplicableRadioButton:
                     setVisibilityFor(Transport.stopBlock, View.GONE);
                     stopBlockRow281.setField(ControlRow.Field.NotApplicable);
                     clearFieldsForView(Transport.stopBlock);
@@ -328,7 +328,7 @@ public class FragmentSix extends Fragment {
                     control.setTRows(tRows);
                     break;
 
-                case R.id.godsApproveNotApplicableRadioButton:
+                case R.id.godsSpecificEquipmentNotApplicableRadioButton:
                     setVisibilityFor(Transport.gods, View.GONE);
                     godsRow29.setField(ControlRow.Field.NotApplicable);
                     clearFieldsForView(Transport.gods);
