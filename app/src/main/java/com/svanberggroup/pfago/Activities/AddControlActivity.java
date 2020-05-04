@@ -117,7 +117,7 @@ public class AddControlActivity extends AppCompatActivity {
         adapter.addFragment(FragmentThree.newInstance(control), "Platser", 2);
         adapter.addFragment(FragmentFour.newInstance(control), "Gods", 3);
         adapter.addFragment(FragmentFive.newInstance(control), "Handlingar", 4);
-        adapter.addFragment(FragmentSix.newInstance(control), "Handlingar", 5);
+        adapter.addFragment(FragmentSix.newInstance(control), "Utrustning", 5);
         adapter.addFragment(FragmentSeven.newInstance(control), "Transport", 6);
         adapter.addFragment(FragmentEight.newInstance(control), "Övrigt", 7);
         //adapter.addFragment(ImagesFragment.newInstance(control), "Bilder", 8);

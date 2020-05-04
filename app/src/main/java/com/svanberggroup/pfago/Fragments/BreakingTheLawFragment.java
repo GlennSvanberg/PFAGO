@@ -324,7 +324,7 @@ public class BreakingTheLawFragment extends Fragment {
         control.setGoodsList(createListofGoods());
         control.setFaultList(createListOfFlaws());
         addOFs();
-        
+
         String safetyAdvisorSenderName = "";
         if(safteyAdvisorSenderName.getText() != null) {
             safetyAdvisorSenderName = safteyAdvisorSenderName.getText().toString();
