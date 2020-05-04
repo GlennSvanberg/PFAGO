@@ -142,22 +142,13 @@ public class AddControlActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.doneControl:
-//                getControlRows();
-//                for (ControlRow row: controlRowList) {
-//                    if (row.getField() == ControlRow.Field.BreakingTheLaw) {
-//                        breakingTheLaw = true;
-//                    } else {
-//                        breakingTheLaw = false;
-//                    }
-//                }
-                breakingTheLaw = false;
-                if (!breakingTheLaw) {
-                    intent = new Intent(this, ViewControlActivity.class);
-                    intent.putExtra("control", control);
-                    intent.putExtra("approvalMode", true);
-                    startActivityForResult(intent, REQUEST_CONTROL_APPROVAL);
-                    break;
-                }
+                Log.i("TESTTEST", "going to viewControl");
+                intent = new Intent(this, ViewControlActivity.class);
+                intent.putExtra("control", control);
+                intent.putExtra("approvalMode", true);
+                Log.i("TESTTEST", "about to startForResult" + intent);
+                startActivityForResult(intent, REQUEST_CONTROL_APPROVAL);
+                break;
             case R.id.cameraControl:
                 dispatchTakePictureIntent();
                 break;
@@ -203,13 +194,11 @@ public class AddControlActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("CAMERA_RESULT", "onActivityResult");
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if(!imagesIsEnabled){
                 imagesIsEnabled = true;
                 addImagesFragment();
             }
-
             Toast.makeText(this, "Bild sparad i fliken bilder", Toast.LENGTH_LONG).show();
             control.addImage(new ImageData(currentPhotoPath));
         } else if (requestCode == REQUEST_CONTROL_APPROVAL) {
@@ -223,7 +212,6 @@ public class AddControlActivity extends AppCompatActivity {
                 }
             }
         }
-            Log.i("CAMERA_RESULT", "requestCode:" + requestCode + " RESULT: " + resultCode);
     }
     private void showOptionsAlert() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
