@@ -3,11 +3,13 @@ package com.svanberggroup.pfago.Fragments;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -209,7 +211,7 @@ public class FragmentSeven extends Fragment {
                         clearFieldsForView(Transport.approved24);
                         break;
 
-                    case R.id.handlingNotApprovedRadioButton:
+                    case R.id.approved24NotApprovedRadioButton:
                         ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.approved24, View.VISIBLE);
                         approved24Row.setField(ControlRow.Field.BreakingTheLaw);
@@ -217,7 +219,7 @@ public class FragmentSeven extends Fragment {
                         control.setTRows(tRows);
                         break;
 
-                    case R.id.handlingNotApplicableRadioButton:
+                    case R.id.approved24NotApplicableRadioButton:
                         setVisibilityFor(Transport.approved24, View.GONE);
                         approved24Row.setField(ControlRow.Field.NotApplicable);
                         clearFieldsForView(Transport.approved24);
@@ -229,13 +231,13 @@ public class FragmentSeven extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.loadingControlledRadioButton:
+                    case R.id.marking25ControlledRadioButton:
                         setVisibilityFor(Transport.marking25, View.GONE);
                         marking25Row.setField(ControlRow.Field.Controlled);
                         clearFieldsForView(Transport.marking25);
                         break;
 
-                    case R.id.loadingNotApprovedRadioButton:
+                    case R.id.marking25NotApprovedRadioButton:
                         ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.marking25, View.VISIBLE);
                         marking25Row.setField(ControlRow.Field.BreakingTheLaw);
@@ -243,7 +245,7 @@ public class FragmentSeven extends Fragment {
                         control.setTRows(tRows);
                         break;
 
-                    case R.id.loadingNotApplicableRadioButton:
+                    case R.id.marking25NotApplicableRadioButton:
                         setVisibilityFor(Transport.marking25, View.GONE);
                         marking25Row.setField(ControlRow.Field.NotApplicable);
                         clearFieldsForView(Transport.marking25);
@@ -255,13 +257,13 @@ public class FragmentSeven extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.securingCargoControlledRadioButton:
+                    case R.id.labeling252ControlledRadioButton:
                         setVisibilityFor(Transport.labeling252, View.GONE);
                         labeling252Row.setField(ControlRow.Field.Controlled);
                         clearFieldsForView(Transport.labeling252);
                         break;
 
-                    case R.id.securingCargoNotApprovedRadioButton:
+                    case R.id.labeling252NotApprovedRadioButton:
                         ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.labeling252, View.VISIBLE);
                         labeling252Row.setField(ControlRow.Field.BreakingTheLaw);
@@ -269,7 +271,7 @@ public class FragmentSeven extends Fragment {
                         control.setTRows(tRows);
                         break;
 
-                    case R.id.securingCargoNotApplicableRadioButton:
+                    case R.id.labeling252NotApplicableRadioButton:
                         setVisibilityFor(Transport.labeling252, View.GONE);
                         labeling252Row.setField(ControlRow.Field.NotApplicable);
                         clearFieldsForView(Transport.labeling252);
@@ -281,13 +283,13 @@ public class FragmentSeven extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.leakageControlledRadioButton:
+                    case R.id.bigLabel26ControlledRadioButton:
                         setVisibilityFor(Transport.bigLabel26, View.GONE);
                         bigLabel26Row.setField(ControlRow.Field.Controlled);
                         clearFieldsForView(Transport.bigLabel26);
                         break;
 
-                    case R.id.leakageNotApprovedRadioButton:
+                    case R.id.bigLabel26NotApprovedRadioButton:
                         ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.bigLabel26, View.VISIBLE);
                         bigLabel26Row.setField(ControlRow.Field.BreakingTheLaw);
@@ -295,7 +297,7 @@ public class FragmentSeven extends Fragment {
                         control.setTRows(tRows);
                         break;
 
-                    case R.id.leakageNotApplicableRadioButton:
+                    case R.id.bigLabel26NotApplicableRadioButton:
                         setVisibilityFor(Transport.bigLabel26, View.GONE);
                         bigLabel26Row.setField(ControlRow.Field.NotApplicable);
                         clearFieldsForView(Transport.bigLabel26);
@@ -307,13 +309,13 @@ public class FragmentSeven extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.damagesControlledRadioButton:
+                    case R.id.signage27ControlledRadioButton:
                         setVisibilityFor(Transport.signage27, View.GONE);
                         signage27Row.setField(ControlRow.Field.Controlled);
                         clearFieldsForView(Transport.signage27);
                         break;
 
-                    case R.id.damagesNotApprovedRadioButton:
+                    case R.id.signage27NotApprovedRadioButton:
                         ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.signage27, View.VISIBLE);
                         signage27Row.setField(ControlRow.Field.BreakingTheLaw);
@@ -321,7 +323,7 @@ public class FragmentSeven extends Fragment {
                         control.setTRows(tRows);
                         break;
 
-                    case R.id.damagesNotApplicableRadioButton:
+                    case R.id.signage27NotApplicableRadioButton:
                         setVisibilityFor(Transport.signage27, View.GONE);
                         signage27Row.setField(ControlRow.Field.NotApplicable);
                         clearFieldsForView(Transport.signage27);
