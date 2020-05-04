@@ -67,8 +67,8 @@ public class BreakingTheLawFragment extends Fragment {
         View childGods = getLayoutInflater().inflate(R.layout.gods_input_layout, null);
         View childFlaw = getLayoutInflater().inflate(R.layout.flaws_input_layout, null);
 
-        godsLinearLayout.addView(childGods);
-        flawLinearLayout.addView(childFlaw);
+        //godsLinearLayout.addView(childGods);
+        //flawLinearLayout.addView(childFlaw);
 
         godsViews = new ArrayList<>();
         flawsViews= new ArrayList<>();
@@ -81,6 +81,11 @@ public class BreakingTheLawFragment extends Fragment {
         return  view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        setFieldsInControl();
+    }
 
     @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -120,9 +125,11 @@ public class BreakingTheLawFragment extends Fragment {
                 if (isChecked) {
                     view.findViewById(R.id.godsLinearLayout).setVisibility(View.GONE);
                     view.findViewById(R.id.addGodsBreakingTheLawButton).setVisibility(View.GONE);
+                    toggle.setBackgroundResource(R.drawable.ic_down_light);
                 } else {
                     view.findViewById(R.id.godsLinearLayout).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.addGodsBreakingTheLawButton).setVisibility(View.VISIBLE);
+                    toggle.setBackgroundResource(R.drawable.ic_up_light);
                 }
             }
         });
@@ -132,9 +139,11 @@ public class BreakingTheLawFragment extends Fragment {
                 if (isChecked) {
                     view.findViewById(R.id.flawLinearLayout).setVisibility(View.GONE);
                     view.findViewById(R.id.flawAddBreakingTheLawButton).setVisibility(View.GONE);
+                    toggle1.setBackgroundResource(R.drawable.ic_down_light);
                 } else {
                     view.findViewById(R.id.flawLinearLayout).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.flawAddBreakingTheLawButton).setVisibility(View.VISIBLE);
+                    toggle1.setBackgroundResource(R.drawable.ic_up_light);
                 }
             }
         });
