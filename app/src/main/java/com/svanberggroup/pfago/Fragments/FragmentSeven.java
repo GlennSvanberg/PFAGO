@@ -84,11 +84,11 @@ public class FragmentSeven extends Fragment {
 
         control = (Control) getArguments().getSerializable(NEW_CONTROL);
 
-        if (control.getTRows() != null) {
+        /*if (control.getTRows() != null) {
             tRows = control.getTRows();
         } else {
             tRows = new TransportRows();
-        }
+        }*/
 
         approved24Row = tRows.getRow24();
         marking25Row = tRows.getRow25_1();

@@ -81,9 +81,6 @@ public class BreakingTheLawFragment extends Fragment {
         text.setHint(R.string.of);
         ofLinearLayout.addView(text);
 
-
-
-
         //godsLinearLayout.addView(childGods);
         //flawLinearLayout.addView(childFlaw);
 
@@ -306,6 +303,7 @@ public class BreakingTheLawFragment extends Fragment {
     }
 
     private void setFieldsInControl() {
+        // null pointer check
         control.setGoodsList(createListofGoods());
         control.setFaultList(createListOfFlaws());
         addOFs();

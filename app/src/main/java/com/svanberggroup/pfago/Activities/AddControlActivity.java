@@ -202,17 +202,12 @@ public class AddControlActivity extends AppCompatActivity {
 //                        breakingTheLaw = false;
 //                    }
 //                }
-                breakingTheLaw = true;
+                breakingTheLaw = false;
                 if (!breakingTheLaw) {
                     intent = new Intent(this, ViewControlActivity.class);
                     intent.putExtra("control", control);
                     intent.putExtra("approvalMode", true);
                     startActivityForResult(intent, REQUEST_CONTROL_APPROVAL);
-                    break;
-                } else {
-                    intent = new Intent(this, BreakingTheLawActivity.class);
-                    intent.putExtra("control", control);
-                    startActivity(intent);
                     break;
                 }
             case R.id.cameraControl:
