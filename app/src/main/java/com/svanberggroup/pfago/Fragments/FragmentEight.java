@@ -76,6 +76,7 @@ public class FragmentEight extends Fragment {
                         cRow.setField(ControlRow.Field.Controlled);
                         break;
                     case R.id.radioButtonNotApproved:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         cRow.setField(ControlRow.Field.BreakingTheLaw);
                         break;
                     case R.id.radioButtonNotApplicible:
@@ -140,6 +141,7 @@ public class FragmentEight extends Fragment {
                             break;
                         case R.id.radioButtonNotApproved:
                             for (View v: views) {
+                                ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                                 v.setVisibility(View.VISIBLE);
                             }
                             break;
