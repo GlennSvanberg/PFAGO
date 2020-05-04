@@ -26,11 +26,16 @@ public class RibSearch {
         }
 
         Document response = null;
+        String formatedQuery = query.trim().toLowerCase();
+        if (formatedQuery.matches("un\\d+$")){
+            formatedQuery = formatedQuery.replace("un", "");
+        }
+
         try {
-            if (queryNormalised.matches("^\\d+$")) {
-                response = Jsoup.connect(RibUrl.BASE + queryNormalised).get();
+            if (formatedQuery.matches("^\\d+$")) {
+                response = Jsoup.connect(RibUrl.BASE + formatedQuery).get();
             } else
-                response = Jsoup.connect(RibUrl.BASE + queryNormalised + "/").get();
+                response = Jsoup.connect(RibUrl.BASE + formatedQuery + "/").get();
         } catch (IOException e) {
             e.printStackTrace();
             return null;

@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.svanberggroup.pfago.R;
+import com.svanberggroup.pfago.Utils.Rib.Constants.RibMain;
 import com.svanberggroup.pfago.Utils.Rib.Constants.RibWebJSInjection;
 
 
@@ -27,7 +28,7 @@ public class RIBSubstanceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rib_substance);
 
         Bundle bundle = getIntent().getExtras();
-        url = bundle.getString("url");
+        url = bundle.getString(RibMain.URL_KEY);
 
         adrLoading = findViewById(R.id.adrLoading);
 
@@ -72,12 +73,8 @@ public class RIBSubstanceActivity extends AppCompatActivity {
                         RibWebJSInjection.ALIGN_VALUES +
                         RibWebJSInjection.PADDING_BOTTOM_TRANSPORT +
                         RibWebJSInjection.PADDING_BOTTOM_IDENTITET
-
-
                 );
-
                 substanceView.setVisibility(View.VISIBLE);
-
             }
         });
     }

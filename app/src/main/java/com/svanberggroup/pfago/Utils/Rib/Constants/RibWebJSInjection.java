@@ -3,7 +3,6 @@ package com.svanberggroup.pfago.Utils.Rib.Constants;
 public final class RibWebJSInjection {
 
     public final static String SHOW_TRANSPORT = "javascript:(function(){ document.getElementById('flik9').style.display='block';})();";
-   // public final static String PADDING_BOTTOM_IDENTITET = "javascript:(function(){ document.querySelector('#trpt h1').style.marginTop='10px';})();";
     public final static String REMOVE_SIDE_MENU = "javascript:(function(){document.getElementById('viewport').style.left='0px';})();";
     public final static String REMOVE_RIB_LINK = "javascript:(function(){" +
             "    var elems = document.querySelectorAll('.long.regellank');" +

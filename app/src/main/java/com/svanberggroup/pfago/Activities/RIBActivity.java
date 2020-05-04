@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,10 +21,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.svanberggroup.pfago.Models.RibSearchResult;
@@ -33,7 +39,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RIBActivity extends AppCompatActivity {
-
     private ArrayList<RibSearchResult> ribSearchResults;
     private EditText queryField;
     private FrameLayout ribWelcomeScreen;
@@ -45,7 +50,9 @@ public class RIBActivity extends AppCompatActivity {
     private FrameLayout noResults;
     private TextView noResultText;
     private FrameLayout searchingRib;
+    private ProgressBar searchProgress;
     private boolean isSearchMode = true;
+    private boolean isSearching = true;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -54,44 +61,66 @@ public class RIBActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rib);
         setTitle(RibMain.TITLE);
 
+
         recyclerView = findViewById(R.id.searchResults);
 
         ribWelcomeScreen = findViewById(R.id.ribWelcomeScreen);
+
         layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
+
         ribSearchResults = new ArrayList<>();
 
         welcomeText = findViewById(R.id.ribWelcome);
         welcomeText.setAlpha((float) 0.5);
+
+        searchProgress = findViewById(R.id.search_progress);
+
         noResultText = findViewById(R.id.noResultsText);
         noResults = findViewById(R.id.noResults);
         searchingRib = findViewById(R.id.ribSearching);
+
         updateUI();
+
         queryField = findViewById(R.id.query);
         queryField.setHint(RibMain.QUERY_HINT);
-
         queryField.requestFocus();
         queryField.addTextChangedListener(new TextWatcher() {
+
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence.length() > 0) searchButton.setImageResource(R.drawable.ic_clear);
+                isSearchMode = true;
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                isSearchMode = true;
                 if (charSequence.length() == 0) {
-                    toggleWelcomeScreen();
                     searchButton.setImageResource(R.drawable.ic_search);
+                    toggleWelcomeScreen();
+                }
+
+                if(charSequence.length() < 3){
+                    searchProgress.setVisibility(View.INVISIBLE);
                 }
 
                 if (charSequence.length() >= 3) {
-                    searchButton.callOnClick();
+                    searchProgress.setVisibility(View.VISIBLE);
+                    getSearchResults();
+                    if (ribSearchResults == null || ribSearchResults.isEmpty()) {
+                        Log.i("FAILED_SEARCH", RibMain.getResultText(queryField.getText().toString()));
+                        noResultText.setText(RibMain.getResultText(queryField.getText().toString()));
+                        toggleFailedScreen();
+                    } else toggleResultScreen();
                 }
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                updateUI();
             }
         });
 
@@ -100,44 +129,33 @@ public class RIBActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                WebProvider webProvider = new WebProvider();
-                if (isSearchMode) {
-                    ribSearchResults = webProvider.searchRib(queryField.getText().toString());
-                    if (ribSearchResults == null || ribSearchResults.isEmpty()) {
-                        Log.i("FAILED_SEARCH", RibMain.getResultText(queryField.getText().toString()));
-                        noResultText.setText(RibMain.getResultText(queryField.getText().toString()));
-                        toggleFailedScreen();
-                    } else toggleResultScreen();
-
-                    updateUI();
-                    searchButton.setImageResource(R.drawable.ic_clear);
-                    isSearchMode = false;
-                } else {
-                    queryField.setText("");
-                    searchButton.setImageResource(R.drawable.ic_search);
-                    isSearchMode = true;
-                }
+                queryField.setText("");
             }
         });
 
+    }
+
+    private void getSearchResults() {
+        isSearching = true;
+        WebProvider webProvider = new WebProvider();
+        ribSearchResults = webProvider.searchRib(queryField.getText().toString());
+        isSearching = false;
     }
 
     private void updateUI() {
         if (adapter == null) {
             adapter = new RIBActivity.ControlAdapter(ribSearchResults);
             recyclerView.setAdapter(adapter);
-
         } else {
             adapter.setControls(ribSearchResults);
             adapter.notifyDataSetChanged();
         }
+        searchProgress.setVisibility(View.INVISIBLE);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        toggleWelcomeScreen();
-        welcomeText.setText(RibMain.WELCOME);
         adapter.notifyDataSetChanged();
     }
 
@@ -178,7 +196,6 @@ public class RIBActivity extends AppCompatActivity {
                     }
                 }
             }
-
             descriptionStart.setText(noteStart.toString());
             descriptionEnd.setText(noteEnd.toString());
         }
@@ -208,7 +225,7 @@ public class RIBActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent ribSubstanceIntent = new Intent(RIBActivity.this, RIBSubstanceActivity.class);
-                    ribSubstanceIntent.putExtra("url", ribSearchResult.getLink());
+                    ribSubstanceIntent.putExtra(RibMain.URL_KEY, ribSearchResult.getLink());
                     startActivity(ribSubstanceIntent);
                 }
             });
@@ -239,17 +256,10 @@ public class RIBActivity extends AppCompatActivity {
     }
 
     private void toggleWelcomeScreen() {
+        ribWelcomeScreen.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
         noResults.setVisibility(View.GONE);
         searchingRib.setVisibility(View.GONE);
-        ribWelcomeScreen.setVisibility(View.VISIBLE);
-    }
-
-    private void toggleLoadingScreen() {
-        recyclerView.setVisibility(View.GONE);
-        noResults.setVisibility(View.GONE);
-        ribWelcomeScreen.setVisibility(View.GONE);
-        searchingRib.setVisibility(View.VISIBLE);
     }
 
     private void toggleResultScreen() {
@@ -260,8 +270,8 @@ public class RIBActivity extends AppCompatActivity {
     }
 
     private void toggleFailedScreen() {
-        recyclerView.setVisibility(View.GONE);
         noResults.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
         searchingRib.setVisibility(View.GONE);
         ribWelcomeScreen.setVisibility(View.GONE);
     }
