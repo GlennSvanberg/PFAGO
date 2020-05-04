@@ -89,6 +89,7 @@ public class FragmentSeven extends Fragment {
         } else {
             tRows = new TransportRows();
         }*/
+        tRows = control.getTRows();
 
         approved24Row = tRows.getRow24();
         marking25Row = tRows.getRow25_1();
