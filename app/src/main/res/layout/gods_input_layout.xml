@@ -4,24 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constrainLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/godsNrEditText"
         android:layout_width="93dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="2dp"
         android:ems="10"
         android:hint="UN-nr"
         android:inputType="phone"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/GodsPosStaticTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/godsDescriptionEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Godsbeskrivning"
@@ -37,7 +36,7 @@
         android:ems="10"
         android:hint="Klass / etikett"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/godsNrEditText"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/godsDescriptionEditText" />
 
     <EditText
@@ -69,7 +68,7 @@
         android:hint="Fraktsedel"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/LQeditText"
-        app:layout_constraintStart_toStartOf="@+id/classEditText"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/classEditText" />
 
     <EditText
@@ -89,5 +88,23 @@
         android:background="@color/colorPrimaryLight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/LQeditText"/>
+        app:layout_constraintTop_toBottomOf="@id/LQeditText" />
+
+    <TextView
+        android:id="@+id/GodsPosStaticTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="   Pos:    "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/GodsPosDynTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/GodsPosStaticTextView"
+        app:layout_constraintStart_toStartOf="@+id/GodsPosStaticTextView"
+        app:layout_constraintTop_toBottomOf="@+id/GodsPosStaticTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

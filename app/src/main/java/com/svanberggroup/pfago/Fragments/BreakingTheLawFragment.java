@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -43,6 +45,8 @@ public class BreakingTheLawFragment extends Fragment {
     private List<EditText> ofEdits;
     private EditText safteyAdvisorTransporterName;
     private EditText safteyAdvisorSenderName;
+    private String[] alfa = {"A", "B", "C", "D", "E", "F", "G", "H", "I"};
+    private EditText destinationEdit;
 
     public BreakingTheLawFragment() {
     }
@@ -69,13 +73,14 @@ public class BreakingTheLawFragment extends Fragment {
 
         safteyAdvisorSenderName = view.findViewById(R.id.safteyAdvisorSenderNameEditText);
         safteyAdvisorTransporterName = view.findViewById(R.id.safteyAdvisorTransporterNameEditText);
+        destinationEdit = view.findViewById(R.id.destinationEditText);
 
         flawLinearLayout = (LinearLayout) view.findViewById(R.id.flawLinearLayout);
         godsLinearLayout = (LinearLayout) view.findViewById(R.id.godsLinearLayout);
         ofLinearLayout = (LinearLayout) view.findViewById(R.id.OFlinearLayout);
 
-        View childGods = getLayoutInflater().inflate(R.layout.gods_input_layout, null);
-        View childFlaw = getLayoutInflater().inflate(R.layout.flaws_input_layout, null);
+        //View childGods = getLayoutInflater().inflate(R.layout.gods_input_layout, null);
+        //View childFlaw = getLayoutInflater().inflate(R.layout.flaws_input_layout, null);
         EditText text = new EditText(getActivity());
         text.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         text.setHint(R.string.of);
@@ -89,8 +94,8 @@ public class BreakingTheLawFragment extends Fragment {
         ofEdits = new ArrayList<>();
 
         ofEdits.add(text);
-        godsViews.add(childGods);
-        flawsViews.add(childFlaw);
+        //godsViews.add(childGods);
+        //flawsViews.add(childFlaw);
 
         addButtonListners(view);
         toggleViewButton(view);
@@ -123,6 +128,8 @@ public class BreakingTheLawFragment extends Fragment {
             public void onClick(View v) {
 
                 View addView = layoutInflater.inflate(R.layout.gods_input_layout, null);
+                TextView GodsPosDyn = addView.findViewById(R.id.GodsPosDynTextView);
+                GodsPosDyn.setText(alfa[godsViews.size()]);
                 godsLinearLayout.addView(addView);
                 godsViews.add(addView);
             }
@@ -187,7 +194,6 @@ public class BreakingTheLawFragment extends Fragment {
             }
         });
         consentRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            ArrayList<Integer> list = new ArrayList<>();
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
@@ -277,6 +283,7 @@ public class BreakingTheLawFragment extends Fragment {
     private List<Goods> createListofGoods() {
         List<Goods> goods = new ArrayList<>();
         for (View v: godsViews) {
+            TextView godsPos = v.findViewById(R.id.GodsPosDynTextView);
             EditText un = v.findViewById(R.id.godsNrEditText);
             EditText decription = v.findViewById(R.id.godsDescriptionEditText);
             EditText classs = v.findViewById(R.id.classEditText);
@@ -284,7 +291,7 @@ public class BreakingTheLawFragment extends Fragment {
             EditText paper = v.findViewById(R.id.paperEditText);
             EditText LQ = v.findViewById(R.id.LQeditText);
             EditText PG = v.findViewById(R.id.PGeditText);
-            Goods good = new Goods("A",
+            Goods good = new Goods(godsPos.getText().toString(),
                     un.getText().toString(),
                     decription.getText().toString(), classs.getText().toString(),
                     PG.getText().toString(),
@@ -301,11 +308,19 @@ public class BreakingTheLawFragment extends Fragment {
             EditText flawsGodsPos = v.findViewById(R.id.flawGodsPosDescriptionEditText);
             EditText flaw = v.findViewById(R.id.flawEditText);
             EditText mNumber = v.findViewById(R.id.mNumberEditText);
+            CheckBox bannedBox = v.findViewById(R.id.BannedCheckBox);
+            CheckBox notBannedBox = v.findViewById(R.id.NotBannedCheckBox);
 
             Fault fault = new Fault();
-            if(field.getText()!= null){
+            if(field.getText() != null){
                 try {
                     fault.setFieldNr(Integer.parseInt(field.getText().toString()));
+                    if(bannedBox.isChecked()) {
+                        control.addProhibitedField(Integer.parseInt(field.getText().toString()));
+                    }
+                    if(notBannedBox.isChecked()) {
+                        control.addSubmissionFieldNr(Integer.parseInt(field.getText().toString()));
+                    }
                 } catch(NumberFormatException e){
                     // Nothing to do
                 }
@@ -350,10 +365,17 @@ public class BreakingTheLawFragment extends Fragment {
             }
             control.getSafetyAdvisorCarrier().setName(safetyAdvisorCarrierName);
         }
+        String destination = "";
+        if(destinationEdit.getText() != null) {
+            destination = destinationEdit.getText().toString();
+            control.setDestination(destination);
+        }
     }
     private void addOFs() {
         for (EditText e: ofEdits) {
-            control.addPenalty(e.getText().toString());
+            if (e.getText().length() > 0) {
+                control.addPenalty(e.getText().toString());
+            }
         }
     }
 

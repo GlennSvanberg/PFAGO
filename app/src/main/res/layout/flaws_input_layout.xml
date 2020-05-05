@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constrainLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/fieldNrEditText"
@@ -58,9 +58,27 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="4dp"
+        android:layout_marginTop="10dp"
         android:background="@color/colorPrimaryLight"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mNumberEditText"/>
+        app:layout_constraintTop_toBottomOf="@+id/NotBannedCheckBox" />
+
+    <CheckBox
+        android:id="@+id/BannedCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Beslut om förbud"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mNumberEditText" />
+
+    <CheckBox
+        android:id="@+id/NotBannedCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Beslut om föreläggande"
+        app:layout_constraintStart_toEndOf="@+id/BannedCheckBox"
+        app:layout_constraintTop_toBottomOf="@+id/mNumberEditText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
