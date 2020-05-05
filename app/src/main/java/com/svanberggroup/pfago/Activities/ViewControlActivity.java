@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -51,11 +52,12 @@ public class ViewControlActivity extends AppCompatActivity {
 
         control = (Control) getIntent().getSerializableExtra("control");
         isApprovalMode = getIntent().getBooleanExtra("approvalMode", false);
-        ControlRepository repo = ControlRepository.get();
+
         layoutInflater = (LayoutInflater) getApplicationContext().getSystemService((Context.LAYOUT_INFLATER_SERVICE));
 
         cardsLinearLayout = findViewById(R.id.cards_linear_layout);
         if(!isApprovalMode){
+
             if(control.getTruck()!= null){
                 setTitle("Kontroll: " + control.getTruck().getRegNr());
             } else {
@@ -419,7 +421,12 @@ public class ViewControlActivity extends AppCompatActivity {
         if(safetyAdvisor != null) {
             str.append(line("", title));
             str.append(line("Namn:", safetyAdvisor.getName()));
-            str.append(line("Svar:", getString(safetyAdvisor.getAnswer().label)));
+            if(safetyAdvisor.getAnswer()!= null) {
+                str.append(line("Svar:", getString(safetyAdvisor.getAnswer().label)));
+            } else {
+                str.append(line("Svar:", ""));
+            }
+
         } else {
             str.append(title + " ej tillagd");
         }
@@ -612,7 +619,10 @@ public class ViewControlActivity extends AppCompatActivity {
                 str.append(line("Anteckningar:", row.getNotes()));
             }
         }   else {
-            str.append(row.getName());
+            if(row!=null) {
+                str.append(row.getName());
+            }
+
         }
         setText(textView, str.toString());
 

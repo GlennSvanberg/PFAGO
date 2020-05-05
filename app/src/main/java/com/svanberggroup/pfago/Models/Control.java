@@ -81,6 +81,7 @@ public class Control implements Serializable {
     private SafetyAdvisor safetyAdvisorSender;
 
     private List<Integer> prohibitetFieldNrList;
+    private boolean admissionGiven;
     private boolean allowedToContinueTrip;
     private String destination;
     private List<Integer> submissionFieldNrList;
@@ -112,6 +113,7 @@ public class Control implements Serializable {
         submissionFieldNrList = new ArrayList<>();
         penaltiesList = new ArrayList<>();
         images = new ArrayList<>();
+
     }
 
     public List<ImageData> getImages() {
@@ -335,6 +337,12 @@ public class Control implements Serializable {
 
     public void setAllowedToContinueTrip(boolean allowedToContinueTrip) {
         this.allowedToContinueTrip = allowedToContinueTrip;
+    }
+
+    public boolean isAdmissionGiven() { return admissionGiven; }
+
+    public void setAdmissionGiven(boolean admissionGiven) {
+        this.admissionGiven = admissionGiven;
     }
 
     public String getDestination() {

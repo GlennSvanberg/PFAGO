@@ -23,6 +23,10 @@ public class SafetyAdvisor implements Serializable {
         this.name = name;
     }
 
+    public SafetyAdvisor() {
+
+    }
+
     public Answer getAnswer() {
         return answer;
     }

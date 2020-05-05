@@ -52,7 +52,7 @@ public class RIBActivity extends AppCompatActivity {
     private FrameLayout searchingRib;
     private ProgressBar searchProgress;
     private boolean isSearchMode = true;
-    private boolean isSearching = true;
+    private boolean isSearchActivity = false;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -60,6 +60,7 @@ public class RIBActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rib);
         setTitle(RibMain.TITLE);
+        isSearchActivity = getIntent().getBooleanExtra("searchActivity", false);
 
 
         recyclerView = findViewById(R.id.searchResults);
@@ -162,7 +163,9 @@ public class RIBActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.rib_control_only_menu, menu);
+        if(!isSearchActivity){
+            inflater.inflate(R.menu.rib_control_only_menu, menu);
+        }
         return true;
     }
 

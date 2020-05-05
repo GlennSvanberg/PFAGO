@@ -1,5 +1,6 @@
 package com.svanberggroup.pfago.Fragments;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.svanberggroup.pfago.Activities.MainActivity;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
@@ -27,6 +30,8 @@ public class FragmentOne extends Fragment {
 
     private static final String NEW_CONTROL = "new_control";
 
+
+
     private EditText placeEditText;
 
     private EditText vehicleLicensePlateEditText;
@@ -37,7 +42,8 @@ public class FragmentOne extends Fragment {
     private RadioGroup trailerTypeRadioGroup;
 
     private RadioGroup controlPlaceTypeRadioGroup;
-
+    private ImageButton truckSearchButton;
+    private ImageButton trailerSearchButton;
     private Control control;
 
     public FragmentOne() {
@@ -74,6 +80,32 @@ public class FragmentOne extends Fragment {
         trailerTypeRadioGroup       = view.findViewById(R.id.trailerTypeRadioGroup);
 
         controlPlaceTypeRadioGroup  = view.findViewById(R.id.ControlPlaceTypeRadioGroup);
+
+        truckSearchButton = view.findViewById(R.id.truckSearchButton);
+        truckSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("searchActivity", true);
+                if(control.getTruck() != null){
+                    intent.putExtra("query", control.getTruck().getRegNr());
+                }
+                startActivity(intent);
+            }
+        });
+
+        trailerSearchButton = view.findViewById(R.id.trailerSearchButton);
+        trailerSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("searchActivity", true);
+                if(control.getTrailer() != null){
+                    intent.putExtra("query", control.getTrailer().getRegNr());
+                }
+                startActivity(intent);
+            }
+        });
 
         handleTextChanged();
         handleRadioButtonInput();

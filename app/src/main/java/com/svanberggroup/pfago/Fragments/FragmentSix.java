@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.svanberggroup.pfago.Activities.AddControlActivity;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.TransportRows;
@@ -228,13 +229,14 @@ public class FragmentSix extends Fragment {
                     break;
 
                 case R.id.stopBlockNotApprovedRadioButton:
+                    ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                     setVisibilityFor(Transport.stopBlock, View.VISIBLE);
                     stopBlockRow281.setField(ControlRow.Field.BreakingTheLaw);
                     tRows.setRow28_1(stopBlockRow281);
                     control.setTRows(tRows);
                     break;
 
-                case R.id.handlingNotApplicableRadioButton:
+                case R.id.stopBlockNotApplicableRadioButton:
                     setVisibilityFor(Transport.stopBlock, View.GONE);
                     stopBlockRow281.setField(ControlRow.Field.NotApplicable);
                     clearFieldsForView(Transport.stopBlock);
@@ -250,6 +252,7 @@ public class FragmentSix extends Fragment {
                     break;
 
                 case R.id.warningDeviceNotApprovedRadioButton:
+                    ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                     setVisibilityFor(Transport.warningDevice, View.VISIBLE);
                     warningDeviceRow282.setField(ControlRow.Field.BreakingTheLaw);
                     tRows.setRow28_2(warningDeviceRow282);
@@ -272,6 +275,7 @@ public class FragmentSix extends Fragment {
                     break;
 
                 case R.id.safetyEquipmentNotApprovedRadioButton:
+                    ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                     setVisibilityFor(Transport.saftey, View.VISIBLE);
                     safetyRow283.setField(ControlRow.Field.BreakingTheLaw);
                     tRows.setRow28_3(safetyRow283);
@@ -294,6 +298,7 @@ public class FragmentSix extends Fragment {
                     break;
 
                 case R.id.portableLightSourceNotApprovedRadioButton:
+                    ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                     setVisibilityFor(Transport.portable, View.VISIBLE);
                     portableRow284.setField(ControlRow.Field.BreakingTheLaw);
                     tRows.setRow28_4(portableRow284);
@@ -316,13 +321,14 @@ public class FragmentSix extends Fragment {
                     break;
 
                 case R.id.godsSpecificEquipmentNotApprovedRadioButton:
+                    ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                     setVisibilityFor(Transport.gods, View.VISIBLE);
                     godsRow29.setField(ControlRow.Field.BreakingTheLaw);
                     tRows.setRow29(godsRow29);
                     control.setTRows(tRows);
                     break;
 
-                case R.id.godsApproveNotApplicableRadioButton:
+                case R.id.godsSpecificEquipmentNotApplicableRadioButton:
                     setVisibilityFor(Transport.gods, View.GONE);
                     godsRow29.setField(ControlRow.Field.NotApplicable);
                     clearFieldsForView(Transport.gods);
@@ -338,6 +344,7 @@ public class FragmentSix extends Fragment {
                     break;
 
                 case R.id.fireExtinguisherNotApprovedRadioButton:
+                    ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                     setVisibilityFor(Transport.fire, View.VISIBLE);
                     fireRow31.setField(ControlRow.Field.BreakingTheLaw);
                     tRows.setRow31(fireRow31);
@@ -366,8 +373,10 @@ public class FragmentSix extends Fragment {
                     tRows.setRow28_1(stopBlockRow281);
                     control.setTRows(tRows);
                 } else if (s.length() == 0) {
-                    stopBlockRow281.setRiskCategory(null);
-                    tRows.setRow28_1(stopBlockRow281);
+                    if(stopBlockRow281 != null){
+                        stopBlockRow281.setRiskCategory(null);
+                        tRows.setRow28_1(stopBlockRow281);
+                    }
                     control.setTRows(tRows);
                 }
                 if (viewEmptyFor(Transport.stopBlock)) {

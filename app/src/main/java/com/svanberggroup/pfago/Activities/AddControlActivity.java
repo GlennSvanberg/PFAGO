@@ -42,8 +42,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.svanberggroup.pfago.Fragments.FragmentOne;
+import com.svanberggroup.pfago.Fragments.*;
 import com.svanberggroup.pfago.Models.Control;
+import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.ImageData;
 import com.svanberggroup.pfago.Models.Vehicle;
 import com.svanberggroup.pfago.R;
@@ -53,6 +54,7 @@ import com.svanberggroup.pfago.Utils.ViewPagerAdapter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -66,9 +68,15 @@ public class AddControlActivity extends AppCompatActivity {
 
     private String currentPhotoPath;
     private File photoFile;
+    private List<ControlRow> controlRowList;
+    private boolean breakingTheLaw;
+    private boolean breakingTheLawIsEnabled = false;
+    private boolean imagesIsEnabled = false;
 
     private static final int REQUEST_IMAGE_CAPTURE = 115;
     private static final int REQUEST_CONTROL_APPROVAL = 5;
+
+    private ViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,40 +86,15 @@ public class AddControlActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tabs);
         control = new Control();
-        viewPager.setAdapter(createCardAdapter());
+        adapter = createCardAdapter();
+        viewPager.setAdapter(adapter);
+        addFragments();
 
         new TabLayoutMediator(tabLayout, viewPager,
                 new TabLayoutMediator.TabConfigurationStrategy() {
                     @Override public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                        switch (position) {
-                            case 0:
-                                tab.setText("Fordon");
-                                break;
-                            case 1:
-                                tab.setText("Förare");
-                                break;
-                            case 2:
-                                tab.setText("Platser");
-                                break;
-                            case 3:
-                                tab.setText("Gods");
-                                break;
-                            case 4:
-                                tab.setText("Handlingar");
-                                break;
-                            case 5:
-                                tab.setText("Handlingar1");
-                                break;
-                            case 6:
-                                tab.setText("Transport");
-                                break;
-                            case 7:
-                                tab.setText("Övrigt");
-                                break;
-                            case 8:
-                                tab.setText("Bilder");
-                                break;
-                        }
+
+                        tab.setText(adapter.getTitle(position));
                     }
                 }).attach();
     }
@@ -123,7 +106,37 @@ public class AddControlActivity extends AppCompatActivity {
         return true;
     }
 
+    private ViewPagerAdapter createCardAdapter() {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this, control);
+        return adapter;
+    }
 
+    private void addFragments() {
+        adapter.addFragment(FragmentOne.newInstance(control), "Fordon", 0);
+        adapter.addFragment(FragmentTwo.newInstance(control), "Förare", 1);
+        adapter.addFragment(FragmentThree.newInstance(control), "Gods", 2);
+        adapter.addFragment(FragmentFour.newInstance(control), "Handlingar", 3);
+        adapter.addFragment(FragmentFive.newInstance(control), "Transport", 4);
+        adapter.addFragment(FragmentSeven.newInstance(control), "Märkning", 5);
+        adapter.addFragment(FragmentSix.newInstance(control), "Utrustning", 6);
+        adapter.addFragment(FragmentEight.newInstance(control), "Övrigt", 7);
+        //adapter.addFragment(ImagesFragment.newInstance(control), "Bilder", 8);
+
+    }
+    public void addImagesFragment() {
+        Fragment fragment = ImagesFragment.newInstance(control);
+        adapter.addFragment(fragment, "Bilder", adapter.getItemCount());
+        adapter.notifyDataSetChanged();
+    }
+    public void addBreakingTheLawFragment() {
+        if(!breakingTheLawIsEnabled) {
+            breakingTheLawIsEnabled = true;
+            Fragment fragment = BreakingTheLawFragment.newInstance(control);
+            adapter.addFragment(fragment, "Rapport", adapter.getItemCount());
+            adapter.notifyDataSetChanged();
+        }
+
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
@@ -139,8 +152,13 @@ public class AddControlActivity extends AppCompatActivity {
                 break;
             case R.id.ribControl:
                 intent = new Intent(this,RIBActivity.class);
+                intent.putExtra("searchActivity", true);
                 startActivity(intent);
-
+                break;
+            case R.id.mainControl:
+                intent = new Intent(this,MainActivity.class);
+                intent.putExtra("searchActivity", true);
+                startActivity(intent);
                 break;
             default: return super.onOptionsItemSelected(item);
         }
@@ -169,16 +187,16 @@ public class AddControlActivity extends AppCompatActivity {
         alert.show();
     }
 
-    private ViewPagerAdapter createCardAdapter() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this, control);
-        return adapter;
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("CAMERA_RESULT", "onActivityResult");
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            if(!imagesIsEnabled){
+                imagesIsEnabled = true;
+                addImagesFragment();
+            }
             Toast.makeText(this, "Bild sparad i fliken bilder", Toast.LENGTH_LONG).show();
             control.addImage(new ImageData(currentPhotoPath));
         } else if (requestCode == REQUEST_CONTROL_APPROVAL) {
@@ -189,11 +207,9 @@ public class AddControlActivity extends AppCompatActivity {
                     control.setEndDate(new Date());
                     ControlRepository.get().addControl(control);
                     showOptionsAlert();
-
                 }
             }
         }
-            Log.i("CAMERA_RESULT", "requestCode:" + requestCode + " RESULT: " + resultCode);
     }
     private void showOptionsAlert() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -249,6 +265,7 @@ public class AddControlActivity extends AppCompatActivity {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         }
+
     }
 
 

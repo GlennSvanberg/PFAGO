@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constrainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/godsNrEditText"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="UN-nr"
+        android:inputType="phone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/godsDescriptionEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Godsbeskrivning"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/godsNrEditText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/classEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Klass / etikett"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/godsNrEditText"
+        app:layout_constraintTop_toBottomOf="@+id/godsDescriptionEditText" />
+
+    <EditText
+        android:id="@+id/PGeditText"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="PG"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toEndOf="@+id/classEditText"
+        app:layout_constraintTop_toBottomOf="@+id/godsDescriptionEditText" />
+
+    <EditText
+        android:id="@+id/godsAmountEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Mängd"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/PGeditText"
+        app:layout_constraintTop_toBottomOf="@+id/godsDescriptionEditText" />
+
+    <EditText
+        android:id="@+id/paperEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Fraktsedel"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/LQeditText"
+        app:layout_constraintStart_toStartOf="@+id/classEditText"
+        app:layout_constraintTop_toBottomOf="@+id/classEditText" />
+
+    <EditText
+        android:id="@+id/LQeditText"
+        android:layout_width="64dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:hint="@string/lq"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/godsAmountEditText" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/colorPrimaryLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/LQeditText"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

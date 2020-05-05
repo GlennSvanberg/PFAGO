@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.svanberggroup.pfago.Activities.AddControlActivity;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.TransportDocumentRows;
@@ -246,6 +247,7 @@ public class FragmentFour extends Fragment {
                         break;
 
                     case R.id.documentNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(TransportRowType.Document, View.VISIBLE);
                         setTdRowFor(goodsDeclarationRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Document);
                         break;
@@ -288,6 +290,7 @@ public class FragmentFour extends Fragment {
                         break;
 
                     case R.id.writtenNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(TransportRowType.WritenInstruction, View.VISIBLE);
                         setTdRowFor(writtenInstructionsRow, ControlRow.Field.BreakingTheLaw, TransportRowType.WritenInstruction);
                         break;
@@ -350,6 +353,7 @@ public class FragmentFour extends Fragment {
                         break;
 
                     case R.id.typeOfApprovalNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(TransportRowType.Approval, View.VISIBLE);
                         setTdRowFor(typeOfApprovalRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Approval);
                         break;
@@ -392,6 +396,7 @@ public class FragmentFour extends Fragment {
                         break;
 
                     case R.id.truckApprovalNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(TransportRowType.Truck, View.VISIBLE);
                         setTdRowFor(truckCertificateRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Truck);
                         break;
@@ -434,6 +439,7 @@ public class FragmentFour extends Fragment {
                         break;
 
                     case R.id.driverApprovalNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(TransportRowType.Driver, View.VISIBLE);
                         setTdRowFor(driverCertificationRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Driver);
                         break;
@@ -476,6 +482,7 @@ public class FragmentFour extends Fragment {
                         break;
 
                     case R.id.otherApprovalNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(TransportRowType.Other, View.VISIBLE);
                         setTdRowFor(otherADRTrainingRow, ControlRow.Field.BreakingTheLaw, TransportRowType.Other);
                         break;

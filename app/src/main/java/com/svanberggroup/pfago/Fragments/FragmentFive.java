@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.svanberggroup.pfago.Activities.AddControlActivity;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.ControlRow;
 import com.svanberggroup.pfago.Models.TransportRows;
@@ -295,6 +296,7 @@ public class FragmentFive extends Fragment {
                         break;
 
                     case R.id.handlingNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.handling, View.VISIBLE);
                         handlingRow.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow22_1(handlingRow);
@@ -320,6 +322,7 @@ public class FragmentFive extends Fragment {
                         break;
 
                     case R.id.loadingNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.loading, View.VISIBLE);
                         loadingRow.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow22_2(loadingRow);
@@ -344,6 +347,7 @@ public class FragmentFive extends Fragment {
                         break;
 
                     case R.id.securingCargoNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.securing, View.VISIBLE);
                         securingCargoRow.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow22_3(securingCargoRow);
@@ -368,6 +372,7 @@ public class FragmentFive extends Fragment {
                         break;
 
                     case R.id.leakageNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.leakage, View.VISIBLE);
                         leakageRow.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow23_1(leakageRow);
@@ -393,6 +398,7 @@ public class FragmentFive extends Fragment {
                         break;
 
                     case R.id.damagesNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.damages, View.VISIBLE);
                         damagesRow.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow23_2(damagesRow);
@@ -418,6 +424,7 @@ public class FragmentFive extends Fragment {
                         break;
 
                     case R.id.godsApprovedNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.gods, View.VISIBLE);
                         godsApprovalRow.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow18(godsApprovalRow);
@@ -443,6 +450,7 @@ public class FragmentFive extends Fragment {
                         break;
 
                     case R.id.truckApprovedNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.truck, View.VISIBLE);
                         truckApprovalRow.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow19(truckApprovalRow);
@@ -467,6 +475,7 @@ public class FragmentFive extends Fragment {
                         clearFieldsForView(Transport.transport);
                         break;
                     case R.id.wayOfTransportNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.transport, View.VISIBLE);
                         wayOfTransportRow.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow20(wayOfTransportRow);
@@ -492,6 +501,7 @@ public class FragmentFive extends Fragment {
                         break;
 
                     case R.id.bannedMixedCargoNotApprovedRadioButton:
+                        ((AddControlActivity) getActivity()).addBreakingTheLawFragment();
                         setVisibilityFor(Transport.banned, View.VISIBLE);
                         bannedMixedCargoRow.setField(ControlRow.Field.BreakingTheLaw);
                         tRows.setRow21(bannedMixedCargoRow);

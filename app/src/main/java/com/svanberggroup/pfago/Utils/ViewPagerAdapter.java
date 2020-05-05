@@ -8,39 +8,39 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.svanberggroup.pfago.Fragments.*;
 import com.svanberggroup.pfago.Models.Control;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ViewPagerAdapter extends FragmentStateAdapter {
     private Control control;
+    private List<Fragment> fragmentList = new ArrayList<>();
+    private List<String> fragmentTitleList = new ArrayList<>();
 
     public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, Control control) {
         super(fragmentActivity);
         this.control = control;
     }
+    public void addFragment(Fragment fragment, String title, int position){
+        fragmentList.add(position, fragment);
+        fragmentTitleList.add(position, title);
+    }
+    public void removeFragment(int position){
+        fragmentList.remove(position);
+        fragmentTitleList.remove(position);
+    }
+    public Fragment getFragment(int position){
+        return fragmentList.get(position);
+    }
+    public String getTitle(int position){
+        return fragmentTitleList.get(position);
+    }
 
     @NonNull @Override public Fragment createFragment(int position) {
-        switch (position) {
-            case 0:
-                return FragmentOne.newInstance(control);
-            case 1:
-                return FragmentTwo.newInstance(control);
-            case 2:
-                return FragmentThree.newInstance(control);
-            case 3:
-                return FragmentFour.newInstance(control);
-            case 4:
-                return FragmentFive.newInstance(control);
-            case 5:
-                return FragmentSeven.newInstance(control);
-            case 6:
-                return FragmentSix.newInstance(control);
-            case 7:
-                return FragmentEight.newInstance(control);
-            case 8:
-                return ImagesFragment.newInstance(control);
-        }
-        return null;
+
+        return fragmentList.get(position);
     }
 
     @Override public int getItemCount() {
-        return 9;
+        return fragmentList.size();
     }
 }

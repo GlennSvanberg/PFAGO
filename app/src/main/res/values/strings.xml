@@ -48,6 +48,7 @@
     <string name="driver">Förare</string>
     <string name="carrier">Transportör</string>
     <string name="sender">Avsändare</string>
+    <string name="of">OF-Koder</string>
     <string name="title_activity_r_i_b_substance">RIBSubstanceActivity</string>
     <!--
     This string is used for square devices and overridden by hello_world in
