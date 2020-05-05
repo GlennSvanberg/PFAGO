@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 //import com.google.android.gms.location.FusedLocationProviderClient;
 //import com.google.android.gms.location.LocationServices;
+import com.google.android.material.textfield.TextInputEditText;
 import com.svanberggroup.pfago.Models.Control;
 import com.svanberggroup.pfago.Models.Fault;
 import com.svanberggroup.pfago.R;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Control> controls;
 
-    private EditText queryField;
+    private TextInputEditText queryField;
     private TextView messageTextView;
     private ImageButton searchButton;
     private Button ribButton, addControlButton;
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         updateUI();
 
-        queryField = (EditText) findViewById(R.id.query);
+        queryField = (TextInputEditText) findViewById(R.id.query);
 
         //queryField.requestFocus();
         queryField.addTextChangedListener(new TextWatcher() {
