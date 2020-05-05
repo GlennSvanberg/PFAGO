@@ -75,6 +75,7 @@ public class BreakingTheLawFragment extends Fragment {
         safteyAdvisorTransporterName = view.findViewById(R.id.safteyAdvisorTransporterNameEditText);
         destinationEdit = view.findViewById(R.id.destinationEditText);
 
+
         flawLinearLayout = (LinearLayout) view.findViewById(R.id.flawLinearLayout);
         godsLinearLayout = (LinearLayout) view.findViewById(R.id.godsLinearLayout);
         ofLinearLayout = (LinearLayout) view.findViewById(R.id.OFlinearLayout);
@@ -105,7 +106,7 @@ public class BreakingTheLawFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        setFieldsInControl();
+        //setFieldsInControl();
     }
 
     @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -340,7 +341,7 @@ public class BreakingTheLawFragment extends Fragment {
         return faults;
     }
 
-    private void setFieldsInControl() {
+    public void setFieldsInControl() {
         // null pointer check
         control.setGoodsList(createListofGoods());
         control.setFaultList(createListOfFlaws());

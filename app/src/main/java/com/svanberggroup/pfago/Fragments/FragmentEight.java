@@ -56,7 +56,7 @@ public class FragmentEight extends Fragment {
         control = (Control) getArguments().getSerializable(NEW_CONTROL);
     }
 
-    private void saveControl() {
+    public void saveControl() {
         for (View v: views) {
             EditText nameEdit = (EditText) v.findViewById(R.id.nameEditText);
             RadioGroup radioGroupABC = v.findViewById(R.id.radioGroupABC);
@@ -126,7 +126,7 @@ public class FragmentEight extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        saveControl();
+        //saveControl();
     }
 
     private RadioGroup.OnCheckedChangeListener janne(View[] views) {
