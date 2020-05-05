@@ -72,6 +72,7 @@ public class AddControlActivity extends AppCompatActivity {
     private boolean breakingTheLaw;
     private boolean breakingTheLawIsEnabled = false;
     private boolean imagesIsEnabled = false;
+    private int breakingTheLawInt;
 
     private static final int REQUEST_IMAGE_CAPTURE = 115;
     private static final int REQUEST_CONTROL_APPROVAL = 5;
@@ -132,7 +133,8 @@ public class AddControlActivity extends AppCompatActivity {
         if(!breakingTheLawIsEnabled) {
             breakingTheLawIsEnabled = true;
             Fragment fragment = BreakingTheLawFragment.newInstance(control);
-            adapter.addFragment(fragment, "Rapport", adapter.getItemCount());
+            breakingTheLawInt = adapter.getItemCount();
+            adapter.addFragment(fragment, "Rapport", breakingTheLawInt);
             adapter.notifyDataSetChanged();
         }
 
@@ -142,6 +144,14 @@ public class AddControlActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.doneControl:
+
+                if (breakingTheLawInt > 0) {
+                    BreakingTheLawFragment breakingTheLawFragment = (BreakingTheLawFragment) adapter.getFragment(breakingTheLawInt);
+                    breakingTheLawFragment.setFieldsInControl();
+                }
+                FragmentEight fragmentEight = (FragmentEight) adapter.getFragment(7);
+                fragmentEight.saveControl();
+
                 intent = new Intent(this, ViewControlActivity.class);
                 intent.putExtra("control", control);
                 intent.putExtra("approvalMode", true);
