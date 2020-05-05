@@ -51,7 +51,7 @@ public class RIBActivity extends AppCompatActivity {
     private TextView noResultText;
     private FrameLayout searchingRib;
     private ProgressBar searchProgress;
-    private boolean isSearchMode = true;
+    private boolean isSearching = true;
     private boolean isSearchActivity = false;
 
     @SuppressLint("SetTextI18n")
@@ -93,7 +93,7 @@ public class RIBActivity extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(charSequence.length() > 0) searchButton.setImageResource(R.drawable.ic_clear);
-                isSearchMode = true;
+                isSearching = true;
             }
 
             @Override
@@ -116,7 +116,6 @@ public class RIBActivity extends AppCompatActivity {
                         toggleFailedScreen();
                     } else toggleResultScreen();
                 }
-
             }
 
             @Override
