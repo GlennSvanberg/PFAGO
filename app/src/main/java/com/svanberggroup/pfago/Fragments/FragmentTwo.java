@@ -48,6 +48,7 @@ public class FragmentTwo extends Fragment {
     private EditText driverZIPEditText;
     private EditText driverCityEditText;
     private EditText driverCountryEditText;
+    private EditText driverSocialSecurityNumber;
 
     private EditText coDriverEditText;
     private EditText coDriverPhoneEditText;
@@ -159,6 +160,7 @@ public class FragmentTwo extends Fragment {
         driverZIPEditText = view.findViewById(R.id.driverZIPEditText);
         driverCityEditText = view.findViewById(R.id.driverCityEditText);
         driverCountryEditText = view.findViewById(R.id.driverCountryEditText);
+        driverSocialSecurityNumber = view.findViewById(R.id.driverSocailEditText);
 
         coDriverEditText = view.findViewById(R.id.coDriverEditText);
         coDriverAddressEditText = view.findViewById(R.id.coDriverAddressEditText);
@@ -411,6 +413,23 @@ public class FragmentTwo extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
             }
+        });
+        driverSocialSecurityNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    driver.setSocialSecurityNumber(s.toString());
+                    control.setDriver(driver);
+                } else if (viewsEmptyFor(TransporterType.driver)) {
+                    control.setDriver(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
         });
     }
 
@@ -702,7 +721,7 @@ public class FragmentTwo extends Fragment {
                 break;
             case driver:
                 EditText[] driverEdits = {driverEditText, driverPhoneEditText, driverAddressEditText,
-                        driverZIPEditText, driverCityEditText, driverCountryEditText};
+                        driverZIPEditText, driverCityEditText, driverCountryEditText, driverSocialSecurityNumber};
                 for (EditText e: driverEdits) {
                     if (e.getText().length() > 0) {
                         return false;
@@ -737,5 +756,4 @@ public class FragmentTwo extends Fragment {
         }
         return true;
     }
-
 }

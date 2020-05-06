@@ -208,6 +208,9 @@ public class ViewControlActivity extends AppCompatActivity {
             str.append(line("", title));
             str.append(line("Namn:", transporter.getName()));
             str.append(line("Tel:", transporter.getPhone()));
+            if(transporter.getSocialSecurityNumber() != null || !transporter.getSocialSecurityNumber().equals("")){
+                str.append(line("Personnummer:", transporter.getSocialSecurityNumber()));
+            }
             str.append(address(transporter));
         } else {
             str.append(title + " ej tillagd");

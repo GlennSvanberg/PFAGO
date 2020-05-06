@@ -7,9 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
         android:id="@+id/fragOne"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -32,16 +30,18 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/placeEditText" />
+
             <ImageButton
                 android:id="@+id/truckSearchButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/ic_search"
+                app:layout_constraintBottom_toTopOf="@+id/vehicleCountryEditText"
                 app:layout_constraintEnd_toStartOf="@+id/ControlPlaceTypeRadioGroup"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/VehicleLicensePlateEditText"
-                app:layout_constraintTop_toBottomOf="@+id/vehicleTextView" ></ImageButton>
+                app:layout_constraintTop_toBottomOf="@+id/vehicleTextView"></ImageButton>
 
             <EditText
                 android:id="@+id/VehicleLicensePlateEditText"
@@ -81,16 +81,18 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/trailerTypeRadioGroup" />
+
             <ImageButton
                 android:id="@+id/trailerSearchButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/ic_search"
+                app:layout_constraintBottom_toBottomOf="@+id/trailerLicensePlateEditText"
                 app:layout_constraintEnd_toStartOf="@+id/trailerCountryEditText"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/trailerLicensePlateEditText"
-                app:layout_constraintTop_toBottomOf="@+id/trailerTypeRadioGroup" ></ImageButton>
+                app:layout_constraintTop_toBottomOf="@+id/trailerTypeRadioGroup"></ImageButton>
             <EditText
                 android:id="@+id/trailerCountryEditText"
                 android:layout_width="0dp"

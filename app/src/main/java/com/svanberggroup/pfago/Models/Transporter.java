@@ -9,17 +9,19 @@ public class Transporter implements Serializable {
     private int ZipNr;
     private String city;
     private String nationality;
+    private String socialSecurityNumber;
 
     public Transporter() {
 
     }
-    public Transporter(String name, String phone, String address, int zipNr, String city, String nationality) {
+    public Transporter(String name, String phone, String address, int zipNr, String city, String nationality, String socialSecurityNumber) {
         this.name = name;
         this.phone = phone;
         this.address = address;
         ZipNr = zipNr;
         this.city = city;
         this.nationality = nationality;
+        this.socialSecurityNumber = socialSecurityNumber;
     }
 
     public String getName() {
@@ -68,5 +70,11 @@ public class Transporter implements Serializable {
 
     public void setNationality(String nationality) {
         this.nationality = nationality;
+    }
+
+    public String getSocialSecurityNumber() { return socialSecurityNumber; }
+
+    public void setSocialSecurityNumber(String socialSecurityNumber) {
+        this.socialSecurityNumber = socialSecurityNumber;
     }
 }
