@@ -55,7 +55,15 @@ public class ControlRepository {
             if(control.getTrailer() != null){
                 isTrailer = control.getTrailer().getRegNr().toLowerCase().equals(regNr.toLowerCase());
             }
-            if(isTruck || isTrailer) {
+            Boolean isDriver = false;
+            if(control.getDriver() != null){
+                isDriver = control.getDriver().getSocialSecurityNumber().equals(regNr.toLowerCase());
+            }
+            Boolean isCarrier = false;
+            if(control.getCarrier() != null){
+                isCarrier = control.getCarrier().getName().toLowerCase().equals(regNr.toLowerCase());
+            }
+            if(isTruck || isTrailer || isDriver ||isCarrier) {
                 matchedControls.add(control);
             }
         }
@@ -85,9 +93,9 @@ public class ControlRepository {
 
         a.setEndDate(new Date());
 
-        Transporter aCarrier = new Transporter("GLÅAB", "0522-132345", "Norra Gåvägen 14", 45123, "Borås", "SE");
-        Transporter aDriver = new Transporter("Robin Törnqvist", "070-1234567", "Silltorp 24", 44123, "Vänersborg", "SE");
-        Transporter aPassenger = new Transporter("Emil Svenson", "070-2356489", "Norra Botten 1", 45789, "Göteborg", "US");
+        Transporter aCarrier = new Transporter("GLÅAB", "0522-132345", "Norra Gåvägen 14", 45123, "Borås", "SE", "");
+        Transporter aDriver = new Transporter("Robin Törnqvist", "070-1234567", "Silltorp 24", 44123, "Vänersborg", "SE", "20000202-2020");
+        Transporter aPassenger = new Transporter("Emil Svenson", "070-2356489", "Norra Botten 1", 45789, "Göteborg", "US","");
 
         a.setCarrier(aCarrier);
         a.setDriver(aDriver);

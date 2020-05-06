@@ -12,6 +12,18 @@
         android:layout_height="match_parent">
 
         <EditText
+            android:id="@+id/driverSocailEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="Personnummer"
+            android:inputType="phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/driverAddressEditText"
+            app:layout_constraintTop_toTopOf="@+id/driverAddressEditText" />
+
+        <EditText
             android:id="@+id/coDriverZIPEditText"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -135,12 +147,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:ems="10"
             android:hint="Utdelningsadress"
             android:inputType="textPostalAddress"
             android:nextFocusDown="@+id/driverZIPEditText"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/driverEditText" />
 
@@ -213,7 +223,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="Transporter"
+            android:text="Transportör"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
